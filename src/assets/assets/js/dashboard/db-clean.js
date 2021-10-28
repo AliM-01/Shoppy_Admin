@@ -22,78 +22,7 @@
             }).show()
         }, 3000)
 
-        // ------------------------------------------------------- //
-        // Ratings
-        // ------------------------------------------------------ //
-        var ctx = document.getElementById('reviews-stats').getContext("2d");
-
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد"],
-                datasets: [{
-                    label: "Ratings",
-                    borderColor: '#08a6c3',
-                    pointRadius: 0,
-                    pointHitRadius: 5,
-                    pointHoverRadius: 3,
-                    pointHoverBorderColor: "#08a6c3",
-                    pointHoverBackgroundColor: "#08a6c3",
-                    pointHoverBorderWidth: 3,
-                    fill: true,
-                    backgroundColor: '#fff',
-                    borderWidth: 3,
-                    data: [10, 4, 10, 7, 12]
-                }]
-            },
-            options: {
-                tooltips: {
-                    backgroundColor: 'rgba(47, 49, 66, 0.8)',
-                    titleFontSize: 13,
-                    titleFontFamily: 'IRANSans',
-                    titleFontColor: '#fff',
-                    caretSize: 0,
-                    cornerRadius: 4,
-                    xPadding: 5,
-                    displayColors: false,
-                    yPadding: 5,
-                },
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0
-                    }
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            display: false,
-                            beginAtZero: false,
-                            maxTicksLimit: 2,
-                        },
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        },
-                        ticks: {
-                            display: true
-                        }
-                    }]
-                }
-            }
-        });
-
+    
         // ------------------------------------------------------- //
         // Facebook
         // ------------------------------------------------------ //

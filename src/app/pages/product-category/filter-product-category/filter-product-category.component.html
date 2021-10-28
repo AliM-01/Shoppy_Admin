@@ -21,55 +21,32 @@
                 <a href="#" class="btn btn-primary">content</a>
             </div>
             <div class="widget-body">
-                <div class="table-responsive">
-                    <table id="export-table" class="table mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>عنوان</th>
-                                <th>تاریخ ایجاد</th>
-                                <th><span style="width:100px;">وضعیت پرداختی</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                <tr>
-                                    <td>@category.Id</td>
-                                    <td>@category.Title</td>
-                                    <td>@category.CreationDate</td>
-                                    <td class="td-actions">
-                                        <a href="#"><i class="la la-edit edit"></i></a>
-                                        <a href="#"><i class="la la-close delete"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@category.Id</td>
-                                    <td>@category.Title</td>
-                                    <td>@category.CreationDate</td>
-                                    <td class="td-actions">
-                                        <a href="#"><i class="la la-edit edit"></i></a>
-                                        <a href="#"><i class="la la-close delete"></i></a>
-                                    </td>
-                                </tr><tr>
-                                    <td>@category.Id</td>
-                                    <td>@category.Title</td>
-                                    <td>@category.CreationDate</td>
-                                    <td class="td-actions">
-                                        <a href="#"><i class="la la-edit edit"></i></a>
-                                        <a href="#"><i class="la la-close delete"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@category.Id</td>
-                                    <td>@category.Title</td>
-                                    <td>@category.CreationDate</td>
-                                    <td class="td-actions">
-                                        <a href="#"><i class="la la-edit edit"></i></a>
-                                        <a href="#"><i class="la la-close delete"></i></a>
-                                    </td>
-                                </tr>
-                        </tbody>
-                    </table>
-                </div>
+              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="text-align: center !important;"> Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> عنوان </th>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="creationDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> تاریخ </th>
+                    <td mat-cell *matCellDef="let element"> {{element.creationDate}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="productsCount">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> محصولات </th>
+                  <td mat-cell *matCellDef="let element"> {{element.productsCount}} </td>
+              </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
             </div>
         </div>
         <!-- End Export -->
