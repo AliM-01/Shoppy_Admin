@@ -16,6 +16,7 @@ import { HeaderComponent } from '@app_components/header/header.component';
 import { SidebarComponent } from '@app_components/sidebar/sidebar.component';
 import { FooterComponent } from './_components/footer/footer.component';
 import { PreloaderComponent } from './_components/preloader/preloader.component';
+import { IndexComponent } from './pages/index/index.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PreloaderComponent } from './_components/preloader/preloader.component'
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
