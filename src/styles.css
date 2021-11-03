@@ -19,10 +19,29 @@ td {
     font-size: 1em !important;
 }
 
+.widget-header {
+    padding-bottom: 0 !important;
+} 
+
 .th.mat-header-cell {
     text-align: right !important;
 }
 
+.mat-form-field-infix {
+    padding-top: 0 !important;
+}
+
+.mat-input-element {
+    text-align: right !important;
+    font-size: 1.2em !important;
+}
+.example-form-width {
+    min-width: 150px;
+    max-width: 600px;
+    width: 100%;
+}
+  
+  
 .spinner-container {
     display: flex !important;
     align-items: center !important;

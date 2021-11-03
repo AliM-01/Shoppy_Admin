@@ -1,9 +1,9 @@
-import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductCategoryService } from '@app_services/product-category/product-category.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { ProductCategoryDataSource, ProductCategory, FilterProductCategory } from '../../../_models/product-category/_index';
-import { tap } from 'rxjs/operators';
+import { ProductCategoryDataSource, FilterProductCategory } from '../../../_models/product-category/_index';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-filter-product-category',
@@ -12,6 +12,7 @@ import { tap } from 'rxjs/operators';
 export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('filterInput') input: ElementRef;
   displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount'];
   dataSource: ProductCategoryDataSource;
 
@@ -22,16 +23,24 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("init");
-    
     this.dataSource = new ProductCategoryDataSource(this.productCategoryService);
     this.dataSource.loadProductCategories(this.filterProductCategories);
-    
+
   }
 
   ngAfterViewInit() {
-    console.log("view");
-    
+
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadProductCategoriesPage();
+        })
+      )
+      .subscribe();
+
     this.paginator.page
       .pipe(
         tap(() => this.loadProductCategoriesPage())
@@ -40,7 +49,7 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   }
 
   loadProductCategoriesPage() {
-    this.dataSource.loadProductCategories(new FilterProductCategory('', [], this.paginator.pageIndex, 0, 0, 0, 0, this.paginator.pageSize, 0, 0));
+    this.dataSource.loadProductCategories(new FilterProductCategory(this.input.nativeElement.value, [], this.paginator.pageIndex, 0, 0, 0, 0, this.paginator.pageSize, 0, 0));
   }
 
 }
