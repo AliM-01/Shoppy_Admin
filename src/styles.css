@@ -5,7 +5,7 @@ table {
 }
 
 th, td {
-    /* text-align: center !important; */
+    text-align: right !important;
     font-family: 'IRANSans' !important;
     padding-right: 25px !important;
     padding-left: 25px !important;
@@ -17,6 +17,26 @@ th {
 
 td {
     font-size: 1em !important;
+}
+
+.th.mat-header-cell {
+    text-align: right !important;
+}
+
+.spinner-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.mat-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.mat-paginator-container {
+    justify-content: flex-start !important;
 }
 
 .mat-paginator-outer-container { direction: ltr !important}

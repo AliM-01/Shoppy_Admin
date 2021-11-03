@@ -20,8 +20,7 @@ export class ProductCategoryService {
 
     if (filter !== null) {
       params = new HttpParams()
-        .set('pageId', filter.pageId.toString())
-        .set('title', filter.title)
+        .set('Title', filter.title)
     }
 
     return this.http.get<IResponse<FilterProductCategory>>(`${environment.apiUrl}/product-category/get-sliders`, { params });
