@@ -1,0 +1,48 @@
+<div class="widget widget-02 has-shadow">
+
+    <div class="widget-header d-flex align-items-center">
+        <h2>گراف فعالیت ها</h2>
+        <div class="widget-options">
+            <div class="dropdown">
+                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                    <i class="la la-circle-o-notch"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">
+                        <i class="la la-history"></i>تاریخچه
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="la la-bell-slash"></i>غیرفعالسازی هشدارها
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="la la-edit"></i>ویرایش ابزارک
+                    </a>
+                    <a href="#" class="dropdown-item faq">
+                        <i class="la la-question-circle"></i>پرسش و پاسخ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget-body no-padding">
+
+        <div class="text-center">
+            <div class="more-charts">
+                <a class="btn btn-shadow" href="components-charts.html">انواع نمودار</a>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="chartjs-container">
+        <canvas baseChart 
+            [datasets]="lineChartData" 
+            [labels]="lineChartLabels" 
+            [options]="options"
+            [colors]="lineChartColors" 
+            [legend]="false" 
+            [chartType]="'line'">
+        </canvas>
+    </div>
+</div>
