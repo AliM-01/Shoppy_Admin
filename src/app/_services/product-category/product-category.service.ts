@@ -23,6 +23,6 @@ export class ProductCategoryService {
         .set('Title', filter.title)
     }
 
-    return this.http.get<IResponse<FilterProductCategory>>(`${environment.apiUrl}/product-category/get-sliders`, { params });
+    return this.http.get<IResponse<FilterProductCategory>>(`${environment.apiUrl}/product-category/filter-product-categories`, { params });
   }
 }
