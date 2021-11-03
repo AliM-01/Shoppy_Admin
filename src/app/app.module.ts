@@ -12,11 +12,19 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
 import { ProductCategoryService } from './_services/product-category/product-category.service';
+import { HeaderComponent } from '@app_components/header/header.component';
+import { SidebarComponent } from '@app_components/sidebar/sidebar.component';
+import { FooterComponent } from './_components/footer/footer.component';
+import { PreloaderComponent } from './_components/preloader/preloader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FilterProductCategoryComponent
+    FilterProductCategoryComponent,
+    HeaderComponent,
+    SidebarComponent,
+    FooterComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule,

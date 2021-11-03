@@ -1,1 +1,26 @@
-<router-outlet></router-outlet>
+<app-preloader></app-preloader>
+
+<div class="page bg-2 rounded-widget">
+    
+    <app-header></app-header>
+
+    <div class="page-content d-flex align-items-stretch">
+        
+        <app-sidebar></app-sidebar>
+
+        <div class="content-inner">
+
+            <div class="container-fluid">
+
+                <router-outlet></router-outlet>
+
+            </div>
+
+            <app-footer></app-footer>
+
+            <a href="#" class="go-top"><i class="la la-arrow-up"></i></a>
+        </div>
+
+    </div>
+
+</div>
