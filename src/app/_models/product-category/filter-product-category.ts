@@ -1,10 +1,10 @@
-import { ProductCategory } from "./product-category";
+import { ProductCategoryModel } from "./product-category";
 
-export class FilterProductCategory {
+export class FilterProductCategoryModel {
 
    constructor(
         public title: string,
-        public productCategories: ProductCategory[],
+        public productCategories: ProductCategoryModel[],
         public pageId: number,
         public allPagesCount: number,
         public startPage: number,

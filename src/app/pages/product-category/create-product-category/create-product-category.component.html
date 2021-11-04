@@ -1,0 +1,31 @@
+<form [formGroup]="createForm" (ngSubmit)="submitCreateForm()">
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <mat-form-field appearance="fill">
+        <mat-label>عنوان</mat-label>
+        <input matInput type="text" placeholder="عنوان" formControlName="title" >
+      </mat-form-field>
+
+      <p class="text-danger"
+            *ngIf="createForm.controls.title.errors?.required && createForm.controls.title.touched">
+          لطفا نام خود را وارد نمایید
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field appearance="fill">
+        <mat-label>توضیحات</mat-label>
+        <textarea matInput placeholder="توضیحات" formControlName="description" ></textarea>
+      </mat-form-field>
+
+      <p class="text-danger"
+            *ngIf="createForm.controls.description.errors?.required && createForm.controls.description.touched">
+          لطفا نام خود را وارد نمایید
+      </p>
+    </div>
+
+  </div>
+
+</form>

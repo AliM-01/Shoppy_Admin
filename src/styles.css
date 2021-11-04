@@ -1,5 +1,9 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+.row {
+    direction: rtl !important;
+}
+
 table {
     width: 100%;
 }
@@ -35,9 +39,9 @@ td {
     text-align: right !important;
     font-size: 1.2em !important;
 }
-.example-form-width {
+.form-full-width {
     min-width: 150px;
-    max-width: 600px;
+    max-width: 650px;
     width: 100%;
 }
   
@@ -59,3 +63,8 @@ td {
 }
 
 .mat-paginator-outer-container { direction: ltr !important}
+
+.mat-form-field-label {
+    font-family: 'IRANSans' !important;
+    text-align: right;
+}

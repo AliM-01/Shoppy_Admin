@@ -19,13 +19,15 @@
             <div class="widget-header bordered no-actions d-flex align-items-center justify-content-between">
 
                 <div>
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <input matInput placeholder="جستجو ..." #filterInput>
-                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>جستجو</mat-label>
+                        <input type="text" matInput #filterInput />
+                      </mat-form-field>
                 </div>
 
                 <div>
-                    <a href="#" class="btn btn-primary">0</a>
+                    <a (click)="openDialog()" class="btn btn-primary">افزودن</a>
 
                 </div>
 

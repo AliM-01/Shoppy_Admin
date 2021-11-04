@@ -1,13 +1,13 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { ProductCategoryService } from "@app_services/product-category/product-category.service";
 import { BehaviorSubject, Observable, of } from "rxjs";
-import { FilterProductCategory, ProductCategory} from "./_index";
+import { FilterProductCategoryModel, ProductCategoryModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
 import { IResponse } from '../common/IResponse';
 
-export class ProductCategoryDataSource implements DataSource<ProductCategory> {
+export class ProductCategoryDataSource implements DataSource<ProductCategoryModel> {
 
-    private productCategoriesSubject = new BehaviorSubject<ProductCategory[]>([]);
+    private productCategoriesSubject = new BehaviorSubject<ProductCategoryModel[]>([]);
     private loadingSubject = new BehaviorSubject<boolean>(false);
 
     public loading$ = this.loadingSubject.asObservable();
@@ -15,7 +15,7 @@ export class ProductCategoryDataSource implements DataSource<ProductCategory> {
 
     constructor(private productCategoryService: ProductCategoryService) {}
 
-    connect(collectionViewer: CollectionViewer=null): Observable<ProductCategory[]> {
+    connect(collectionViewer: CollectionViewer=null): Observable<ProductCategoryModel[]> {
         return this.productCategoriesSubject.asObservable();
     }
 
@@ -24,7 +24,7 @@ export class ProductCategoryDataSource implements DataSource<ProductCategory> {
         this.loadingSubject.complete();
     }
 
-    loadProductCategories(filterProductCategories: FilterProductCategory) {
+    loadProductCategories(filterProductCategories: FilterProductCategoryModel) {
 
         this.loadingSubject.next(false);
 

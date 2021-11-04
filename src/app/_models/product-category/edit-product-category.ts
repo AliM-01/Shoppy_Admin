@@ -1,4 +1,4 @@
-export class EditProductCategory {
+export class EditProductCategoryModel {
     constructor(
          public id: number,
          public title: string,

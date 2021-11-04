@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ProductCategoryDataSource, FilterProductCategory } from '../../../_models/product-category/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProductCategoryComponent } from '../create-product-category/create-product-category.component';
 
 @Component({
   selector: 'app-filter-product-category',
@@ -18,14 +20,22 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
   filterProductCategories: FilterProductCategory = new FilterProductCategory('', [], 0, 0, 0, 0, 0, 9, 0, 0);
 
+  
   constructor(
+    public dialog: MatDialog,
     private productCategoryService: ProductCategoryService
   ) { }
 
   ngOnInit(): void {
     this.dataSource = new ProductCategoryDataSource(this.productCategoryService);
     this.dataSource.loadProductCategories(this.filterProductCategories);
+  }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
+      width: '550px',
+      height: '400px'
+    });
   }
 
   ngAfterViewInit() {
@@ -49,7 +59,8 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   }
 
   loadProductCategoriesPage() {
-    this.dataSource.loadProductCategories(new FilterProductCategory(this.input.nativeElement.value, [], this.paginator.pageIndex, 0, 0, 0, 0, this.paginator.pageSize, 0, 0));
+    this.filterProductCategories =new FilterProductCategory(this.input.nativeElement.value, [], this.paginator.pageIndex, 0, 0, 0, 0, this.paginator.pageSize, 0, 0);
+    this.dataSource.loadProductCategories(this.filterProductCategories);
   }
 
 }
