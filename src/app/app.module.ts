@@ -14,20 +14,23 @@ import {MatSortModule} from '@angular/material/sort';
 import { ProductCategoryService } from './_services/product-category/product-category.service';
 import { IndexModule } from '@apppages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
+import { ProductCategoryModule } from '@apppages/product-category/product.category.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FilterProductCategoryComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    IndexModule,
-    ComponentsModule,
     BrowserAnimationsModule,
+    IndexModule,
+    ProductCategoryModule,
+    ComponentsModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,

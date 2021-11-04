@@ -1,5 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { PreloaderComponent } from './preloader/preloader.component';
@@ -12,15 +11,13 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FooterComponent,
     PreloaderComponent
   ],
-  imports: [
-    CommonModule,
-  ],
+  imports: [],
   exports: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
     PreloaderComponent
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ]
+  schemas: []
 })
 export class ComponentsModule { }
