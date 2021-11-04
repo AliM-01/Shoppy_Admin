@@ -16,10 +16,7 @@ import { HeaderComponent } from '@app_components/header/header.component';
 import { SidebarComponent } from '@app_components/sidebar/sidebar.component';
 import { FooterComponent } from './_components/footer/footer.component';
 import { PreloaderComponent } from './_components/preloader/preloader.component';
-import { IndexComponent } from './pages/index/index.component';
-import { ChartsModule } from 'ng2-charts';
-import { LineChartComponent } from './pages/index/line-chart/line-chart.component';
-import { BarChartComponent } from './pages/index/bar-chart/bar-chart.component';
+import { IndexModule } from '@apppages/index/index.module';
 
 @NgModule({
   declarations: [
@@ -29,22 +26,19 @@ import { BarChartComponent } from './pages/index/bar-chart/bar-chart.component';
     SidebarComponent,
     FooterComponent,
     PreloaderComponent,
-    IndexComponent,
-    LineChartComponent,
-    BarChartComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    IndexModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule,
-    ChartsModule
+    MatProgressSpinnerModule
   ],
   providers: [ProductCategoryService],
   bootstrap: [AppComponent],
