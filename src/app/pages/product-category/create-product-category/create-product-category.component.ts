@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CreateProductCategoryModel } from '@app_models/product-category/create-product-category';
 import { ProductCategoryService } from '@app_services/product-category/product-category.service';
 
@@ -14,7 +15,8 @@ export class CreateProductCategoryComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductCategoryComponent>,
-    private productCategoryService: ProductCategoryService
+    private productCategoryService: ProductCategoryService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,15 +36,28 @@ export class CreateProductCategoryComponent implements OnInit {
 
   submitCreateForm(){
     if(this.createForm.valid){
-      const createProductCategoryData = new CreateProductCategoryModel (
+      const createData = new CreateProductCategoryModel (
         this.createForm.controls.title.value,
         this.createForm.controls.description.value,
-        '',
+        '...',
         this.createForm.controls.imageAlt.value,
         this.createForm.controls.imageTitle.value,
         this.createForm.controls.metaKeywords.value,
         this.createForm.controls.metaDescription.value
         );
+
+        this.productCategoryService.createProductCategory(createData).subscribe(res => {
+          if (res.status === 'success') {
+            
+            this.createForm.reset();
+            this.onCloseClick();
+
+            this.router.navigate(['/product-category']);
+  
+          } else {
+            console.log('error');
+          }
+        });
 
     } else {
       this.createForm.markAllAsTouched();
