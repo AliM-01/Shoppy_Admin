@@ -11,7 +11,7 @@ import { ProductCategoryService } from '@app_services/product-category/product-c
 export class CreateProductCategoryComponent implements OnInit {
 
   createForm:FormGroup;
-  
+
   constructor(
     public dialogRef: MatDialogRef<CreateProductCategoryComponent>,
     private productCategoryService: ProductCategoryService
@@ -31,7 +31,7 @@ export class CreateProductCategoryComponent implements OnInit {
   onCloseClick(): void {
     this.dialogRef.close();
   }
-  
+
   submitCreateForm(){
     if(this.createForm.valid){
       const createProductCategoryData = new CreateProductCategoryModel (

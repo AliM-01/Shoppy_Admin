@@ -1,37 +1,90 @@
-<h2>ایجاد دسته بندی محصول</h2>
-<hr>
-
-<form [formGroup]="createForm" (ngSubmit)="submitCreateForm()">
-
-  <div class="row">
-
-    <div class="col-md-6">
-      <mat-form-field appearance="fill">
-        <mat-label>عنوان</mat-label>
-        <input matInput type="text" placeholder="عنوان" formControlName="title" >
-      </mat-form-field>
-
-      <p class="text-danger"
-            *ngIf="createForm.controls.title.errors?.required && createForm.controls.title.touched">
-          لطفا نام خود را وارد نمایید
-      </p>
-    </div>
-
-    <div class="col-md-6">
-      <mat-form-field appearance="fill">
-        <mat-label>توضیحات</mat-label>
-        <textarea matInput placeholder="توضیحات" formControlName="description" ></textarea>
-      </mat-form-field>
-
-      <p class="text-danger"
-            *ngIf="createForm.controls.description.errors?.required && createForm.controls.description.touched">
-          لطفا نام خود را وارد نمایید
-      </p>
-    </div>
-
-  </div>
-
+<div class="shadow">
+  <h2>ایجاد دسته بندی محصول</h2>
   <hr>
-  <button mat-raised-button color="primary" type="submit">ثبت</button>
   
-</form>
+  <form [formGroup]="createForm" (ngSubmit)="submitCreateForm()">
+  
+    <div class="row">
+  
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>عنوان</mat-label>
+          <input matInput type="text" placeholder="..." formControlName="title">
+        </mat-form-field>
+  
+        <p class="text-danger"
+              *ngIf="createForm.controls.title.errors?.required && createForm.controls.title.touched">
+            لطفا عنوان را وارد نمایید
+        </p>
+      </div>
+  
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>توضیحات</mat-label>
+          <textarea matInput placeholder="..." formControlName="description" ></textarea>
+        </mat-form-field>
+  
+        <p class="text-danger"
+              *ngIf="createForm.controls.description.errors?.required && createForm.controls.description.touched">
+            لطفا توضیحات را وارد نمایید
+        </p>
+      </div>
+  
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>عنوان تصویر</mat-label>
+          <input matInput type="text" placeholder="..." formControlName="imageTitle">
+        </mat-form-field>
+  
+        <p class="text-danger"
+              *ngIf="createForm.controls.imageTitle.errors?.required && createForm.controls.imageTitle.touched">
+            لطفاعنوان تصویر را وارد نمایید
+        </p>
+      </div>
+  
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Alt تصویر</mat-label>
+          <textarea matInput placeholder="..." formControlName="imageAlt" ></textarea>
+        </mat-form-field>
+  
+        <p class="text-danger"
+              *ngIf="createForm.controls.imageAlt.errors?.required && createForm.controls.imageAlt.touched">
+            لطفا Alt تصویر را وارد نمایید
+        </p>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>توضیحات متا</mat-label>
+          <textarea matInput placeholder="..." formControlName="metaDescription" ></textarea>
+        </mat-form-field>
+  
+        <p class="text-danger"
+              *ngIf="createForm.controls.metaDescription.errors?.required && createForm.controls.metaDescription.touched">
+            لطفا توضیحات متا را وارد نمایید
+        </p>
+      </div>
+      
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>کلمات کلیدی</mat-label>
+          <textarea matInput placeholder="..." formControlName="metaKeywords" ></textarea>
+        </mat-form-field>
+  
+        <p class="text-danger"
+              *ngIf="createForm.controls.metaKeywords.errors?.required && createForm.controls.metaKeywords.touched">
+            لطفا کلمات کلیدی را وارد نمایید
+        </p>
+      </div>
+    </div>
+  
+    <hr>
+  
+      <div class="d-flex">
+        <button mat-raised-button color="primary" type="submit">ثبت</button>
+        <button mat-button color="warn" type="button" (click)="onCloseClick()">بستن</button>
+      </div>
+
+  </form>
+</div>

@@ -33,8 +33,8 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
-      width: '550px',
-      height: '400px'
+      width: '600px',
+      height: '700px'
     });
   }
 
