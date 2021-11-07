@@ -51,8 +51,6 @@ export class CreateProductCategoryComponent implements OnInit {
             
             this.createForm.reset();
             this.onCloseClick();
-
-            this.router.navigate(['/product-category']);
   
           } else {
             console.log('error');

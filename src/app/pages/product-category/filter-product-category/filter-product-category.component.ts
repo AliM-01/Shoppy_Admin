@@ -35,6 +35,8 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
       width: '600px',
       height: '700px'
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 
