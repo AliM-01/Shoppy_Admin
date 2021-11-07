@@ -14,6 +14,8 @@ import { ProductCategoryRoutingModule } from './product.category.routing.module'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,10 +32,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule,
-    MatProgressSpinnerModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     FilterProductCategoryComponent,

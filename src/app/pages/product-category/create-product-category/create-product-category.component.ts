@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { CreateProductCategoryModel } from '@app_models/product-category/create-product-category';
 import { ProductCategoryService } from '@app_services/product-category/product-category.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-product-category',
@@ -16,10 +16,11 @@ export class CreateProductCategoryComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CreateProductCategoryComponent>,
     private productCategoryService: ProductCategoryService,
-    private router: Router
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
+    this.toastr.success('Hello world!', 'Toastr fun!');
     this.createForm = new FormGroup ({
       title: new FormControl( null, [ Validators.required ]),
       description: new FormControl( null, [ Validators.required ]),
