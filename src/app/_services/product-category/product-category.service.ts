@@ -41,4 +41,11 @@ export class ProductCategoryService {
     
     return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-category/create-product-category`, formData);
   }
+
+
+  deleteProductCategory(productCategoryId: number):Observable<IResponse<any>> {
+    
+    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product-category/delete-product-category/${productCategoryId}`);
+  }
+
 }
