@@ -28,6 +28,17 @@ export class ProductCategoryService {
   }
 
   createProductCategory(createData: CreateProductCategoryModel):Observable<IResponse<any>> {
-    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-category/create-product-category`, createData);
+    
+    const formData = new FormData();
+
+    formData.append('title', createData.title);
+    formData.append('description', createData.description);
+    formData.append('imageFile', createData.imageFile, createData.imageFile.name);
+    formData.append('imageAlt', createData.imageAlt);
+    formData.append('imageTitle', createData.imageTitle);
+    formData.append('metaKeywords', createData.metaKeywords);
+    formData.append('metaDescription', createData.metaDescription);
+    
+    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-category/create-product-category`, formData);
   }
 }

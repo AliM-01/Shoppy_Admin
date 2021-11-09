@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateProductCategoryModel } from '@app_models/product-category/create-product-category';
@@ -13,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateProductCategoryComponent implements OnInit {
 
   createForm: FormGroup;
+  fileUploaded: boolean = false;
+  imageFileToUpload: any;
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductCategoryComponent>,
@@ -31,16 +33,31 @@ export class CreateProductCategoryComponent implements OnInit {
     });
   }
 
+  getImageFileToUpload(event :any){
+    this.imageFileToUpload = event.target.files[0];
+    this.fileUploaded = true;
+  }
+
   onCloseClick(): void {
     this.dialogRef.close();
   }
 
   submitCreateForm() {
     if (this.createForm.valid) {
+
+      console.log(this.imageFileToUpload);
+      
+
+      if(this.imageFileToUpload === undefined || this.imageFileToUpload === null){
+        this.fileUploaded = false;
+      } else {
+        this.fileUploaded = true;
+      }
+
       const createData = new CreateProductCategoryModel(
         this.createForm.controls.title.value,
         this.createForm.controls.description.value,
-        '...',
+        this.imageFileToUpload,
         this.createForm.controls.imageAlt.value,
         this.createForm.controls.imageTitle.value,
         this.createForm.controls.metaKeywords.value,
