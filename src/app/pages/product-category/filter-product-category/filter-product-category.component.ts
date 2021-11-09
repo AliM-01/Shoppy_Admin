@@ -6,12 +6,16 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProductCategoryComponent } from '../create-product-category/create-product-category.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-filter-product-category',
   templateUrl: './filter-product-category.component.html'
 })
 export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
+
+  //#region properties
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
@@ -20,25 +24,28 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
   filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', [], 0, 0, 0, 0, 0, 9, 0, 0);
 
-  
+  //#endregion
+
+  //#region Ctor
+
   constructor(
     public dialog: MatDialog,
-    private productCategoryService: ProductCategoryService
+    private productCategoryService: ProductCategoryService,
+    private toastr: ToastrService
   ) { }
+
+  //#endregion
+
+  //#region ngOnInit
 
   ngOnInit(): void {
     this.dataSource = new ProductCategoryDataSource(this.productCategoryService);
     this.dataSource.loadProductCategories(this.filterProductCategories);
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
-      width: '600px',
-      height: '700px'
-    }).afterClosed().subscribe(() => {
-      this.ngOnInit();
-    });
-  }
+  //#endregion
+
+  //#region ngAfterViewInit
 
   ngAfterViewInit() {
 
@@ -60,9 +67,54 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
+  //#endregion
+
+  //#region openDialog
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
+      width: '600px',
+      height: '700px'
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+  //#endregion
+
+  //#region loadProductCategoriesPage
+
   loadProductCategoriesPage() {
-    this.filterProductCategories =new FilterProductCategoryModel(this.input.nativeElement.value, [], this.paginator.pageIndex, 0, 0, 0, 0, this.paginator.pageSize, 0, 0);
+    this.filterProductCategories = new FilterProductCategoryModel(this.input.nativeElement.value, [], this.paginator.pageIndex, 0, 0, 0, 0, this.paginator.pageSize, 0, 0);
     this.dataSource.loadProductCategories(this.filterProductCategories);
   }
 
+  //#endregion
+
+  //#region deleteProductCategory
+
+  deleteProductCategory(id: number) {
+    this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
+      if (res.status === 'success') {
+
+        this.toastr.toastrConfig.tapToDismiss = false;
+        this.toastr.toastrConfig.autoDismiss = true;
+        this.toastr.toastrConfig.timeOut = 1500;
+
+        this.toastr.success('دسته بندی مورد نظر با موفقیت حذف شد', 'موفقیت');
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
+
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+  }
+
+  //#endregion
 }
