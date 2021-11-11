@@ -22,7 +22,7 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount'];
   dataSource: ProductCategoryDataSource;
 
-  filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', [], 0, 0, 0, 0, 0, 9, 0, 0);
+  filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', []);
 
   //#endregion
 
@@ -85,7 +85,7 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   //#region loadProductCategoriesPage
 
   loadProductCategoriesPage() {
-    this.filterProductCategories = new FilterProductCategoryModel(this.input.nativeElement.value, [], this.paginator.pageIndex, 0, 0, 0, 0, this.paginator.pageSize, 0, 0);
+    this.filterProductCategories = new FilterProductCategoryModel(this.input.nativeElement.value, []);
     this.dataSource.loadProductCategories(this.filterProductCategories);
   }
 
