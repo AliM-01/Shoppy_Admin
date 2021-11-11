@@ -25,14 +25,9 @@
         <textarea
           id="editor"
         ></textarea>
-
-        <!-- <mat-form-field appearance="fill" class="w-100">
-          <mat-label>توضیحات</mat-label>
-          <textarea matInput placeholder="..." formControlName="description" ></textarea>
-        </mat-form-field> -->
   
         <p class="text-danger"
-              *ngIf="createForm.controls.description.errors?.required && createForm.controls.description.touched">
+              *ngIf="ckeditorTextValue === undefined || ckeditorTextValue == null">
             لطفا توضیحات را وارد نمایید
         </p>
       </div>

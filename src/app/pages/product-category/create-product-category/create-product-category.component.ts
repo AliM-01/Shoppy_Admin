@@ -17,6 +17,7 @@ export class CreateProductCategoryComponent implements OnInit {
   fileUploaded: boolean = false;
   imageFileToUpload: any;
   ckeditor;
+  ckeditorTextValue = null;
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductCategoryComponent>,
@@ -31,7 +32,6 @@ export class CreateProductCategoryComponent implements OnInit {
 
     this.createForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
       imageAlt: new FormControl(null, [Validators.required]),
       imageTitle: new FormControl(null, [Validators.required]),
       metaKeywords: new FormControl(null, [Validators.required]),
@@ -49,13 +49,8 @@ export class CreateProductCategoryComponent implements OnInit {
   }
 
   submitCreateForm() {
-
-    this.createForm.controls.controls.setValue(this.ckeditorService.getValue());
-
-
-    console.log(this.ckeditorService.getValue());
+    this.ckeditorTextValue = this.ckeditorService.getValue();
     
-
     if (this.createForm.valid) {
 
       if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
@@ -66,7 +61,7 @@ export class CreateProductCategoryComponent implements OnInit {
 
       const createData = new CreateProductCategoryModel(
         this.createForm.controls.title.value,
-        this.createForm.controls.description.value,
+        this.ckeditorService.getValue(),
         this.imageFileToUpload,
         this.createForm.controls.imageAlt.value,
         this.createForm.controls.imageTitle.value,

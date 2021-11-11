@@ -19,7 +19,7 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
-  displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount'];
+  displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount', 'commands'];
   dataSource: ProductCategoryDataSource;
 
   filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', []);
@@ -96,6 +96,9 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   deleteProductCategory(id: number) {
     this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
       if (res.status === 'success') {
+
+
+        this.ngOnInit();
 
         this.toastr.toastrConfig.tapToDismiss = false;
         this.toastr.toastrConfig.autoDismiss = true;

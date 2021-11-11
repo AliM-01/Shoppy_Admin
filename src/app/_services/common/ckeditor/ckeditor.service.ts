@@ -46,8 +46,8 @@ export class CkeditorService {
       });
   }
 
-  getValue(){
-    return this.ckeditorInternal.getData();
+  getValue(): string{
+    return this.ckeditorInternal.getData().toString();
   }
 
 }
