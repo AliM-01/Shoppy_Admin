@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateProductCategoryComponent } from '../create-product-category/create-product-category.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { EditProductCategoryComponent } from '../edit-product-category/edit-product-category.component';
 
 @Component({
   selector: 'app-filter-product-category',
@@ -69,12 +70,28 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
   //#endregion
 
-  //#region openDialog
+  //#region openCreateDialog
 
-  openDialog(): void {
+  openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
       width: '600px',
       height: '700px'
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+  //#endregion
+
+  //#region openEditDialog
+
+  openEditDialog(id:number): void {
+    const dialogRef = this.dialog.open(EditProductCategoryComponent, {
+      width: '600px',
+      height: '700px',
+      data: {
+        id: id
+      }
     }).afterClosed().subscribe(() => {
       this.ngOnInit();
     });

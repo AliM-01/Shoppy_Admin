@@ -13,11 +13,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import { ToastrModule } from 'ngx-toastr';
+import { EditProductCategoryComponent } from './edit-product-category/edit-product-category.component';
 
 @NgModule({
   declarations: [
     FilterProductCategoryComponent,
-    CreateProductCategoryComponent
+    CreateProductCategoryComponent,
+    EditProductCategoryComponent
   ],
   imports: [
     CommonModule,
