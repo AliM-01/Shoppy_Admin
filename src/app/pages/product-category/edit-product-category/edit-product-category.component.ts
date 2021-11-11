@@ -2,11 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CreateProductCategoryModel } from '@app_models/product-category/create-product-category';
+import { EditProductCategoryModel } from '@app_models/product-category/edit-product-category';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ProductCategoryService } from '@app_services/product-category/product-category.service';
+import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
-import { CreateProductCategoryComponent } from '../create-product-category/create-product-category.component';
 
 @Component({
   selector: 'app-edit-product-category',
@@ -18,6 +18,7 @@ export class EditProductCategoryComponent implements OnInit {
   editForm: FormGroup;
   fileUploaded: boolean = false;
   imageFileToUpload: any;
+  imagePath: any;
   ckeditor: any;
   ckeditorTextValue = null;
 
@@ -31,8 +32,6 @@ export class EditProductCategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.data.id);
-    
     this.ckeditorService.initCkeditor(this.ckeditor);
 
     this.editForm = new FormGroup({
@@ -42,6 +41,32 @@ export class EditProductCategoryComponent implements OnInit {
       metaKeywords: new FormControl(null, [Validators.required]),
       metaDescription: new FormControl(null, [Validators.required])
     });
+
+    this.productCategoryService.getProductCategoryDetails(this.data.id).subscribe((res) => {
+      if (res.status === 'success') {
+
+        this.editForm.controls.title.setValue(res.data.title)
+        this.ckeditorTextValue = res.data.description;
+        this.imagePath = `${environment.productCategoryBaseImagePath}/${res.data.imagePath}` ;
+        this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
+        this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
+        this.editForm.controls.metaKeywords.setValue(res.data.metaKeywords);
+        this.editForm.controls.metaDescription.setValue(res.data.metaDescription);
+
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.onCloseClick();
+
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
+
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
   }
 
   getImageFileToUpload(event: any) {
@@ -64,26 +89,29 @@ export class EditProductCategoryComponent implements OnInit {
         this.fileUploaded = true;
       }
 
-      const createData = new CreateProductCategoryModel(
+      const editData = new EditProductCategoryModel(
+        this.data.id,
         this.editForm.controls.title.value,
         this.ckeditorService.getValue(),
         this.imageFileToUpload,
+        this.imagePath,
         this.editForm.controls.imageAlt.value,
         this.editForm.controls.imageTitle.value,
         this.editForm.controls.metaKeywords.value,
         this.editForm.controls.metaDescription.value
       );
 
-      this.productCategoryService.createProductCategory(createData).subscribe((res) => {
+      this.productCategoryService.editProductCategory(editData).subscribe((res) => {
         if (res.status === 'success') {
-
-          this.editForm.reset();
 
           this.toastr.toastrConfig.tapToDismiss = false;
           this.toastr.toastrConfig.autoDismiss = true;
           this.toastr.toastrConfig.timeOut = 1500;
 
-          this.toastr.success('دسته بندی مورد نظر با موفقیت ایجاد شد', 'موفقیت');
+          let toasterMsg = `دسته بندی ${this.editForm.controls.title.value} با موفقیت ویرایش شد`
+          this.toastr.success(toasterMsg, 'موفقیت');
+
+          this.editForm.reset();
 
           this.onCloseClick();
 

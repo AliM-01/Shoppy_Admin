@@ -34,13 +34,13 @@
     
     
         <div class="col-md-12 mt-3 mb-3">
+
+            <img [src]="imagePath" alt="" width="200" height="200">
+
+            <br />
+
             <label>فایل تصویر</label>
             <input type="file" class="form-control" (change)="getImageFileToUpload($event)">
-    
-          <p class="text-danger"
-                *ngIf="!fileUploaded">
-              لطفافایل تصویر را آپلود نمایید
-          </p>
         </div>
   
         <div class="col-md-12">
