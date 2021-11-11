@@ -32,6 +32,8 @@ export class EditProductCategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(this.data.id);
+    
     this.ckeditorService.initCkeditor(this.ckeditor);
 
     this.editForm = new FormGroup({
@@ -43,11 +45,16 @@ export class EditProductCategoryComponent implements OnInit {
     });
 
     this.productCategoryService.getProductCategoryDetails(this.data.id).subscribe((res) => {
+      
+      console.log(res);
+      
+
       if (res.status === 'success') {
 
         this.editForm.controls.title.setValue(res.data.title)
         this.ckeditorTextValue = res.data.description;
-        this.imagePath = `${environment.productCategoryBaseImagePath}/${res.data.imagePath}` ;
+        this.ckeditorService.setValue(res.data.description);
+        this.imagePath = `${environment.productCategoryBaseImagePath}/original/${res.data.imagePath}` ;
         this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
         this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
         this.editForm.controls.metaKeywords.setValue(res.data.metaKeywords);

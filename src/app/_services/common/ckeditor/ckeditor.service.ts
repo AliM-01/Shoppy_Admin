@@ -50,4 +50,7 @@ export class CkeditorService {
     return this.ckeditorInternal.getData().toString();
   }
 
+  setValue(value: string): void{
+    this.ckeditorInternal.setData(value);
+  }
 }
