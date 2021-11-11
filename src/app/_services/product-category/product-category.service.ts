@@ -45,6 +45,21 @@ export class ProductCategoryService {
     return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-category/create-product-category`, formData);
   }
 
+  editProductCategory(editData: EditProductCategoryModel):Observable<IResponse<any>> {
+    
+    const formData = new FormData();
+
+    formData.append('id', editData.id.toString());
+    formData.append('title', editData.title);
+    formData.append('description', editData.description);
+    formData.append('imageFile', editData.imageFile, editData.imageFile.name);
+    formData.append('imageAlt', editData.imageAlt);
+    formData.append('imageTitle', editData.imageTitle);
+    formData.append('metaKeywords', editData.metaKeywords);
+    formData.append('metaDescription', editData.metaDescription);
+    
+    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-category/edit-product-category`, formData);
+  }
 
   deleteProductCategory(productCategoryId: number):Observable<IResponse<any>> {
     
