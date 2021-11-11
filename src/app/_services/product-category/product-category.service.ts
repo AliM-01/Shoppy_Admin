@@ -58,7 +58,7 @@ export class ProductCategoryService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
     
-    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-category/edit-product-category`, formData);
+    return this.http.put<IResponse<any>>(`${environment.apiUrl}/product-category/edit-product-category`, formData);
   }
 
   deleteProductCategory(productCategoryId: number):Observable<IResponse<any>> {
