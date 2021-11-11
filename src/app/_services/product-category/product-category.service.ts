@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse } from 'src/app/_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { FilterProductCategoryModel } from '@app_models/product-category/_index';
-import { CreateProductCategoryModel } from '../../_models/product-category/create-product-category';
+import { CreateProductCategoryModel, EditProductCategoryModel, FilterProductCategoryModel } from '@app_models/product-category/_index';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +24,10 @@ export class ProductCategoryService {
     }
 
     return this.http.get<IResponse<FilterProductCategoryModel>>(`${environment.apiUrl}/product-category/filter-product-categories`, { params });
+  }
+
+  getProductCategoryDetails(id: number): Observable<IResponse<EditProductCategoryModel>> {
+    return this.http.get<IResponse<EditProductCategoryModel>>(`${environment.apiUrl}/product-category/${id}`);
   }
 
   createProductCategory(createData: CreateProductCategoryModel):Observable<IResponse<any>> {

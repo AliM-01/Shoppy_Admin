@@ -18,7 +18,7 @@ export class EditProductCategoryComponent implements OnInit {
   editForm: FormGroup;
   fileUploaded: boolean = false;
   imageFileToUpload: any;
-  ckeditor;
+  ckeditor: any;
   ckeditorTextValue = null;
 
   constructor(
