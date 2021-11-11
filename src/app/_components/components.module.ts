@@ -6,15 +6,13 @@ import { HeaderComponent } from './header/header.component';
 import { PreloaderComponent } from './preloader/preloader.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { CkeditorComponent } from './ckeditor/ckeditor.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PreloaderComponent,
-    CkeditorComponent
+    PreloaderComponent
   ],
   imports: [
     CommonModule,
@@ -25,8 +23,7 @@ import { CkeditorComponent } from './ckeditor/ckeditor.component';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PreloaderComponent,
-    CkeditorComponent
+    PreloaderComponent
   ],
   schemas: []
 })

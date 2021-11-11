@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateProductCategoryModel } from '@app_models/product-category/create-product-category';
+import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ProductCategoryService } from '@app_services/product-category/product-category.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,14 +16,19 @@ export class CreateProductCategoryComponent implements OnInit {
   createForm: FormGroup;
   fileUploaded: boolean = false;
   imageFileToUpload: any;
+  ckeditor;
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductCategoryComponent>,
     private productCategoryService: ProductCategoryService,
+    private ckeditorService: CkeditorService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
+
+    this.ckeditorService.initCkeditor(this.ckeditor);
+
     this.createForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
@@ -33,7 +39,7 @@ export class CreateProductCategoryComponent implements OnInit {
     });
   }
 
-  getImageFileToUpload(event :any){
+  getImageFileToUpload(event: any) {
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
   }
@@ -43,12 +49,16 @@ export class CreateProductCategoryComponent implements OnInit {
   }
 
   submitCreateForm() {
+
+    this.createForm.controls.controls.setValue(this.ckeditorService.getValue());
+
+
+    console.log(this.ckeditorService.getValue());
+    
+
     if (this.createForm.valid) {
 
-      console.log(this.imageFileToUpload);
-      
-
-      if(this.imageFileToUpload === undefined || this.imageFileToUpload === null){
+      if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
         this.fileUploaded = false;
       } else {
         this.fileUploaded = true;
