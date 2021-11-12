@@ -49,4 +49,28 @@ export class ProductService {
     
     return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-/create-product`, formData);
   }
+
+  editProduct(editData: EditProductModel):Observable<IResponse<any>> {
+    
+    const formData = new FormData();
+
+    formData.append('categoryId', editData.categoryId.toString());
+    formData.append('title', editData.title);
+    formData.append('code', editData.code);
+    formData.append('unitPrice', editData.unitPrice);
+    formData.append('isInStock', editData.isInStock.valueOf.toString());
+    formData.append('shortDescription', editData.shortDescription);
+    formData.append('description', editData.description);
+
+    if(editData.imageFile !== null || editData.imageFile !== undefined){
+      formData.append('imageFile', editData.imageFile, editData.imageFile.name);
+    }
+
+    formData.append('imageAlt', editData.imageAlt);
+    formData.append('imageTitle', editData.imageTitle);
+    formData.append('metaKeywords', editData.metaKeywords);
+    formData.append('metaDescription', editData.metaDescription);
+    
+    return this.http.put<IResponse<any>>(`${environment.apiUrl}/product/edit-product`, formData);
+  }
 }
