@@ -11,6 +11,7 @@ import { ComponentsModule } from '@app_components/components.module';
 import { ProductCategoryModule } from '@apppages/product-category/product.category.module';
 import { CommonModule } from '@angular/common';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { ProductService } from '@app_services/product/product.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service'
     IndexModule,
     ProductCategoryModule
   ],
-  providers: [ProductCategoryService, CkeditorService],
+  providers: [ProductCategoryService, CkeditorService, ProductService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
