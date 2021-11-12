@@ -1,6 +1,6 @@
 import { ProductModel } from "./product";
 
-export class FilterProductCategoryModel {
+export class FilterProductModel {
 
    constructor(
         public search: string,
