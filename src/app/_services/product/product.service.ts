@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
-import { FilterProductModel } from '../../_models/product/_index';
+import { EditProductModel, FilterProductModel } from '../../_models/product/_index';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,9 @@ export class ProductService {
     }
 
     return this.http.get<IResponse<FilterProductModel>>(`${environment.apiUrl}/product/filter-product`, { params });
+  }
+  
+  getProductDetails(id: number): Observable<IResponse<EditProductModel>> {
+    return this.http.get<IResponse<EditProductModel>>(`${environment.apiUrl}/product/${id}`);
   }
 }
