@@ -77,4 +77,8 @@ export class ProductService {
   deleteProduct(productId: number):Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product/delete-product/${productId}`);
   }
+
+  updateProductIsInStock(productId: number):Observable<IResponse<any>> {
+    return this.http.put<IResponse<any>>(`${environment.apiUrl}/product/update-product-is-in-stock/${productId}`, null);
+  }
 }
