@@ -12,6 +12,7 @@ import { ProductCategoryModule } from '@apppages/product-category/product.catego
 import { CommonModule } from '@angular/common';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ProductService } from '@app_services/product/product.service';
+import { ProductModule } from '@apppages/product/product.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductService } from '@app_services/product/product.service';
     BrowserAnimationsModule,
     ComponentsModule,
     IndexModule,
-    ProductCategoryModule
+    ProductCategoryModule,
+    ProductModule
   ],
   providers: [ProductCategoryService, CkeditorService, ProductService],
   bootstrap: [AppComponent],
