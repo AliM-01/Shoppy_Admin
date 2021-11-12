@@ -11,9 +11,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import { ToastrModule } from 'ngx-toastr';
+import { FilterProductComponent } from './filter-product/filter-product.component';
 
 @NgModule({
   declarations: [
+    FilterProductComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   exports: [
+    FilterProductComponent
   ],
   schemas: []
 })
