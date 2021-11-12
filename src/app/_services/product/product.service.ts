@@ -73,4 +73,8 @@ export class ProductService {
     
     return this.http.put<IResponse<any>>(`${environment.apiUrl}/product/edit-product`, formData);
   }
+
+  deleteProduct(productId: number):Observable<IResponse<any>> {
+    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product/delete-product/${productId}`);
+  }
 }
