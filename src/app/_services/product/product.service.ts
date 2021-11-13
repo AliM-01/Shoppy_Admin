@@ -22,7 +22,7 @@ export class ProductService {
         .set('Search', filter.search)
     }
 
-    return this.http.get<IResponse<FilterProductModel>>(`${environment.apiUrl}/product/filter-product`, { params });
+    return this.http.get<IResponse<FilterProductModel>>(`${environment.apiUrl}/product/filter-products`, { params });
   }
   
   getProductDetails(id: number): Observable<IResponse<EditProductModel>> {
@@ -41,9 +41,9 @@ export class ProductService {
     formData.append('unitPrice', createData.unitPrice);
 
     if(createData.isInStock === true){
-      formData.append('isInStock', '1');
+      formData.append('isInStock', 'true');
     } else{
-      formData.append('isInStock', '0');
+      formData.append('isInStock', 'false');
 
     }
     formData.append('shortDescription', createData.shortDescription);
