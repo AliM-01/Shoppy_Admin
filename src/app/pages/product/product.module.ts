@@ -12,10 +12,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import { ToastrModule } from 'ngx-toastr';
 import { FilterProductComponent } from './filter-product/filter-product.component';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 @NgModule({
   declarations: [
-    FilterProductComponent
+    FilterProductComponent,
+    CreateProductComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { FilterProductComponent } from './filter-product/filter-product.componen
     ToastrModule.forRoot()
   ],
   exports: [
-    FilterProductComponent
+    FilterProductComponent,
+    CreateProductComponent
   ],
   schemas: []
 })

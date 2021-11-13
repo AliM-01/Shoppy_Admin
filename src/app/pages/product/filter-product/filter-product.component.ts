@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '@app_services/product/product.service';
+import { CreateProductComponent } from '../create-product/create-product.component';
 @Component({
   selector: 'app-filter-product',
   templateUrl: './filter-product.component.html'
@@ -17,7 +18,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
-  displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount', 'commands'];
+  displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount'];
   dataSource: ProductDataSource;
 
   filterProducts: FilterProductModel = new FilterProductModel('', []);
@@ -69,14 +70,14 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   //#region openCreateDialog
 
-  // openCreateDialog(): void {
-  //   const dialogRef = this.dialog.open(CreateProductComponent, {
-  //     width: '600px',
-  //     height: '700px'
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreateProductComponent, {
+      width: '600px',
+      height: '700px'
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   //#endregion
 

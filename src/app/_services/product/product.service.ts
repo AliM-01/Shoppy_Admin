@@ -31,6 +31,7 @@ export class ProductService {
 
   
   createProduct(createData: CreateProductModel):Observable<IResponse<any>> {
+    console.log(';;;');
     
     const formData = new FormData();
 
@@ -38,7 +39,13 @@ export class ProductService {
     formData.append('title', createData.title);
     formData.append('code', createData.code);
     formData.append('unitPrice', createData.unitPrice);
-    formData.append('isInStock', createData.isInStock.valueOf.toString());
+
+    if(createData.isInStock === true){
+      formData.append('isInStock', '1');
+    } else{
+      formData.append('isInStock', '0');
+
+    }
     formData.append('shortDescription', createData.shortDescription);
     formData.append('description', createData.description);
     formData.append('imageFile', createData.imageFile, createData.imageFile.name);
@@ -47,7 +54,7 @@ export class ProductService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
     
-    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-/create-product`, formData);
+    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product/create-product`, formData);
   }
 
   editProduct(editData: EditProductModel):Observable<IResponse<any>> {
