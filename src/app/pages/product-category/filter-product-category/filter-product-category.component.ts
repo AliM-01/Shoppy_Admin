@@ -9,6 +9,7 @@ import { CreateProductCategoryComponent } from '../create-product-category/creat
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { EditProductCategoryComponent } from '../edit-product-category/edit-product-category.component';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-filter-product-category',
@@ -20,9 +21,9 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
-  displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount', 'commands'];
+  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount', 'commands'];
   dataSource: ProductCategoryDataSource;
-
+  thumbnailBasePath: string = `${environment.productCategoryBaseImagePath}/thumbnail/`;
   filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', []);
 
   //#endregion

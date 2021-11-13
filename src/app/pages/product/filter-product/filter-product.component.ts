@@ -8,6 +8,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '@app_services/product/product.service';
 import { CreateProductComponent } from '../create-product/create-product.component';
+import { environment } from '@environments/environment';
+
 @Component({
   selector: 'app-filter-product',
   templateUrl: './filter-product.component.html'
@@ -18,9 +20,9 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
-  displayedColumns: string[] = ['id', 'title', 'creationDate', 'productsCount'];
+  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount'];
   dataSource: ProductDataSource;
-
+  thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
   filterProducts: FilterProductModel = new FilterProductModel('', []);
 
   //#endregion
