@@ -46,8 +46,6 @@ export class ProductCategoryService {
   }
 
   editProductCategory(editData: EditProductCategoryModel):Observable<IResponse<any>> {
-    console.log(editData);
-    
     const formData = new FormData();
 
     formData.append('id', editData.id.toString());
@@ -62,7 +60,6 @@ export class ProductCategoryService {
     formData.append('imageTitle', editData.imageTitle);
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
-    console.log(formData);
     
     return this.http.put<IResponse<any>>(`${environment.apiUrl}/product-category/edit-product-category`, formData);
   }

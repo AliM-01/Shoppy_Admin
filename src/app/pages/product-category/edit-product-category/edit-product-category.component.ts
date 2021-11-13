@@ -31,8 +31,6 @@ export class EditProductCategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.data.id);
-    
     this.ckeditorService.initCkeditor();
 
     this.editForm = new FormGroup({
@@ -45,9 +43,6 @@ export class EditProductCategoryComponent implements OnInit {
 
     this.productCategoryService.getProductCategoryDetails(this.data.id).subscribe((res) => {
       
-      console.log(res);
-      
-
       if (res.status === 'success') {
 
         this.editForm.controls.title.setValue(res.data.title)

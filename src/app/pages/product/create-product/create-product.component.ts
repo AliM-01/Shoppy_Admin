@@ -92,8 +92,6 @@ export class CreateProductComponent implements OnInit {
       );
 
       this.productService.createProduct(createData).subscribe((res) => {
-        console.log(res);
-        
         if (res.status === 'success') {
 
           this.createForm.reset();
@@ -121,8 +119,6 @@ export class CreateProductComponent implements OnInit {
 
 
     } else {
-      console.log(this.createForm.errors);
-      
       this.createForm.markAllAsTouched();
     }
 
