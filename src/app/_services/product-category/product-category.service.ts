@@ -33,7 +33,7 @@ export class ProductCategoryService {
   createProductCategory(createData: CreateProductCategoryModel):Observable<IResponse<any>> {
     
     const formData = new FormData();
-
+    
     formData.append('title', createData.title);
     formData.append('description', createData.description);
     formData.append('imageFile', createData.imageFile, createData.imageFile.name);
@@ -46,6 +46,7 @@ export class ProductCategoryService {
   }
 
   editProductCategory(editData: EditProductCategoryModel):Observable<IResponse<any>> {
+    console.log(editData);
     
     const formData = new FormData();
 
@@ -53,7 +54,7 @@ export class ProductCategoryService {
     formData.append('title', editData.title);
     formData.append('description', editData.description);
 
-    if(editData.imageFile !== null || editData.imageFile !== undefined){
+    if(editData.imageFileUploaded){
       formData.append('imageFile', editData.imageFile, editData.imageFile.name);
     }
 
@@ -61,6 +62,7 @@ export class ProductCategoryService {
     formData.append('imageTitle', editData.imageTitle);
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
+    console.log(formData);
     
     return this.http.put<IResponse<any>>(`${environment.apiUrl}/product-category/edit-product-category`, formData);
   }

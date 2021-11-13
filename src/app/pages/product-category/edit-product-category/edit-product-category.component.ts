@@ -19,7 +19,6 @@ export class EditProductCategoryComponent implements OnInit {
   fileUploaded: boolean = false;
   imageFileToUpload: any;
   imagePath: any;
-  ckeditor: any;
   ckeditorTextValue = null;
 
   constructor(
@@ -34,7 +33,7 @@ export class EditProductCategoryComponent implements OnInit {
 
     console.log(this.data.id);
     
-    this.ckeditorService.initCkeditor(this.ckeditor);
+    this.ckeditorService.initCkeditor();
 
     this.editForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
@@ -90,18 +89,17 @@ export class EditProductCategoryComponent implements OnInit {
     
     if (this.editForm.valid) {
 
-      if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
-        this.fileUploaded = false;
-      } else {
-        this.fileUploaded = true;
+      if (!this.fileUploaded) {
+        this.imageFileToUpload = null;
       }
 
       const editData = new EditProductCategoryModel(
         this.data.id,
         this.editForm.controls.title.value,
         this.ckeditorService.getValue(),
-        this.imageFileToUpload,
         this.imagePath,
+        this.fileUploaded,
+        this.imageFileToUpload,
         this.editForm.controls.imageAlt.value,
         this.editForm.controls.imageTitle.value,
         this.editForm.controls.metaKeywords.value,

@@ -9,7 +9,7 @@ export class CkeditorService {
 
   constructor() { }
 
-  initCkeditor(ckeditor:any) {
+  initCkeditor() {
     ClassicEditor
       .create(document.querySelector('#editor'), {
         toolbar: [
@@ -38,7 +38,6 @@ export class CkeditorService {
         }
       })
       .then(editor => {
-        ckeditor = editor;
         this.ckeditorInternal = editor;
       })
       .catch(err => {

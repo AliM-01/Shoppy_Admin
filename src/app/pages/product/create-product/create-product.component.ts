@@ -16,7 +16,6 @@ export class CreateProductComponent implements OnInit {
   createForm: FormGroup;
   fileUploaded: boolean = false;
   imageFileToUpload: any;
-  ckeditor;
   ckeditorTextValue = null;
   productInStockState: boolean = true;
   inputAvailable: boolean = true;
@@ -32,7 +31,7 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ckeditorService.initCkeditor(this.ckeditor);
+    this.ckeditorService.initCkeditor();
 
     this.createForm = new FormGroup({
       categoryId: new FormControl(null, [Validators.required]),
