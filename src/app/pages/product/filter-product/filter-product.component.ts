@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '@app_services/product/product.service';
 import { CreateProductComponent } from '../create-product/create-product.component';
 import { environment } from '@environments/environment';
+import { EditProductComponent } from '../edit-product/edit-product.component';
 
 @Component({
   selector: 'app-filter-product',
@@ -20,7 +21,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
-  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount'];
+  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount', 'commands'];
   dataSource: ProductDataSource;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
   filterProducts: FilterProductModel = new FilterProductModel('', []);
@@ -85,17 +86,17 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   //#region openEditDialog
 
-  // openEditDialog(id:number): void {
-  //   const dialogRef = this.dialog.open(EditProductComponent, {
-  //     width: '600px',
-  //     height: '700px',
-  //     data: {
-  //       id: id
-  //     }
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openEditDialog(id:number): void {
+    const dialogRef = this.dialog.open(EditProductComponent, {
+      width: '600px',
+      height: '700px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   //#endregion
 

@@ -44,8 +44,8 @@ export class ProductService {
       formData.append('isInStock', 'true');
     } else{
       formData.append('isInStock', 'false');
-
     }
+
     formData.append('shortDescription', createData.shortDescription);
     formData.append('description', createData.description);
     formData.append('imageFile', createData.imageFile, createData.imageFile.name);
@@ -60,16 +60,23 @@ export class ProductService {
   editProduct(editData: EditProductModel):Observable<IResponse<any>> {
     
     const formData = new FormData();
-
+    
+    formData.append('id', editData.id.toString());
     formData.append('categoryId', editData.categoryId.toString());
     formData.append('title', editData.title);
     formData.append('code', editData.code);
     formData.append('unitPrice', editData.unitPrice);
-    formData.append('isInStock', editData.isInStock.valueOf.toString());
+
+    if(editData.isInStock){
+      formData.append('isInStock', 'true');
+    } else{
+      formData.append('isInStock', 'false');
+    }
+
     formData.append('shortDescription', editData.shortDescription);
     formData.append('description', editData.description);
 
-    if(editData.imageFile !== null || editData.imageFile !== undefined){
+    if(editData.imageFileUploaded){
       formData.append('imageFile', editData.imageFile, editData.imageFile.name);
     }
 

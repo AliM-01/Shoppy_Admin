@@ -13,11 +13,13 @@ import {MatButtonModule} from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterProductComponent } from './filter-product/filter-product.component';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
     FilterProductComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    EditProductComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { CreateProductComponent } from './create-product/create-product.componen
   ],
   exports: [
     FilterProductComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    EditProductComponent
   ],
   schemas: []
 })
