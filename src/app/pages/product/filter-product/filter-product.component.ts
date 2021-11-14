@@ -139,10 +139,40 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   //#endregion
   
-  //#region deleteProduct
+  //#region updateProductIsInStock
 
   updateProductIsInStock(id: number) {
     this.productService.updateProductIsInStock(id).subscribe((res) => {
+      if (res.status === 'success') {
+
+
+        this.ngOnInit();
+
+        this.toastr.toastrConfig.tapToDismiss = false;
+        this.toastr.toastrConfig.autoDismiss = true;
+        this.toastr.toastrConfig.timeOut = 1500;
+
+        this.toastr.success(res.message, 'موفقیت');
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
+
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+  }
+
+  //#endregion
+  
+  //#region updateProductNotInStock
+
+  updateProductNotInStock(id: number) {
+    this.productService.updateProductNotInStock(id).subscribe((res) => {
       if (res.status === 'success') {
 
 

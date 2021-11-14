@@ -81,6 +81,9 @@
                             <button *ngIf="!element.isInStock" mat-raised-button color="flat" 
                                 class="ml-2" (click)="updateProductIsInStock(element.id)">ثبت موجودی</button>
                             
+                            <button *ngIf="element.isInStock" mat-raised-button color="warn" 
+                               class="ml-2" (click)="updateProductNotInStock(element.id)">ثبت اتمام موجودی</button>
+                            
                         </td>
                     </ng-container>
 
