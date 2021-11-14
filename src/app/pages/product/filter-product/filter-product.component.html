@@ -27,7 +27,7 @@
                 </div>
 
                 <div>
-                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button">افزودن</button>
+                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button>
                 </div>
 
             </div>
@@ -78,10 +78,10 @@
                             <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>
                             <button mat-raised-button color="warn" (click)="deleteProduct(element.id)">حذف</button>
                             
-                            <button *ngIf="!element.isInStock" mat-raised-button color="flat" 
-                                class="ml-2" (click)="updateProductIsInStock(element.id)">ثبت موجودی</button>
+                            <button *ngIf="!element.isInStock" mat-raised-button color="primary" 
+                                (click)="updateProductIsInStock(element.id)"  class="mat-success ml-2">ثبت موجودی</button>
                             
-                            <button *ngIf="element.isInStock" mat-raised-button color="warn" 
+                            <button *ngIf="element.isInStock" mat-raised-button color="accent" 
                                class="ml-2" (click)="updateProductNotInStock(element.id)">ثبت اتمام موجودی</button>
                             
                         </td>
