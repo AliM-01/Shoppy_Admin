@@ -122,7 +122,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
         this.toastr.toastrConfig.autoDismiss = true;
         this.toastr.toastrConfig.timeOut = 1500;
 
-        this.toastr.success('دسته بندی مورد نظر با موفقیت حذف شد', 'موفقیت');
+        this.toastr.success('محصول مورد نظر با موفقیت حذف شد', 'موفقیت');
       }
     },
       (error) => {
