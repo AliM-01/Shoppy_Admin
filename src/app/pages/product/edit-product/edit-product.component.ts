@@ -146,7 +146,7 @@ export class EditProductComponent implements OnInit {
           this.toastr.toastrConfig.autoDismiss = true;
           this.toastr.toastrConfig.timeOut = 1500;
 
-          let toasterMsg = `دسته بندی ${this.editForm.controls.title.value} با موفقیت ویرایش شد`
+          let toasterMsg = `محصول ${editData.code} با موفقیت ویرایش شد`
           this.toastr.success(toasterMsg, 'موفقیت');
           this.onCloseClick();
 

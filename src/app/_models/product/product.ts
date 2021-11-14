@@ -5,6 +5,8 @@ export class ProductModel {
          public code: string,
          public unitPrice: string,
          public imagePath: string,
+         public isInStock: boolean,
          public categoryTitle: string,
+         public creationDate: string,
      ){}
  }

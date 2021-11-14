@@ -21,7 +21,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
-  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount', 'commands'];
+  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'productsCount', 'commands'];
   dataSource: ProductDataSource;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
   filterProducts: FilterProductModel = new FilterProductModel('', []);
