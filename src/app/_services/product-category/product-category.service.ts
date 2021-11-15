@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse } from 'src/app/_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { CreateProductCategoryModel, EditProductCategoryModel, FilterProductCategoryModel } from '@app_models/product-category/_index';
+import { CreateProductCategoryModel, EditProductCategoryModel, FilterProductCategoryModel, ProductCategoryForSelectListModel } from '@app_models/product-category/_index';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,10 @@ export class ProductCategoryService {
     }
 
     return this.http.get<IResponse<FilterProductCategoryModel>>(`${environment.apiUrl}/product-category/filter-product-categories`, { params });
+  }
+
+  getProductCategoriesList(): Observable<IResponse<ProductCategoryForSelectListModel[]>> {
+    return this.http.get<IResponse<ProductCategoryForSelectListModel[]>>(`${environment.apiUrl}/product-category/get-list`);
   }
 
   getProductCategoryDetails(id: number): Observable<IResponse<EditProductCategoryModel>> {
@@ -65,7 +69,6 @@ export class ProductCategoryService {
   }
 
   deleteProductCategory(productCategoryId: number):Observable<IResponse<any>> {
-    
     return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product-category/delete-product-category/${productCategoryId}`);
   }
 
