@@ -9,7 +9,8 @@ import { ComponentsModule } from '@app_components/components.module';
 import { ProductRoutingModule } from './product.routing.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button'; 
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select'; 
 import { ToastrModule } from 'ngx-toastr';
 import { FilterProductComponent } from './filter-product/filter-product.component';
 import { CreateProductComponent } from './create-product/create-product.component';
@@ -33,6 +34,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     MatPaginatorModule,
     MatDialogModule,
     MatButtonModule,
+    MatSelectModule,
     ToastrModule.forRoot()
   ],
   exports: [

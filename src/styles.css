@@ -81,3 +81,9 @@ td {
 .mat-success {
     background-color: #24a711 !important;
 }
+
+.mat-option-text, .mat-select-value {
+    direction: rtl !important;
+    font-family: 'IRANSans' !important;
+    text-align: right !important;
+}

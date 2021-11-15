@@ -2,9 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CreateProductModel } from '@app_models/product/create-product';
+import { ProductCategoryForSelectListModel } from '@app_models/product-category/product-category-for-select-list';
 import { EditProductModel } from '@app_models/product/edit-product';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { ProductCategoryService } from '@app_services/product-category/product-category.service';
 import { ProductService } from '@app_services/product/product.service';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -23,10 +24,12 @@ export class EditProductComponent implements OnInit {
   productInStockState: boolean = true;
   inputAvailable: boolean = true;
   inputUnAvailable: boolean;
+  categories: ProductCategoryForSelectListModel[] = [];
 
 
   constructor(
     public dialogRef: MatDialogRef<EditProductComponent>,
+    private productCategoryService: ProductCategoryService,
     private productService: ProductService,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
     private ckeditorService: CkeditorService,
@@ -36,6 +39,8 @@ export class EditProductComponent implements OnInit {
   ngOnInit(): void {
 
     this.ckeditorService.initCkeditor();
+
+    this.getProductCategoriesForSelectList();
 
     this.editForm = new FormGroup({
       categoryId: new FormControl(null, [Validators.required]),
@@ -50,6 +55,7 @@ export class EditProductComponent implements OnInit {
     });
 
     this.productService.getProductDetails(this.data.id).subscribe((res) => {
+      console.log(res);
       
       if (res.status === 'success') {
 
@@ -91,6 +97,32 @@ export class EditProductComponent implements OnInit {
     );
   }
 
+  getProductCategoriesForSelectList() {
+
+    this.productCategoryService.getProductCategoriesList().subscribe((res) => {
+      if (res.status === 'success') {
+
+        this.categories = res.data;
+
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+
+          this.onCloseClick();
+
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
+
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+
+
+  }
+
   getImageFileToUpload(event: any) {
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
@@ -112,6 +144,8 @@ export class EditProductComponent implements OnInit {
   }
 
   submiteditForm() {
+    console.log(this.editForm.controls.categoryId.value);
+    
     this.ckeditorTextValue = this.ckeditorService.getValue();
 
     if (this.editForm.valid) {
