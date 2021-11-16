@@ -41,7 +41,6 @@ export class CreateProductComponent implements OnInit {
     this.createForm = new FormGroup({
       categoryId: new FormControl(null, [Validators.required]),
       title: new FormControl(null, [Validators.required]),
-      code: new FormControl(null, [Validators.required]),
       unitPrice: new FormControl(null, [Validators.required]),
       shortDescription: new FormControl(null, [Validators.required]),
       imageAlt: new FormControl(null, [Validators.required]),
@@ -110,7 +109,6 @@ export class CreateProductComponent implements OnInit {
       const createData = new CreateProductModel(
         this.createForm.controls.categoryId.value,
         this.createForm.controls.title.value,
-        this.createForm.controls.code.value,
         this.createForm.controls.unitPrice.value,
         this.productInStockState,
         this.createForm.controls.shortDescription.value,

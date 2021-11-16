@@ -37,7 +37,6 @@ export class ProductService {
 
     formData.append('categoryId', createData.categoryId.toString());
     formData.append('title', createData.title);
-    formData.append('code', createData.code);
     formData.append('unitPrice', createData.unitPrice);
 
     if(createData.isInStock === true){
@@ -64,7 +63,6 @@ export class ProductService {
     formData.append('id', editData.id.toString());
     formData.append('categoryId', editData.categoryId.toString());
     formData.append('title', editData.title);
-    formData.append('code', editData.code);
     formData.append('unitPrice', editData.unitPrice);
 
     if(editData.isInStock){
