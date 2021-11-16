@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import { ToastrModule } from 'ngx-toastr';
 import { EditProductCategoryComponent } from './edit-product-category/edit-product-category.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { EditProductCategoryComponent } from './edit-product-category/edit-produ
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     ToastrModule.forRoot()
   ],

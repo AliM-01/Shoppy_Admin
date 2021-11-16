@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FilterProductComponent } from './filter-product/filter-product.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     ComponentsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,

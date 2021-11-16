@@ -8,7 +8,7 @@ import { IResponse } from '../common/IResponse';
 export class ProductDataSource implements DataSource<ProductModel> {
 
     private productsSubject = new BehaviorSubject<ProductModel[]>([]);
-    private loadingSubject = new BehaviorSubject<boolean>(false);
+    private loadingSubject = new BehaviorSubject<boolean>(true);
 
     public loading$ = this.loadingSubject.asObservable();
     public length : number = 0;
@@ -26,16 +26,20 @@ export class ProductDataSource implements DataSource<ProductModel> {
 
     loadProducts(filterProducts: FilterProductModel) {
 
-        this.loadingSubject.next(false);
+        this.loadingSubject.next(true);
 
         this.productService.filterProduct(filterProducts)
-        .pipe(catchError(() => of([])),finalize(() => this.loadingSubject.next(false)))
+        .pipe(catchError(() => of([])),finalize(() => this.loadingSubject.next(true)))
         .subscribe((res : IResponse<any>) => {
-            this.length = res.data.products.length;
 
-            this.productsSubject.next(res.data.products);
-            
-            this.loadingSubject.next(true);
+            setInterval(() => {
+
+                this.length = res.data.products.length;
+
+                this.productsSubject.next(res.data.products);
+                
+                this.loadingSubject.next(false);
+            }, 500)
         });
 
     }    
