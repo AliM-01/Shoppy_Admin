@@ -6,13 +6,15 @@ import { HeaderComponent } from './header/header.component';
 import { PreloaderComponent } from './preloader/preloader.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    BreadcrumbComponent
   ],
   schemas: []
 })
