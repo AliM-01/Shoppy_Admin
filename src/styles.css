@@ -8,9 +8,23 @@ table {
     width: 100%;
 }
 
-th, td {
+th, td,
+.th.mat-header-cell,
+.mat-input-element,
+.mat-form-field-label,
+.mat-option-text, .mat-select-value  {
     text-align: right !important;
+}
+
+
+th, td, 
+.mat-form-field-label,
+.mat-button-base,
+.mat-option-text, .mat-select-value {
     font-family: 'IRANSans' !important;
+}
+
+th, td {
     padding-right: 25px !important;
     padding-left: 25px !important;
 }
@@ -25,10 +39,6 @@ td {
 
 .widget-header {
     padding-bottom: 0 !important;
-} 
-
-.th.mat-header-cell {
-    text-align: right !important;
 }
 
 .mat-form-field-infix {
@@ -36,7 +46,6 @@ td {
 }
 
 .mat-input-element {
-    text-align: right !important;
     font-size: 1.2em !important;
 }
 .form-full-width {
@@ -44,8 +53,7 @@ td {
     max-width: 650px;
     width: 100%;
 }
-  
-  
+
 .spinner-container {
     display: flex !important;
     align-items: center !important;
@@ -64,15 +72,6 @@ td {
 
 .mat-paginator-outer-container { direction: ltr !important}
 
-.mat-form-field-label {
-    font-family: 'IRANSans' !important;
-    text-align: right;
-}
-
-.mat-button-base {
-    font-family: 'IRANSans' !important;
-}
-
 .mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent{
     background-color: #ffb840 !important;
     color: #000 !important;
@@ -84,8 +83,6 @@ td {
 
 .mat-option-text, .mat-select-value {
     direction: rtl !important;
-    font-family: 'IRANSans' !important;
-    text-align: right !important;
 }
 
 .mat-input-element {
