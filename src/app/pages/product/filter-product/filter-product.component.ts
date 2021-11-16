@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ProductDataSource, FilterProductModel } from '../../../_models/product/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
+import {Title} from "@angular/platform-browser";
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -32,10 +33,13 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
   //#region Ctor
 
   constructor(
+    private pageTitle: Title,
     public dialog: MatDialog,
     private productService: ProductService,
     private toastr: ToastrService
-  ) { }
+  ) { 
+    this.pageTitle.setTitle('مدیریت محصولات');
+  }
 
   //#endregion
 

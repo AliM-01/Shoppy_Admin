@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { EditProductCategoryComponent } from '../edit-product-category/edit-product-category.component';
 import { environment } from '@environments/environment';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-filter-product-category',
@@ -31,10 +32,13 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   //#region Ctor
 
   constructor(
+    private pageTitle: Title,
     public dialog: MatDialog,
     private productCategoryService: ProductCategoryService,
     private toastr: ToastrService
-  ) { }
+  ) { 
+    this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
+  }
 
   //#endregion
 
