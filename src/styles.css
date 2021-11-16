@@ -87,3 +87,7 @@ td {
     font-family: 'IRANSans' !important;
     text-align: right !important;
 }
+
+.mat-input-element {
+    color: #525354 !important;
+}

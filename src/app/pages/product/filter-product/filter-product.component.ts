@@ -21,10 +21,11 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
+  @ViewChild('filterCategoryInput') categoryInput: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'productsCount', 'commands'];
   dataSource: ProductDataSource;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
-  filterProducts: FilterProductModel = new FilterProductModel('', []);
+  filterProducts: FilterProductModel = new FilterProductModel('', '', []);
 
   //#endregion
 
@@ -67,6 +68,23 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
         tap(() => this.loadProductCategoriesPage())
       )
       .subscribe();
+
+    fromEvent(this.categoryInput.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadProductCategoriesPage();
+        })
+      )
+      .subscribe();
+
+    this.paginator.page
+      .pipe(
+        tap(() => this.loadProductCategoriesPage())
+      )
+      .subscribe();
   }
 
   //#endregion
@@ -86,7 +104,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
 
   //#region openEditDialog
 
-  openEditDialog(id:number): void {
+  openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditProductComponent, {
       width: '600px',
       height: '700px',
@@ -103,7 +121,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
   //#region loadProductCategoriesPage
 
   loadProductCategoriesPage() {
-    this.filterProducts = new FilterProductModel(this.input.nativeElement.value, []);
+    this.filterProducts = new FilterProductModel(this.input.nativeElement.value, this.categoryInput.nativeElement.value, []);
     this.dataSource.loadProducts(this.filterProducts);
   }
 
@@ -138,7 +156,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
   }
 
   //#endregion
-  
+
   //#region updateProductIsInStock
 
   updateProductIsInStock(id: number) {
@@ -168,7 +186,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
   }
 
   //#endregion
-  
+
   //#region updateProductNotInStock
 
   updateProductNotInStock(id: number) {

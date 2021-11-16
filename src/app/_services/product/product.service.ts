@@ -20,6 +20,7 @@ export class ProductService {
     if (filter !== null) {
       params = new HttpParams()
         .set('Search', filter.search)
+        .set('CategoryId', (filter.categoryId == '' ? 0 : parseInt(filter.categoryId)));
     }
 
     return this.http.get<IResponse<FilterProductModel>>(`${environment.apiUrl}/product/filter-products`, { params });
@@ -31,8 +32,6 @@ export class ProductService {
 
   
   createProduct(createData: CreateProductModel):Observable<IResponse<any>> {
-    console.log(';;;');
-    
     const formData = new FormData();
 
     formData.append('categoryId', createData.categoryId.toString());
