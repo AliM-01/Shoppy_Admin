@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse } from 'src/app/_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { FilterProductPictureModel } from '@app_models/product-picture/filter-product-picture';
+import { FilterProductPictureModel, EditProductPictureModel } from '@app_models/product-picture/_index';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,4 +26,7 @@ export class ProductPictureService {
     return this.http.get<IResponse<FilterProductPictureModel>>(`${environment.apiUrl}/product-picture/filter-product-pictures`, { params });
   }
 
+  getProductPictureDetails(id: number): Observable<IResponse<EditProductPictureModel>> {
+    return this.http.get<IResponse<EditProductPictureModel>>(`${environment.apiUrl}/product-picture/${id}`);
+  }
 }
