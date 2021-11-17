@@ -16,6 +16,7 @@ import { FilterProductComponent } from './filter-product/filter-product.componen
 import { CreateProductComponent } from './create-product/create-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatRadioModule} from '@angular/material/radio'; 
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatRadioModule,
     MatButtonModule,
     MatSelectModule,
     ToastrModule.forRoot()

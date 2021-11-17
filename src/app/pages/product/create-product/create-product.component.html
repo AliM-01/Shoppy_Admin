@@ -86,20 +86,12 @@
 
       <div class="col-md-12 mt-3 mb-3">
           <h3>وضعیت</h3>
-          <hr>
-          <div class="row">
 
-            <div class="col-md-6">
-              <p class="d-inline mr-2">موجود</p>
-              <input type="radio" class="form-control-inline" (click)="changeProductInStockState(true)" [checked]="inputAvailable">
-            </div>
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button (click)="changeProductInStockState(true)" [checked]="inputAvailable" value="1">موجود</mat-radio-button>
+            <mat-radio-button (click)="changeProductInStockState(false)" [checked]="inputUnAvailable" value="2">نا موجود</mat-radio-button>
+          </mat-radio-group>
 
-            <div class="col-md-6">
-              <p class="d-inline mr-2">نا موجود</p>
-              <input type="radio" class="form-control-inline" (click)="changeProductInStockState(false)" [checked]="inputUnAvailable">    
-            </div>
-            
-          </div>
       </div>
 
       <div class="col-md-12">

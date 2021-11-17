@@ -20,7 +20,8 @@ th, td,
 th, td, 
 .mat-form-field-label,
 .mat-button-base,
-.mat-option-text, .mat-select-value {
+.mat-option-text, .mat-select-value,
+.mat-radio-label-content {
     font-family: 'IRANSans' !important;
 }
 
@@ -87,4 +88,9 @@ td {
 
 .mat-input-element {
     color: #525354 !important;
+}
+
+.mat-radio-label-content{
+    padding-right: 8px !important;
+    padding-left: 10px !important;
 }
