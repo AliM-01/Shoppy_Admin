@@ -39,6 +39,22 @@ export class ProductPictureService {
     formData.append('imageAlt', createData.imageAlt);
     formData.append('imageTitle', createData.imageTitle);
     
-    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-Picture/create-product-Picture`, formData);
+    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-picture/create-product-picture`, formData);
+  }
+  
+  editProductPicture(editData: EditProductPictureModel):Observable<IResponse<any>> {
+    const formData = new FormData();
+
+    formData.append('id', editData.id.toString());
+    formData.append('productId', editData.productId.toString());
+
+    if(editData.imageFileUploaded){
+      formData.append('imageFile', editData.imageFile, editData.imageFile.name);
+    }
+
+    formData.append('imageAlt', editData.imageAlt);
+    formData.append('imageTitle', editData.imageTitle);
+    
+    return this.http.put<IResponse<any>>(`${environment.apiUrl}/product-picture/edit-product-picture`, formData);
   }
 }
