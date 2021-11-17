@@ -61,4 +61,8 @@ export class ProductPictureService {
   removeProductPicture(productPictureId: number):Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product-picture/remove-product-picture/${productPictureId}`);
   }
+
+  restoreProductPicture(productPictureId: number):Observable<IResponse<any>> {
+    return this.http.put<IResponse<any>>(`${environment.apiUrl}/product-picture/restore-product-picture/${productPictureId}`, null);
+  }
 }
