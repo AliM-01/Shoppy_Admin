@@ -3,7 +3,7 @@ import { ProductPictureModel } from "./product-picture";
 export class FilterProductPictureModel {
 
    constructor(
-        public productId: number,
+        public productId: string,
         public productPictures: ProductPictureModel[]
     ){}
 }
