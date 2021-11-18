@@ -1,16 +1,12 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { Title } from "@angular/platform-browser";
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { CreateProductComponent } from '../create-product/create-product.component';
 import { environment } from '@environments/environment';
-import { EditProductComponent } from '../edit-product/edit-product.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductPictureModel } from '@app_models/product-picture/product-picture';
 import { ProductPictureService } from '@app_services/product-picture/product-category.service';
-import { FilterProductPictureModel } from '@app_models/product-picture/filter-product-picture';
 import { CreateProductPictureModel } from '@app_models/product-picture/create-product-picture';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -70,7 +66,7 @@ export class ProductPictureComponent implements OnInit {
       this.pageTitle = productTitle;
 
 
-      this.productPictureService.filterProductPictures(new FilterProductPictureModel(this.productId.toString(), []))
+      this.productPictureService.getProductPictures(this.productId)
         .subscribe((res) => {
           if (res.status === 'success') {
 
