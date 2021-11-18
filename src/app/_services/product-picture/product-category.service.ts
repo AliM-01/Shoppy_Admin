@@ -14,7 +14,7 @@ export class ProductPictureService {
 
 
   getProductPictures(productId: number): Observable<IResponse<any>> {
-    return this.http.get<IResponse<any>>(`${environment.apiUrl}/product-picture/filter-product-pictures/${productId}`);
+    return this.http.get<IResponse<any>>(`${environment.apiUrl}/product-picture/${productId}`);
   }
 
   createProductPicture(createData: CreateProductPictureModel):Observable<IResponse<any>> {
