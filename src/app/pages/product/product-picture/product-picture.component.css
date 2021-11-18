@@ -1,0 +1,32 @@
+.container-gallery {
+  position: relative;
+  width: 50%;
+  max-width: 300px;
+}
+.img-gallery {
+  display: block;
+  width: 100%;
+  height:  auto;
+  border-radius:  5% !important;
+}
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: #000;
+  background: rgba(0, 0, 0, .5);
+  color: #fff;
+  width: 94%;
+  transition: 1s ease;
+  opacity: 0;
+  font-size: 1.1em;
+  padding: 20px;
+  text-align: center;
+  border-top-left-radius: 25px;
+}
+.overlay a {
+  text-decoration: none;
+  color: #fff;
+}
+.container-gallery:hover .overlay {
+  opacity: 1;
+}

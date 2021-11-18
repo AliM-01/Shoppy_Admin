@@ -82,6 +82,9 @@
                             <button *ngIf="element.isInStock" mat-raised-button color="accent" 
                                class="ml-2" (click)="updateProductNotInStock(element.id)">ثبت اتمام موجودی</button>
                             
+                            <button mat-raised-button color="primary" class="ml-2" 
+                                [routerLink]="'/product/gallery/' + element.id + '/' + element.title">گالری</button>
+
                         </td>
                     </ng-container>
 

@@ -8,6 +8,10 @@ table {
     width: 100%;
 }
 
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
 th, td,
 .th.mat-header-cell,
 .mat-input-element,

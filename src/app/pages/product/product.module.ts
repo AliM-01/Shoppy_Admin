@@ -17,12 +17,14 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio'; 
+import { ProductPictureComponent } from './product-picture/product-picture.component';
 
 @NgModule({
   declarations: [
     FilterProductComponent,
     CreateProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ProductPictureComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import {MatRadioModule} from '@angular/material/radio';
   exports: [
     FilterProductComponent,
     CreateProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ProductPictureComponent
   ],
   schemas: []
 })
