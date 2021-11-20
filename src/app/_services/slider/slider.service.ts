@@ -34,4 +34,23 @@ export class SliderService {
     
     return this.http.post<IResponse<any>>(`${environment.apiUrl}/slider/create-slider`, formData);
   }
+
+  editSlider(editData: EditSliderModel):Observable<IResponse<any>> {
+    const formData = new FormData();
+
+    formData.append('id', editData.id.toString());
+    formData.append('heading', editData.heading);
+    formData.append('text', editData.text);
+
+    if(editData.imageFileUploaded){
+      formData.append('imageFile', editData.imageFile, editData.imageFile.name);
+    }
+
+    formData.append('imageAlt', editData.imageAlt);
+    formData.append('imageTitle', editData.imageTitle);
+    formData.append('btnLink', editData.btnLink);
+    formData.append('btnText', editData.btnText);
+    
+    return this.http.put<IResponse<any>>(`${environment.apiUrl}/slider/edit-slider`, formData);
+  }
 }

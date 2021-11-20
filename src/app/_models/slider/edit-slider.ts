@@ -4,6 +4,7 @@ export class EditSliderModel {
          public heading: string,
          public text: string,
          public imageFile: any,
+         public imageFileUploaded: boolean,
          public imagePath: string,
          public imageAlt: string,
          public imageTitle: string,
