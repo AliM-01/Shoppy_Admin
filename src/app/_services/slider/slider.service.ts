@@ -53,4 +53,12 @@ export class SliderService {
     
     return this.http.put<IResponse<any>>(`${environment.apiUrl}/slider/edit-slider`, formData);
   }
+
+  removeSlider(sliderId: number):Observable<IResponse<any>> {
+    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/slider/remove-slider/${sliderId}`);
+  }
+
+  restoreSlider(sliderId: number):Observable<IResponse<any>> {
+    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/slider/restore-slider/${sliderId}`);
+  }
 }
