@@ -20,18 +20,18 @@ export class SliderService {
     return this.http.get<IResponse<EditSliderModel>>(`${environment.apiUrl}/slider/${id}`);
   }
 
-  // createSlider(createData: CreateSliderModel):Observable<IResponse<any>> {
+  createSlider(createData: CreateSliderModel):Observable<IResponse<any>> {
     
-  //   const formData = new FormData();
+    const formData = new FormData();
     
-  //   formData.append('heading', createData.heading);
-  //   formData.append('text', createData.text);
-  //   formData.append('imageFile', createData.imageFile, createData.imageFile.name);
-  //   formData.append('imageAlt', createData.imageAlt);
-  //   formData.append('imageTitle', createData.imageTitle);
-  //   formData.append('btnLink', createData.btnLink);
-  //   formData.append('btnText', createData.btnText);
+    formData.append('heading', createData.heading);
+    formData.append('text', createData.text);
+    formData.append('imageFile', createData.imageFile, createData.imageFile.name);
+    formData.append('imageAlt', createData.imageAlt);
+    formData.append('imageTitle', createData.imageTitle);
+    formData.append('btnLink', createData.btnLink);
+    formData.append('btnText', createData.btnText);
     
-  //   return this.http.post<IResponse<any>>(`${environment.apiUrl}/slider/create-slider`, formData);
-  // }
+    return this.http.post<IResponse<any>>(`${environment.apiUrl}/slider/create-slider`, formData);
+  }
 }
