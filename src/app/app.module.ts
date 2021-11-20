@@ -9,11 +9,11 @@ import { ProductCategoryService } from './_services/product-category/product-cat
 import { IndexModule } from '@apppages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { ProductCategoryModule } from '@apppages/product-category/product.category.module';
-import { CommonModule } from '@angular/common';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ProductService } from '@app_services/product/product.service';
 import { ProductModule } from '@apppages/product/product.module';
 import { ProductPictureService } from '@app_services/product-picture/product-category.service';
+import { SliderService } from '@app_services/slider/slider.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,13 @@ import { ProductPictureService } from '@app_services/product-picture/product-cat
     ProductCategoryModule,
     ProductModule
   ],
-  providers: [ProductCategoryService, CkeditorService, ProductService, ProductPictureService],
+  providers: [
+    ProductCategoryService,
+    CkeditorService,
+    ProductService,
+    ProductPictureService,
+    SliderService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
