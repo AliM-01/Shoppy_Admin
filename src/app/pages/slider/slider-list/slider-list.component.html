@@ -8,7 +8,7 @@
             <div class="widget-header bordered no-actions d-flex align-items-center justify-content-between">
 
                 <div>
-                    <!-- <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button> -->
+                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button>
                 </div>
 
             </div>
@@ -28,7 +28,7 @@
                     <ng-container matColumnDef="thumbnailImage">
                         <th mat-header-cell *matHeaderCellDef> تصویر </th>
                         <td mat-cell *matCellDef="let element"> 
-                            <img [src]="thumbnailBasePath + element.imagePath" width="150" height="150">
+                            <img [src]="thumbnailBasePath + element.imagePath" width="200" height="200">
                         </td>
                     </ng-container>
 

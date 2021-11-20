@@ -13,10 +13,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import { CreateSliderComponent } from './create-slider/create-slider.component';
 
 @NgModule({
   declarations: [
-    SliderListComponent
+    SliderListComponent,
+    CreateSliderComponent
   ],
   imports: [
     CommonModule,

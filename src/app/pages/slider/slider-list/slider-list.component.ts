@@ -9,6 +9,7 @@ import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
 import { SliderDataSource } from '@app_models/slider/slider-data-source';
 import { SliderService } from '@app_services/slider/slider.service';
+import { CreateSliderComponent } from '../create-slider/create-slider.component';
 
 @Component({
   selector: 'app-slider-list',
@@ -63,14 +64,14 @@ export class SliderListComponent implements OnInit, AfterViewInit {
 
   //#region openCreateDialog
 
-  // openCreateDialog(): void {
-  //   const dialogRef = this.dialog.open(CreateSliderComponent, {
-  //     width: '600px',
-  //     height: '700px'
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreateSliderComponent, {
+      width: '600px',
+      height: '700px'
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   //#endregion
 
