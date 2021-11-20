@@ -4,6 +4,7 @@ import { IResponse } from '@app_models/common/IResponse';
 import { SliderModel, EditSliderModel, CreateSliderModel } from '@app_models/slider/_index';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
