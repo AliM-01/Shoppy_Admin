@@ -46,6 +46,17 @@
                         <td mat-cell *matCellDef="let element"> {{element.text}} </td>
                     </ng-container>
                 
+                    <ng-container matColumnDef="state">
+                        <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                        <td mat-cell *matCellDef="let element"> 
+                            
+                            <p *ngIf="!element.isRemoved" class="text-success">فعال</p>
+
+                            <p *ngIf="element.isRemoved" class="text-danger">غیر فعال</p>
+                            
+                        </td>
+                    </ng-container>
+                    
                     <ng-container matColumnDef="creationDate">
                         <th mat-header-cell *matHeaderCellDef> تاریخ </th>
                         <td mat-cell *matCellDef="let element"> {{element.creationDate}} </td>

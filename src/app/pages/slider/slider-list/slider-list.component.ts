@@ -21,7 +21,7 @@ export class SliderListComponent implements OnInit, AfterViewInit {
   //#region properties
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns: string[] = ['id', 'thumbnailImage', 'heading', 'text', 'creationDate', 'commands'];
+  displayedColumns: string[] = ['id', 'thumbnailImage', 'heading', 'text', 'state', 'creationDate', 'commands'];
   dataSource: SliderDataSource;
   thumbnailBasePath: string = `${environment.sliderBaseImagePath}/thumbnail/`;
 
