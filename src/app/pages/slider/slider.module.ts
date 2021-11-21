@@ -14,11 +14,13 @@ import {MatButtonModule} from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { CreateSliderComponent } from './create-slider/create-slider.component';
+import { EditSliderComponent } from './edit-slider/edit-slider.component';
 
 @NgModule({
   declarations: [
     SliderListComponent,
-    CreateSliderComponent
+    CreateSliderComponent,
+    EditSliderComponent
   ],
   imports: [
     CommonModule,

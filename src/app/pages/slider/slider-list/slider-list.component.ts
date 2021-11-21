@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { SliderDataSource } from '@app_models/slider/slider-data-source';
 import { SliderService } from '@app_services/slider/slider.service';
 import { CreateSliderComponent } from '../create-slider/create-slider.component';
+import { EditSliderComponent } from '../edit-slider/edit-slider.component';
 
 @Component({
   selector: 'app-slider-list',
@@ -77,17 +78,17 @@ export class SliderListComponent implements OnInit, AfterViewInit {
 
   //#region openEditDialog
 
-  // openEditDialog(id:number): void {
-  //   const dialogRef = this.dialog.open(EditSliderComponent, {
-  //     width: '600px',
-  //     height: '700px',
-  //     data: {
-  //       id: id
-  //     }
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openEditDialog(id:number): void {
+    const dialogRef = this.dialog.open(EditSliderComponent, {
+      width: '600px',
+      height: '700px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   //#endregion
 
