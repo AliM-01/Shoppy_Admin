@@ -129,4 +129,34 @@ export class SliderListComponent implements OnInit, AfterViewInit {
   }
 
   //#endregion
+
+  //#region restoreSlider
+
+  restoreSlider(id: number) {
+    this.sliderService.restoreSlider(id).subscribe((res) => {
+      if (res.status === 'success') {
+
+
+        this.ngOnInit();
+
+        this.toastr.toastrConfig.tapToDismiss = false;
+        this.toastr.toastrConfig.autoDismiss = true;
+        this.toastr.toastrConfig.timeOut = 1500;
+
+        this.toastr.success(res.message, 'موفقیت');
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
+
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+  }
+
+  //#endregion
 }
