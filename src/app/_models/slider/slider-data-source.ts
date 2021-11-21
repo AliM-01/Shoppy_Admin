@@ -35,9 +35,9 @@ export class SliderDataSource implements DataSource<SliderModel> {
 
             setInterval(() => {
                 
-                this.length = res.data.sliders.length;
+                this.length = res.data.length;
 
-                this.slidersSubject.next(res.data.Sliders);
+                this.slidersSubject.next(res.data);
                 
                 this.loadingSubject.next(false);
             }, 500)

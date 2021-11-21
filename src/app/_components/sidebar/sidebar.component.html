@@ -4,7 +4,13 @@
 
         <ul class="list-unstyled">
 
-            <li class="active">
+            <li>
+                <a href="#dropdown-db" aria-expanded="false" data-toggle="collapse"><i class="la la-shopping-cart"></i><span>سایت</span></a>
+                <ul id="dropdown-db" class="collapse list-unstyled show pt-0">
+                    <li><a [routerLink]="'/slider'" routerLinkActive="active">اسلایدر</a></li>
+                </ul>
+            </li>
+            <li>
                 <a href="#dropdown-db" aria-expanded="false" data-toggle="collapse"><i class="la la-shopping-cart"></i><span>فروشگاه</span></a>
                 <ul id="dropdown-db" class="collapse list-unstyled show pt-0">
                     <li><a [routerLink]="'/product'" routerLinkActive="active">محصولات</a></li>
