@@ -34,7 +34,7 @@ export class SliderListComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private sliderService: SliderService,
     private toastr: ToastrService
-  ) { 
+  ) {
     this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
   }
 
@@ -58,7 +58,7 @@ export class SliderListComponent implements OnInit, AfterViewInit {
         tap(() => this.loadSlidersPage())
       )
       .subscribe();
-    
+
   }
 
   //#endregion
@@ -78,7 +78,7 @@ export class SliderListComponent implements OnInit, AfterViewInit {
 
   //#region openEditDialog
 
-  openEditDialog(id:number): void {
+  openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditSliderComponent, {
       width: '600px',
       height: '700px',
@@ -100,33 +100,33 @@ export class SliderListComponent implements OnInit, AfterViewInit {
 
   //#endregion
 
-  //#region deleteSlider
+  //#region removeSlider
 
-  // removeSlider(id: number) {
-  //   this.sliderService.deleteSlider(id).subscribe((res) => {
-  //     if (res.status === 'success') {
+  removeSlider(id: number) {
+    this.sliderService.removeSlider(id).subscribe((res) => {
+      if (res.status === 'success') {
 
 
-  //       this.ngOnInit();
+        this.ngOnInit();
 
-  //       this.toastr.toastrConfig.tapToDismiss = false;
-  //       this.toastr.toastrConfig.autoDismiss = true;
-  //       this.toastr.toastrConfig.timeOut = 1500;
+        this.toastr.toastrConfig.tapToDismiss = false;
+        this.toastr.toastrConfig.autoDismiss = true;
+        this.toastr.toastrConfig.timeOut = 1500;
 
-  //       this.toastr.success('دسته بندی مورد نظر با موفقیت حذف شد', 'موفقیت');
-  //     }
-  //   },
-  //     (error) => {
-  //       if (error instanceof HttpErrorResponse) {
-  //         this.toastr.toastrConfig.tapToDismiss = false;
-  //         this.toastr.toastrConfig.autoDismiss = true;
-  //         this.toastr.toastrConfig.timeOut = 2500;
+        this.toastr.success(res.message, 'موفقیت');
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
 
-  //         this.toastr.error(error.error.message, 'خطا');
-  //       }
-  //     }
-  //   );
-  // }
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+  }
 
   //#endregion
 }
