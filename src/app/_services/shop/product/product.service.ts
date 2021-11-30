@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { CreateProductModel, EditProductModel, FilterProductModel } from '@app_models/shop/product/_index';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'platform'
 })
 export class ProductService {
   constructor(

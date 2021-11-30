@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { CreateSliderComponent } from './create-slider/create-slider.component';
 import { EditSliderComponent } from './edit-slider/edit-slider.component';
+import { SliderService } from '@app_services/shop/slider/slider.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { EditSliderComponent } from './edit-slider/edit-slider.component';
   exports: [
     SliderListComponent
   ],
-  schemas: []
+  schemas: [],
+  providers: [SliderService]
 })
 export class SliderModule { }

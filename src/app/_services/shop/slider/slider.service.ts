@@ -6,7 +6,7 @@ import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'platform'
 })
 export class SliderService {
   constructor(

@@ -5,7 +5,7 @@ import { IResponse } from '@app_models/common/IResponse';
 import { environment } from '@environments/environment';
 import { CreateProductPictureModel } from '@app_models/shop/product-picture/_index';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class ProductPictureService {
   constructor(

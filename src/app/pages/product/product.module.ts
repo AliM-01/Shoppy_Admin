@@ -18,6 +18,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio'; 
 import { ProductPictureComponent } from './product-picture/product-picture.component';
+import { ProductService } from '@app_services/shop/product/product.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,9 @@ import { ProductPictureComponent } from './product-picture/product-picture.compo
     EditProductComponent,
     ProductPictureComponent
   ],
-  schemas: []
+  schemas: [],
+  providers: [
+    ProductService
+  ]
 })
 export class ProductModule { }

@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 import { EditProductCategoryComponent } from './edit-product-category/edit-product-category.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     FilterProductCategoryComponent,
     CreateProductCategoryComponent
   ],
-  schemas: []
+  schemas: [],
+  providers: [ProductCategoryService]
 })
 export class ProductCategoryModule { }

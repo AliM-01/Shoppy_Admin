@@ -7,7 +7,7 @@ import { CreateProductCategoryModel, EditProductCategoryModel, FilterProductCate
  from '@app_models/shop/product-category/_index';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'platform'
 })
 export class ProductCategoryService {
   constructor(

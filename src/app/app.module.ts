@@ -10,9 +10,7 @@ import { IndexModule } from '@apppages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { ProductCategoryModule } from '@apppages/product-category/product.category.module';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
-import { ProductService } from '@app_services/shop/product/product.service';
 import { ProductModule } from '@apppages/product/product.module';
-import { ProductPictureService } from '@app_services/shop/product-picture/product-category.service';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 
 @NgModule({
@@ -33,8 +31,6 @@ import { SliderService } from '@app_services/shop/slider/slider.service';
   providers: [
     ProductCategoryService,
     CkeditorService,
-    ProductService,
-    ProductPictureService,
     SliderService
   ],
   bootstrap: [AppComponent],
