@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditSliderModel } from '@app_models/slider/edit-slider';
-import { SliderService } from '@app_services/slider/slider.service';
+import { EditSliderModel } from '@app_models/shop/slider/edit-slider';
+import { SliderService } from '@app_services/shop/slider/slider.service';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
 

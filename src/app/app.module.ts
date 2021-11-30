@@ -5,15 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ProductCategoryService } from './_services/product-category/product-category.service';
+import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { IndexModule } from '@apppages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { ProductCategoryModule } from '@apppages/product-category/product.category.module';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
-import { ProductService } from '@app_services/product/product.service';
+import { ProductService } from '@app_services/shop/product/product.service';
 import { ProductModule } from '@apppages/product/product.module';
-import { ProductPictureService } from '@app_services/product-picture/product-category.service';
-import { SliderService } from '@app_services/slider/slider.service';
+import { ProductPictureService } from '@app_services/shop/product-picture/product-category.service';
+import { SliderService } from '@app_services/shop/slider/slider.service';
 
 @NgModule({
   declarations: [

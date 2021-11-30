@@ -1,9 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IResponse } from 'src/app/_models/common/IResponse';
+import { IResponse } from '@app/_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { CreateProductCategoryModel, EditProductCategoryModel, FilterProductCategoryModel, ProductCategoryForSelectListModel } from '@app_models/product-category/_index';
+import { CreateProductCategoryModel, EditProductCategoryModel, FilterProductCategoryModel, ProductCategoryForSelectListModel }
+ from '@app_models/shop/product-category/_index';
 
 @Injectable({
   providedIn: 'root'

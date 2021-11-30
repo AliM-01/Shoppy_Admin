@@ -2,9 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateProductCategoryModel } from '@app_models/product-category/create-product-category';
+import { CreateProductCategoryModel } from '@app_models/shop/product-category/create-product-category';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
-import { ProductCategoryService } from '@app_services/product-category/product-category.service';
+import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

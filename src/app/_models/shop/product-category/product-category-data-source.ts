@@ -1,9 +1,9 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { ProductCategoryService } from "@app_services/product-category/product-category.service";
+import { ProductCategoryService } from "@app_services/shop/product-category/product-category.service";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { FilterProductCategoryModel, ProductCategoryModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '../common/IResponse';
+import { IResponse } from '@app_models/common/IResponse';
 
 export class ProductCategoryDataSource implements DataSource<ProductCategoryModel> {
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
-import { SliderModel, EditSliderModel, CreateSliderModel } from '@app_models/slider/_index';
+import { SliderModel, EditSliderModel, CreateSliderModel } from '@app_models/shop/slider/_index';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 

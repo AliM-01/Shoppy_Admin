@@ -5,9 +5,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductPictureModel } from '@app_models/product-picture/product-picture';
-import { ProductPictureService } from '@app_services/product-picture/product-category.service';
-import { CreateProductPictureModel } from '@app_models/product-picture/create-product-picture';
+import { ProductPictureModel } from '@app_models/shop/product-picture/product-picture';
+import { ProductPictureService } from '@app_services/shop/product-picture/product-category.service';
+import { CreateProductPictureModel } from '@app_models/shop/product-picture/create-product-picture';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({

@@ -1,9 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IResponse } from 'src/app/_models/common/IResponse';
+import { IResponse } from '@app_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { CreateProductPictureModel } from '@app_models/product-picture/_index';
+import { CreateProductPictureModel } from '@app_models/shop/product-picture/_index';
 @Injectable({
   providedIn: 'root'
 })

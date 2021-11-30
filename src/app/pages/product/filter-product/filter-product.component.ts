@@ -1,13 +1,13 @@
 import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { ProductDataSource, FilterProductModel } from '../../../_models/product/_index';
+import { ProductDataSource, FilterProductModel } from '@app_models/shop/product/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import {Title} from "@angular/platform-browser";
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { ProductService } from '@app_services/product/product.service';
+import { ProductService } from '@app_services/shop/product/product.service';
 import { CreateProductComponent } from '../create-product/create-product.component';
 import { environment } from '@environments/environment';
 import { EditProductComponent } from '../edit-product/edit-product.component';

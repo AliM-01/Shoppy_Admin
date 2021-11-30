@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ProductCategoryService } from '@app_services/product-category/product-category.service';
+import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { ProductCategoryDataSource, FilterProductCategoryModel } from '../../../_models/product-category/_index';
+import { ProductCategoryDataSource, FilterProductCategoryModel } from '@app_models/shop/product-category/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';

@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductCategoryForSelectListModel } from '@app_models/product-category/product-category-for-select-list';
-import { EditProductModel } from '@app_models/product/edit-product';
+import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
+import { EditProductModel } from '@app_models/shop/product/edit-product';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
-import { ProductCategoryService } from '@app_services/product-category/product-category.service';
-import { ProductService } from '@app_services/product/product.service';
+import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
+import { ProductService } from '@app_services/shop/product/product.service';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
 

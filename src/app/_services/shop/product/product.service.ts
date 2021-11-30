@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
-import { CreateProductModel, EditProductModel, FilterProductModel } from '../../_models/product/_index';
+import { CreateProductModel, EditProductModel, FilterProductModel } from '@app_models/shop/product/_index';
 
 @Injectable({
   providedIn: 'root'
