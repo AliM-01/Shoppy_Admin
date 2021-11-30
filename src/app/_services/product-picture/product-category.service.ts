@@ -14,7 +14,7 @@ export class ProductPictureService {
 
 
   getProductPictures(productId: number): Observable<IResponse<any>> {
-    return this.http.get<IResponse<any>>(`${environment.apiUrl}/product-picture/${productId}`);
+    return this.http.get<IResponse<any>>(`${environment.shopBaseApiUrl}/product-picture/${productId}`);
   }
 
   createProductPicture(createData: CreateProductPictureModel):Observable<IResponse<any>> {
@@ -26,10 +26,10 @@ export class ProductPictureService {
     formData.append('imageAlt', createData.imageAlt);
     formData.append('imageTitle', createData.imageTitle);
     
-    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product-picture/create-product-picture`, formData);
+    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/product-picture/create-product-picture`, formData);
   }
 
   removeProductPicture(productPictureId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product-picture/remove-product-picture/${productPictureId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product-picture/remove-product-picture/${productPictureId}`);
   }
 }

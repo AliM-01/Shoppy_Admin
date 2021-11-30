@@ -23,11 +23,11 @@ export class ProductService {
         .set('CategoryId', (filter.categoryId == '' ? 0 : parseInt(filter.categoryId)));
     }
 
-    return this.http.get<IResponse<FilterProductModel>>(`${environment.apiUrl}/product/filter-products`, { params });
+    return this.http.get<IResponse<FilterProductModel>>(`${environment.shopBaseApiUrl}/product/filter-products`, { params });
   }
   
   getProductDetails(id: number): Observable<IResponse<EditProductModel>> {
-    return this.http.get<IResponse<EditProductModel>>(`${environment.apiUrl}/product/${id}`);
+    return this.http.get<IResponse<EditProductModel>>(`${environment.shopBaseApiUrl}/product/${id}`);
   }
 
   
@@ -52,7 +52,7 @@ export class ProductService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
     
-    return this.http.post<IResponse<any>>(`${environment.apiUrl}/product/create-product`, formData);
+    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/product/create-product`, formData);
   }
 
   editProduct(editData: EditProductModel):Observable<IResponse<any>> {
@@ -82,18 +82,18 @@ export class ProductService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
     
-    return this.http.put<IResponse<any>>(`${environment.apiUrl}/product/edit-product`, formData);
+    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/product/edit-product`, formData);
   }
 
   deleteProduct(productId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product/delete-product/${productId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product/delete-product/${productId}`);
   }
 
   updateProductIsInStock(productId: number):Observable<IResponse<any>> {
-    return this.http.put<IResponse<any>>(`${environment.apiUrl}/product/update-product-is-in-stock/${productId}`, null);
+    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/product/update-product-is-in-stock/${productId}`, null);
   }
 
   updateProductNotInStock(productId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/product/update-product-not-in-stock/${productId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product/update-product-not-in-stock/${productId}`);
   }
 }

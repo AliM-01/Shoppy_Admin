@@ -14,11 +14,11 @@ export class SliderService {
   ) { }
 
   getSlidersList(): Observable<IResponse<SliderModel[]>> {
-    return this.http.get<IResponse<SliderModel[]>>(`${environment.apiUrl}/slider/get-list`);
+    return this.http.get<IResponse<SliderModel[]>>(`${environment.shopBaseApiUrl}/slider/get-list`);
   }
 
   getSliderDetails(id: number): Observable<IResponse<EditSliderModel>> {
-    return this.http.get<IResponse<EditSliderModel>>(`${environment.apiUrl}/slider/${id}`);
+    return this.http.get<IResponse<EditSliderModel>>(`${environment.shopBaseApiUrl}/slider/${id}`);
   }
 
   createSlider(createData: CreateSliderModel):Observable<IResponse<any>> {
@@ -33,7 +33,7 @@ export class SliderService {
     formData.append('btnLink', createData.btnLink);
     formData.append('btnText', createData.btnText);
     
-    return this.http.post<IResponse<any>>(`${environment.apiUrl}/slider/create-slider`, formData);
+    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/create-slider`, formData);
   }
 
   editSlider(editData: EditSliderModel):Observable<IResponse<any>> {
@@ -52,14 +52,14 @@ export class SliderService {
     formData.append('btnLink', editData.btnLink);
     formData.append('btnText', editData.btnText);
     
-    return this.http.put<IResponse<any>>(`${environment.apiUrl}/slider/edit-slider`, formData);
+    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/edit-slider`, formData);
   }
 
   removeSlider(sliderId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/slider/remove-slider/${sliderId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/remove-slider/${sliderId}`);
   }
 
   restoreSlider(sliderId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.apiUrl}/slider/restore-slider/${sliderId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/restore-slider/${sliderId}`);
   }
 }
