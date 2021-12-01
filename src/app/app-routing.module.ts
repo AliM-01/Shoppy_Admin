@@ -6,15 +6,15 @@ const routes: Routes = [
   { path: '', component: IndexComponent },
   {
     path: 'product-category',
-    loadChildren: () => import('./pages/product-category/product.category.module').then(m => m.ProductCategoryModule)
+    loadChildren: () => import('./pages/shop/product-category/product.category.module').then(m => m.ProductCategoryModule)
   },
   {
     path: 'product',
-    loadChildren: () => import('./pages/product/product.module').then(m => m.ProductModule)
+    loadChildren: () => import('./pages/shop/product/product.module').then(m => m.ProductModule)
   },
   {
     path: 'slider',
-    loadChildren: () => import('./pages/slider/slider.module').then(m => m.SliderModule)
+    loadChildren: () => import('./pages/shop/slider/slider.module').then(m => m.SliderModule)
   },
 ];
 
