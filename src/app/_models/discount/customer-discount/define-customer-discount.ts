@@ -1,4 +1,4 @@
-export class CreateCustomerDiscountModel {
+export class DefineCustomerDiscountModel {
     constructor(
          public productId: number,
          public rate: number,

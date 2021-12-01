@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse } from '@app/_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { CreateCustomerDiscountModel, EditCustomerDiscountModel, FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
+import { DefineCustomerDiscountModel, EditCustomerDiscountModel, FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
 
 @Injectable({
   providedIn: 'platform'
@@ -30,14 +30,14 @@ export class CustomerDiscountService {
     return this.http.get<IResponse<EditCustomerDiscountModel>>(`${environment.shopBaseApiUrl}/customer-discount/${id}`);
   }
 
-  createCustomerDiscount(createData: CreateCustomerDiscountModel):Observable<IResponse<any>> {
+  defineCustomerDiscount(createData: DefineCustomerDiscountModel):Observable<IResponse<any>> {
     
     const formData = new FormData();
     
     formData.append('rate', createData.rate.toString());
     formData.append('description', createData.description);
     
-    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/customer-discount/create-customer-discount`, formData);
+    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/customer-discount/define-customer-discount`, formData);
   }
 
   editCustomerDiscount(editData: EditCustomerDiscountModel):Observable<IResponse<any>> {
