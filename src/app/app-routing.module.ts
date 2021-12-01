@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'slider',
     loadChildren: () => import('./pages/shop/slider/slider.module').then(m => m.SliderModule)
   },
+  {
+    path: 'customer-discount',
+    loadChildren: () => import('./pages/discount/customer-discount/customer.discount.module').then(m => m.CustomerDiscountModule)
+  },
 ];
 
 @NgModule({
