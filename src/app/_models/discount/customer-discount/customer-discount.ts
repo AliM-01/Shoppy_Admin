@@ -8,5 +8,6 @@ export class CustomerDiscountModel {
          public endDate: string,
          public description: string,
          public creationDate: string,
+         public isRemoved: boolean
      ){}
  }

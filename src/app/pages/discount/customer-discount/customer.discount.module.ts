@@ -13,9 +13,12 @@ import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { CustomerDiscountRoutingModule } from './customer.discount.routing.module';
+import { FilterCustomerDiscountComponent } from './filter-customer-discount/filter-customer-discount.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FilterCustomerDiscountComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -31,7 +34,7 @@ import { CustomerDiscountRoutingModule } from './customer.discount.routing.modul
     MatButtonModule,
     ToastrModule.forRoot()
   ],
-  exports: [],
+  exports: [FilterCustomerDiscountComponent],
   schemas: [],
   providers: [CustomerDiscountService]
 })
