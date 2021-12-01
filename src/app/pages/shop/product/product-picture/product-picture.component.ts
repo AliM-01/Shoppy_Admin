@@ -75,6 +75,11 @@ export class ProductPictureComponent implements OnInit {
             this.pageLoading = true;
 
           }
+          if (res.status === 'no-content') {
+
+            this.pageLoading = true;
+
+          }
         },
           (error) => {
             if (error instanceof HttpErrorResponse) {
