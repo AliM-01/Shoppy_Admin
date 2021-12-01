@@ -23,11 +23,11 @@ export class CustomerDiscountService {
         .set('productId', filter.productId.toString())
     }
 
-    return this.http.get<IResponse<FilterCustomerDiscountModel>>(`${environment.shopBaseApiUrl}/customer-discount/filter-product-categories`, { params });
+    return this.http.get<IResponse<FilterCustomerDiscountModel>>(`${environment.discountBaseApiUrl}/customer-discount/filter-product-categories`, { params });
   }
 
   getCustomerDiscountDetails(id: number): Observable<IResponse<EditCustomerDiscountModel>> {
-    return this.http.get<IResponse<EditCustomerDiscountModel>>(`${environment.shopBaseApiUrl}/customer-discount/${id}`);
+    return this.http.get<IResponse<EditCustomerDiscountModel>>(`${environment.discountBaseApiUrl}/customer-discount/${id}`);
   }
 
   defineCustomerDiscount(createData: DefineCustomerDiscountModel):Observable<IResponse<any>> {
@@ -37,7 +37,7 @@ export class CustomerDiscountService {
     formData.append('rate', createData.rate.toString());
     formData.append('description', createData.description);
     
-    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/customer-discount/define-customer-discount`, formData);
+    return this.http.post<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/define-customer-discount`, formData);
   }
 
   editCustomerDiscount(editData: EditCustomerDiscountModel):Observable<IResponse<any>> {
@@ -47,11 +47,11 @@ export class CustomerDiscountService {
     formData.append('rate', editData.rate.toString());
     formData.append('description', editData.description);
     
-    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/customer-discount/edit-customer-discount`, formData);
+    return this.http.put<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/edit-customer-discount`, formData);
   }
 
   deleteCustomerDiscount(CustomerDiscountId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/customer-discount/delete-customer-discount/${CustomerDiscountId}`);
+    return this.http.delete<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/delete-customer-discount/${CustomerDiscountId}`);
   }
 
 }
