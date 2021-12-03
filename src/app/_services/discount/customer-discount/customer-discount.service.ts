@@ -23,7 +23,7 @@ export class CustomerDiscountService {
         .set('productId', filter.productId.toString())
     }
 
-    return this.http.get<IResponse<FilterCustomerDiscountModel>>(`${environment.discountBaseApiUrl}/customer-discount/filter-product-categories`, { params });
+    return this.http.get<IResponse<FilterCustomerDiscountModel>>(`${environment.discountBaseApiUrl}/customer-discount/filter-discounts`, { params });
   }
 
   getCustomerDiscountDetails(id: number): Observable<IResponse<EditCustomerDiscountModel>> {
@@ -35,6 +35,9 @@ export class CustomerDiscountService {
     const formData = new FormData();
     
     formData.append('rate', createData.rate.toString());
+    formData.append('productId', createData.productId.toString());
+    formData.append('startDate', createData.startDate);
+    formData.append('endDate', createData.endDate);
     formData.append('description', createData.description);
     
     return this.http.post<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/define-customer-discount`, formData);
@@ -44,7 +47,10 @@ export class CustomerDiscountService {
     const formData = new FormData();
 
     formData.append('id', editData.id.toString());
+    formData.append('productId', editData.productId.toString());
     formData.append('rate', editData.rate.toString());
+    formData.append('startDate', editData.startDate);
+    formData.append('endDate', editData.endDate);
     formData.append('description', editData.description);
     
     return this.http.put<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/edit-customer-discount`, formData);

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
@@ -15,8 +15,10 @@ export class DefineCustomerDiscountComponent implements OnInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
-  productId: number = 0;
-
+  productId: number = 9;
+  @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
+  @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
+  
   constructor(
     public dialogRef: MatDialogRef<DefineCustomerDiscountComponent>,
     private customerDiscountService: CustomerDiscountService,
@@ -29,9 +31,7 @@ export class DefineCustomerDiscountComponent implements OnInit {
     this.ckeditorService.initCkeditor();
 
     this.defineForm = new FormGroup({
-      rate: new FormControl(null, [Validators.required]),
-      startDate: new FormControl(null, [Validators.required]),
-      endDate: new FormControl(null, [Validators.required])
+      rate: new FormControl(null, [Validators.required])
     });
   }
 
@@ -47,8 +47,8 @@ export class DefineCustomerDiscountComponent implements OnInit {
       const defineData = new DefineCustomerDiscountModel(
         this.productId,
         this.defineForm.controls.rate.value,
-        this.defineForm.controls.startDate.value,
-        this.defineForm.controls.endDate.value,
+        this.startDatepickerInput.nativeElement.value,
+        this.endDatepickerInput.nativeElement.value,
         this.ckeditorService.getValue(),
       );
 

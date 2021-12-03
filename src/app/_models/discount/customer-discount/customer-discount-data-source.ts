@@ -32,15 +32,14 @@ export class CustomerDiscountDataSource implements DataSource<CustomerDiscountMo
         .pipe(catchError(() => of([])),finalize(() => this.loadingSubject.next(true)))
         .subscribe((res : IResponse<any>) => {
             
+            if(res.status === 'success' || res.status === 'no-content'){
 
-            setInterval(() => {
-                
                 this.length = res.data.discounts.length;
 
                 this.customerDiscountsSubject.next(res.data.CustomerDiscounts);
                 
                 this.loadingSubject.next(false);
-            }, 500)
+            }
         });
 
     }    

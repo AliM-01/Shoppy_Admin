@@ -15,6 +15,7 @@ import { CustomerDiscountService } from '@app_services/discount/customer-discoun
 import { CustomerDiscountRoutingModule } from './customer.discount.routing.module';
 import { FilterCustomerDiscountComponent } from './filter-customer-discount/filter-customer-discount.component';
 import { DefineCustomerDiscountComponent } from './create-customer-discount/define-customer-discount.component';
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DefineCustomerDiscountComponent } from './create-customer-discount/defi
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgPersianDatepickerModule
   ],
   exports: [FilterCustomerDiscountComponent],
   schemas: [],
