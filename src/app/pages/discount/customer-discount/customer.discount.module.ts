@@ -18,12 +18,14 @@ import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { DefineCustomerDiscountComponentDialog } from './define-customer-discount-dialog/define-customer-discount.dialog.component';
 import { DefineCustomerDiscountComponent } from './define-customer-discount/define-customer-discount.component';
 import { DirectivesModule } from '@app_directives/directives.module';
+import { EditCustomerDiscountComponentDialog } from './edit-customer-discount-dialog/edit-customer-discount.dialog.component';
 
 @NgModule({
   declarations: [
     FilterCustomerDiscountComponent,
     DefineCustomerDiscountComponent,
-    DefineCustomerDiscountComponentDialog
+    DefineCustomerDiscountComponentDialog,
+    EditCustomerDiscountComponentDialog
   ],
   imports: [
     CommonModule,
