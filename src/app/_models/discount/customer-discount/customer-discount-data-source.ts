@@ -34,12 +34,16 @@ export class CustomerDiscountDataSource implements DataSource<CustomerDiscountMo
             
             if(res.status === 'success' || res.status === 'no-content'){
 
-                this.length = res.data.discounts.length;
-
-                this.customerDiscountsSubject.next(res.data.CustomerDiscounts);
+                setInterval(() => {
                 
-                this.loadingSubject.next(false);
+                    this.length = res.data.discounts.length;
+
+                    this.customerDiscountsSubject.next(res.data.discounts);
+                
+                    this.loadingSubject.next(false);
+                }, 500)
             }
+            
         });
 
     }    

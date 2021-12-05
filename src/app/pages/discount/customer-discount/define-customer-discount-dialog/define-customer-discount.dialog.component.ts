@@ -16,8 +16,6 @@ export class DefineCustomerDiscountComponentDialog implements OnInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
-  productId: number = 0;
-  productIdIsLoaded: boolean = false;
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
   
@@ -25,7 +23,6 @@ export class DefineCustomerDiscountComponentDialog implements OnInit {
     public dialogRef: MatDialogRef<DefineCustomerDiscountComponentDialog>,
     private customerDiscountService: CustomerDiscountService,
     private ckeditorService: CkeditorService,
-    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService
   ) { }
 
@@ -33,18 +30,8 @@ export class DefineCustomerDiscountComponentDialog implements OnInit {
 
     this.ckeditorService.initCkeditor();
 
-    this.activatedRoute.params.subscribe(params => {
-      this.productId = params.productId;
-
-      if (this.productId === undefined) {
-          this.productIdIsLoaded = false;
-      } else {
-        this.productIdIsLoaded = true;
-      }
-      
-    });
-
     this.defineForm = new FormGroup({
+      productId: new FormControl(null, [Validators.required]),
       rate: new FormControl(null, [Validators.required])
     });
   }
@@ -59,7 +46,7 @@ export class DefineCustomerDiscountComponentDialog implements OnInit {
     if (this.defineForm.valid) {
 
       const defineData = new DefineCustomerDiscountModel(
-        this.productId,
+        this.defineForm.controls.productId.value,
         this.defineForm.controls.rate.value,
         this.startDatepickerInput.nativeElement.value,
         this.endDatepickerInput.nativeElement.value,

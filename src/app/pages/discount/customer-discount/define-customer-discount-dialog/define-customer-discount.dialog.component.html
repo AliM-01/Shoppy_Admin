@@ -10,9 +10,13 @@
         
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>کد محصول</mat-label>
-          <input matInput type="number" placeholder="0" [(ngModel)]="productId" required>
+          <input matInput type="number" placeholder="0" formControlName="productId">
         </mat-form-field>
 
+        <p class="text-danger"
+          *ngIf="defineForm.controls.productId.errors?.required && defineForm.controls.productId.touched">
+        لطفا کد محصول را وارد نمایید
+        </p>
       </div>
 
       <div class="col-md-12">
