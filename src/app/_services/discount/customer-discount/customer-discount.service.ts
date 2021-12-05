@@ -21,6 +21,7 @@ export class CustomerDiscountService {
     if (filter !== null) {
       params = new HttpParams()
         .set('productId', filter.productId.toString())
+        .set('productTitle', filter.productTitle);
     }
 
     return this.http.get<IResponse<FilterCustomerDiscountModel>>(`${environment.discountBaseApiUrl}/customer-discount/filter-discounts`, { params });

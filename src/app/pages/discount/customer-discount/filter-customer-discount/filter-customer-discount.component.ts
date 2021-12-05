@@ -20,11 +20,12 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
   //#region properties
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('filterInput') input: ElementRef;
+  @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
+  @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
   displayedColumns: string[] = ['id', 'product', 'description', 'rate', 'startDate',
      'endDate', 'state', 'commands'];
   dataSource: CustomerDiscountDataSource;
-  filterCustomerDiscounts: FilterCustomerDiscountModel = new FilterCustomerDiscountModel(0, []);
+  filterCustomerDiscounts: FilterCustomerDiscountModel = new FilterCustomerDiscountModel(0, '', []);
 
   //#endregion
 
@@ -106,7 +107,8 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
   //#region loadCustomerDiscountsPage
 
   loadCustomerDiscountsPage() {
-    this.filterCustomerDiscounts = new FilterCustomerDiscountModel(this.input.nativeElement.value, []);
+    this.filterCustomerDiscounts = new FilterCustomerDiscountModel(this.filterProductIdInput.nativeElement.value,
+      this.filterProductTitleInput.nativeElement.value, []);
     this.dataSource.loadCustomerDiscounts(this.filterCustomerDiscounts);
   }
 

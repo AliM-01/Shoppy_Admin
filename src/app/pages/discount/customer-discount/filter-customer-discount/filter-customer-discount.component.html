@@ -10,9 +10,15 @@
                 <div>
 
                     <mat-form-field appearance="fill">
+                        <mat-label>عنوان محصول</mat-label>
+                        <input type="text" matInput #filterProductTitleInput />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="mr-4">
                         <mat-label>کد محصول</mat-label>
-                        <input type="number" matInput #filterInput />
-                      </mat-form-field>
+                        <input type="number" matInput #filterProductIdInput />
+                    </mat-form-field>
+    
                 </div>
 
                 <div>
