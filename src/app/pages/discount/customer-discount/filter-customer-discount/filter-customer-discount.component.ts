@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
 import { CustomerDiscountDataSource } from '@app_models/discount/customer-discount/customer-discount-data-source';
-import { DefineCustomerDiscountComponent } from '../create-customer-discount/define-customer-discount.component';
+import { DefineCustomerDiscountComponentDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog.component';
 
 @Component({
   selector: 'app-filter-customer-discount',
@@ -55,7 +55,18 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    fromEvent(this.input.nativeElement, 'keyup')
+    fromEvent(this.filterProductIdInput.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadCustomerDiscountsPage();
+        })
+      )
+      .subscribe();
+
+    fromEvent(this.filterProductTitleInput.nativeElement, 'keyup')
       .pipe(
         debounceTime(150),
         distinctUntilChanged(),
@@ -78,7 +89,7 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
   //#region openCreateDialog
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(DefineCustomerDiscountComponent, {
+    const dialogRef = this.dialog.open(DefineCustomerDiscountComponentDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {

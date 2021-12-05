@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
@@ -9,26 +10,39 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-define-customer-discount',
-  templateUrl: './define-customer-discount.component.html'
+  templateUrl: './define-customer-discount.dialog.component.html'
 })
-export class DefineCustomerDiscountComponent implements OnInit {
+export class DefineCustomerDiscountComponentDialog implements OnInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
-  productId: number = 9;
+  productId: number = 0;
+  productIdIsLoaded: boolean = false;
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
   
   constructor(
-    public dialogRef: MatDialogRef<DefineCustomerDiscountComponent>,
+    public dialogRef: MatDialogRef<DefineCustomerDiscountComponentDialog>,
     private customerDiscountService: CustomerDiscountService,
     private ckeditorService: CkeditorService,
+    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
 
     this.ckeditorService.initCkeditor();
+
+    this.activatedRoute.params.subscribe(params => {
+      this.productId = params.productId;
+
+      if (this.productId === undefined) {
+          this.productIdIsLoaded = false;
+      } else {
+        this.productIdIsLoaded = true;
+      }
+      
+    });
 
     this.defineForm = new FormGroup({
       rate: new FormControl(null, [Validators.required])

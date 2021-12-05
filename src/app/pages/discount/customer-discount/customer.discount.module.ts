@@ -7,20 +7,22 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '@app_components/components.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { CustomerDiscountRoutingModule } from './customer.discount.routing.module';
 import { FilterCustomerDiscountComponent } from './filter-customer-discount/filter-customer-discount.component';
-import { DefineCustomerDiscountComponent } from './create-customer-discount/define-customer-discount.component';
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import { DefineCustomerDiscountComponentDialog } from './define-customer-discount-dialog/define-customer-discount.dialog.component';
+import { DefineCustomerDiscountComponent } from './define-customer-discount/define-customer-discount.component';
 
 @NgModule({
   declarations: [
     FilterCustomerDiscountComponent,
-    DefineCustomerDiscountComponent
+    DefineCustomerDiscountComponent,
+    DefineCustomerDiscountComponentDialog
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
     ReactiveFormsModule,
     CustomerDiscountRoutingModule,
     ComponentsModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
