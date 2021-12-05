@@ -16,6 +16,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CreateSliderComponent } from './create-slider/create-slider.component';
 import { EditSliderComponent } from './edit-slider/edit-slider.component';
 import { SliderService } from '@app_services/shop/slider/slider.service';
+import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SliderService } from '@app_services/shop/slider/slider.service';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    DirectivesModule
   ],
   exports: [
     SliderListComponent

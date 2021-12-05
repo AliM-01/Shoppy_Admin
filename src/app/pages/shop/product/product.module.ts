@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio'; 
 import { ProductPictureComponent } from './product-picture/product-picture.component';
 import { ProductService } from '@app_services/shop/product/product.service';
+import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProductService } from '@app_services/shop/product/product.service';
     MatRadioModule,
     MatButtonModule,
     MatSelectModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    DirectivesModule
   ],
   exports: [
     FilterProductComponent,

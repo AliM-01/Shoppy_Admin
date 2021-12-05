@@ -17,6 +17,7 @@ import { FilterCustomerDiscountComponent } from './filter-customer-discount/filt
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { DefineCustomerDiscountComponentDialog } from './define-customer-discount-dialog/define-customer-discount.dialog.component';
 import { DefineCustomerDiscountComponent } from './define-customer-discount/define-customer-discount.component';
+import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DefineCustomerDiscountComponent } from './define-customer-discount/defi
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
+    DirectivesModule,
     ToastrModule.forRoot(),
     NgPersianDatepickerModule
   ],

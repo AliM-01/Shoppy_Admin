@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { EditProductCategoryComponent } from './edit-product-category/edit-product-category.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
+import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ProductCategoryService } from '@app_services/shop/product-category/prod
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    DirectivesModule
   ],
   exports: [
     FilterProductCategoryComponent,
