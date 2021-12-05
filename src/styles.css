@@ -58,13 +58,6 @@ td {
     max-width: 650px;
     width: 100%;
 }
-
-.spinner-container {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
 .mat-paginator {
     display: flex;
     align-items: center;
