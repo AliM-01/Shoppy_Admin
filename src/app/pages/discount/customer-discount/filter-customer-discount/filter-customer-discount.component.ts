@@ -9,6 +9,7 @@ import { CustomerDiscountService } from '@app_services/discount/customer-discoun
 import { FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
 import { CustomerDiscountDataSource } from '@app_models/discount/customer-discount/customer-discount-data-source';
 import { DefineCustomerDiscountComponentDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-filter-customer-discount',
@@ -20,7 +21,7 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
   displayedColumns: string[] = ['id', 'product', 'description', 'rate', 'startDate',
-     'endDate', 'state', 'commands'];
+    'endDate', 'state', 'commands'];
   dataSource: CustomerDiscountDataSource;
   filterCustomerDiscounts: FilterCustomerDiscountModel = new FilterCustomerDiscountModel(0, '', []);
 
@@ -29,7 +30,7 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private customerDiscountService: CustomerDiscountService,
     private toastr: ToastrService
-  ) { 
+  ) {
     this.pageTitle.setTitle('مدیریت تخفیفات محصولات');
   }
 
@@ -96,30 +97,30 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
     this.dataSource.loadCustomerDiscounts(this.filterCustomerDiscounts);
   }
 
-  // deleteCustomerDiscount(id: number) {
-  //   this.customerDiscountService.deleteCustomerDiscount(id).subscribe((res) => {
-  //     if (res.status === 'success') {
+  deleteCustomerDiscount(id: number) {
+    this.customerDiscountService.deleteCustomerDiscount(id).subscribe((res) => {
+      if (res.status === 'success') {
 
 
-  //       this.ngOnInit();
+        this.ngOnInit();
 
-  //       this.toastr.toastrConfig.tapToDismiss = false;
-  //       this.toastr.toastrConfig.autoDismiss = true;
-  //       this.toastr.toastrConfig.timeOut = 1500;
+        this.toastr.toastrConfig.tapToDismiss = false;
+        this.toastr.toastrConfig.autoDismiss = true;
+        this.toastr.toastrConfig.timeOut = 1500;
 
-  //       this.toastr.success(res.message, 'موفقیت');
-  //     }
-  //   },
-  //     (error) => {
-  //       if (error instanceof HttpErrorResponse) {
-  //         this.toastr.toastrConfig.tapToDismiss = false;
-  //         this.toastr.toastrConfig.autoDismiss = true;
-  //         this.toastr.toastrConfig.timeOut = 2500;
+        this.toastr.success(res.message, 'موفقیت');
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
 
-  //         this.toastr.error(error.error.message, 'خطا');
-  //       }
-  //     }
-  //   );
-  // }
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+  }
 
 }
