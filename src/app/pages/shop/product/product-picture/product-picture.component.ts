@@ -18,8 +18,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ProductPictureComponent implements OnInit {
 
-  //#region properties
-
   productPictures: ProductPictureModel[] = [];
   productPictureBasePath: string = `${environment.productPicutreBaseImagePath}/thumbnail/`;
   productId: number = 0;
@@ -28,10 +26,6 @@ export class ProductPictureComponent implements OnInit {
   imageFileToUpload: any;
   fileUploaded: boolean = false;
   createForm: FormGroup;
-
-  //#endregion
-
-  //#region Ctor
 
   constructor(
     private pageTitle: Title,
@@ -44,10 +38,6 @@ export class ProductPictureComponent implements OnInit {
     this.pageTitle.setTitle('گالری تصاویر محصول');
 
   }
-
-  //#endregion
-
-  //#region ngOnInit
 
   ngOnInit(): void {
 
@@ -97,10 +87,6 @@ export class ProductPictureComponent implements OnInit {
 
   }
 
-  //#endregion
-
-  //#region submitCreateForm
-
   submitCreateForm() {
     if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
       this.fileUploaded = false;
@@ -146,15 +132,10 @@ export class ProductPictureComponent implements OnInit {
 
   }
 
-  //#endregion
-
   getImageFileToUpload(event: any) {
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
   }
-
-
-  //#region deleteProduct
 
   removeProductPicture(id: number) {
     this.productPictureService.removeProductPicture(id).subscribe((res) => {
@@ -181,7 +162,5 @@ export class ProductPictureComponent implements OnInit {
       }
     );
   }
-
-  //#endregion
 
 }

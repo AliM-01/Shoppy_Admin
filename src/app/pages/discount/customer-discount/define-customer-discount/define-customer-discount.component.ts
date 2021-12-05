@@ -7,6 +7,7 @@ import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service'
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { ToastrService } from 'ngx-toastr';
 import {Location} from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-define-customer-discount',
@@ -25,9 +26,12 @@ export class DefineCustomerDiscountComponent implements OnInit {
     private ckeditorService: CkeditorService,
     private activatedRoute: ActivatedRoute,
     private route: Router,
+    private pageTitle: Title,
     private _location: Location,
     private toastr: ToastrService
-  ) { }
+  ) { 
+    this.pageTitle.setTitle('تعریف تخفیف محصول');
+  }
 
   ngOnInit(): void {
 

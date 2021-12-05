@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
 import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';

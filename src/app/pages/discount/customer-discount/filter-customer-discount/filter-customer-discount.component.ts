@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
