@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CursorPointerDirective } from './cursor-pointer/cursor-pointer.directive';
-import { DivCnterContentBetweenDirective } from './div-center-content-between/div-center-content-between.directive';
+import { DivCenterContentBetweenDirective } from './div-center-content-between/div-center-content-between.directive';
 import { CommonModule } from '@angular/common';
+import { DivCenterDirective } from './div-center/div-center.directive';
 
 @NgModule({
   declarations: [
     CursorPointerDirective,
-    DivCnterContentBetweenDirective],
+    DivCenterContentBetweenDirective,
+    DivCenterDirective
+  ],
   imports: [CommonModule],
   exports: [
     CursorPointerDirective,
-    DivCnterContentBetweenDirective
+    DivCenterContentBetweenDirective,
+    DivCenterDirective
   ],
   schemas: []
 })
