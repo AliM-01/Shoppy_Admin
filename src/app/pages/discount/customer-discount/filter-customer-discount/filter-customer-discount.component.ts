@@ -10,6 +10,7 @@ import { FilterCustomerDiscountModel } from '@app_models/discount/customer-disco
 import { CustomerDiscountDataSource } from '@app_models/discount/customer-discount/customer-discount-data-source';
 import { DefineCustomerDiscountComponentDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EditCustomerDiscountComponentDialog } from '../edit-customer-discount-dialog/edit-customer-discount.dialog.component';
 
 @Component({
   selector: 'app-filter-customer-discount',
@@ -79,17 +80,17 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // openEditDialog(id:number): void {
-  //   const dialogRef = this.dialog.open(EditCustomerDiscountComponent, {
-  //     width: '600px',
-  //     height: '700px',
-  //     data: {
-  //       id: id
-  //     }
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openEditDialog(id:number): void {
+    const dialogRef = this.dialog.open(EditCustomerDiscountComponentDialog, {
+      width: '600px',
+      height: '700px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   loadCustomerDiscountsPage() {
     this.filterCustomerDiscounts = new FilterCustomerDiscountModel(this.filterProductIdInput.nativeElement.value,
