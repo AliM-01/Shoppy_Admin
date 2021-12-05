@@ -17,8 +17,6 @@ import { DefineCustomerDiscountComponentDialog } from '../define-customer-discou
 })
 export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
 
-  //#region properties
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
@@ -26,10 +24,6 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
      'endDate', 'state', 'commands'];
   dataSource: CustomerDiscountDataSource;
   filterCustomerDiscounts: FilterCustomerDiscountModel = new FilterCustomerDiscountModel(0, '', []);
-
-  //#endregion
-
-  //#region Ctor
 
   constructor(
     private pageTitle: Title,
@@ -40,18 +34,10 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
     this.pageTitle.setTitle('مدیریت تخفیفات محصولات');
   }
 
-  //#endregion
-
-  //#region ngOnInit
-
   ngOnInit(): void {
     this.dataSource = new CustomerDiscountDataSource(this.customerDiscountService);
     this.dataSource.loadCustomerDiscounts(this.filterCustomerDiscounts);
   }
-
-  //#endregion
-
-  //#region ngAfterViewInit
 
   ngAfterViewInit() {
 
@@ -84,10 +70,6 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  //#endregion
-
-  //#region openCreateDialog
-
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(DefineCustomerDiscountComponentDialog, {
       width: '600px',
@@ -96,10 +78,6 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
       this.ngOnInit();
     });
   }
-
-  //#endregion
-
-  //#region openEditDialog
 
   // openEditDialog(id:number): void {
   //   const dialogRef = this.dialog.open(EditCustomerDiscountComponent, {
@@ -113,19 +91,11 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
   //   });
   // }
 
-  //#endregion
-
-  //#region loadCustomerDiscountsPage
-
   loadCustomerDiscountsPage() {
     this.filterCustomerDiscounts = new FilterCustomerDiscountModel(this.filterProductIdInput.nativeElement.value,
       this.filterProductTitleInput.nativeElement.value, []);
     this.dataSource.loadCustomerDiscounts(this.filterCustomerDiscounts);
   }
-
-  //#endregion
-
-  //#region deleteCustomerDiscount
 
   // deleteCustomerDiscount(id: number) {
   //   this.customerDiscountService.deleteCustomerDiscount(id).subscribe((res) => {
@@ -153,5 +123,4 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
   //   );
   // }
 
-  //#endregion
 }

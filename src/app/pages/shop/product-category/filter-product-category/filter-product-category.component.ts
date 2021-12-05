@@ -18,18 +18,12 @@ import { Title } from '@angular/platform-browser';
 })
 export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
 
-  //#region properties
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount', 'commands'];
   dataSource: ProductCategoryDataSource;
   thumbnailBasePath: string = `${environment.productCategoryBaseImagePath}/thumbnail/`;
   filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', []);
-
-  //#endregion
-
-  //#region Ctor
 
   constructor(
     private pageTitle: Title,
@@ -40,18 +34,10 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
     this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
   }
 
-  //#endregion
-
-  //#region ngOnInit
-
   ngOnInit(): void {
     this.dataSource = new ProductCategoryDataSource(this.productCategoryService);
     this.dataSource.loadProductCategories(this.filterProductCategories);
   }
-
-  //#endregion
-
-  //#region ngAfterViewInit
 
   ngAfterViewInit() {
 
@@ -73,10 +59,6 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  //#endregion
-
-  //#region openCreateDialog
-
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
       width: '600px',
@@ -85,10 +67,6 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
       this.ngOnInit();
     });
   }
-
-  //#endregion
-
-  //#region openEditDialog
 
   openEditDialog(id:number): void {
     const dialogRef = this.dialog.open(EditProductCategoryComponent, {
@@ -102,18 +80,10 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  //#endregion
-
-  //#region loadProductCategoriesPage
-
   loadProductCategoriesPage() {
     this.filterProductCategories = new FilterProductCategoryModel(this.input.nativeElement.value, []);
     this.dataSource.loadProductCategories(this.filterProductCategories);
   }
-
-  //#endregion
-
-  //#region deleteProductCategory
 
   deleteProductCategory(id: number) {
     this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
@@ -141,5 +111,4 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  //#endregion
 }

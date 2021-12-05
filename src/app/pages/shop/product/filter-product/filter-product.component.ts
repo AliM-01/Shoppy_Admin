@@ -18,8 +18,6 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
 })
 export class FilterProductComponent implements OnInit, AfterViewInit {
 
-  //#region properties
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;
   @ViewChild('filterCategoryInput') categoryInput: ElementRef;
@@ -27,10 +25,6 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
   dataSource: ProductDataSource;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
   filterProducts: FilterProductModel = new FilterProductModel('', '', []);
-
-  //#endregion
-
-  //#region Ctor
 
   constructor(
     private pageTitle: Title,
@@ -41,18 +35,10 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
     this.pageTitle.setTitle('مدیریت محصولات');
   }
 
-  //#endregion
-
-  //#region ngOnInit
-
   ngOnInit(): void {
     this.dataSource = new ProductDataSource(this.productService);
     this.dataSource.loadProducts(this.filterProducts);
   }
-
-  //#endregion
-
-  //#region ngAfterViewInit
 
   ngAfterViewInit() {
 
@@ -91,10 +77,6 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  //#endregion
-
-  //#region openCreateDialog
-
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProductComponent, {
       width: '600px',
@@ -103,10 +85,6 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
       this.ngOnInit();
     });
   }
-
-  //#endregion
-
-  //#region openEditDialog
 
   openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditProductComponent, {
@@ -120,18 +98,10 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
     });
   }
 
-  //#endregion
-
-  //#region loadProductCategoriesPage
-
   loadProductCategoriesPage() {
     this.filterProducts = new FilterProductModel(this.input.nativeElement.value, this.categoryInput.nativeElement.value, []);
     this.dataSource.loadProducts(this.filterProducts);
   }
-
-  //#endregion
-
-  //#region deleteProduct
 
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe((res) => {
@@ -159,10 +129,6 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
     );
   }
 
-  //#endregion
-
-  //#region updateProductIsInStock
-
   updateProductIsInStock(id: number) {
     this.productService.updateProductIsInStock(id).subscribe((res) => {
       if (res.status === 'success') {
@@ -188,10 +154,6 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-  //#endregion
-
-  //#region updateProductNotInStock
 
   updateProductNotInStock(id: number) {
     this.productService.updateProductNotInStock(id).subscribe((res) => {
@@ -219,5 +181,4 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
     );
   }
 
-  //#endregion
 }

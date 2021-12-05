@@ -17,16 +17,10 @@ import { EditSliderComponent } from '../edit-slider/edit-slider.component';
 })
 export class SliderListComponent implements OnInit, AfterViewInit {
 
-  //#region properties
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'heading', 'text', 'state', 'creationDate', 'commands'];
   dataSource: SliderDataSource;
   thumbnailBasePath: string = `${environment.sliderBaseImagePath}/thumbnail/`;
-
-  //#endregion
-
-  //#region Ctor
 
   constructor(
     private pageTitle: Title,
@@ -36,19 +30,11 @@ export class SliderListComponent implements OnInit, AfterViewInit {
   ) {
     this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
   }
-
-  //#endregion
-
-  //#region ngOnInit
-
+  
   ngOnInit(): void {
     this.dataSource = new SliderDataSource(this.sliderService);
     this.dataSource.loadSliders();
   }
-
-  //#endregion
-
-  //#region ngAfterViewInit
 
   ngAfterViewInit() {
 
@@ -60,10 +46,6 @@ export class SliderListComponent implements OnInit, AfterViewInit {
 
   }
 
-  //#endregion
-
-  //#region openCreateDialog
-
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateSliderComponent, {
       width: '600px',
@@ -72,10 +54,6 @@ export class SliderListComponent implements OnInit, AfterViewInit {
       this.ngOnInit();
     });
   }
-
-  //#endregion
-
-  //#region openEditDialog
 
   openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditSliderComponent, {
@@ -89,17 +67,9 @@ export class SliderListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  //#endregion
-
-  //#region loadSlidersPage
-
   loadSlidersPage() {
     this.dataSource.loadSliders();
   }
-
-  //#endregion
-
-  //#region removeSlider
 
   removeSlider(id: number) {
     this.sliderService.removeSlider(id).subscribe((res) => {
@@ -127,10 +97,6 @@ export class SliderListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  //#endregion
-
-  //#region restoreSlider
-
   restoreSlider(id: number) {
     this.sliderService.restoreSlider(id).subscribe((res) => {
       if (res.status === 'success') {
@@ -157,5 +123,4 @@ export class SliderListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  //#endregion
 }
