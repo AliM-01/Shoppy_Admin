@@ -50,10 +50,7 @@ Author: Morteza rezaei
 /* ========================================= */
 /*     01) SeenBoard GLOBALS                   */
 /* ========================================= */
-@import url(../../../icons/lineawesome/css/line-awesome.min.css);
 @import url(../../../icons/ionicons/css/ionicons.min.css);
-@import url(../../../icons/themify/css/themify-icons.min.css);
-@import url(../../../icons/meteocons/css/meteocons.min.css);
 
 html {
   font-size: 14px;
