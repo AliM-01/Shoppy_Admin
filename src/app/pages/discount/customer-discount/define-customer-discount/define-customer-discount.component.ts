@@ -43,6 +43,13 @@ export class DefineCustomerDiscountComponent implements OnInit {
       if (this.productId === undefined) {
           this.route.navigate(['/customer-discount']);
       }
+
+      this.customerDiscountService.checkProductHasCustomerDiscount(this.productId).subscribe(res => {
+        if(res.data.existsCustomerDiscount === true){
+          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
+          this.onCloseClick();
+        }
+      });
       
     });
 
