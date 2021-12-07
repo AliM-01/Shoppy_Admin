@@ -61,4 +61,8 @@ export class CustomerDiscountService {
     return this.http.delete<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/delete-customer-discount/${CustomerDiscountId}`);
   }
 
+  checkProductHasCustomerDiscount(productId: number):Observable<IResponse<any>> {
+    return this.http.get<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/check-product-has-customer-discount/${productId}`);
+  }
+
 }
