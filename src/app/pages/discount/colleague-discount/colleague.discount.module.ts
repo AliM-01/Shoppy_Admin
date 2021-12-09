@@ -16,11 +16,13 @@ import { ColleagueDiscountService } from '@app_services/discount/colleague-disco
 import { ColleagueDiscountRoutingModule } from './colleague.discount.routing.module';
 import { FilterColleagueDiscountComponent } from './filter-colleague-discount/filter-colleague-discount.component';
 import { DefineColleagueDiscountComponent } from './define-colleague-discount/define-colleague-discount.component';
+import { EditColleagueDiscountComponent } from './edit-colleague-discount/edit-colleague-discount.component';
 
 @NgModule({
   declarations: [
     FilterColleagueDiscountComponent,
-    DefineColleagueDiscountComponent
+    DefineColleagueDiscountComponent,
+    EditColleagueDiscountComponent
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,7 @@ import { ColleagueDiscountService } from '@app_services/discount/colleague-disco
 import { FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
 import { ColleagueDiscountDataSource } from '@app_models/discount/colleague-discount/colleague-discount-data-source';
 import { DefineColleagueDiscountComponent } from '../define-colleague-discount/define-colleague-discount.component';
+import { EditColleagueDiscountComponent } from '../edit-colleague-discount/edit-colleague-discount.component';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -77,17 +78,17 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // openEditDialog(id:number): void {
-  //   const dialogRef = this.dialog.open(EditColleagueDiscountComponentDialog, {
-  //     width: '600px',
-  //     height: '700px',
-  //     data: {
-  //       id: id
-  //     }
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openEditDialog(id:number): void {
+    const dialogRef = this.dialog.open(EditColleagueDiscountComponent, {
+      width: '600px',
+      height: '700px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   loadColleagueDiscountsPage() {
     this.filterColleagueDiscounts = new FilterColleagueDiscountModel(this.filterProductIdInput.nativeElement.value,
