@@ -96,8 +96,60 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
       this.filterProductTitleInput.nativeElement.value, []);
     this.dataSource.loadColleagueDiscounts(this.filterColleagueDiscounts);
   }
+  
+  removeColleagueDiscount(id: number) {
+    this.ColleagueDiscountService.removeColleagueDiscount(id).subscribe((res) => {
+      if (res.status === 'success') {
 
-   deleteColleagueDiscount(id: number) {
+
+        this.ngOnInit();
+
+        this.toastr.toastrConfig.tapToDismiss = false;
+        this.toastr.toastrConfig.autoDismiss = true;
+        this.toastr.toastrConfig.timeOut = 1500;
+
+        this.toastr.success(res.message, 'موفقیت');
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
+
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+  } 
+
+  restoreColleagueDiscount(id: number) {
+    this.ColleagueDiscountService.restoreColleagueDiscount(id).subscribe((res) => {
+      if (res.status === 'success') {
+
+
+        this.ngOnInit();
+
+        this.toastr.toastrConfig.tapToDismiss = false;
+        this.toastr.toastrConfig.autoDismiss = true;
+        this.toastr.toastrConfig.timeOut = 1500;
+
+        this.toastr.success(res.message, 'موفقیت');
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.toastrConfig.tapToDismiss = false;
+          this.toastr.toastrConfig.autoDismiss = true;
+          this.toastr.toastrConfig.timeOut = 2500;
+
+          this.toastr.error(error.error.message, 'خطا');
+        }
+      }
+    );
+  }
+
+  deleteColleagueDiscount(id: number) {
      this.ColleagueDiscountService.deleteColleagueDiscount(id).subscribe((res) => {
        if (res.status === 'success') {
 
