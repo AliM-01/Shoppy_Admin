@@ -18,9 +18,14 @@
         لطفا کد محصول را وارد نمایید
         </p>
         <p class="text-danger"
+          *ngIf="existsProductId">
+          محصولی با این شناسه وجود ندارد
+        </p>
+        <p class="text-danger"
           *ngIf="existsProductDiscount">
           برای این کد محصول یک تخفیف فعال وجود دارد
         </p>
+        
       </div>
 
       <div class="col-md-12">

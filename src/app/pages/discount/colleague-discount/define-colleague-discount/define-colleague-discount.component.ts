@@ -4,23 +4,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DefineColleagueDiscountModel } from '@app_models/discount/colleague-discount/define-colleague-discount';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
+import { ProductService } from '@app_services/shop/product/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-define-colleague-discount',
-  templateUrl: './define-colleague-discount.component.html'
+  templateUrl: './define-colleague-discount.component.html',
+  providers: [ProductService]
 })
 export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
 
   defineForm: FormGroup;
   existsProductDiscount: boolean = false;
+  existsProductId: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
 
   constructor(
     public dialogRef: MatDialogRef<DefineColleagueDiscountComponent>,
-    private colleagueDiscountService: ColleagueDiscountService,
+    private colleagueDiscountService: ColleagueDiscountService,    
+    private productService: ProductService,
     private toastr: ToastrService
   ) { }
 
@@ -40,7 +44,7 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-          this.checkProductHasColleagueDiscount();
+          this.checkProductId();
         })
       )
       .subscribe();
@@ -52,7 +56,7 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
 
   submitDefineForm() {
 
-    this.checkProductHasColleagueDiscount();
+    this.checkProductId();
 
     if(!this.existsProductDiscount){
 
@@ -102,18 +106,36 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
 
   }
 
-  checkProductHasColleagueDiscount(){
+  checkProductId(){
 
-    if(this.defineForm.controls.productId.value !== null){
-      this.colleagueDiscountService.checkProductHasColleagueDiscount(this.defineForm.controls.productId.value).subscribe(res => {
+    let productId = this.defineForm.controls.productId.value;
+
+    if(productId !== null) {
+
+        this.productService.existsProductId(productId).subscribe(res => {
+
+          if(res.data.exists === false){
+            this.toastr.info("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
+            this.existsProductId = true
+
+          } else {
+
+            this.colleagueDiscountService.checkProductHasColleagueDiscount(productId).subscribe(res => {
+        
+              if(res.data.existsColleagueDiscount === true){
+                this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
+                this.existsProductDiscount = true
+              }
+        
+            });
       
-        if(res.data.existsColleagueDiscount === true){
-          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
-          this.existsProductDiscount = true
-        }
-  
-      });
+          }
+
+        })
+
+       
     }
+    this.existsProductId = false;
     this.existsProductDiscount = false;
 
     

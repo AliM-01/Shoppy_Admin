@@ -5,13 +5,15 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
+import { ProductService } from '@app_services/shop/product/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-define-customer-discount',
-  templateUrl: './define-customer-discount.dialog.component.html'
+  templateUrl: './define-customer-discount.dialog.component.html',
+  providers: [ProductService]
 })
 export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewInit {
 
@@ -19,12 +21,14 @@ export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewI
   ckeditorTextValue = null;
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
+  existsProductId: boolean = false;
   existsProductDiscount: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
   
   constructor(
     public dialogRef: MatDialogRef<DefineCustomerDiscountComponentDialog>,
     private customerDiscountService: CustomerDiscountService,
+    private productService: ProductService,
     private ckeditorService: CkeditorService,
     private toastr: ToastrService
   ) { }
@@ -46,7 +50,7 @@ export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewI
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-          this.checkProductHasCustomerDiscount();
+          this.checkProductId();
         })
       )
       .subscribe();
@@ -58,7 +62,8 @@ export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewI
 
   submitDefineForm() {
     this.ckeditorTextValue = this.ckeditorService.getValue();
-    
+    this.checkProductId();
+
     if(!this.existsProductDiscount){
       
       if (this.defineForm.valid) {
@@ -107,20 +112,37 @@ export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewI
 
   }
 
-  checkProductHasCustomerDiscount(){
+  checkProductId(){
 
-    if(this.defineForm.controls.productId.value !== null) {
-      this.customerDiscountService.checkProductHasCustomerDiscount(this.defineForm.controls.productId.value).subscribe(res => {
+    let productId = this.defineForm.controls.productId.value;
+
+    if(productId !== null) {
+
+        this.productService.existsProductId(productId).subscribe(res => {
+
+          if(res.data.exists === false){
+            this.toastr.info("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
+            this.existsProductId = true
+
+          } else {
+
+            this.customerDiscountService.checkProductHasCustomerDiscount(productId).subscribe(res => {
+        
+              if(res.data.existsCustomerDiscount === true){
+                this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
+                this.existsProductDiscount = true
+              }
+        
+            });
       
-        if(res.data.existsCustomerDiscount === true){
-          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
-          this.existsProductDiscount = true
-        }
-  
-      });
-    }
-    this.existsProductDiscount = false;
+          }
 
+        })
+
+       
+    }
+    this.existsProductId = false;
+    this.existsProductDiscount = false;
     
   }
 }
