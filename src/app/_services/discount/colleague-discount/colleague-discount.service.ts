@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse } from '@app/_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { DefineColleagueDiscountModel, EditColleagueDiscountModel, FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
+import { CheckProductHasColleagueDiscountResponseModel, DefineColleagueDiscountModel, EditColleagueDiscountModel, FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
 
 @Injectable({
   providedIn: 'platform'
@@ -63,8 +63,8 @@ export class ColleagueDiscountService {
     return this.http.delete<IResponse<any>>(`${environment.discountBaseApiUrl}/colleague-discount/delete/${ColleagueDiscountId}`);
   }
 
-  checkProductHasColleagueDiscount(productId: number):Observable<IResponse<any>> {
-    return this.http.get<IResponse<any>>(`${environment.discountBaseApiUrl}/colleague-discount/check-product-has-discount/${productId}`);
+  checkProductHasColleagueDiscount(productId: number):Observable<IResponse<CheckProductHasColleagueDiscountResponseModel>> {
+    return this.http.get<IResponse<CheckProductHasColleagueDiscountResponseModel>>(`${environment.discountBaseApiUrl}/colleague-discount/check-product-has-discount/${productId}`);
   }
 
 }
