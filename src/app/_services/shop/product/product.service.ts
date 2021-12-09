@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
-import { CreateProductModel, EditProductModel, FilterProductModel } from '@app_models/shop/product/_index';
+import { CreateProductModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel } from '@app_models/shop/product/_index';
 
 @Injectable({
   providedIn: 'platform'
@@ -25,7 +25,11 @@ export class ProductService {
 
     return this.http.get<IResponse<FilterProductModel>>(`${environment.shopBaseApiUrl}/product/filter`, { params });
   }
-  
+
+  existsProductId(id: number): Observable<IResponse<ExistsProductIdResponseModel>> {
+    return this.http.get<IResponse<ExistsProductIdResponseModel>>(`${environment.shopBaseApiUrl}/product/exists/${id}`);
+  }
+
   getProductDetails(id: number): Observable<IResponse<EditProductModel>> {
     return this.http.get<IResponse<EditProductModel>>(`${environment.shopBaseApiUrl}/product/${id}`);
   }
