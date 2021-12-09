@@ -1,4 +1,4 @@
-export class EditCustomerDiscountModel {
+export class EditColleagueDiscountModel {
     constructor(
          public id: number,
          public productId: number,
