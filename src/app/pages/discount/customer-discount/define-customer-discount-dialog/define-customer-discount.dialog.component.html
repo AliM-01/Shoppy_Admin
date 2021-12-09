@@ -10,12 +10,16 @@
         
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>کد محصول</mat-label>
-          <input matInput type="number" placeholder="0" formControlName="productId">
+          <input matInput #productIdInput type="number" placeholder="0" formControlName="productId">
         </mat-form-field>
 
         <p class="text-danger"
           *ngIf="defineForm.controls.productId.errors?.required && defineForm.controls.productId.touched">
         لطفا کد محصول را وارد نمایید
+        </p>
+        <p class="text-danger"
+          *ngIf="existsProductDiscount">
+          برای این کد محصول یک تخفیف فعال وجود دارد
         </p>
       </div>
 

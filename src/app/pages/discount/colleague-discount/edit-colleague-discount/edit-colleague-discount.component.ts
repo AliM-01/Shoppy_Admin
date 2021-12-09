@@ -17,6 +17,7 @@ export class EditColleagueDiscountComponent implements OnInit {
   editForm: FormGroup;
   existsProductDiscount: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
+  unchangedProductId:number = 0;
 
   constructor(
     public dialogRef: MatDialogRef<EditColleagueDiscountComponent>,
@@ -36,8 +37,9 @@ export class EditColleagueDiscountComponent implements OnInit {
       
       if (res.status === 'success') {
 
-        this.editForm.controls.productId.setValue(res.data.productId)
-        this.editForm.controls.rate.setValue(res.data.rate)
+        this.unchangedProductId = res.data.productId;
+        this.editForm.controls.productId.setValue(res.data.productId);
+        this.editForm.controls.rate.setValue(res.data.rate);
 
       }
     },
@@ -116,13 +118,17 @@ export class EditColleagueDiscountComponent implements OnInit {
   }
 
   checkProductHasColleagueDiscount(){
-    this.colleagueDiscountService.checkProductHasColleagueDiscount(this.editForm.controls.productId.value).subscribe(res => {
+    
+    if(this.editForm.controls.productId.value !== this.unchangedProductId){
+      this.colleagueDiscountService.checkProductHasColleagueDiscount(this.editForm.controls.productId.value).subscribe(res => {
       
-      if(res.data.existsColleagueDiscount === true){
-        this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
-        this.existsProductDiscount = true
-      }
-
-    });
+        if(res.data.existsColleagueDiscount === true){
+          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
+          this.existsProductDiscount = true
+        }
+  
+      });
+    }
+    
   }
 }

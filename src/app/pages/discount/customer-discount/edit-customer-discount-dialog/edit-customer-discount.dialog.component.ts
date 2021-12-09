@@ -6,6 +6,8 @@ import { EditCustomerDiscountModel } from '@app_models/discount/customer-discoun
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { ToastrService } from 'ngx-toastr';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-customer-discount',
@@ -17,7 +19,10 @@ export class EditCustomerDiscountComponentDialog implements OnInit {
   ckeditorTextValue = null;
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
-  
+  existsProductDiscount: boolean = false;
+  @ViewChild('productIdInput') productIdInput: ElementRef;
+  unchangedProductId:number = 0;
+
   constructor(
     public dialogRef: MatDialogRef<EditCustomerDiscountComponentDialog>,
     private customerDiscountService: CustomerDiscountService,
@@ -39,6 +44,7 @@ export class EditCustomerDiscountComponentDialog implements OnInit {
       
       if (res.status === 'success') {
 
+        this.unchangedProductId = res.data.productId;
         this.editForm.controls.productId.setValue(res.data.productId)
         this.editForm.controls.rate.setValue(res.data.rate)
         this.startDatepickerInput.nativeElement.value = res.data.startDate;
@@ -62,6 +68,19 @@ export class EditCustomerDiscountComponentDialog implements OnInit {
     );
   }
 
+  ngAfterViewInit() {
+
+    fromEvent(this.productIdInput.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.checkProductHasCustomerDiscount();
+        })
+      )
+      .subscribe();
+  }
+  
   onCloseClick(): void {
     this.dialogRef.close();
   }
@@ -69,47 +88,63 @@ export class EditCustomerDiscountComponentDialog implements OnInit {
   submitEditForm() {
     this.ckeditorTextValue = this.ckeditorService.getValue();
     
-    if (this.editForm.valid) {
+    if(!this.existsProductDiscount){
+      if (this.editForm.valid) {
 
-      const editData = new EditCustomerDiscountModel(
-        this.data.id,
-        this.editForm.controls.productId.value,
-        this.editForm.controls.rate.value,
-        this.startDatepickerInput.nativeElement.value,
-        this.endDatepickerInput.nativeElement.value,
-        this.ckeditorService.getValue(),
-      );
-
-      this.customerDiscountService.editCustomerDiscount(editData).subscribe((res) => {
-        if (res.status === 'success') {
-
-          this.editForm.reset();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 1500;
-
-          this.toastr.success(res.message, 'موفقیت');
-
-          this.onCloseClick();
-
-        }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.toastrConfig.tapToDismiss = false;
-            this.toastr.toastrConfig.autoDismiss = true;
-            this.toastr.toastrConfig.timeOut = 2500;
-
-            this.toastr.error(error.error.message, 'خطا');
+        const editData = new EditCustomerDiscountModel(
+          this.data.id,
+          this.editForm.controls.productId.value,
+          this.editForm.controls.rate.value,
+          this.startDatepickerInput.nativeElement.value,
+          this.endDatepickerInput.nativeElement.value,
+          this.ckeditorService.getValue(),
+        );
+  
+        this.customerDiscountService.editCustomerDiscount(editData).subscribe((res) => {
+          if (res.status === 'success') {
+  
+            this.editForm.reset();
+  
+            this.toastr.toastrConfig.timeOut = 1500;
+  
+            this.toastr.success(res.message, 'موفقیت');
+  
+            this.onCloseClick();
+  
           }
+        },
+          (error) => {
+            if (error instanceof HttpErrorResponse) {
+              this.toastr.toastrConfig.timeOut = 2500;
+  
+              this.toastr.error(error.error.message, 'خطا');
+            }
+          }
+        );
+  
+  
+      } else {
+        this.editForm.markAllAsTouched();
+      }
+    }
+    
+
+  }
+  checkProductHasCustomerDiscount(){
+
+    if(this.editForm.controls.productId.value !== this.unchangedProductId){
+
+      this.customerDiscountService.checkProductHasCustomerDiscount(this.editForm.controls.productId.value).subscribe(res => {
+      
+        if(res.data.existsCustomerDiscount === true){
+          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
+          this.existsProductDiscount = true
         }
-      );
+  
+      });
 
-
-    } else {
-      this.editForm.markAllAsTouched();
     }
 
+    
   }
 }

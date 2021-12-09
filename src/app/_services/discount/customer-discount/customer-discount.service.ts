@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse } from '@app/_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { DefineCustomerDiscountModel, EditCustomerDiscountModel, FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
+import { CheckProductHasCustomerDiscountResponseModel, DefineCustomerDiscountModel, EditCustomerDiscountModel, FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
 
 @Injectable({
   providedIn: 'platform'
@@ -61,8 +61,8 @@ export class CustomerDiscountService {
     return this.http.delete<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/remove/${CustomerDiscountId}`);
   }
 
-  checkProductHasCustomerDiscount(productId: number):Observable<IResponse<any>> {
-    return this.http.get<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/check-product-has-discount/${productId}`);
+  checkProductHasCustomerDiscount(productId: number):Observable<IResponse<CheckProductHasCustomerDiscountResponseModel>> {
+    return this.http.get<IResponse<CheckProductHasCustomerDiscountResponseModel>>(`${environment.discountBaseApiUrl}/customer-discount/check-product-has-discount/${productId}`);
   }
 
 }

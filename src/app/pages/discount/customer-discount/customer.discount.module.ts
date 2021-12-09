@@ -42,7 +42,10 @@ import { EditCustomerDiscountComponentDialog } from './edit-customer-discount-di
     MatProgressSpinnerModule,
     MatButtonModule,
     DirectivesModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      tapToDismiss: false,
+      autoDismiss: true
+    }),
     NgPersianDatepickerModule
   ],
   exports: [FilterCustomerDiscountComponent],
