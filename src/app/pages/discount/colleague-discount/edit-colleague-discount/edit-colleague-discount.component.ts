@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditColleagueDiscountModel } from '@app_models/discount/colleague-discount/edit-colleague-discount';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { ToastrService } from 'ngx-toastr';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-colleague-discount',
@@ -13,10 +15,12 @@ import { ToastrService } from 'ngx-toastr';
 export class EditColleagueDiscountComponent implements OnInit {
 
   editForm: FormGroup;
-  
+  existsProductDiscount: boolean = false;
+  @ViewChild('productIdInput') productIdInput: ElementRef;
+
   constructor(
     public dialogRef: MatDialogRef<EditColleagueDiscountComponent>,
-    private ColleagueDiscountService: ColleagueDiscountService,
+    private colleagueDiscountService: ColleagueDiscountService,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
     private toastr: ToastrService
   ) { }
@@ -28,7 +32,7 @@ export class EditColleagueDiscountComponent implements OnInit {
       rate: new FormControl(null, [Validators.required])
     });
 
-    this.ColleagueDiscountService.getColleagueDiscountDetails(this.data.id).subscribe((res) => {
+    this.colleagueDiscountService.getColleagueDiscountDetails(this.data.id).subscribe((res) => {
       
       if (res.status === 'success') {
 
@@ -51,6 +55,19 @@ export class EditColleagueDiscountComponent implements OnInit {
     );
   }
 
+  ngAfterViewInit() {
+
+    fromEvent(this.productIdInput.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.checkProductHasColleagueDiscount();
+        })
+      )
+      .subscribe();
+  }
+  
   onCloseClick(): void {
     this.dialogRef.close();
   }
@@ -65,7 +82,7 @@ export class EditColleagueDiscountComponent implements OnInit {
         this.editForm.controls.rate.value
       );
 
-      this.ColleagueDiscountService.editColleagueDiscount(editData).subscribe((res) => {
+      this.colleagueDiscountService.editColleagueDiscount(editData).subscribe((res) => {
         if (res.status === 'success') {
 
           this.editForm.reset();
@@ -96,5 +113,16 @@ export class EditColleagueDiscountComponent implements OnInit {
       this.editForm.markAllAsTouched();
     }
 
+  }
+
+  checkProductHasColleagueDiscount(){
+    this.colleagueDiscountService.checkProductHasColleagueDiscount(this.editForm.controls.productId.value).subscribe(res => {
+      
+      if(res.data.existsColleagueDiscount === true){
+        this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
+        this.existsProductDiscount = true
+      }
+
+    });
   }
 }
