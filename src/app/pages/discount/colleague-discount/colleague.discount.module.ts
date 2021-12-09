@@ -14,9 +14,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DirectivesModule } from '@app_directives/directives.module';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { ColleagueDiscountRoutingModule } from './colleague.discount.routing.module';
+import { FilterColleagueDiscountComponent } from './filter-colleague-discount/filter-colleague-discount.component';
 
 @NgModule({
   declarations: [
+    FilterColleagueDiscountComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,7 @@ import { ColleagueDiscountRoutingModule } from './colleague.discount.routing.mod
     DirectivesModule,
     ToastrModule.forRoot()
   ],
-  exports: [],
+  exports: [FilterColleagueDiscountComponent],
   schemas: [],
   providers: [ColleagueDiscountService]
 })
