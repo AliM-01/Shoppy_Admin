@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'customer-discount',
     loadChildren: () => import('./pages/discount/customer-discount/customer.discount.module').then(m => m.CustomerDiscountModule)
   },
+  {
+    path: 'colleague-discount',
+    loadChildren: () => import('./pages/discount/colleague-discount/colleague.discount.module').then(m => m.ColleagueDiscountModule)
+  },
 ];
 
 @NgModule({

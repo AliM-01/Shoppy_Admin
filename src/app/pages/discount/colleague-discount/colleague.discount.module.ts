@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { DirectivesModule } from '@app_directives/directives.module';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
+import { ColleagueDiscountRoutingModule } from './colleague.discount.routing.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ColleagueDiscountService } from '@app_services/discount/colleague-disco
     ReactiveFormsModule,
     ComponentsModule,
     FormsModule,
+    ColleagueDiscountRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
