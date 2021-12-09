@@ -24,7 +24,7 @@ export class CustomerDiscountService {
         .set('productTitle', filter.productTitle);
     }
 
-    return this.http.get<IResponse<FilterCustomerDiscountModel>>(`${environment.discountBaseApiUrl}/customer-discount/filter-discounts`, { params });
+    return this.http.get<IResponse<FilterCustomerDiscountModel>>(`${environment.discountBaseApiUrl}/customer-discount/filter`, { params });
   }
 
   getCustomerDiscountDetails(id: number): Observable<IResponse<EditCustomerDiscountModel>> {
@@ -41,7 +41,7 @@ export class CustomerDiscountService {
     formData.append('endDate', createData.endDate);
     formData.append('description', createData.description);
     
-    return this.http.post<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/define-customer-discount`, formData);
+    return this.http.post<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/define`, formData);
   }
 
   editCustomerDiscount(editData: EditCustomerDiscountModel):Observable<IResponse<any>> {
@@ -54,15 +54,15 @@ export class CustomerDiscountService {
     formData.append('endDate', editData.endDate);
     formData.append('description', editData.description);
     
-    return this.http.put<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/edit-customer-discount`, formData);
+    return this.http.put<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/edit`, formData);
   }
 
   deleteCustomerDiscount(CustomerDiscountId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/delete-customer-discount/${CustomerDiscountId}`);
+    return this.http.delete<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/remove/${CustomerDiscountId}`);
   }
 
   checkProductHasCustomerDiscount(productId: number):Observable<IResponse<any>> {
-    return this.http.get<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/check-product-has-customer-discount/${productId}`);
+    return this.http.get<IResponse<any>>(`${environment.discountBaseApiUrl}/customer-discount/check-product-has-discount/${productId}`);
   }
 
 }

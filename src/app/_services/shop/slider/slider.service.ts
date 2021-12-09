@@ -33,7 +33,7 @@ export class SliderService {
     formData.append('btnLink', createData.btnLink);
     formData.append('btnText', createData.btnText);
     
-    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/create-slider`, formData);
+    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/create`, formData);
   }
 
   editSlider(editData: EditSliderModel):Observable<IResponse<any>> {
@@ -52,14 +52,14 @@ export class SliderService {
     formData.append('btnLink', editData.btnLink);
     formData.append('btnText', editData.btnText);
     
-    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/edit-slider`, formData);
+    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/edit`, formData);
   }
 
   removeSlider(sliderId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/remove-slider/${sliderId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/remove/${sliderId}`);
   }
 
   restoreSlider(sliderId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/restore-slider/${sliderId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/slider/restore/${sliderId}`);
   }
 }

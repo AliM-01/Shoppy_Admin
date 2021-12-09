@@ -24,7 +24,7 @@ export class ProductCategoryService {
         .set('Title', filter.title)
     }
 
-    return this.http.get<IResponse<FilterProductCategoryModel>>(`${environment.shopBaseApiUrl}/product-category/filter-product-categories`, { params });
+    return this.http.get<IResponse<FilterProductCategoryModel>>(`${environment.shopBaseApiUrl}/product-category/filter`, { params });
   }
 
   getProductCategoriesList(): Observable<IResponse<ProductCategoryForSelectListModel[]>> {
@@ -47,7 +47,7 @@ export class ProductCategoryService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
     
-    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/product-category/create-product-category`, formData);
+    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/product-category/create`, formData);
   }
 
   editProductCategory(editData: EditProductCategoryModel):Observable<IResponse<any>> {
@@ -66,11 +66,11 @@ export class ProductCategoryService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
     
-    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/product-category/edit-product-category`, formData);
+    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/product-category/edit`, formData);
   }
 
   deleteProductCategory(productCategoryId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product-category/delete-product-category/${productCategoryId}`);
+    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product-category/delete/${productCategoryId}`);
   }
 
 }
