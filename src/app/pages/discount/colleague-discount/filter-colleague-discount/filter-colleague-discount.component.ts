@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
 import { ColleagueDiscountDataSource } from '@app_models/discount/colleague-discount/colleague-discount-data-source';
+import { DefineColleagueDiscountComponent } from '../define-colleague-discount/define-colleague-discount.component';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -67,14 +68,14 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  // openCreateDialog(): void {
-  //   const dialogRef = this.dialog.open(DefineColleagueDiscountComponentDialog, {
-  //     width: '600px',
-  //     height: '700px'
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(DefineColleagueDiscountComponent, {
+      width: '600px',
+      height: '700px'
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   // openEditDialog(id:number): void {
   //   const dialogRef = this.dialog.open(EditColleagueDiscountComponentDialog, {

@@ -15,10 +15,12 @@ import { DirectivesModule } from '@app_directives/directives.module';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { ColleagueDiscountRoutingModule } from './colleague.discount.routing.module';
 import { FilterColleagueDiscountComponent } from './filter-colleague-discount/filter-colleague-discount.component';
+import { DefineColleagueDiscountComponent } from './define-colleague-discount/define-colleague-discount.component';
 
 @NgModule({
   declarations: [
-    FilterColleagueDiscountComponent
+    FilterColleagueDiscountComponent,
+    DefineColleagueDiscountComponent
   ],
   imports: [
     CommonModule,
