@@ -37,7 +37,6 @@ import { DirectivesModule } from '@app_directives/directives.module';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    ToastrModule.forRoot(),
     DirectivesModule
   ],
   exports: [

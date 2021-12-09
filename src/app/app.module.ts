@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { IndexModule } from '@app/pages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,11 @@ import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service'
     AppRoutingModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    IndexModule
+    IndexModule,
+    ToastrModule.forRoot({
+      tapToDismiss: false,
+      autoDismiss: true
+    }),
   ],
   providers: [
     CkeditorService

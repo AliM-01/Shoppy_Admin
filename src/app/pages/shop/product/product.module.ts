@@ -43,7 +43,6 @@ import { DirectivesModule } from '@app_directives/directives.module';
     MatRadioModule,
     MatButtonModule,
     MatSelectModule,
-    ToastrModule.forRoot(),
     DirectivesModule
   ],
   exports: [

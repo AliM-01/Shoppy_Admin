@@ -38,8 +38,7 @@ import { EditColleagueDiscountComponent } from './edit-colleague-discount/edit-c
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    DirectivesModule,
-    ToastrModule.forRoot()
+    DirectivesModule
   ],
   exports: [FilterColleagueDiscountComponent],
   schemas: [],
