@@ -10,6 +10,7 @@ import { FilterColleagueDiscountModel } from '@app_models/discount/colleague-dis
 import { ColleagueDiscountDataSource } from '@app_models/discount/colleague-discount/colleague-discount-data-source';
 import { DefineColleagueDiscountComponent } from '../define-colleague-discount/define-colleague-discount.component';
 import { EditColleagueDiscountComponent } from '../edit-colleague-discount/edit-colleague-discount.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -96,30 +97,30 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
     this.dataSource.loadColleagueDiscounts(this.filterColleagueDiscounts);
   }
 
-  // deleteColleagueDiscount(id: number) {
-  //   this.ColleagueDiscountService.deleteColleagueDiscount(id).subscribe((res) => {
-  //     if (res.status === 'success') {
+   deleteColleagueDiscount(id: number) {
+     this.ColleagueDiscountService.deleteColleagueDiscount(id).subscribe((res) => {
+       if (res.status === 'success') {
 
 
-  //       this.ngOnInit();
+         this.ngOnInit();
 
-  //       this.toastr.toastrConfig.tapToDismiss = false;
-  //       this.toastr.toastrConfig.autoDismiss = true;
-  //       this.toastr.toastrConfig.timeOut = 1500;
+         this.toastr.toastrConfig.tapToDismiss = false;
+         this.toastr.toastrConfig.autoDismiss = true;
+         this.toastr.toastrConfig.timeOut = 1500;
 
-  //       this.toastr.success(res.message, 'موفقیت');
-  //     }
-  //   },
-  //     (error) => {
-  //       if (error instanceof HttpErrorResponse) {
-  //         this.toastr.toastrConfig.tapToDismiss = false;
-  //         this.toastr.toastrConfig.autoDismiss = true;
-  //         this.toastr.toastrConfig.timeOut = 2500;
+         this.toastr.success(res.message, 'موفقیت');
+       }
+     },
+       (error) => {
+         if (error instanceof HttpErrorResponse) {
+           this.toastr.toastrConfig.tapToDismiss = false;
+           this.toastr.toastrConfig.autoDismiss = true;
+           this.toastr.toastrConfig.timeOut = 2500;
 
-  //         this.toastr.error(error.error.message, 'خطا');
-  //       }
-  //     }
-  //   );
-  // }
+           this.toastr.error(error.error.message, 'خطا');
+         }
+       }
+     );
+   }
 
 }
