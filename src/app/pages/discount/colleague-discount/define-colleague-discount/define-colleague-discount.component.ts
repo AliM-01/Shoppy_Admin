@@ -103,13 +103,19 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
   }
 
   checkProductHasColleagueDiscount(){
-    this.colleagueDiscountService.checkProductHasColleagueDiscount(this.defineForm.controls.productId.value).subscribe(res => {
-      
-      if(res.data.existsColleagueDiscount === true){
-        this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
-        this.existsProductDiscount = true
-      }
 
-    });
+    if(this.defineForm.controls.productId.value !== null){
+      this.colleagueDiscountService.checkProductHasColleagueDiscount(this.defineForm.controls.productId.value).subscribe(res => {
+      
+        if(res.data.existsColleagueDiscount === true){
+          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
+          this.existsProductDiscount = true
+        }
+  
+      });
+    }
+    this.existsProductDiscount = false;
+
+    
   }
 }

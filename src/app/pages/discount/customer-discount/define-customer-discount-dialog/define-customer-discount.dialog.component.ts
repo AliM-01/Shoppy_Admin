@@ -108,13 +108,19 @@ export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewI
   }
 
   checkProductHasCustomerDiscount(){
-    this.customerDiscountService.checkProductHasCustomerDiscount(this.defineForm.controls.productId.value).subscribe(res => {
-      
-      if(res.data.existsCustomerDiscount === true){
-        this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
-        this.existsProductDiscount = true
-      }
 
-    });
+    if(this.defineForm.controls.productId.value !== null) {
+      this.customerDiscountService.checkProductHasCustomerDiscount(this.defineForm.controls.productId.value).subscribe(res => {
+      
+        if(res.data.existsCustomerDiscount === true){
+          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
+          this.existsProductDiscount = true
+        }
+  
+      });
+    }
+    this.existsProductDiscount = false;
+
+    
   }
 }

@@ -132,19 +132,21 @@ export class EditCustomerDiscountComponentDialog implements OnInit {
   }
   checkProductHasCustomerDiscount(){
 
-    if(this.editForm.controls.productId.value !== this.unchangedProductId){
+    if(this.editForm.controls.productId.value !== null) {
+      if(this.editForm.controls.productId.value !== this.unchangedProductId){
 
-      this.customerDiscountService.checkProductHasCustomerDiscount(this.editForm.controls.productId.value).subscribe(res => {
-      
-        if(res.data.existsCustomerDiscount === true){
-          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
-          this.existsProductDiscount = true
-        }
+        this.customerDiscountService.checkProductHasCustomerDiscount(this.editForm.controls.productId.value).subscribe(res => {
+        
+          if(res.data.existsCustomerDiscount === true){
+            this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
+            this.existsProductDiscount = true
+          }
+    
+        });
   
-      });
-
+      }
     }
-
+    this.existsProductDiscount = false;
     
   }
 }

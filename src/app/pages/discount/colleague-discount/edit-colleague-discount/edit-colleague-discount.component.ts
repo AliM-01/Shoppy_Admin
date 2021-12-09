@@ -17,12 +17,12 @@ export class EditColleagueDiscountComponent implements OnInit {
   editForm: FormGroup;
   existsProductDiscount: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
-  unchangedProductId:number = 0;
+  unchangedProductId: number = 0;
 
   constructor(
     public dialogRef: MatDialogRef<EditColleagueDiscountComponent>,
     private colleagueDiscountService: ColleagueDiscountService,
-    @Inject(MAT_DIALOG_DATA) public data: {id: number},
+    @Inject(MAT_DIALOG_DATA) public data: { id: number },
     private toastr: ToastrService
   ) { }
 
@@ -34,7 +34,7 @@ export class EditColleagueDiscountComponent implements OnInit {
     });
 
     this.colleagueDiscountService.getColleagueDiscountDetails(this.data.id).subscribe((res) => {
-      
+
       if (res.status === 'success') {
 
         this.unchangedProductId = res.data.productId;
@@ -69,13 +69,13 @@ export class EditColleagueDiscountComponent implements OnInit {
       )
       .subscribe();
   }
-  
+
   onCloseClick(): void {
     this.dialogRef.close();
   }
 
   submitEditForm() {
-    
+
     if (this.editForm.valid) {
 
       const editData = new EditColleagueDiscountModel(
@@ -117,18 +117,21 @@ export class EditColleagueDiscountComponent implements OnInit {
 
   }
 
-  checkProductHasColleagueDiscount(){
-    
-    if(this.editForm.controls.productId.value !== this.unchangedProductId){
-      this.colleagueDiscountService.checkProductHasColleagueDiscount(this.editForm.controls.productId.value).subscribe(res => {
-      
-        if(res.data.existsColleagueDiscount === true){
-          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
-          this.existsProductDiscount = true
-        }
-  
-      });
+  checkProductHasColleagueDiscount() {
+    if (this.editForm.controls.productId.value !== null) {
+      if (this.editForm.controls.productId.value !== this.unchangedProductId) {
+        this.colleagueDiscountService.checkProductHasColleagueDiscount(this.editForm.controls.productId.value).subscribe(res => {
+
+          if (res.data.existsColleagueDiscount === true) {
+            this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
+            this.existsProductDiscount = true
+          }
+
+        });
+      }
     }
-    
+
+    this.existsProductDiscount = false;
+
   }
 }
