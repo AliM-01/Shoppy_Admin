@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
-import { EditInventoryModel, FilterInventoryModel } from '@app_models/inventory/_index';
+import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel } from '@app_models/inventory/_index';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
@@ -28,6 +28,16 @@ export class InventoryService {
 
   getInventoryDetails(id: number): Observable<IResponse<EditInventoryModel>> {
     return this.http.get<IResponse<EditInventoryModel>>(`${environment.inventoryBaseApiUrl}/${id}`);
+  }
+
+  createInventory(createData: CreateInventoryModel):Observable<IResponse<any>> {
+    
+    const formData = new FormData();
+    
+    formData.append('rate', createData.unitPrice.toString());
+    formData.append('productId', createData.productId.toString());
+    
+    return this.http.post<IResponse<any>>(`${environment.inventoryBaseApiUrl}/create`, formData);
   }
 
 }
