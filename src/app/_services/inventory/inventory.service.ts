@@ -59,7 +59,7 @@ export class InventoryService {
     formData.append('count', increaseData.count.toString());
     formData.append('description', increaseData.description.toString());
     
-    return this.http.put<IResponse<any>>(`${environment.inventoryBaseApiUrl}/increase`, formData);
+    return this.http.post<IResponse<any>>(`${environment.inventoryBaseApiUrl}/increase`, formData);
   }
 
   reduceInventory(reduceData: ReduceInventoryModel):Observable<IResponse<any>> {
@@ -72,6 +72,6 @@ export class InventoryService {
     formData.append('count', reduceData.count.toString());
     formData.append('description', reduceData.description.toString());
     
-    return this.http.put<IResponse<any>>(`${environment.inventoryBaseApiUrl}/reduce`, formData);
+    return this.http.post<IResponse<any>>(`${environment.inventoryBaseApiUrl}/reduce`, formData);
   }
 }
