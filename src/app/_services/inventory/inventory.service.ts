@@ -34,10 +34,20 @@ export class InventoryService {
     
     const formData = new FormData();
     
-    formData.append('rate', createData.unitPrice.toString());
+    formData.append('unitPrice', createData.unitPrice.toString());
     formData.append('productId', createData.productId.toString());
     
     return this.http.post<IResponse<any>>(`${environment.inventoryBaseApiUrl}/create`, formData);
   }
 
+  editInventory(editData: EditInventoryModel):Observable<IResponse<any>> {
+    
+    const formData = new FormData();
+    
+    formData.append('id', editData.id.toString());
+    formData.append('unitPrice', editData.unitPrice.toString());
+    formData.append('productId', editData.productId.toString());
+    
+    return this.http.put<IResponse<any>>(`${environment.inventoryBaseApiUrl}/edit`, formData);
+  }
 }
