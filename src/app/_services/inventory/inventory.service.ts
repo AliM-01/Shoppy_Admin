@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
-import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel, IncreaseInventoryModel } from '@app_models/inventory/_index';
+import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel, IncreaseInventoryModel, ReduceInventoryModel } from '@app_models/inventory/_index';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
@@ -60,5 +60,18 @@ export class InventoryService {
     formData.append('description', increaseData.description.toString());
     
     return this.http.put<IResponse<any>>(`${environment.inventoryBaseApiUrl}/increase`, formData);
+  }
+
+  reduceInventory(reduceData: ReduceInventoryModel):Observable<IResponse<any>> {
+    
+    const formData = new FormData();
+    
+    formData.append('inventoryId', reduceData.inventoryId.toString());
+    formData.append('orderId', reduceData.orderId.toString());
+    formData.append('productId', reduceData.productId.toString());
+    formData.append('count', reduceData.count.toString());
+    formData.append('description', reduceData.description.toString());
+    
+    return this.http.put<IResponse<any>>(`${environment.inventoryBaseApiUrl}/reduce`, formData);
   }
 }
