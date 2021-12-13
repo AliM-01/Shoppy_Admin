@@ -1,0 +1,96 @@
+<app-breadcrumb [pageTitle]="'مدیریت تخفیفات مشتریان'"></app-breadcrumb>
+
+<div class="row">
+    <div class="col-xl-12">
+
+        <div class="widget has-shadow">
+            <div class="widget-header bordered no-actions" div-center-content-between>
+
+                <div>
+
+                    <mat-form-field appearance="fill" class="mr-3">
+                        <mat-label>عنوان محصول</mat-label>
+                        <input type="text" matInput #filterProductTitleInput />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="mr-4">
+                        <mat-label>وضعیت</mat-label>
+                        <input type="check" matInput #filterInStockInput />
+                    </mat-form-field>
+
+                </div>
+
+                <div>
+<!--                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button>-->
+                </div>
+
+            </div>
+            <div class="widget-body">
+
+                <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+                    <mat-spinner></mat-spinner>
+                </div>
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> Id </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="product">
+                        <th mat-header-cell *matHeaderCellDef> محصول </th>
+                        <td mat-cell *matCellDef="let element"> {{element.product}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="productId">
+                        <th mat-header-cell *matHeaderCellDef> کد محصول </th>
+                        <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="state">
+                    <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                    <td mat-cell *matCellDef="let element">
+
+                      <p *ngIf="element.inStock" class="text-success">موجود</p>
+
+                      <p *ngIf="!element.inStock" class="text-danger">ناموجود</p>
+
+                    </td>
+                  </ng-container>
+
+                    <ng-container matColumnDef="unitPrice">
+                        <th mat-header-cell *matHeaderCellDef> قیمت </th>
+                        <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+                    </ng-container>
+
+                   <ng-container matColumnDef="currentCount">
+                    <th mat-header-cell *matHeaderCellDef> تعداد موچود </th>
+                    <td mat-cell *matCellDef="let element"> {{element.currentCount}} </td>
+                  </ng-container>
+
+                    <ng-container matColumnDef="commands">
+                      <th mat-header-cell *matHeaderCellDef> دستورات </th>
+                      <td mat-cell *matCellDef="let element">
+<!--                            <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>-->
+
+<!--                            <button *ngIf="element.isActive" mat-raised-button color="warn" -->
+<!--                                (click)="removeColleagueDiscount(element.id)"  class="mat-success ml-2">غیر فعال کردن</button>-->
+<!--                        -->
+<!--                            <button *ngIf="!element.isActive" mat-raised-button color="accent" -->
+<!--                                class="ml-2" (click)="restoreColleagueDiscount(element.id)">فعال کردن</button>-->
+
+<!--                            <button mat-raised-button color="warn" (click)="deleteColleagueDiscount(element.id)">حذف</button>-->
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [length]="dataSource.length" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 15]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>

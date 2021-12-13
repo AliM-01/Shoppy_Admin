@@ -13,9 +13,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DirectivesModule } from '@app_directives/directives.module';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import {InventoryRoutingModule} from "@apppages/inventory/inventory.routing.module";
+import {FilterInventoryComponent} from "@apppages/inventory/filter-inventory/filter-inventory.component";
 
 @NgModule({
   declarations: [
+    FilterInventoryComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,7 @@ import {InventoryRoutingModule} from "@apppages/inventory/inventory.routing.modu
     MatButtonModule,
     DirectivesModule
   ],
-  exports: [],
+  exports: [FilterInventoryComponent],
   schemas: [],
   providers: [InventoryService]
 })
