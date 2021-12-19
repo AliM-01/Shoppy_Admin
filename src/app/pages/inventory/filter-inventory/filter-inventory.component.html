@@ -10,18 +10,20 @@
 
                     <mat-form-field appearance="fill" class="mr-3">
                         <mat-label>عنوان محصول</mat-label>
-                        <input type="text" matInput #filterProductTitleInput />
+                        <input type="text" matInput #filterProductIdInput />
                     </mat-form-field>
 
-                    <mat-form-field appearance="fill" class="mr-4">
-                        <mat-label>وضعیت</mat-label>
-                        <input type="check" matInput #filterInStockInput />
-                    </mat-form-field>
+                    <label>وضعیت</label>
 
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="filterInStockInputChecked">
+                        <mat-radio-button value="true">فعال</mat-radio-button>
+                        <mat-radio-button value="false">غیر فعال</mat-radio-button>
+                    </mat-radio-group>
+                    
                 </div>
 
                 <div>
-<!--                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button>-->
+                    <!-- <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button> -->
                 </div>
 
             </div>
@@ -49,38 +51,43 @@
                     </ng-container>
 
                     <ng-container matColumnDef="state">
-                    <th mat-header-cell *matHeaderCellDef> وضعیت </th>
-                    <td mat-cell *matCellDef="let element">
+                        <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                        <td mat-cell *matCellDef="let element">
 
-                      <p *ngIf="element.inStock" class="text-success">موجود</p>
+                            <p *ngIf="element.inStock" class="text-success">موجود</p>
 
-                      <p *ngIf="!element.inStock" class="text-danger">ناموجود</p>
+                            <p *ngIf="!element.inStock" class="text-danger">ناموجود</p>
 
-                    </td>
-                  </ng-container>
+                        </td>
+                    </ng-container>
 
                     <ng-container matColumnDef="unitPrice">
                         <th mat-header-cell *matHeaderCellDef> قیمت </th>
                         <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
                     </ng-container>
 
-                   <ng-container matColumnDef="currentCount">
-                    <th mat-header-cell *matHeaderCellDef> تعداد موچود </th>
-                    <td mat-cell *matCellDef="let element"> {{element.currentCount}} </td>
-                  </ng-container>
+                    <ng-container matColumnDef="currentCount">
+                        <th mat-header-cell *matHeaderCellDef> تعداد موچود </th>
+                        <td mat-cell *matCellDef="let element"> {{element.currentCount}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="creationDate">
+                        <th mat-header-cell *matHeaderCellDef> تاریخ </th>
+                        <td mat-cell *matCellDef="let element"> {{element.creationDate}} </td>
+                    </ng-container>
 
                     <ng-container matColumnDef="commands">
-                      <th mat-header-cell *matHeaderCellDef> دستورات </th>
-                      <td mat-cell *matCellDef="let element">
-<!--                            <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>-->
+                        <th mat-header-cell *matHeaderCellDef> دستورات </th>
+                        <td mat-cell *matCellDef="let element">
+                            <!--                            <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>-->
 
-<!--                            <button *ngIf="element.isActive" mat-raised-button color="warn" -->
-<!--                                (click)="removeColleagueDiscount(element.id)"  class="mat-success ml-2">غیر فعال کردن</button>-->
-<!--                        -->
-<!--                            <button *ngIf="!element.isActive" mat-raised-button color="accent" -->
-<!--                                class="ml-2" (click)="restoreColleagueDiscount(element.id)">فعال کردن</button>-->
+                            <!--                            <button *ngIf="element.isActive" mat-raised-button color="warn" -->
+                            <!--                                (click)="removeColleagueDiscount(element.id)"  class="mat-success ml-2">غیر فعال کردن</button>-->
+                            <!--                        -->
+                            <!--                            <button *ngIf="!element.isActive" mat-raised-button color="accent" -->
+                            <!--                                class="ml-2" (click)="restoreColleagueDiscount(element.id)">فعال کردن</button>-->
 
-<!--                            <button mat-raised-button color="warn" (click)="deleteColleagueDiscount(element.id)">حذف</button>-->
+                            <!--                            <button mat-raised-button color="warn" (click)="deleteColleagueDiscount(element.id)">حذف</button>-->
                         </td>
                     </ng-container>
 
@@ -88,7 +95,8 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
 
-                <mat-paginator [length]="dataSource.length" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 15]" showFirstLastButtons></mat-paginator>
+                <mat-paginator [length]="dataSource.length" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 15]"
+                    showFirstLastButtons></mat-paginator>
             </div>
         </div>
 

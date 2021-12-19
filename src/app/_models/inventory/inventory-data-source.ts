@@ -35,9 +35,9 @@ export class InventoryDataSource implements DataSource<InventoryModel> {
 
                 setInterval(() => {
                 
-                    this.length = res.data.discounts.length;
+                    this.length = res.data.inventories.length;
 
-                    this.InventorysSubject.next(res.data.discounts);
+                    this.InventorysSubject.next(res.data.inventories);
                 
                     this.loadingSubject.next(false);
                 }, 500)

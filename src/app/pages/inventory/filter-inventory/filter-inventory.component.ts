@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import {FilterInventoryModel} from "@app_models/inventory/filter-inventory";
 import {InventoryDataSource} from "@app_models/inventory/inventory-data-source";
 import {InventoryService} from "@app_services/inventory/inventory.service";
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -17,7 +18,7 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
-  @ViewChild('filterInStockInput') filterInStockInput: ElementRef;
+  filterInStockInputChecked: string = 'true';
   displayedColumns: string[] = ['id', 'product', 'productId', 'state', 'unitPrice', 'currentCount', 'creationDate', 'commands'];
   dataSource: InventoryDataSource;
   filterInventory: FilterInventoryModel = new FilterInventoryModel(0, true, []);
@@ -49,23 +50,19 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
       )
       .subscribe();
 
-    fromEvent(this.filterInStockInput.nativeElement, 'keyup')
-      .pipe(
-        debounceTime(150),
-        distinctUntilChanged(),
-        tap(() => {
-          this.paginator.pageIndex = 0;
-          this.loadInventoriesPage();
-        })
-      )
-      .subscribe();
-
     this.paginator.page
       .pipe(
         tap(() => this.loadInventoriesPage())
       )
       .subscribe();
   }
+
+  // setfilterInStockInput(checked: boolean){
+  //   console.log('lll');
+    
+  //   this.filterInStockInputChecked = checked;
+  //   this.loadInventoriesPage();
+  // }
 
   // openCreateDialog(): void {
   //   const dialogRef = this.dialog.open(DefineInventoryComponent, {
@@ -89,8 +86,10 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
   // }
 
   loadInventoriesPage() {
+    console.log(this.filterInStockInputChecked);
+    
     this.filterInventory = new FilterInventoryModel(this.filterProductIdInput.nativeElement.value,
-      this.filterInStockInput.nativeElement.value, []);
+      this.filterInStockInputChecked === 'true' ? true : false, []);
     this.dataSource.loadInventories(this.filterInventory);
   }
 
