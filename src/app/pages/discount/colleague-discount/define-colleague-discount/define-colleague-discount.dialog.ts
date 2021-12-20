@@ -11,10 +11,10 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-define-colleague-discount',
-  templateUrl: './define-colleague-discount.component.html',
+  templateUrl: './define-colleague-discount.dialog.html',
   providers: [ProductService]
 })
-export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
+export class DefineColleagueDiscountDialog implements OnInit, AfterViewInit {
 
   defineForm: FormGroup;
   existsProductDiscount: boolean = false;
@@ -22,7 +22,7 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
   @ViewChild('productIdInput') productIdInput: ElementRef;
 
   constructor(
-    public dialogRef: MatDialogRef<DefineColleagueDiscountComponent>,
+    public dialogRef: MatDialogRef<DefineColleagueDiscountDialog>,
     private colleagueDiscountService: ColleagueDiscountService,
     private productService: ProductService,
     private toastr: ToastrService

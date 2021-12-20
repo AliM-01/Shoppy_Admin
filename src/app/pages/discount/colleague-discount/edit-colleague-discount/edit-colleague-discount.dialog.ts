@@ -11,10 +11,10 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-colleague-discount',
-  templateUrl: './edit-colleague-discount.component.html',
+  templateUrl: './edit-colleague-discount.dialog.html',
   providers: [ProductService]
 })
-export class EditColleagueDiscountComponent implements OnInit {
+export class EditColleagueDiscountDialog implements OnInit {
 
   editForm: FormGroup;
   existsProductId: boolean = false;
@@ -23,7 +23,7 @@ export class EditColleagueDiscountComponent implements OnInit {
   unchangedProductId: number = 0;
 
   constructor(
-    public dialogRef: MatDialogRef<EditColleagueDiscountComponent>,
+    public dialogRef: MatDialogRef<EditColleagueDiscountDialog>,
     private productService: ProductService,
     private colleagueDiscountService: ColleagueDiscountService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },

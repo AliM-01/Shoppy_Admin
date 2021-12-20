@@ -14,14 +14,14 @@ import { DirectivesModule } from '@app_directives/directives.module';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { ColleagueDiscountRoutingModule } from './colleague.discount.routing.module';
 import { FilterColleagueDiscountPage } from './filter-colleague-discount/filter-colleague-discount.page';
-import { DefineColleagueDiscountComponent } from './define-colleague-discount/define-colleague-discount.component';
-import { EditColleagueDiscountComponent } from './edit-colleague-discount/edit-colleague-discount.component';
+import { DefineColleagueDiscountDialog } from './define-colleague-discount/define-colleague-discount.dialog';
+import { EditColleagueDiscountDialog } from './edit-colleague-discount/edit-colleague-discount.dialog';
 
 @NgModule({
   declarations: [
     FilterColleagueDiscountPage,
-    DefineColleagueDiscountComponent,
-    EditColleagueDiscountComponent
+    DefineColleagueDiscountDialog,
+    EditColleagueDiscountDialog
   ],
   imports: [
     CommonModule,

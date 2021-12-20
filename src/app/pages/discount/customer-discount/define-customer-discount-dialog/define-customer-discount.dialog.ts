@@ -12,10 +12,10 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-define-customer-discount',
-  templateUrl: './define-customer-discount.dialog.component.html',
+  templateUrl: './define-customer-discount.dialog.html',
   providers: [ProductService]
 })
-export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewInit {
+export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
@@ -26,7 +26,7 @@ export class DefineCustomerDiscountComponentDialog implements OnInit, AfterViewI
   @ViewChild('productIdInput') productIdInput: ElementRef;
   
   constructor(
-    public dialogRef: MatDialogRef<DefineCustomerDiscountComponentDialog>,
+    public dialogRef: MatDialogRef<DefineCustomerDiscountDialog>,
     private customerDiscountService: CustomerDiscountService,
     private productService: ProductService,
     private ckeditorService: CkeditorService,

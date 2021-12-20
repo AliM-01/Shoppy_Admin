@@ -15,17 +15,17 @@ import { CustomerDiscountService } from '@app_services/discount/customer-discoun
 import { CustomerDiscountRoutingModule } from './customer.discount.routing.module';
 import { FilterCustomerDiscountPage } from './filter-customer-discount/filter-customer-discount.page';
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
-import { DefineCustomerDiscountComponentDialog } from './define-customer-discount-dialog/define-customer-discount.dialog.component';
-import { DefineCustomerDiscountComponent } from './define-customer-discount/define-customer-discount.component';
+import { DefineCustomerDiscountDialog } from './define-customer-discount-dialog/define-customer-discount.dialog';
+import { DefineCustomerDiscountPage } from './define-customer-discount/define-customer-discount.page';
 import { DirectivesModule } from '@app_directives/directives.module';
-import { EditCustomerDiscountComponentDialog } from './edit-customer-discount-dialog/edit-customer-discount.dialog.component';
+import { EditCustomerDiscountDialog } from './edit-customer-discount-dialog/edit-customer-discount.dialog';
 
 @NgModule({
   declarations: [
     FilterCustomerDiscountPage,
-    DefineCustomerDiscountComponent,
-    DefineCustomerDiscountComponentDialog,
-    EditCustomerDiscountComponentDialog
+    DefineCustomerDiscountPage,
+    DefineCustomerDiscountDialog,
+    EditCustomerDiscountDialog
   ],
   imports: [
     CommonModule,

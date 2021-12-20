@@ -3,21 +3,19 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
-import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { InventoryService } from '@app_services/inventory/inventory.service';
-import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-inventory',
-  templateUrl: './edit-inventory.component.html'
+  templateUrl: './edit-inventory.dialog.html'
 })
-export class EditInventoryComponent implements OnInit {
+export class EditInventoryDialog implements OnInit {
 
   editForm: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<EditInventoryComponent>,
+    public dialogRef: MatDialogRef<EditInventoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
     private inventoryService: InventoryService,
     private toastr: ToastrService

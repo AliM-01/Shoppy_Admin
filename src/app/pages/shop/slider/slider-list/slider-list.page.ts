@@ -8,12 +8,12 @@ import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
 import { SliderDataSource } from '@app_models/shop/slider/slider-data-source';
 import { SliderService } from '@app_services/shop/slider/slider.service';
-import { CreateSliderComponent } from '../create-slider/create-slider.component';
-import { EditSliderComponent } from '../edit-slider/edit-slider.component';
+import { CreateSliderDialog } from '../create-slider/create-slider.dialog';
+import { EditSliderDialog } from '../edit-slider/edit-slider.dialog';
 
 @Component({
   selector: 'app-slider-list',
-  templateUrl: './slider-list.component.html'
+  templateUrl: './slider-list.page.html'
 })
 export class SliderListPage implements OnInit, AfterViewInit {
 
@@ -47,7 +47,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateSliderComponent, {
+    const dialogRef = this.dialog.open(CreateSliderDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -56,7 +56,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditSliderComponent, {
+    const dialogRef = this.dialog.open(EditSliderDialog, {
       width: '600px',
       height: '700px',
       data: {

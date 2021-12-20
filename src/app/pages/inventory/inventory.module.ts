@@ -15,14 +15,14 @@ import { DirectivesModule } from '@app_directives/directives.module';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import {InventoryRoutingModule} from "@apppages/inventory/inventory.routing.module";
 import {FilterInventoryPage} from "@apppages/inventory/filter-inventory/filter-inventory.page";
-import { CreateInventoryComponent } from './create-inventory/create-inventory.component';
-import { EditInventoryComponent } from './edit-inventory/edit-inventory.component';
+import { CreateInventoryDialog } from './create-inventory/create-inventory.dialog';
+import { EditInventoryDialog } from './edit-inventory/edit-inventory.dialog';
 
 @NgModule({
   declarations: [
     FilterInventoryPage,
-    CreateInventoryComponent,
-    EditInventoryComponent
+    CreateInventoryDialog,
+    EditInventoryDialog
   ],
   imports: [
     CommonModule,

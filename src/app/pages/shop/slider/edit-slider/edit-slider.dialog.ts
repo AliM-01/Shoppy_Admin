@@ -9,9 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-slider',
-  templateUrl: './edit-slider.component.html'
+  templateUrl: './edit-slider.dialog.html'
 })
-export class EditSliderComponent implements OnInit {
+export class EditSliderDialog implements OnInit {
 
   editForm: FormGroup;
   fileUploaded: boolean = false;
@@ -20,7 +20,7 @@ export class EditSliderComponent implements OnInit {
 
 
   constructor(
-    public dialogRef: MatDialogRef<EditSliderComponent>,
+    public dialogRef: MatDialogRef<EditSliderDialog>,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
     private sliderService: SliderService,
     private toastr: ToastrService

@@ -8,8 +8,8 @@ import { Title } from '@angular/platform-browser';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
 import { ColleagueDiscountDataSource } from '@app_models/discount/colleague-discount/colleague-discount-data-source';
-import { DefineColleagueDiscountComponent } from '../define-colleague-discount/define-colleague-discount.component';
-import { EditColleagueDiscountComponent } from '../edit-colleague-discount/edit-colleague-discount.component';
+import { DefineColleagueDiscountDialog } from '../define-colleague-discount/define-colleague-discount.dialog';
+import { EditColleagueDiscountDialog } from '../edit-colleague-discount/edit-colleague-discount.dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -71,7 +71,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(DefineColleagueDiscountComponent, {
+    const dialogRef = this.dialog.open(DefineColleagueDiscountDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -80,7 +80,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditColleagueDiscountComponent, {
+    const dialogRef = this.dialog.open(EditColleagueDiscountDialog, {
       width: '600px',
       height: '700px',
       data: {

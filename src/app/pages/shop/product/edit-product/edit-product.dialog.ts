@@ -12,9 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-product',
-  templateUrl: './edit-product.component.html'
+  templateUrl: './edit-product.dialog.html'
 })
-export class EditProductComponent implements OnInit {
+export class EditProductDialog implements OnInit {
 
   editForm: FormGroup;
   fileUploaded: boolean = false;
@@ -28,7 +28,7 @@ export class EditProductComponent implements OnInit {
 
 
   constructor(
-    public dialogRef: MatDialogRef<EditProductComponent>,
+    public dialogRef: MatDialogRef<EditProductDialog>,
     private productCategoryService: ProductCategoryService,
     private productService: ProductService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
@@ -169,10 +169,6 @@ export class EditProductComponent implements OnInit {
         if (res.status === 'success') {
 
           this.editForm.reset();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 1500;
 
           let toasterMsg = `محصول ${editData.code} با موفقیت ویرایش شد`
           this.toastr.success(toasterMsg, 'موفقیت', { timeOut: 1500 });

@@ -13,8 +13,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select'; 
 import { ToastrModule } from 'ngx-toastr';
 import { FilterProductPage } from './filter-product/filter-product.page';
-import { CreateProductComponent } from './create-product/create-product.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
+import { CreateProductDialog } from './create-product/create-product.dialog';
+import { EditProductDialog } from './edit-product/edit-product.dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio'; 
 import { ProductPicturePage } from './product-picture/product-picture.page';
@@ -24,8 +24,8 @@ import { DirectivesModule } from '@app_directives/directives.module';
 @NgModule({
   declarations: [
     FilterProductPage,
-    CreateProductComponent,
-    EditProductComponent,
+    CreateProductDialog,
+    EditProductDialog,
     ProductPicturePage
   ],
   imports: [
@@ -47,8 +47,8 @@ import { DirectivesModule } from '@app_directives/directives.module';
   ],
   exports: [
     FilterProductPage,
-    CreateProductComponent,
-    EditProductComponent,
+    CreateProductDialog,
+    EditProductDialog,
     ProductPicturePage
   ],
   schemas: [],

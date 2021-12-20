@@ -8,9 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '@app_services/shop/product/product.service';
-import { CreateProductComponent } from '../create-product/create-product.component';
+import { CreateProductDialog } from '../create-product/create-product.dialog';
 import { environment } from '@environments/environment';
-import { EditProductComponent } from '../edit-product/edit-product.component';
+import { EditProductDialog } from '../edit-product/edit-product.dialog';
 
 @Component({
   selector: 'app-filter-product',
@@ -78,7 +78,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateProductComponent, {
+    const dialogRef = this.dialog.open(CreateProductDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -87,7 +87,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditProductComponent, {
+    const dialogRef = this.dialog.open(EditProductDialog, {
       width: '600px',
       height: '700px',
       data: {

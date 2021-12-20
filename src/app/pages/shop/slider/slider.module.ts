@@ -11,18 +11,17 @@ import { SliderRoutingModule } from './slider.routing.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
-import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
-import { CreateSliderComponent } from './create-slider/create-slider.component';
-import { EditSliderComponent } from './edit-slider/edit-slider.component';
+import { CreateSliderDialog } from './create-slider/create-slider.dialog';
+import { EditSliderDialog } from './edit-slider/edit-slider.dialog';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
     SliderListPage,
-    CreateSliderComponent,
-    EditSliderComponent
+    CreateSliderDialog,
+    EditSliderDialog
   ],
   imports: [
     CommonModule,

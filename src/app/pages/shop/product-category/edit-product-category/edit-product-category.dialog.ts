@@ -10,9 +10,9 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-product-category',
-  templateUrl: './edit-product-category.component.html'
+  templateUrl: './edit-product-category.dialog.html'
 })
-export class EditProductCategoryComponent implements OnInit {
+export class EditProductCategoryDialog implements OnInit {
 
   
   editForm: FormGroup;
@@ -22,7 +22,7 @@ export class EditProductCategoryComponent implements OnInit {
   ckeditorTextValue = null;
 
   constructor(
-    public dialogRef: MatDialogRef<EditProductCategoryComponent>,
+    public dialogRef: MatDialogRef<EditProductCategoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
     private productCategoryService: ProductCategoryService,
     private ckeditorService: CkeditorService,

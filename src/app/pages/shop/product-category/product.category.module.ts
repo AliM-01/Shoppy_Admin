@@ -6,14 +6,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '@app_components/components.module';
-import { CreateProductCategoryComponent } from './create-product-category/create-product-category.component';
+import { CreateProductCategoryDialog } from './create-product-category/create-product-category.dialog';
 import { FilterProductCategoryPage } from './filter-product-category/filter-product-category.page';
 import { ProductCategoryRoutingModule } from './product.category.routing.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button'; 
-import { ToastrModule } from 'ngx-toastr';
-import { EditProductCategoryComponent } from './edit-product-category/edit-product-category.component';
+import { EditProductCategoryDialog } from './edit-product-category/edit-product-category.dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { DirectivesModule } from '@app_directives/directives.module';
@@ -21,8 +20,8 @@ import { DirectivesModule } from '@app_directives/directives.module';
 @NgModule({
   declarations: [
     FilterProductCategoryPage,
-    CreateProductCategoryComponent,
-    EditProductCategoryComponent
+    CreateProductCategoryDialog,
+    EditProductCategoryDialog
   ],
   imports: [
     CommonModule,
@@ -41,7 +40,7 @@ import { DirectivesModule } from '@app_directives/directives.module';
   ],
   exports: [
     FilterProductCategoryPage,
-    CreateProductCategoryComponent
+    CreateProductCategoryDialog
   ],
   schemas: [],
   providers: [ProductCategoryService]

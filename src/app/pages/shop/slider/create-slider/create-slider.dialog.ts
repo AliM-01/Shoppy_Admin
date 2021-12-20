@@ -1,17 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateProductCategoryModel } from '@app_models/shop/product-category/create-product-category';
-import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
-import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
+import { CreateSliderModel } from '@app_models/shop/slider/create-slider';
+import { SliderService } from '@app_services/shop/slider/slider.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-create-product-category',
-  templateUrl: './create-product-category.component.html'
+  selector: 'app-create-slider',
+  templateUrl: './create-slider.dialog.html'
 })
-export class CreateProductCategoryComponent implements OnInit {
+export class CreateSliderDialog implements OnInit {
 
   createForm: FormGroup;
   fileUploaded: boolean = false;
@@ -19,22 +18,20 @@ export class CreateProductCategoryComponent implements OnInit {
   ckeditorTextValue = null;
 
   constructor(
-    public dialogRef: MatDialogRef<CreateProductCategoryComponent>,
-    private productCategoryService: ProductCategoryService,
-    private ckeditorService: CkeditorService,
+    public dialogRef: MatDialogRef<CreateSliderDialog>,
+    private sliderService: SliderService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
 
-    this.ckeditorService.initCkeditor();
-
     this.createForm = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
+      heading: new FormControl(null, [Validators.required]),
+      text: new FormControl(null, [Validators.required]),
       imageAlt: new FormControl(null, [Validators.required]),
       imageTitle: new FormControl(null, [Validators.required]),
-      metaKeywords: new FormControl(null, [Validators.required]),
-      metaDescription: new FormControl(null, [Validators.required])
+      btnLink: new FormControl(null, [Validators.required]),
+      btnText: new FormControl(null, [Validators.required])
     });
   }
 
@@ -48,8 +45,6 @@ export class CreateProductCategoryComponent implements OnInit {
   }
 
   submitCreateForm() {
-    this.ckeditorTextValue = this.ckeditorService.getValue();
-
     if (this.createForm.valid) {
 
       if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
@@ -58,17 +53,17 @@ export class CreateProductCategoryComponent implements OnInit {
         this.fileUploaded = true;
       }
 
-      const createData = new CreateProductCategoryModel(
-        this.createForm.controls.title.value,
-        this.ckeditorService.getValue(),
+      const createData = new CreateSliderModel(
+        this.createForm.controls.heading.value,
+        this.createForm.controls.text.value,
         this.imageFileToUpload,
         this.createForm.controls.imageAlt.value,
         this.createForm.controls.imageTitle.value,
-        this.createForm.controls.metaKeywords.value,
-        this.createForm.controls.metaDescription.value
+        this.createForm.controls.btnLink.value,
+        this.createForm.controls.btnText.value
       );
 
-      this.productCategoryService.createProductCategory(createData).subscribe((res) => {
+      this.sliderService.createSlider(createData).subscribe((res) => {
         if (res.status === 'success') {
 
           this.createForm.reset();

@@ -8,14 +8,14 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-product-category',
-  templateUrl: './create-inventory.component.html'
+  templateUrl: './create-inventory.dialog.html'
 })
-export class CreateInventoryComponent implements OnInit {
+export class CreateInventoryDialog implements OnInit {
 
   createForm: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<CreateInventoryComponent>,
+    public dialogRef: MatDialogRef<CreateInventoryDialog>,
     private inventoryService: InventoryService,
     private toastr: ToastrService
   ) { }

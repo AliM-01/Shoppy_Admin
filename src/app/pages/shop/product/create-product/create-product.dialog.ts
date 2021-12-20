@@ -11,9 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-product',
-  templateUrl: './create-product.component.html'
+  templateUrl: './create-product.dialog.html'
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductDialog implements OnInit {
 
   createForm: FormGroup;
   fileUploaded: boolean = false;
@@ -25,7 +25,7 @@ export class CreateProductComponent implements OnInit {
   categories: ProductCategoryForSelectListModel[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<CreateProductComponent>,
+    public dialogRef: MatDialogRef<CreateProductDialog>,
     private productService: ProductService,
     private productCategoryService: ProductCategoryService,
     private ckeditorService: CkeditorService,

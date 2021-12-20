@@ -8,14 +8,14 @@ import { CustomerDiscountService } from '@app_services/discount/customer-discoun
 import { ToastrService } from 'ngx-toastr';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { ProductService } from '../../../../_services/shop/product/product.service';
+import { ProductService } from '@app_services/shop/product/product.service';
 
 @Component({
   selector: 'app-edit-customer-discount',
-  templateUrl: './edit-customer-discount.dialog.component.html',
+  templateUrl: './edit-customer-discount.dialog.html',
   providers: [ProductService]
 })
-export class EditCustomerDiscountComponentDialog implements OnInit {
+export class EditCustomerDiscountDialog implements OnInit {
 
   editForm: FormGroup;
   ckeditorTextValue = null;
@@ -27,7 +27,7 @@ export class EditCustomerDiscountComponentDialog implements OnInit {
   unchangedProductId:number = 0;
 
   constructor(
-    public dialogRef: MatDialogRef<EditCustomerDiscountComponentDialog>,
+    public dialogRef: MatDialogRef<EditCustomerDiscountDialog>,
     private customerDiscountService: CustomerDiscountService,
     private productService: ProductService,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},

@@ -8,8 +8,8 @@ import { Title } from '@angular/platform-browser';
 import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_models/inventory/filter-inventory";
 import { InventoryDataSource } from "@app_models/inventory/inventory-data-source";
 import { InventoryService } from "@app_services/inventory/inventory.service";
-import { CreateInventoryComponent } from '../create-inventory/create-inventory.component';
-import { EditInventoryComponent } from '../edit-inventory/edit-inventory.component';
+import { CreateInventoryDialog } from '../create-inventory/create-inventory.dialog';
+import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -65,7 +65,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateInventoryComponent, {
+    const dialogRef = this.dialog.open(CreateInventoryDialog, {
       width: '450px',
       height: '350px'
     }).afterClosed().subscribe(() => {
@@ -75,7 +75,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
 
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditInventoryComponent, {
+    const dialogRef = this.dialog.open(EditInventoryDialog, {
       width: '450px',
       height: '350px',
       data: {

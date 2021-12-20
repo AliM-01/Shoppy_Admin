@@ -11,9 +11,9 @@ import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-define-customer-discount',
-  templateUrl: './define-customer-discount.component.html'
+  templateUrl: './define-customer-discount.page.html'
 })
-export class DefineCustomerDiscountComponent implements OnInit {
+export class DefineCustomerDiscountPage implements OnInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;

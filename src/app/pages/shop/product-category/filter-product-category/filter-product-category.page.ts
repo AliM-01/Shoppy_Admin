@@ -5,10 +5,10 @@ import { ProductCategoryDataSource, FilterProductCategoryModel } from '@app_mode
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateProductCategoryComponent } from '../create-product-category/create-product-category.component';
+import { CreateProductCategoryDialog } from '../create-product-category/create-product-category.dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { EditProductCategoryComponent } from '../edit-product-category/edit-product-category.component';
+import { EditProductCategoryDialog } from '../edit-product-category/edit-product-category.dialog';
 import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
 
@@ -60,7 +60,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
+    const dialogRef = this.dialog.open(CreateProductCategoryDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -69,7 +69,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditProductCategoryComponent, {
+    const dialogRef = this.dialog.open(EditProductCategoryDialog, {
       width: '600px',
       height: '700px',
       data: {

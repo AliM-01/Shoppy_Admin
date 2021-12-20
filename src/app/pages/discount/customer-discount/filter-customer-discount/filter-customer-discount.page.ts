@@ -8,9 +8,9 @@ import { Title } from '@angular/platform-browser';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
 import { CustomerDiscountDataSource } from '@app_models/discount/customer-discount/customer-discount-data-source';
-import { DefineCustomerDiscountComponentDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog.component';
+import { DefineCustomerDiscountDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EditCustomerDiscountComponentDialog } from '../edit-customer-discount-dialog/edit-customer-discount.dialog.component';
+import { EditCustomerDiscountDialog } from '../edit-customer-discount-dialog/edit-customer-discount.dialog';
 
 @Component({
   selector: 'app-filter-customer-discount',
@@ -72,7 +72,7 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(DefineCustomerDiscountComponentDialog, {
+    const dialogRef = this.dialog.open(DefineCustomerDiscountDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -81,7 +81,7 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditCustomerDiscountComponentDialog, {
+    const dialogRef = this.dialog.open(EditCustomerDiscountDialog, {
       width: '600px',
       height: '700px',
       data: {
