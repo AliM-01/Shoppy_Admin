@@ -4,34 +4,51 @@
     <div class="col-xl-12">
 
         <div class="widget has-shadow">
-            <div class="widget-header bordered no-actions" div-center-content-between>
+            <div class="widget-header bordered no-actions">
 
-                <div>
+                <div class="row">
 
-                    <mat-form-field appearance="fill" class="mr-3">
-                        <mat-label>عنوان محصول</mat-label>
-                        <input type="text" matInput #filterProductIdInput />
-                    </mat-form-field>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill" class="mr-3">
+                            <mat-label>کد محصول</mat-label>
+                            <input type="text" matInput #filterProductIdInput />
+                        </mat-form-field>
+                    </div>
 
-                    <label>وضعیت</label>
+                    <div class="col-md-6">
+                        <label>وضعیت :</label>
 
-                    <mat-radio-group aria-label="Select an option" [(ngModel)]="filterInStockInputChecked">
-                        <mat-radio-button value="true">فعال</mat-radio-button>
-                        <mat-radio-button value="false">غیر فعال</mat-radio-button>
-                    </mat-radio-group>
-                    
+                        <div class="row w-100" div-center-content-center>
+                            <div class="col-md-4 d-flex">
+                                <label>همه</label>
+                                <input (click)="setInStockState(0)" class="form-control" type="checkbox"
+                                    [checked]="inStockState === 0">
+                            </div>
+
+                            <div class="col-md-4 d-flex">
+                                <label>فعال</label>
+                                <input (click)="setInStockState(1)" class="col-md-4" type="checkbox"
+                                    [checked]="inStockState === 1">
+                            </div>
+
+                            <div class="col-md-4 d-flex">
+                                <label>غیر فعال</label>
+                                <input (click)="setInStockState(2)" class="col-md-4" type="checkbox"
+                                    [checked]="inStockState === 2">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button mat-raised-button color="primary" type="button" class="mat-success">افزودن</button>
+                    </div>
+
                 </div>
 
-                <div>
-                    <!-- <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button> -->
-                </div>
 
             </div>
             <div class="widget-body">
-
-                <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-                    <mat-spinner></mat-spinner>
-                </div>
 
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

@@ -5,10 +5,9 @@ import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
-import {FilterInventoryModel} from "@app_models/inventory/filter-inventory";
+import {FilterInventoryInStockStateEnum, FilterInventoryModel} from "@app_models/inventory/filter-inventory";
 import {InventoryDataSource} from "@app_models/inventory/inventory-data-source";
 import {InventoryService} from "@app_services/inventory/inventory.service";
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -21,7 +20,8 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
   filterInStockInputChecked: string = 'true';
   displayedColumns: string[] = ['id', 'product', 'productId', 'state', 'unitPrice', 'currentCount', 'creationDate', 'commands'];
   dataSource: InventoryDataSource;
-  filterInventory: FilterInventoryModel = new FilterInventoryModel(0, true, []);
+  inStockState: FilterInventoryInStockStateEnum = FilterInventoryInStockStateEnum.All;
+  filterInventory: FilterInventoryModel = new FilterInventoryModel(0, FilterInventoryInStockStateEnum.All, []);
 
   constructor(
     private pageTitle: Title,
@@ -57,6 +57,11 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
+  setInStockState(state: number){
+    this.inStockState = state;
+    this.loadInventoriesPage();
+  }
+
   // setfilterInStockInput(checked: boolean){
   //   console.log('lll');
     
@@ -89,7 +94,7 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
     console.log(this.filterInStockInputChecked);
     
     this.filterInventory = new FilterInventoryModel(this.filterProductIdInput.nativeElement.value,
-      this.filterInStockInputChecked === 'true' ? true : false, []);
+      this.inStockState, []);
     this.dataSource.loadInventories(this.filterInventory);
   }
 

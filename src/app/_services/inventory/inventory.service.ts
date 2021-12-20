@@ -19,7 +19,8 @@ export class InventoryService {
 
     if (filter !== null) {
       params = new HttpParams()
-        .set('productId', filter.productId.toString() === '' ? '0' : filter.productId.toString());
+        .set('productId', filter.productId.toString() === '' ? '0' : filter.productId.toString())
+        .set('inStockState', filter.inStockState);
     }
 
     return this.http.get<IResponse<FilterInventoryModel>>(`${environment.inventoryBaseApiUrl}/filter`, { params });
