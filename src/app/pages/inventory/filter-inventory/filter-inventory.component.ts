@@ -9,6 +9,7 @@ import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_mode
 import { InventoryDataSource } from "@app_models/inventory/inventory-data-source";
 import { InventoryService } from "@app_services/inventory/inventory.service";
 import { CreateInventoryComponent } from '../create-inventory/create-inventory.component';
+import { EditInventoryComponent } from '../edit-inventory/edit-inventory.component';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -63,13 +64,6 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
     this.loadInventoriesPage();
   }
 
-  // setfilterInStockInput(checked: boolean){
-  //   console.log('lll');
-
-  //   this.filterInStockInputChecked = checked;
-  //   this.loadInventoriesPage();
-  // }
-
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateInventoryComponent, {
       width: '450px',
@@ -79,18 +73,18 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  //
-  // openEditDialog(id:number): void {
-  //   const dialogRef = this.dialog.open(EditInventoryComponent, {
-  //     width: '600px',
-  //     height: '700px',
-  //     data: {
-  //       id: id
-  //     }
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+
+  openEditDialog(id: number): void {
+    const dialogRef = this.dialog.open(EditInventoryComponent, {
+      width: '450px',
+      height: '350px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   loadInventoriesPage() {
     console.log(this.filterInStockInputChecked);
