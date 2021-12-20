@@ -14,9 +14,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-filter-colleague-discount',
-  templateUrl: './filter-colleague-discount.component.html'
+  templateUrl: './filter-colleague-discount.page.html'
 })
-export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
+export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;

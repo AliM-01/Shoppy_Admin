@@ -14,9 +14,9 @@ import { EditCustomerDiscountComponentDialog } from '../edit-customer-discount-d
 
 @Component({
   selector: 'app-filter-customer-discount',
-  templateUrl: './filter-customer-discount.component.html'
+  templateUrl: './filter-customer-discount.page.html'
 })
-export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
+export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;

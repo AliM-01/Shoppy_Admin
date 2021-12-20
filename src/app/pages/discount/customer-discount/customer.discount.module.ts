@@ -13,7 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { CustomerDiscountRoutingModule } from './customer.discount.routing.module';
-import { FilterCustomerDiscountComponent } from './filter-customer-discount/filter-customer-discount.component';
+import { FilterCustomerDiscountPage } from './filter-customer-discount/filter-customer-discount.page';
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { DefineCustomerDiscountComponentDialog } from './define-customer-discount-dialog/define-customer-discount.dialog.component';
 import { DefineCustomerDiscountComponent } from './define-customer-discount/define-customer-discount.component';
@@ -22,7 +22,7 @@ import { EditCustomerDiscountComponentDialog } from './edit-customer-discount-di
 
 @NgModule({
   declarations: [
-    FilterCustomerDiscountComponent,
+    FilterCustomerDiscountPage,
     DefineCustomerDiscountComponent,
     DefineCustomerDiscountComponentDialog,
     EditCustomerDiscountComponentDialog
@@ -44,7 +44,7 @@ import { EditCustomerDiscountComponentDialog } from './edit-customer-discount-di
     DirectivesModule,
     NgPersianDatepickerModule
   ],
-  exports: [FilterCustomerDiscountComponent],
+  exports: [FilterCustomerDiscountPage],
   schemas: [],
   providers: [CustomerDiscountService]
 })

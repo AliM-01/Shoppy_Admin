@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { FilterProductComponent } from './filter-product/filter-product.component';
-import { ProductPictureComponent } from "./product-picture/product-picture.component";
+import { FilterProductPage } from './filter-product/filter-product.page';
+import { ProductPicturePage } from "./product-picture/product-picture.page";
 
 const routes: Routes = [
-    { path:'', component:FilterProductComponent },
-  { path: 'gallery/:productId/:productTitle', component: ProductPictureComponent }
+    { path:'', component:FilterProductPage },
+  { path: 'gallery/:productId/:productTitle', component: ProductPicturePage }
 
   ];
   

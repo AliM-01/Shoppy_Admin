@@ -12,11 +12,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-picture',
-  templateUrl: './product-picture.component.html',
-  styleUrls: ['./product-picture.component.css'],
+  templateUrl: './product-picture.page.html',
+  styleUrls: ['./product-picture.page.css'],
   providers: [ProductPictureService]
 })
-export class ProductPictureComponent implements OnInit {
+export class ProductPicturePage implements OnInit {
 
   productPictures: ProductPictureModel[] = [];
   productPictureBasePath: string = `${environment.productPicutreBaseImagePath}/thumbnail/`;

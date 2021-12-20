@@ -14,9 +14,9 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
 
 @Component({
   selector: 'app-filter-product',
-  templateUrl: './filter-product.component.html'
+  templateUrl: './filter-product.page.html'
 })
-export class FilterProductComponent implements OnInit, AfterViewInit {
+export class FilterProductPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;

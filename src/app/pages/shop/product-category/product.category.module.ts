@@ -7,7 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '@app_components/components.module';
 import { CreateProductCategoryComponent } from './create-product-category/create-product-category.component';
-import { FilterProductCategoryComponent } from './filter-product-category/filter-product-category.component';
+import { FilterProductCategoryPage } from './filter-product-category/filter-product-category.page';
 import { ProductCategoryRoutingModule } from './product.category.routing.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
-    FilterProductCategoryComponent,
+    FilterProductCategoryPage,
     CreateProductCategoryComponent,
     EditProductCategoryComponent
   ],
@@ -40,7 +40,7 @@ import { DirectivesModule } from '@app_directives/directives.module';
     DirectivesModule
   ],
   exports: [
-    FilterProductCategoryComponent,
+    FilterProductCategoryPage,
     CreateProductCategoryComponent
   ],
   schemas: [],

@@ -15,7 +15,7 @@ import { EditSliderComponent } from '../edit-slider/edit-slider.component';
   selector: 'app-slider-list',
   templateUrl: './slider-list.component.html'
 })
-export class SliderListComponent implements OnInit, AfterViewInit {
+export class SliderListPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'heading', 'text', 'state', 'creationDate', 'commands'];

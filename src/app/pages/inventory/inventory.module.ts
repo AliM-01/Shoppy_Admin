@@ -14,13 +14,13 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DirectivesModule } from '@app_directives/directives.module';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import {InventoryRoutingModule} from "@apppages/inventory/inventory.routing.module";
-import {FilterInventoryComponent} from "@apppages/inventory/filter-inventory/filter-inventory.component";
+import {FilterInventoryPage} from "@apppages/inventory/filter-inventory/filter-inventory.page";
 import { CreateInventoryComponent } from './create-inventory/create-inventory.component';
 import { EditInventoryComponent } from './edit-inventory/edit-inventory.component';
 
 @NgModule({
   declarations: [
-    FilterInventoryComponent,
+    FilterInventoryPage,
     CreateInventoryComponent,
     EditInventoryComponent
   ],
@@ -41,7 +41,7 @@ import { EditInventoryComponent } from './edit-inventory/edit-inventory.componen
     MatRadioModule,
     DirectivesModule
   ],
-  exports: [FilterInventoryComponent],
+  exports: [FilterInventoryPage],
   schemas: [],
   providers: [InventoryService]
 })

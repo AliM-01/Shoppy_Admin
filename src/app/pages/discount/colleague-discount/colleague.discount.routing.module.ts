@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { FilterColleagueDiscountComponent } from "./filter-colleague-discount/filter-colleague-discount.component";
+import { FilterColleagueDiscountPage } from "./filter-colleague-discount/filter-colleague-discount.page";
 
 const routes: Routes = [
-    { path:'', component:FilterColleagueDiscountComponent }
+    { path:'', component:FilterColleagueDiscountPage }
   ];
   
   @NgModule({

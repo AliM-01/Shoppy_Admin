@@ -12,21 +12,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select'; 
 import { ToastrModule } from 'ngx-toastr';
-import { FilterProductComponent } from './filter-product/filter-product.component';
+import { FilterProductPage } from './filter-product/filter-product.page';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio'; 
-import { ProductPictureComponent } from './product-picture/product-picture.component';
+import { ProductPicturePage } from './product-picture/product-picture.page';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
-    FilterProductComponent,
+    FilterProductPage,
     CreateProductComponent,
     EditProductComponent,
-    ProductPictureComponent
+    ProductPicturePage
   ],
   imports: [
     CommonModule,
@@ -46,10 +46,10 @@ import { DirectivesModule } from '@app_directives/directives.module';
     DirectivesModule
   ],
   exports: [
-    FilterProductComponent,
+    FilterProductPage,
     CreateProductComponent,
     EditProductComponent,
-    ProductPictureComponent
+    ProductPicturePage
   ],
   schemas: [],
   providers: [

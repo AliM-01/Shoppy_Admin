@@ -6,7 +6,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '@app_components/components.module';
-import { SliderListComponent } from './slider-list/slider-list.component';
+import { SliderListPage } from './slider-list/slider-list.page';
 import { SliderRoutingModule } from './slider.routing.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ import { DirectivesModule } from '@app_directives/directives.module';
 
 @NgModule({
   declarations: [
-    SliderListComponent,
+    SliderListPage,
     CreateSliderComponent,
     EditSliderComponent
   ],
@@ -40,7 +40,7 @@ import { DirectivesModule } from '@app_directives/directives.module';
     DirectivesModule
   ],
   exports: [
-    SliderListComponent
+    SliderListPage
   ],
   schemas: [],
   providers: [SliderService]

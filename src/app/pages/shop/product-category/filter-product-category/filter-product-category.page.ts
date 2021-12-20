@@ -14,9 +14,9 @@ import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-filter-product-category',
-  templateUrl: './filter-product-category.component.html'
+  templateUrl: './filter-product-category.page.html'
 })
-export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
+export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') input: ElementRef;

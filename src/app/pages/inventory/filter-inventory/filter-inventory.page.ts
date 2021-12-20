@@ -13,9 +13,9 @@ import { EditInventoryComponent } from '../edit-inventory/edit-inventory.compone
 
 @Component({
   selector: 'app-filter-colleague-discount',
-  templateUrl: './filter-inventory.component.html'
+  templateUrl: './filter-inventory.page.html'
 })
-export class FilterInventoryComponent implements OnInit, AfterViewInit {
+export class FilterInventoryPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
