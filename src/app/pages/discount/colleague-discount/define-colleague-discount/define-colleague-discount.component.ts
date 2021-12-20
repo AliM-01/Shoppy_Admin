@@ -23,7 +23,7 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialogRef: MatDialogRef<DefineColleagueDiscountComponent>,
-    private colleagueDiscountService: ColleagueDiscountService,    
+    private colleagueDiscountService: ColleagueDiscountService,
     private productService: ProductService,
     private toastr: ToastrService
   ) { }
@@ -58,7 +58,7 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
 
     this.checkProductId();
 
-    if(!this.existsProductDiscount){
+    if (!this.existsProductDiscount) {
 
       if (this.defineForm.valid) {
 
@@ -66,22 +66,22 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
           this.defineForm.controls.productId.value,
           this.defineForm.controls.rate.value
         );
-  
-       
-  
+
+
+
         this.colleagueDiscountService.defineColleagueDiscount(defineData).subscribe((res) => {
           if (res.status === 'success') {
-  
+
             this.defineForm.reset();
-  
+
             this.toastr.toastrConfig.tapToDismiss = false;
             this.toastr.toastrConfig.autoDismiss = true;
             this.toastr.toastrConfig.timeOut = 1500;
-  
+
             this.toastr.success(res.message, 'موفقیت');
-  
+
             this.onCloseClick();
-  
+
           }
         },
           (error) => {
@@ -89,55 +89,55 @@ export class DefineColleagueDiscountComponent implements OnInit, AfterViewInit {
               this.toastr.toastrConfig.tapToDismiss = false;
               this.toastr.toastrConfig.autoDismiss = true;
               this.toastr.toastrConfig.timeOut = 2500;
-  
+
               this.toastr.error(error.error.message, 'خطا');
             }
           }
         );
-  
-  
+
+
       } else {
         this.defineForm.markAllAsTouched();
       }
-      
+
     }
 
-    
+
 
   }
 
-  checkProductId(){
+  checkProductId() {
 
     let productId = this.defineForm.controls.productId.value;
 
-    if(productId !== null) {
+    if (productId !== null) {
 
-        this.productService.existsProductId(productId).subscribe(res => {
+      this.productService.existsProductId(productId).subscribe(res => {
 
-          if(res.data.exists === false){
-            this.toastr.info("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
-            this.existsProductId = true
+        if (res.data.exists === false) {
+          this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", { timeOut: 500 });
+          this.existsProductId = true
 
-          } else {
+        } else {
 
-            this.colleagueDiscountService.checkProductHasColleagueDiscount(productId).subscribe(res => {
-        
-              if(res.data.existsColleagueDiscount === true){
-                this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
-                this.existsProductDiscount = true
-              }
-        
-            });
-      
-          }
+          this.colleagueDiscountService.checkProductHasColleagueDiscount(productId).subscribe(res => {
 
-        })
+            if (res.data.existsColleagueDiscount === true) {
+              this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", { timeOut: 500 });
+              this.existsProductDiscount = true
+            }
 
-       
+          });
+
+        }
+
+      })
+
+
     }
     this.existsProductId = false;
     this.existsProductDiscount = false;
 
-    
+
   }
 }

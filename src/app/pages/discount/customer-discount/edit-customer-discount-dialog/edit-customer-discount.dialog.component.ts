@@ -146,7 +146,7 @@ export class EditCustomerDiscountComponentDialog implements OnInit {
         this.productService.existsProductId(productId).subscribe(res => {
 
           if(res.data.exists === false){
-            this.toastr.info("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
+            this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
             this.existsProductId = true
 
           } else {

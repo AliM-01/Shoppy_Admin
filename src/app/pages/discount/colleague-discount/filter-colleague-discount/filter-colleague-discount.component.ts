@@ -79,7 +79,7 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openEditDialog(id:number): void {
+  openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditColleagueDiscountComponent, {
       width: '600px',
       height: '700px',
@@ -96,7 +96,7 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
       this.filterProductTitleInput.nativeElement.value, []);
     this.dataSource.loadColleagueDiscounts(this.filterColleagueDiscounts);
   }
-  
+
   removeColleagueDiscount(id: number) {
     this.ColleagueDiscountService.removeColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
@@ -121,10 +121,30 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
         }
       }
     );
-  } 
+  }
 
   restoreColleagueDiscount(id: number) {
     this.ColleagueDiscountService.restoreColleagueDiscount(id).subscribe((res) => {
+      if (res.status === 'success') {
+
+
+        this.ngOnInit();
+
+        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+
+      }
+    },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+
+        }
+      }
+    );
+  }
+
+  deleteColleagueDiscount(id: number) {
+    this.ColleagueDiscountService.deleteColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
 
 
@@ -148,31 +168,5 @@ export class FilterColleagueDiscountComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-  deleteColleagueDiscount(id: number) {
-     this.ColleagueDiscountService.deleteColleagueDiscount(id).subscribe((res) => {
-       if (res.status === 'success') {
-
-
-         this.ngOnInit();
-
-         this.toastr.toastrConfig.tapToDismiss = false;
-         this.toastr.toastrConfig.autoDismiss = true;
-         this.toastr.toastrConfig.timeOut = 1500;
-
-         this.toastr.success(res.message, 'موفقیت');
-       }
-     },
-       (error) => {
-         if (error instanceof HttpErrorResponse) {
-           this.toastr.toastrConfig.tapToDismiss = false;
-           this.toastr.toastrConfig.autoDismiss = true;
-           this.toastr.toastrConfig.timeOut = 2500;
-
-           this.toastr.error(error.error.message, 'خطا');
-         }
-       }
-     );
-   }
 
 }

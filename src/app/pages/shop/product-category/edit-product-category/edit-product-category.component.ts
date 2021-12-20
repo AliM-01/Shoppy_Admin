@@ -59,12 +59,7 @@ export class EditProductCategoryComponent implements OnInit {
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.onCloseClick();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
         }
       }
     );
@@ -104,12 +99,8 @@ export class EditProductCategoryComponent implements OnInit {
       this.productCategoryService.editProductCategory(editData).subscribe((res) => {
         if (res.status === 'success') {
 
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 1500;
-
           let toasterMsg = `دسته بندی ${this.editForm.controls.title.value} با موفقیت ویرایش شد`
-          this.toastr.success(toasterMsg, 'موفقیت');
+          this.toastr.success(toasterMsg, 'موفقیت', { timeOut: 1500 });
 
           this.editForm.reset();
 
@@ -118,12 +109,8 @@ export class EditProductCategoryComponent implements OnInit {
         }
       },
         (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.toastrConfig.tapToDismiss = false;
-            this.toastr.toastrConfig.autoDismiss = true;
-            this.toastr.toastrConfig.timeOut = 2500;
-
-            this.toastr.error(error.error.message, 'خطا');
+          if (error instanceof HttpErrorResponse) {            
+            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           }
         }
       );

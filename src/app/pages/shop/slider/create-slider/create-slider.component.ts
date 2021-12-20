@@ -67,24 +67,14 @@ export class CreateSliderComponent implements OnInit {
         if (res.status === 'success') {
 
           this.createForm.reset();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 1500;
-
-          this.toastr.success(res.message, 'موفقیت');
-
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
 
         }
       },
         (error) => {
           if (error instanceof HttpErrorResponse) {
-            this.toastr.toastrConfig.tapToDismiss = false;
-            this.toastr.toastrConfig.autoDismiss = true;
-            this.toastr.toastrConfig.timeOut = 2500;
-
-            this.toastr.error(error.error.message, 'خطا');
+            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           }
         }
       );

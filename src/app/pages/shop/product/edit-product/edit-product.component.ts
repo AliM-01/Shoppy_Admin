@@ -31,7 +31,7 @@ export class EditProductComponent implements OnInit {
     public dialogRef: MatDialogRef<EditProductComponent>,
     private productCategoryService: ProductCategoryService,
     private productService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public data: {id: number},
+    @Inject(MAT_DIALOG_DATA) public data: { id: number },
     private ckeditorService: CkeditorService,
     private toastr: ToastrService
   ) { }
@@ -56,7 +56,7 @@ export class EditProductComponent implements OnInit {
 
     this.productService.getProductDetails(this.data.id).subscribe((res) => {
       console.log(res);
-      
+
       if (res.status === 'success') {
 
         this.editForm.controls.categoryId.setValue(res.data.categoryId)
@@ -65,7 +65,7 @@ export class EditProductComponent implements OnInit {
         this.editForm.controls.unitPrice.setValue(res.data.unitPrice)
         this.editForm.controls.shortDescription.setValue(res.data.shortDescription)
 
-        if(res.data.isInStock){
+        if (res.data.isInStock) {
           this.inputAvailable = true;
           this.inputUnAvailable = false;
         } else {
@@ -75,7 +75,7 @@ export class EditProductComponent implements OnInit {
 
         this.ckeditorTextValue = res.data.description;
         this.ckeditorService.setValue(res.data.description);
-        this.imagePath = `${environment.productBaseImagePath}/original/${res.data.imagePath}` ;
+        this.imagePath = `${environment.productBaseImagePath}/original/${res.data.imagePath}`;
         this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
         this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
         this.editForm.controls.metaKeywords.setValue(res.data.metaKeywords);
@@ -85,13 +85,10 @@ export class EditProductComponent implements OnInit {
     },
       (error) => {
         if (error instanceof HttpErrorResponse) {
+
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           this.onCloseClick();
 
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
         }
       }
     );
@@ -111,11 +108,8 @@ export class EditProductComponent implements OnInit {
 
           this.onCloseClick();
 
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
 
-          this.toastr.error(error.error.message, 'خطا');
         }
       }
     );
@@ -134,10 +128,10 @@ export class EditProductComponent implements OnInit {
 
   changeProductInStockState(state: boolean): void {
     this.productInStockState = state;
-    if(state === true){
+    if (state === true) {
       this.inputAvailable = true;
       this.inputUnAvailable = false;
-    } else{
+    } else {
       this.inputAvailable = false;
       this.inputUnAvailable = true;
     }
@@ -145,7 +139,7 @@ export class EditProductComponent implements OnInit {
 
   submiteditForm() {
     console.log(this.editForm.controls.categoryId.value);
-    
+
     this.ckeditorTextValue = this.ckeditorService.getValue();
 
     if (this.editForm.valid) {
@@ -181,18 +175,14 @@ export class EditProductComponent implements OnInit {
           this.toastr.toastrConfig.timeOut = 1500;
 
           let toasterMsg = `محصول ${editData.code} با موفقیت ویرایش شد`
-          this.toastr.success(toasterMsg, 'موفقیت');
+          this.toastr.success(toasterMsg, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
 
         }
       },
         (error) => {
           if (error instanceof HttpErrorResponse) {
-            this.toastr.toastrConfig.tapToDismiss = false;
-            this.toastr.toastrConfig.autoDismiss = true;
-            this.toastr.toastrConfig.timeOut = 2500;
-
-            this.toastr.error(error.error.message, 'خطا');
+            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           }
         }
       );

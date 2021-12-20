@@ -30,7 +30,7 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private productCategoryService: ProductCategoryService,
     private toastr: ToastrService
-  ) { 
+  ) {
     this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
   }
 
@@ -68,7 +68,7 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openEditDialog(id:number): void {
+  openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditProductCategoryComponent, {
       width: '600px',
       height: '700px',
@@ -88,24 +88,13 @@ export class FilterProductCategoryComponent implements OnInit, AfterViewInit {
   deleteProductCategory(id: number) {
     this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
       if (res.status === 'success') {
-
-
         this.ngOnInit();
-
-        this.toastr.toastrConfig.tapToDismiss = false;
-        this.toastr.toastrConfig.autoDismiss = true;
-        this.toastr.toastrConfig.timeOut = 1500;
-
-        this.toastr.success('دسته بندی مورد نظر با موفقیت حذف شد', 'موفقیت');
+        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
       }
     },
       (error) => {
         if (error instanceof HttpErrorResponse) {
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
         }
       }
     );

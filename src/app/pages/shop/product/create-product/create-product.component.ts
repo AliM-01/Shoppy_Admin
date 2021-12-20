@@ -125,11 +125,8 @@ export class CreateProductComponent implements OnInit {
 
           this.createForm.reset();
 
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 1500;
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
 
-          this.toastr.success('محصول مورد نظر با موفقیت ایجاد شد', 'موفقیت');
 
           this.onCloseClick();
 
@@ -137,11 +134,8 @@ export class CreateProductComponent implements OnInit {
       },
         (error) => {
           if (error instanceof HttpErrorResponse) {
-            this.toastr.toastrConfig.tapToDismiss = false;
-            this.toastr.toastrConfig.autoDismiss = true;
-            this.toastr.toastrConfig.timeOut = 2500;
+            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
 
-            this.toastr.error(error.error.message, 'خطا');
           }
         }
       );

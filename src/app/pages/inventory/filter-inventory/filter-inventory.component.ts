@@ -5,9 +5,9 @@ import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
-import {FilterInventoryInStockStateEnum, FilterInventoryModel} from "@app_models/inventory/filter-inventory";
-import {InventoryDataSource} from "@app_models/inventory/inventory-data-source";
-import {InventoryService} from "@app_services/inventory/inventory.service";
+import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_models/inventory/filter-inventory";
+import { InventoryDataSource } from "@app_models/inventory/inventory-data-source";
+import { InventoryService } from "@app_services/inventory/inventory.service";
 import { CreateInventoryComponent } from '../create-inventory/create-inventory.component';
 
 @Component({
@@ -58,14 +58,14 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  setInStockState(state: number){
+  setInStockState(state: number) {
     this.inStockState = state;
     this.loadInventoriesPage();
   }
 
   // setfilterInStockInput(checked: boolean){
   //   console.log('lll');
-    
+
   //   this.filterInStockInputChecked = checked;
   //   this.loadInventoriesPage();
   // }
@@ -94,7 +94,7 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
 
   loadInventoriesPage() {
     console.log(this.filterInStockInputChecked);
-    
+
     this.filterInventory = new FilterInventoryModel(this.filterProductIdInput.nativeElement.value,
       this.inStockState, []);
     this.dataSource.loadInventories(this.filterInventory);
@@ -107,21 +107,14 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
   //
   //       this.ngOnInit();
   //
-  //       this.toastr.toastrConfig.tapToDismiss = false;
-  //       this.toastr.toastrConfig.autoDismiss = true;
-  //       this.toastr.toastrConfig.timeOut = 1500;
-  //
-  //       this.toastr.success(res.message, 'موفقیت');
+  //       this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
+
   //     }
   //   },
   //     (error) => {
   //       if (error instanceof HttpErrorResponse) {
-  //         this.toastr.toastrConfig.tapToDismiss = false;
-  //         this.toastr.toastrConfig.autoDismiss = true;
-  //         this.toastr.toastrConfig.timeOut = 2500;
-  //
-  //         this.toastr.error(error.error.message, 'خطا');
-  //       }
+  //         this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+
   //     }
   //   );
   // }
@@ -133,20 +126,12 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
   //
   //       this.ngOnInit();
   //
-  //       this.toastr.toastrConfig.tapToDismiss = false;
-  //       this.toastr.toastrConfig.autoDismiss = true;
-  //       this.toastr.toastrConfig.timeOut = 1500;
-  //
-  //       this.toastr.success(res.message, 'موفقیت');
+  //        this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
   //     }
   //   },
   //     (error) => {
   //       if (error instanceof HttpErrorResponse) {
-  //         this.toastr.toastrConfig.tapToDismiss = false;
-  //         this.toastr.toastrConfig.autoDismiss = true;
-  //         this.toastr.toastrConfig.timeOut = 2500;
-  //
-  //         this.toastr.error(error.error.message, 'خطا');
+  //         this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
   //       }
   //     }
   //   );

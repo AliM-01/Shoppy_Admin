@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ProductDataSource, FilterProductModel } from '@app_models/shop/product/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -31,7 +31,7 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private productService: ProductService,
     private toastr: ToastrService
-  ) { 
+  ) {
     this.pageTitle.setTitle('مدیریت محصولات');
   }
 
@@ -106,24 +106,14 @@ export class FilterProductComponent implements OnInit, AfterViewInit {
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe((res) => {
       if (res.status === 'success') {
-
-
         this.ngOnInit();
 
-        this.toastr.toastrConfig.tapToDismiss = false;
-        this.toastr.toastrConfig.autoDismiss = true;
-        this.toastr.toastrConfig.timeOut = 1500;
-
-        this.toastr.success('محصول مورد نظر با موفقیت حذف شد', 'موفقیت');
+        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
       }
     },
       (error) => {
         if (error instanceof HttpErrorResponse) {
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
         }
       }
     );

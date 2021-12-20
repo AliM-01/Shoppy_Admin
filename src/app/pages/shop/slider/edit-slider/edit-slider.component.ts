@@ -21,7 +21,7 @@ export class EditSliderComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditSliderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {id: number},
+    @Inject(MAT_DIALOG_DATA) public data: { id: number },
     private sliderService: SliderService,
     private toastr: ToastrService
   ) { }
@@ -38,12 +38,12 @@ export class EditSliderComponent implements OnInit {
     });
 
     this.sliderService.getSliderDetails(this.data.id).subscribe((res) => {
-      
+
       if (res.status === 'success') {
 
         this.editForm.controls.heading.setValue(res.data.heading);
         this.editForm.controls.text.setValue(res.data.text);
-        this.imagePath = `${environment.sliderBaseImagePath}/original/${res.data.imagePath}` ;
+        this.imagePath = `${environment.sliderBaseImagePath}/original/${res.data.imagePath}`;
         this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
         this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
         this.editForm.controls.btnLink.setValue(res.data.btnLink);
@@ -54,12 +54,7 @@ export class EditSliderComponent implements OnInit {
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.onCloseClick();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
         }
       }
     );
@@ -100,24 +95,14 @@ export class EditSliderComponent implements OnInit {
         if (res.status === 'success') {
 
           this.editForm.reset();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 1500;
-
-          this.toastr.success(res.message, 'موفقیت');
-
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
 
         }
       },
         (error) => {
           if (error instanceof HttpErrorResponse) {
-            this.toastr.toastrConfig.tapToDismiss = false;
-            this.toastr.toastrConfig.autoDismiss = true;
-            this.toastr.toastrConfig.timeOut = 2500;
-
-            this.toastr.error(error.error.message, 'خطا');
+            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           }
         }
       );

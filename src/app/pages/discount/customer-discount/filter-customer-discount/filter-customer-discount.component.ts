@@ -80,7 +80,7 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openEditDialog(id:number): void {
+  openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditCustomerDiscountComponentDialog, {
       width: '600px',
       height: '700px',
@@ -100,25 +100,18 @@ export class FilterCustomerDiscountComponent implements OnInit, AfterViewInit {
 
   deleteCustomerDiscount(id: number) {
     this.customerDiscountService.deleteCustomerDiscount(id).subscribe((res) => {
+
       if (res.status === 'success') {
-
-
         this.ngOnInit();
-
-        this.toastr.toastrConfig.tapToDismiss = false;
-        this.toastr.toastrConfig.autoDismiss = true;
-        this.toastr.toastrConfig.timeOut = 1500;
-
-        this.toastr.success(res.message, 'موفقیت');
+        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
       }
+
     },
       (error) => {
         if (error instanceof HttpErrorResponse) {
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
+          
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
 
-          this.toastr.error(error.error.message, 'خطا');
         }
       }
     );

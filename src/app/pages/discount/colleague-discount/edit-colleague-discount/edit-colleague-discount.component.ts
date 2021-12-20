@@ -124,31 +124,31 @@ export class EditColleagueDiscountComponent implements OnInit {
   checkProductId() {
     let productId = this.editForm.controls.productId.value;
 
-    if(productId !== null) {
-      if(productId !== this.unchangedProductId){
+    if (productId !== null) {
+      if (productId !== this.unchangedProductId) {
 
         this.productService.existsProductId(productId).subscribe(res => {
 
-          if(res.data.exists === false){
-            this.toastr.info("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
+          if (res.data.exists === false) {
+            this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", { timeOut: 500 });
             this.existsProductId = true
 
           } else {
 
             this.colleagueDiscountService.checkProductHasColleagueDiscount(productId).subscribe(res => {
-        
-              if(res.data.existsColleagueDiscount === true){
-                this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
+
+              if (res.data.existsColleagueDiscount === true) {
+                this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", { timeOut: 500 });
                 this.existsProductDiscount = true
               }
-        
+
             });
-      
+
           }
 
         })
 
-       
+
       }
     }
     this.existsProductId = false;
