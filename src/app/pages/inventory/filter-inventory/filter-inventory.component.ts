@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import {FilterInventoryInStockStateEnum, FilterInventoryModel} from "@app_models/inventory/filter-inventory";
 import {InventoryDataSource} from "@app_models/inventory/inventory-data-source";
 import {InventoryService} from "@app_services/inventory/inventory.service";
+import { CreateInventoryComponent } from '../create-inventory/create-inventory.component';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -69,14 +70,15 @@ export class FilterInventoryComponent implements OnInit, AfterViewInit {
   //   this.loadInventoriesPage();
   // }
 
-  // openCreateDialog(): void {
-  //   const dialogRef = this.dialog.open(DefineInventoryComponent, {
-  //     width: '600px',
-  //     height: '700px'
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreateInventoryComponent, {
+      width: '450px',
+      height: '350px'
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
   //
   // openEditDialog(id:number): void {
   //   const dialogRef = this.dialog.open(EditInventoryComponent, {
