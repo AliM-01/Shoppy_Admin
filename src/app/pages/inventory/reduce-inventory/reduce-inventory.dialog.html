@@ -1,0 +1,56 @@
+<div class="shadow">
+    <h2>ایجاد دسته بندی محصول</h2>
+    <hr>
+    
+    <form [formGroup]="reduceForm" (ngSubmit)="submitreduceForm()" enctype="multipart/form-data">
+    
+      <div class="row">
+        
+        <div class="col-md-12">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>شناسه محصول</mat-label>
+            <input matInput type="number" placeholder="..." formControlName="productId">
+          </mat-form-field>
+    
+          <p class="text-danger"
+                *ngIf="reduceForm.controls.productId.errors?.required && reduceForm.controls.productId.touched">
+              لطفا شناسه محصول را وارد نمایید
+          </p>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>تعداد</mat-label>
+            <input matInput type="number" placeholder="..." formControlName="count">
+          </mat-form-field>
+    
+          <p class="text-danger"
+                *ngIf="reduceForm.controls.count.errors?.required && reduceForm.controls.count.touched">
+              لطفا تعداد را وارد نمایید
+          </p>
+        </div>
+  
+        <div class="col-md-12">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>توضیحات</mat-label>
+            <textarea matInput placeholder="..." formControlName="description"></textarea>
+          </mat-form-field>
+    
+          <p class="text-danger"
+                *ngIf="reduceForm.controls.description.errors?.required && reduceForm.controls.description.touched">
+              لطفا توضیحات را وارد نمایید
+          </p>
+        </div>
+
+      </div>
+    
+      <hr>
+    
+        <div class="d-flex">
+          <button mat-raised-button color="primary" type="submit">ثبت</button>
+          <button mat-button color="warn" type="button" (click)="onCloseClick()">بستن</button>
+        </div>
+  
+    </form>
+  </div>
+  

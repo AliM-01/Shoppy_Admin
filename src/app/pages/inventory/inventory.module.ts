@@ -18,13 +18,15 @@ import {FilterInventoryPage} from "@apppages/inventory/filter-inventory/filter-i
 import { CreateInventoryDialog } from './create-inventory/create-inventory.dialog';
 import { EditInventoryDialog } from './edit-inventory/edit-inventory.dialog';
 import { IncreaseInventoryDialog } from './increase-inventory/increase-inventory.dialog';
+import { ReduceInventoryDialog } from './reduce-inventory/reduce-inventory.dialog';
 
 @NgModule({
   declarations: [
     FilterInventoryPage,
     CreateInventoryDialog,
     EditInventoryDialog,
-    IncreaseInventoryDialog
+    IncreaseInventoryDialog,
+    ReduceInventoryDialog
   ],
   imports: [
     CommonModule,
