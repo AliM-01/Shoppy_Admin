@@ -17,12 +17,14 @@ import {InventoryRoutingModule} from "@apppages/inventory/inventory.routing.modu
 import {FilterInventoryPage} from "@apppages/inventory/filter-inventory/filter-inventory.page";
 import { CreateInventoryDialog } from './create-inventory/create-inventory.dialog';
 import { EditInventoryDialog } from './edit-inventory/edit-inventory.dialog';
+import { IncreaseInventoryDialog } from './increase-inventory/increase-inventory.dialog';
 
 @NgModule({
   declarations: [
     FilterInventoryPage,
     CreateInventoryDialog,
-    EditInventoryDialog
+    EditInventoryDialog,
+    IncreaseInventoryDialog
   ],
   imports: [
     CommonModule,

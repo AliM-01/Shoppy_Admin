@@ -10,6 +10,7 @@ import { InventoryDataSource } from "@app_models/inventory/inventory-data-source
 import { InventoryService } from "@app_services/inventory/inventory.service";
 import { CreateInventoryDialog } from '../create-inventory/create-inventory.dialog';
 import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
+import { IncreaseInventoryDialog } from '../increase-inventory/increase-inventory.dialog';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -64,6 +65,14 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     this.loadInventoriesPage();
   }
 
+  loadInventoriesPage() {
+    console.log(this.filterInStockInputChecked);
+
+    this.filterInventory = new FilterInventoryModel(this.filterProductIdInput.nativeElement.value,
+      this.inStockState, []);
+    this.dataSource.loadInventories(this.filterInventory);
+  }
+
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateInventoryDialog, {
       width: '450px',
@@ -86,49 +95,16 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  loadInventoriesPage() {
-    console.log(this.filterInStockInputChecked);
-
-    this.filterInventory = new FilterInventoryModel(this.filterProductIdInput.nativeElement.value,
-      this.inStockState, []);
-    this.dataSource.loadInventories(this.filterInventory);
+  openIncreaseDialog(id: number): void {
+    const dialogRef = this.dialog.open(IncreaseInventoryDialog, {
+      width: '450px',
+      height: '350px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
-
-  // removeInventory(id: number) {
-  //   this.inventoryService.removeInventory(id).subscribe((res) => {
-  //     if (res.status === 'success') {
-  //
-  //
-  //       this.ngOnInit();
-  //
-  //       this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-
-  //     }
-  //   },
-  //     (error) => {
-  //       if (error instanceof HttpErrorResponse) {
-  //         this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-
-  //     }
-  //   );
-  // }
-  //
-  // restoreInventory(id: number) {
-  //   this.inventoryService.restoreInventory(id).subscribe((res) => {
-  //     if (res.status === 'success') {
-  //
-  //
-  //       this.ngOnInit();
-  //
-  //        this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-  //     }
-  //   },
-  //     (error) => {
-  //       if (error instanceof HttpErrorResponse) {
-  //         this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-  //       }
-  //     }
-  //   );
-  // }
 
 }
