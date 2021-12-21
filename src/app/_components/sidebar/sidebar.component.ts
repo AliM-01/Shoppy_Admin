@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-sidebar',
@@ -6,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  route: string;
+
+  constructor(location: Location, router: Router) {
+    this.route = router.url;
+    router.events.subscribe(val => {
+      if (location.path() != "") {
+        this.route = location.path().toString();
+        
+      } else {
+        this.route = "";
+      }
+    });
+  }
 
   ngOnInit(): void {
   }

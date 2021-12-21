@@ -3,9 +3,10 @@
     <nav class="side-navbar box-scroll sidebar-scroll">
 
         <ul class="list-unstyled">
-            <li class="active">
 
-                <a href="#dropdown-shop" aria-expanded="true" data-toggle="collapse">
+            <li [ngClass]="{ active: route.includes('/product') || route.includes('/product-category') }">
+
+                <a href="#dropdown-shop" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-store-alt"></i><span>فروشگاه</span>
                 </a>
 
@@ -14,14 +15,24 @@
                     <li><a [routerLink]="'/product-category'" routerLinkActive="active">دسته بندی محصولات</a></li>
                 </ul>
             </li>
-            <li>
+
+            <li [ngClass]="{ active: route.toLowerCase().includes('/inventory') }">
+
+                <a [routerLink]="'/inventory'" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">
+                    <i class="las la-warehouse"></i><span>انبار</span>
+                </a>
+
+            </li>
+
+            <li [ngClass]="{ active: route.toLowerCase().includes('/slider') }">
                 <a href="#dropdown-site" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-cog"></i><span>سایت</span></a>
                 <ul id="dropdown-site" class="collapse list-unstyled show pt-0">
                     <li><a [routerLink]="'/slider'" routerLinkActive="active">اسلایدر</a></li>
                 </ul>
             </li>
-            <li>
+
+            <li [ngClass]="{ active: route.toLowerCase().includes('/customer-discount') || route.toLowerCase().includes('/colleague-discount') }">
                 <a href="#dropdown-discount" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-wallet"></i><span>تخفیفات</span></a>
                 <ul id="dropdown-discount" class="collapse list-unstyled show pt-0">
