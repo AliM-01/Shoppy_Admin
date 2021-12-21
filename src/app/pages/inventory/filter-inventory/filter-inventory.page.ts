@@ -66,8 +66,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   loadInventoriesPage() {
-    console.log(this.filterInStockInputChecked);
-
     this.filterInventory = new FilterInventoryModel(this.filterProductIdInput.nativeElement.value,
       this.inStockState, []);
     this.dataSource.loadInventories(this.filterInventory);
