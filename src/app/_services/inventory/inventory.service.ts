@@ -4,6 +4,7 @@ import { IResponse } from '@app_models/common/IResponse';
 import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel, IncreaseInventoryModel, ReduceInventoryModel } from '@app_models/inventory/_index';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { InventoryOperationModel } from '../../_models/inventory/inventory-operation';
 
 @Injectable({
   providedIn: 'platform'
@@ -74,4 +75,9 @@ export class InventoryService {
     
     return this.http.post<IResponse<any>>(`${environment.inventoryBaseApiUrl}/reduce`, formData);
   }
+
+  getInventoryOperationLog(id: number): Observable<IResponse<InventoryOperationModel[]>> {
+    return this.http.get<IResponse<InventoryOperationModel[]>>(`${environment.inventoryBaseApiUrl}/get-operation-log/${id}`);
+  }
+
 }
