@@ -1,0 +1,45 @@
+<div class="shadow">
+  <h2>گردش انبار</h2>
+  <hr>
+
+  <table class="table table-bordered" dir="rtl">
+
+    <thead>
+      <tr>
+
+        <th>#</th>
+        <th>تعداد</th>
+        <th>تاریخ</th>
+        <th>عملیات</th>
+        <th>موجودی فعلی</th>
+        <th>اپراتور</th>
+        <th>توضیحات</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let log of operationLogs" 
+        [ngClass]="log.operationType === true ? 'bg-success' : 'bg-danger'">
+
+        <td>{{log.id}}</td>
+        <td>{{log.count}}</td>
+        <td>{{log.operationDate}}</td>
+
+        <td *ngIf="log.operationType">افزایش</td>
+        <td *ngIf="!log.operationType">کاهش</td>
+
+        <td>{{log.currentCount}}</td>
+        <td>{{log.operator}}</td>
+        <td>{{log.description}}</td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+</div>

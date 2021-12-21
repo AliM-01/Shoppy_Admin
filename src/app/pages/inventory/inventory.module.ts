@@ -19,6 +19,7 @@ import { CreateInventoryDialog } from './create-inventory/create-inventory.dialo
 import { EditInventoryDialog } from './edit-inventory/edit-inventory.dialog';
 import { IncreaseInventoryDialog } from './increase-inventory/increase-inventory.dialog';
 import { ReduceInventoryDialog } from './reduce-inventory/reduce-inventory.dialog';
+import { InventoryOperationDialog } from './inventory-operations/inventory-operations.dialog';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReduceInventoryDialog } from './reduce-inventory/reduce-inventory.dialo
     CreateInventoryDialog,
     EditInventoryDialog,
     IncreaseInventoryDialog,
-    ReduceInventoryDialog
+    ReduceInventoryDialog,
+    InventoryOperationDialog
   ],
   imports: [
     CommonModule,

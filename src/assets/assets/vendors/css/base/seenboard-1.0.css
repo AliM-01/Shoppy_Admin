@@ -1767,7 +1767,7 @@ a:hover.rounded-button {
 }
 
 .bg-danger, .bg-red {
-  background-color: #fe195e !important;
+  background-color: #f44336 !important;
   color: #fff;
 }
 
@@ -1782,7 +1782,7 @@ a:hover.rounded-button {
 }
 
 .bg-success, .bg-green {
-  background-color: #69cd00 !important;
+  background-color: #24a711 !important;
   color: #fff;
 }
 

@@ -12,6 +12,7 @@ import { CreateInventoryDialog } from '../create-inventory/create-inventory.dial
 import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
 import { IncreaseInventoryDialog } from '../increase-inventory/increase-inventory.dialog';
 import { ReduceInventoryDialog } from '../reduce-inventory/reduce-inventory.dialog';
+import { InventoryOperationDialog } from '../inventory-operations/inventory-operations.dialog';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -118,4 +119,16 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     });
   }
   
+  openOperationsDialog(id: number): void {
+    const dialogRef = this.dialog.open(InventoryOperationDialog, {
+      width: '950px',
+      height: '800px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  } 
+
 }
