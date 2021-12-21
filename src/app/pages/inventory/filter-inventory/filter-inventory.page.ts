@@ -109,7 +109,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   openReduceDialog(id: number): void {
     const dialogRef = this.dialog.open(ReduceInventoryDialog, {
       width: '450px',
-      height: '350px',
+      height: '425px',
       data: {
         id: id
       }
