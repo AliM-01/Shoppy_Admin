@@ -31,6 +31,7 @@ export class InventoryOperationDialog implements OnInit {
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.onCloseClick()
         }
       }
     );
