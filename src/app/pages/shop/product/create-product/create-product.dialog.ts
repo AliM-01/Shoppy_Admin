@@ -110,6 +110,9 @@ export class CreateProductDialog implements OnInit {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
 
+          const pleaseCreateInventoryMsg = `لطفا نسبت به ایجاد انبار این محصول اقدام کنید`
+
+          this.toastr.info(pleaseCreateInventoryMsg, 'مهم', { timeOut: 5000 });
 
           this.onCloseClick();
 
