@@ -9,6 +9,7 @@ import { IndexModule } from '@app/pages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ToastrModule } from 'ngx-toastr';
+import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ToastrModule } from 'ngx-toastr';
     }),
   ],
   providers: [
-    CkeditorService
+    CkeditorService,
+    DataHelperService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

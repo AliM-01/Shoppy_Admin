@@ -11,6 +11,7 @@ import { ProductService } from '@app_services/shop/product/product.service';
 import { CreateProductDialog } from '../create-product/create-product.dialog';
 import { environment } from '@environments/environment';
 import { EditProductDialog } from '../edit-product/edit-product.dialog';
+import { DataHelperService } from '../../../../_services/common/data-helper/data-helper.service';
 
 @Component({
   selector: 'app-filter-product',
@@ -30,6 +31,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     private pageTitle: Title,
     public dialog: MatDialog,
     private productService: ProductService,
+    private helper: DataHelperService,
     private toastr: ToastrService
   ) {
     this.pageTitle.setTitle('مدیریت محصولات');
@@ -119,4 +121,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     );
   }
 
+  toSlug(title: string): string {
+    return this.helper.toSlug(title);
+  }
 }
