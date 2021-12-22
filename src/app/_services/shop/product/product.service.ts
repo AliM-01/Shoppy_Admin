@@ -39,14 +39,6 @@ export class ProductService {
 
     formData.append('categoryId', createData.categoryId.toString());
     formData.append('title', createData.title);
-    formData.append('unitPrice', createData.unitPrice);
-
-    if(createData.isInStock === true){
-      formData.append('isInStock', 'true');
-    } else{
-      formData.append('isInStock', 'false');
-    }
-
     formData.append('shortDescription', createData.shortDescription);
     formData.append('description', createData.description);
     formData.append('imageFile', createData.imageFile, createData.imageFile.name);
@@ -65,14 +57,6 @@ export class ProductService {
     formData.append('id', editData.id.toString());
     formData.append('categoryId', editData.categoryId.toString());
     formData.append('title', editData.title);
-    formData.append('unitPrice', editData.unitPrice);
-
-    if(editData.isInStock){
-      formData.append('isInStock', 'true');
-    } else{
-      formData.append('isInStock', 'false');
-    }
-
     formData.append('shortDescription', editData.shortDescription);
     formData.append('description', editData.description);
 
@@ -90,13 +74,5 @@ export class ProductService {
 
   deleteProduct(productId: number):Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product/delete/${productId}`);
-  }
-
-  updateProductIsInStock(productId: number):Observable<IResponse<any>> {
-    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/product/update-is-in-stock/${productId}`, null);
-  }
-
-  updateProductNotInStock(productId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product/update-not-in-stock/${productId}`);
   }
 }

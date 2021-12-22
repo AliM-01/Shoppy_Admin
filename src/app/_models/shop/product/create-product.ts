@@ -2,8 +2,6 @@ export class CreateProductModel {
     constructor(
          public categoryId: number,
          public title: string,
-         public unitPrice: string,
-         public isInStock: boolean,
          public shortDescription: string,
          public description: string,
          public imageFile: any,

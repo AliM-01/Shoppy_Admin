@@ -21,9 +21,6 @@ export class EditProductDialog implements OnInit {
   imageFileToUpload: any;
   imagePath: any;
   ckeditorTextValue = null;
-  productInStockState: boolean = true;
-  inputAvailable: boolean = true;
-  inputUnAvailable: boolean;
   categories: ProductCategoryForSelectListModel[] = [];
 
 
@@ -46,7 +43,6 @@ export class EditProductDialog implements OnInit {
       categoryId: new FormControl(null, [Validators.required]),
       title: new FormControl(null, [Validators.required]),
       code: new FormControl(null, [Validators.required]),
-      unitPrice: new FormControl(null, [Validators.required]),
       shortDescription: new FormControl(null, [Validators.required]),
       imageAlt: new FormControl(null, [Validators.required]),
       imageTitle: new FormControl(null, [Validators.required]),
@@ -62,16 +58,7 @@ export class EditProductDialog implements OnInit {
         this.editForm.controls.categoryId.setValue(res.data.categoryId)
         this.editForm.controls.title.setValue(res.data.title)
         this.editForm.controls.code.setValue(res.data.code)
-        this.editForm.controls.unitPrice.setValue(res.data.unitPrice)
         this.editForm.controls.shortDescription.setValue(res.data.shortDescription)
-
-        if (res.data.isInStock) {
-          this.inputAvailable = true;
-          this.inputUnAvailable = false;
-        } else {
-          this.inputAvailable = false;
-          this.inputUnAvailable = true;
-        }
 
         this.ckeditorTextValue = res.data.description;
         this.ckeditorService.setValue(res.data.description);
@@ -126,17 +113,6 @@ export class EditProductDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  changeProductInStockState(state: boolean): void {
-    this.productInStockState = state;
-    if (state === true) {
-      this.inputAvailable = true;
-      this.inputUnAvailable = false;
-    } else {
-      this.inputAvailable = false;
-      this.inputUnAvailable = true;
-    }
-  }
-
   submiteditForm() {
     console.log(this.editForm.controls.categoryId.value);
 
@@ -152,8 +128,6 @@ export class EditProductDialog implements OnInit {
         this.editForm.controls.categoryId.value,
         this.editForm.controls.title.value,
         this.editForm.controls.code.value,
-        this.editForm.controls.unitPrice.value,
-        this.productInStockState,
         this.editForm.controls.shortDescription.value,
         this.ckeditorTextValue,
         this.imagePath,

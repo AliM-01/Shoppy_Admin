@@ -4,8 +4,6 @@ export class EditProductModel {
          public categoryId: number,
          public title: string,
          public code: string,
-         public unitPrice: string,
-         public isInStock: boolean,
          public shortDescription: string,
          public description: string,
          public imagePath: string,

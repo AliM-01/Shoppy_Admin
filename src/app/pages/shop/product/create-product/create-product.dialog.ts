@@ -19,9 +19,6 @@ export class CreateProductDialog implements OnInit {
   fileUploaded: boolean = false;
   imageFileToUpload: any;
   ckeditorTextValue = null;
-  productInStockState: boolean = true;
-  inputAvailable: boolean = true;
-  inputUnAvailable: boolean;
   categories: ProductCategoryForSelectListModel[] = [];
 
   constructor(
@@ -41,7 +38,6 @@ export class CreateProductDialog implements OnInit {
     this.createForm = new FormGroup({
       categoryId: new FormControl(null, [Validators.required]),
       title: new FormControl(null, [Validators.required]),
-      unitPrice: new FormControl(null, [Validators.required]),
       shortDescription: new FormControl(null, [Validators.required]),
       imageAlt: new FormControl(null, [Validators.required]),
       imageTitle: new FormControl(null, [Validators.required]),
@@ -85,17 +81,6 @@ export class CreateProductDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  changeProductInStockState(state: boolean): void {
-    this.productInStockState = state;
-    if (state === true) {
-      this.inputAvailable = true;
-      this.inputUnAvailable = false;
-    } else {
-      this.inputAvailable = false;
-      this.inputUnAvailable = true;
-    }
-  }
-
   submitCreateForm() {
     this.ckeditorTextValue = this.ckeditorService.getValue();
 
@@ -109,8 +94,6 @@ export class CreateProductDialog implements OnInit {
       const createData = new CreateProductModel(
         this.createForm.controls.categoryId.value,
         this.createForm.controls.title.value,
-        this.createForm.controls.unitPrice.value,
-        this.productInStockState,
         this.createForm.controls.shortDescription.value,
         this.ckeditorTextValue,
         this.imageFileToUpload,
