@@ -61,7 +61,7 @@ export class ProductPicturePage implements OnInit {
         .subscribe((res) => {
           if (res.status === 'success') {
 
-            this.productPictures = res.data.productPictures;
+            this.productPictures = res.data;
             this.pageLoading = true;
 
           }

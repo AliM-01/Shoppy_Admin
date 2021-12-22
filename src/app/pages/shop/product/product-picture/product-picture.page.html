@@ -7,7 +7,7 @@
         <div class="widget has-shadow">
             <div class="widget-body">
 
-                <div class="spinner-container" *ngIf="!pageLoading">
+                <div class="spinner-container" *ngIf="pageLoading !== true">
                     <mat-spinner></mat-spinner>
                 </div>
 
@@ -64,7 +64,7 @@
                     </div>
                     <div
                       class="col-md-8 row pb-4"
-                      *ngIf="productPictures.length"
+                      *ngIf="pageLoading"
                     >
                       <div *ngFor="let pic of productPictures" class="col-md-4 container-gallery mb-2">
                         <img

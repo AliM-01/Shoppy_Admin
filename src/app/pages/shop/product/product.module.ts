@@ -20,6 +20,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { ProductPicturePage } from './product-picture/product-picture.page';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { DirectivesModule } from '@app_directives/directives.module';
+import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { DirectivesModule } from '@app_directives/directives.module';
   ],
   schemas: [],
   providers: [
-    ProductService
+    ProductService,
+    ProductCategoryService
   ]
 })
 export class ProductModule { }
