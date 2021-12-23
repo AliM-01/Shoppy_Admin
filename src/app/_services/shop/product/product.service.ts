@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
-import { CreateProductModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel } from '@app_models/shop/product/_index';
+import { CreateProductModel, CreateProductResponseModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel } from '@app_models/shop/product/_index';
 
 @Injectable({
   providedIn: 'platform'
@@ -34,7 +34,7 @@ export class ProductService {
     return this.http.get<IResponse<EditProductModel>>(`${environment.shopBaseApiUrl}/product/${id}`);
   }
 
-  createProduct(createData: CreateProductModel):Observable<IResponse<any>> {
+  createProduct(createData: CreateProductModel):Observable<IResponse<CreateProductResponseModel>> {
     const formData = new FormData();
 
     formData.append('categoryId', createData.categoryId.toString());
@@ -47,7 +47,7 @@ export class ProductService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
     
-    return this.http.post<IResponse<any>>(`${environment.shopBaseApiUrl}/product/create`, formData);
+    return this.http.post<IResponse<CreateProductResponseModel>>(`${environment.shopBaseApiUrl}/product/create`, formData);
   }
 
   editProduct(editData: EditProductModel):Observable<IResponse<any>> {

@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
 import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_models/inventory/filter-inventory";
 import { InventoryDataSource } from "@app_models/inventory/inventory-data-source";
 import { InventoryService } from "@app_services/inventory/inventory.service";
-import { CreateInventoryDialog } from '../create-inventory/create-inventory.dialog';
+import { CreateInventoryDialog } from '../create-inventory-dialog/create-inventory.dialog';
 import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
 import { IncreaseInventoryDialog } from '../increase-inventory/increase-inventory.dialog';
 import { ReduceInventoryDialog } from '../reduce-inventory/reduce-inventory.dialog';

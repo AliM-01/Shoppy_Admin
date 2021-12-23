@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
 import { CreateProductModel } from '@app_models/shop/product/create-product';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
@@ -25,6 +26,7 @@ export class CreateProductDialog implements OnInit {
     public dialogRef: MatDialogRef<CreateProductDialog>,
     private productService: ProductService,
     private productCategoryService: ProductCategoryService,
+    private route: Router,
     private ckeditorService: CkeditorService,
     private toastr: ToastrService
   ) { }
@@ -112,10 +114,11 @@ export class CreateProductDialog implements OnInit {
 
           const pleaseCreateInventoryMsg = `لطفا نسبت به ایجاد انبار این محصول اقدام کنید`
 
-          this.toastr.info(pleaseCreateInventoryMsg, 'مهم', { timeOut: 5000 });
+          this.toastr.info(pleaseCreateInventoryMsg, 'مهم', { timeOut: 4000 });
 
           this.onCloseClick();
 
+          this.route.navigate([`/inventory/create/${res.data.productId}`])
         }
       },
         (error) => {
