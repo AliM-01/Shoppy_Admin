@@ -60,9 +60,9 @@ export class CreateInventoryPage implements OnInit {
       this.inventoryService.createInventory(createData).subscribe((res) => {
         if (res.status === 'success') {
 
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.createForm.reset();
 
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
 
         }

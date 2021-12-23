@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from "@angular/platform-browser";
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -100,10 +100,12 @@ export class ProductPicturePage implements OnInit {
     this.productPictureService.createProductPicture(createData).subscribe((res) => {
       if (res.status === 'success') {
 
-        this.createForm.reset();
-
+        document.getElementById('resetBtn').click();
         this.ngOnInit();
 
+        this.imageFileToUpload = null;
+        this.createForm.controls.imageAlt.setValue(null);
+        this.createForm.controls.imageTitle.setValue(null);
         this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
       }
     },

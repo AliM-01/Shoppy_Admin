@@ -18,13 +18,18 @@
                         <h2>ایجاد گالری محصول</h2>
                         <hr>
                         
-                        <form [formGroup]="createForm" (ngSubmit)="submitCreateForm()" enctype="multipart/form-data">
+                        <form [formGroup]="createForm" (ngSubmit)="submitCreateForm()" enctype="multipart/form-data" >
                         
                           <div class="row">
 
                             <div class="col-md-12 mt-3 mb-3">
                                 <label>فایل تصویر</label>
                                 <input type="file" class="form-control" (change)="getImageFileToUpload($event)">
+
+                                <p class="text-danger"
+                                    *ngIf="!fileUploaded">
+                                  لطفا تصویر را وارد نمایید
+                                </p>
                             </div>
                       
                             <div class="col-md-12">
@@ -55,6 +60,7 @@
   
                             <div class="d-flex">
                               <button mat-raised-button color="primary" type="submit">ثبت</button>
+                              <button mat-raised-button color="warn" type="reset" id="resetBtn">پاک کردن</button>
                             </div>
 
                           </div>

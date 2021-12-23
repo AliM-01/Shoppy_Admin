@@ -5,12 +5,12 @@ import { ProductPicturePage } from "./product-picture/product-picture.page";
 
 const routes: Routes = [
     { path:'', component:FilterProductPage },
-  { path: 'gallery/:productId/:productTitle', component: ProductPicturePage }
+  { path: 'gallery/:productId', component: ProductPicturePage }
 
   ];
   
   @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(routes),],
     exports: [RouterModule]
   })
   export class ProductRoutingModule { }

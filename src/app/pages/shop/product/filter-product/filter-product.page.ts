@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnInit, ViewChild, ChangeDetectorRef  } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ProductDataSource, FilterProductModel } from '@app_models/shop/product/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
@@ -81,8 +81,8 @@ export class FilterProductPage implements OnInit, AfterViewInit {
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProductDialog, {
-      width: '600px',
-      height: '700px'
+      width: '750px',
+      height: '750px'
     }).afterClosed().subscribe(() => {
       this.ngOnInit();
     });
@@ -90,8 +90,8 @@ export class FilterProductPage implements OnInit, AfterViewInit {
 
   openEditDialog(id: number): void {
     const dialogRef = this.dialog.open(EditProductDialog, {
-      width: '600px',
-      height: '700px',
+      width: '750px',
+      height: '750px',
       data: {
         id: id
       }
@@ -119,9 +119,5 @@ export class FilterProductPage implements OnInit, AfterViewInit {
         }
       }
     );
-  }
-
-  toSlug(title: string): string {
-    return this.helper.toSlug(title);
   }
 }
