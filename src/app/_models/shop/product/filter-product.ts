@@ -1,10 +1,11 @@
+import { IPaging } from "@app_models/common/IPaging";
 import { ProductModel } from "./product";
 
-export class FilterProductModel {
-
-   constructor(
-        public search: string,
-        public categoryId: string,
-        public products: ProductModel[]
-    ){}
+export class FilterProductModel implements IPaging {
+    pageId: number;
+    allPagesCount: number;
+    takePage: number;
+    search: string;
+    categoryId: string;
+    products: ProductModel[];
 }
