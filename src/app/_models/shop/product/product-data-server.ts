@@ -4,7 +4,7 @@ import { FilterProductModel, ProductModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
 import { IResponse } from '@app_models/common/IResponse';
 
-export class ProductDataSource {
+export class ProductDataServer {
 
     public data: ProductModel[] = [];
     public resultsLength = 0;

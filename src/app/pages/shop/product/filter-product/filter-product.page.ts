@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ProductDataSource, FilterProductModel } from '@app_models/shop/product/_index';
+import { ProductDataServer, FilterProductModel } from '@app_models/shop/product/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { Title } from "@angular/platform-browser";
@@ -13,7 +13,7 @@ import { environment } from '@environments/environment';
 import { EditProductDialog } from '../edit-product/edit-product.dialog';
 import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProductModel } from '../../../../_models/shop/product/product';
+import { ProductModel } from '@app_models/shop/product/product';
 
 @Component({
   selector: 'app-filter-product',
@@ -25,7 +25,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   @ViewChild('filterInput') input: ElementRef;
   @ViewChild('filterCategoryInput') categoryInput: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'productsCount', 'commands'];
-  dataServer: ProductDataSource;
+  dataServer: ProductDataServer;
   dataSource: MatTableDataSource<ProductModel> = new MatTableDataSource<ProductModel>([]);
   isDataSourceLoaded: boolean = false;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
@@ -42,7 +42,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataServer = new ProductDataSource(this.productService);
+    this.dataServer = new ProductDataServer(this.productService);
     this.dataServer.loadProducts(this.filterProducts);
     this.dataSource = new MatTableDataSource<ProductModel>(this.dataServer.data);
     this.dataSource.paginator = this.paginator;
