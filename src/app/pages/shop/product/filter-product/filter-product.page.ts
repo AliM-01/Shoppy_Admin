@@ -1,5 +1,5 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild, ChangeDetectorRef  } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, AfterViewInit, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ProductDataSource, FilterProductModel } from '@app_models/shop/product/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
@@ -11,7 +11,7 @@ import { ProductService } from '@app_services/shop/product/product.service';
 import { CreateProductDialog } from '../create-product/create-product.dialog';
 import { environment } from '@environments/environment';
 import { EditProductDialog } from '../edit-product/edit-product.dialog';
-import { DataHelperService } from '../../../../_services/common/data-helper/data-helper.service';
+import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
 
 @Component({
   selector: 'app-filter-product',
@@ -25,7 +25,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'productsCount', 'commands'];
   dataSource: ProductDataSource;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
-  filterProducts: FilterProductModel = new FilterProductModel('', '', []);
+  filterProducts: FilterProductModel = new FilterProductModel('', '0', [], 1, 5);
 
   constructor(
     private pageTitle: Title,
@@ -44,6 +44,13 @@ export class FilterProductPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
+    setInterval(() => {
+      this.paginator.length = this.dataSource.length;
+      this.paginator.pageIndex = this.dataSource.pageId;
+      this.paginator.pageSize = this.filterProducts.takePage;
+    }, 1250)
+
+
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
         debounceTime(150),
@@ -52,12 +59,6 @@ export class FilterProductPage implements OnInit, AfterViewInit {
           this.paginator.pageIndex = 0;
           this.loadProductCategoriesPage();
         })
-      )
-      .subscribe();
-
-    this.paginator.page
-      .pipe(
-        tap(() => this.loadProductCategoriesPage())
       )
       .subscribe();
 
@@ -71,12 +72,27 @@ export class FilterProductPage implements OnInit, AfterViewInit {
         })
       )
       .subscribe();
+  }
 
-    this.paginator.page
-      .pipe(
-        tap(() => this.loadProductCategoriesPage())
-      )
-      .subscribe();
+  onPaginateChange(event: PageEvent) {
+    let page = event.pageIndex;
+    let size = event.pageSize;
+
+    if (page === 0)
+      page = 1;
+
+    if (this.filterProducts.takePage !== size) {
+      page = 1;
+    }
+    this.filterProducts = new FilterProductModel(
+      this.input.nativeElement.value,
+      this.categoryInput.nativeElement.value,
+      [],
+      page,
+      size
+    );
+    this.ngOnInit();
+    this.paginator.pageSize = size;
   }
 
   openCreateDialog(): void {
@@ -101,8 +117,15 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   loadProductCategoriesPage() {
-    this.filterProducts = new FilterProductModel(this.input.nativeElement.value, this.categoryInput.nativeElement.value, []);
-    this.dataSource.loadProducts(this.filterProducts);
+    this.filterProducts = new FilterProductModel(
+      this.input.nativeElement.value,
+      this.categoryInput.nativeElement.value,
+      [],
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    );
+
+    this.ngOnInit();
   }
 
   deleteProduct(id: number) {

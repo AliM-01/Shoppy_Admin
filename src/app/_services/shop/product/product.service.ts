@@ -20,7 +20,9 @@ export class ProductService {
     if (filter !== null) {
       params = new HttpParams()
         .set('Search', filter.search)
-        .set('CategoryId', (filter.categoryId == '' ? 0 : parseInt(filter.categoryId)));
+        .set('CategoryId', (filter.categoryId == '' ? 0 : parseInt(filter.categoryId)))
+        .set('PageId', filter.pageId.toString())
+        .set('TakePage', filter.takePage.toString());
     }
 
     return this.http.get<IResponse<FilterProductModel>>(`${environment.shopBaseApiUrl}/product/filter`, { params });

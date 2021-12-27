@@ -9,7 +9,7 @@ export class ProductDataSource implements DataSource<ProductModel> {
 
     private productsSubject = new BehaviorSubject<ProductModel[]>([]);
     private loadingSubject = new BehaviorSubject<boolean>(true);
-
+    public pageId: number = 1;
     public loading$ = this.loadingSubject.asObservable();
     public length : number = 0;
 
@@ -30,12 +30,13 @@ export class ProductDataSource implements DataSource<ProductModel> {
 
         this.productService.filterProduct(filterProducts)
         .pipe(catchError(() => of([])),finalize(() => this.loadingSubject.next(true)))
-        .subscribe((res : IResponse<any>) => {
-
+        .subscribe((res : IResponse<FilterProductModel>) => {
+            console.log(res);
+            
             setInterval(() => {
 
-                this.length = res.data.products.length;
-
+                this.length = res.data.allPagesCount;
+                this.pageId = res.data.pageId;
                 this.productsSubject.next(res.data.products);
                 
                 this.loadingSubject.next(false);
