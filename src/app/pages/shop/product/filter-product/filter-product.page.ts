@@ -12,6 +12,8 @@ import { CreateProductDialog } from '../create-product/create-product.dialog';
 import { environment } from '@environments/environment';
 import { EditProductDialog } from '../edit-product/edit-product.dialog';
 import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { ProductModel } from '../../../../_models/shop/product/product';
 
 @Component({
   selector: 'app-filter-product',
@@ -23,7 +25,9 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   @ViewChild('filterInput') input: ElementRef;
   @ViewChild('filterCategoryInput') categoryInput: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'productsCount', 'commands'];
-  dataSource: ProductDataSource;
+  dataServer: ProductDataSource;
+  dataSource: MatTableDataSource<ProductModel> = new MatTableDataSource<ProductModel>([]);
+  isDataSourceLoaded: boolean = false;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
   filterProducts: FilterProductModel = new FilterProductModel('', '0', [], 1, 5);
 
@@ -38,17 +42,34 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new ProductDataSource(this.productService);
-    this.dataSource.loadProducts(this.filterProducts);
+    this.dataServer = new ProductDataSource(this.productService);
+    this.dataServer.loadProducts(this.filterProducts);
+    this.dataSource = new MatTableDataSource<ProductModel>(this.dataServer.data);
+    this.dataSource.paginator = this.paginator;
+
+    if (this.dataSource.data.length === 0) {
+      this.isDataSourceLoaded = false;
+    }
   }
 
   ngAfterViewInit() {
 
     setInterval(() => {
-      this.paginator.length = this.dataSource.length;
-      this.paginator.pageIndex = this.dataSource.pageId;
-      this.paginator.pageSize = this.filterProducts.takePage;
-    }, 1250)
+      if (this.isDataSourceLoaded === false) {
+        this.dataSource = new MatTableDataSource<ProductModel>(this.dataServer.data);
+        this.paginator.pageIndex = (this.dataServer.pageId - 1);
+        this.paginator.length = this.dataServer.resultsLength;
+        this.paginator.pageSize = this.filterProducts.takePage;
+
+        if (this.dataSource.data.length !== 0) {
+          this.isDataSourceLoaded = true;
+        } else {
+          this.isDataSourceLoaded = false;
+        }
+      }
+
+    }, 1000)
+
 
 
     fromEvent(this.input.nativeElement, 'keyup')
@@ -78,8 +99,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     let page = event.pageIndex;
     let size = event.pageSize;
 
-    if (page === 0)
-      page = 1;
+    page = page + 1;
 
     if (this.filterProducts.takePage !== size) {
       page = 1;
@@ -121,11 +141,13 @@ export class FilterProductPage implements OnInit, AfterViewInit {
       this.input.nativeElement.value,
       this.categoryInput.nativeElement.value,
       [],
-      this.paginator.pageIndex,
+      (this.paginator.pageIndex + 1),
       this.paginator.pageSize
     );
 
     this.ngOnInit();
+    this.paginator.length = this.dataServer.resultsLength;
+    this.paginator.pageSize = this.filterProducts.takePage;
   }
 
   deleteProduct(id: number) {
