@@ -1,16 +1,19 @@
 import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
-import { FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
-import { ColleagueDiscountDataSource } from '@app_models/discount/colleague-discount/colleague-discount-data-source';
+import { ColleagueDiscountModel, FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
+import { ColleagueDiscountDataServer } from '@app_models/discount/colleague-discount/colleague-discount-data-server';
 import { DefineColleagueDiscountDialog } from '../define-colleague-discount/define-colleague-discount.dialog';
 import { EditColleagueDiscountDialog } from '../edit-colleague-discount/edit-colleague-discount.dialog';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSort } from '@angular/material/sort';
+import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/common/IPaging';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -19,11 +22,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
-  displayedColumns: string[] = ['id', 'product', 'productId', 'rate', 'state', 'commands'];
-  dataSource: ColleagueDiscountDataSource;
-  filterColleagueDiscounts: FilterColleagueDiscountModel = new FilterColleagueDiscountModel(0, '', []);
+  displayedColumns: string[] = ['id', 'product', 'productId', 'rate', 'state','creationDate', 'commands'];
+  dataServer: ColleagueDiscountDataServer;
+  dataSource: MatTableDataSource<ColleagueDiscountModel> = new MatTableDataSource<ColleagueDiscountModel>([]);
+  isDataSourceLoaded: boolean = false;
+  filterColleagueDiscounts: FilterColleagueDiscountModel = new FilterColleagueDiscountModel(0, '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -35,11 +41,64 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new ColleagueDiscountDataSource(this.ColleagueDiscountService);
-    this.dataSource.loadColleagueDiscounts(this.filterColleagueDiscounts);
+    this.dataServer = new ColleagueDiscountDataServer(this.ColleagueDiscountService);
+    this.dataServer.loadColleagueDiscounts(this.filterColleagueDiscounts);
+    this.dataSource = new MatTableDataSource<ColleagueDiscountModel>(this.dataServer.data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    if (this.dataSource.data.length === 0) {
+      this.isDataSourceLoaded = false;
+    }
   }
 
   ngAfterViewInit() {
+
+    setInterval(() => {
+      if (this.isDataSourceLoaded === false) {
+        this.dataSource = new MatTableDataSource<ColleagueDiscountModel>(this.dataServer.data);
+        this.dataSource.sort = this.sort;
+        this.paginator.pageIndex = (this.dataServer.pageId - 1);
+        this.paginator.length = this.dataServer.resultsLength;
+        this.paginator.pageSize = this.filterColleagueDiscounts.takePage;
+
+        if (this.dataSource.data.length !== 0) {
+          this.isDataSourceLoaded = true;
+        } else {
+          this.isDataSourceLoaded = false;
+        }
+      }
+
+    }, 1000)
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
+    this.sort.sortChange
+      .pipe(
+        tap(change => {
+
+          if (change.active === 'id') {
+
+            if (change.direction === 'asc') {
+              this.filterColleagueDiscounts.sortIdOrder = PagingDataSortIdOrder.ASC;
+            } else {
+              this.filterColleagueDiscounts.sortIdOrder = PagingDataSortIdOrder.DES;
+            }
+          }
+
+          if (change.active === 'creationDate') {
+
+            if (change.direction === 'asc') {
+              this.filterColleagueDiscounts.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
+            } else {
+              this.filterColleagueDiscounts.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
+            }
+          }
+
+          this.loadColleagueDiscountsPage()
+        })
+      )
+      .subscribe();
 
     fromEvent(this.filterProductIdInput.nativeElement, 'keyup')
       .pipe(
@@ -62,12 +121,31 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
         })
       )
       .subscribe();
+  }
+  
+  onPaginateChange(event: PageEvent) {
+    let page = event.pageIndex;
+    let size = event.pageSize;
 
-    this.paginator.page
-      .pipe(
-        tap(() => this.loadColleagueDiscountsPage())
-      )
-      .subscribe();
+    page = page + 1;
+
+    if (this.filterColleagueDiscounts.takePage !== size) {
+      page = 1;
+    }
+    const sortDate: PagingDataSortCreationDateOrder = this.filterColleagueDiscounts.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterColleagueDiscounts.sortIdOrder;
+
+    this.filterColleagueDiscounts = new FilterColleagueDiscountModel(
+      this.filterProductIdInput.nativeElement.value,
+      this.filterProductTitleInput.nativeElement.value,
+      [],
+      page,
+      size,
+      sortDate,
+      sortId
+    );
+    this.ngOnInit();
+    this.paginator.pageSize = size;
   }
 
   openCreateDialog(): void {
@@ -92,9 +170,22 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   }
 
   loadColleagueDiscountsPage() {
-    this.filterColleagueDiscounts = new FilterColleagueDiscountModel(this.filterProductIdInput.nativeElement.value,
-      this.filterProductTitleInput.nativeElement.value, []);
-    this.dataSource.loadColleagueDiscounts(this.filterColleagueDiscounts);
+    const sortDate: PagingDataSortCreationDateOrder = this.filterColleagueDiscounts.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterColleagueDiscounts.sortIdOrder;
+
+    this.filterColleagueDiscounts = new FilterColleagueDiscountModel(
+      this.filterProductIdInput.nativeElement.value,
+      this.filterProductTitleInput.nativeElement.value,
+      [],
+      (this.paginator.pageIndex + 1),
+      this.paginator.pageSize,
+      sortDate,
+      sortId
+    );
+
+    this.ngOnInit();
+    this.paginator.length = this.dataServer.resultsLength;
+    this.paginator.pageSize = this.filterColleagueDiscounts.takePage;
   }
 
   removeColleagueDiscount(id: number) {

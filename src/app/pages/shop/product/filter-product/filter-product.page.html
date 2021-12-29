@@ -1,4 +1,3 @@
-
 <app-breadcrumb [pageTitle]="'مدیریت محصولات'"></app-breadcrumb>
 
 <div class="row">
@@ -21,7 +20,8 @@
                 </div>
 
                 <div>
-                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button>
+                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button"
+                        class="mat-success">افزودن</button>
                 </div>
 
             </div>
@@ -36,10 +36,10 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
                         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                     </ng-container>
-                
+
                     <ng-container matColumnDef="thumbnailImage">
                         <th mat-header-cell *matHeaderCellDef> تصویر </th>
-                        <td mat-cell *matCellDef="let element"> 
+                        <td mat-cell *matCellDef="let element">
                             <img [src]="thumbnailBasePath + element.imagePath" width="150" height="150">
                         </td>
                     </ng-container>
@@ -48,15 +48,15 @@
                         <th mat-header-cell *matHeaderCellDef> عنوان </th>
                         <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                     </ng-container>
-                
+
                     <ng-container matColumnDef="inStockStatus">
                         <th mat-header-cell *matHeaderCellDef> وضعیت موجودی </th>
-                        <td mat-cell *matCellDef="let element"> 
-                        
+                        <td mat-cell *matCellDef="let element">
+
                             <p *ngIf="element.isInStock" class="text-success">موجود</p>
 
                             <p *ngIf="!element.isInStock" class="text-danger">ناموجود</p>
-                            
+
                         </td>
                     </ng-container>
 
@@ -66,12 +66,13 @@
                     </ng-container>
 
                     <ng-container matColumnDef="commands">
-                      <th mat-header-cell *matHeaderCellDef> دستورات </th>
-                      <td mat-cell *matCellDef="let element">
-                            <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>
+                        <th mat-header-cell *matHeaderCellDef> دستورات </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-raised-button color="primary" class="mr-2"
+                                (click)="openEditDialog(element.id)">ویرایش</button>
                             <button mat-raised-button color="warn" (click)="deleteProduct(element.id)">حذف</button>
-                            
-                            <button mat-raised-button color="primary" class="ml-2" 
+
+                            <button mat-raised-button color="primary" class="ml-2"
                                 [routerLink]="'/product/gallery/' + element.id">گالری</button>
 
                             <button mat-raised-button [routerLink]="'/customer-discount/define/' + element.id"
@@ -83,16 +84,12 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-            
-                <mat-paginator 
-                    [length]="0"
-                    [pageSize]="filterProducts.takePage"
-                    [pageIndex]="1"
-                    [pageSizeOptions]="[4, 2, 5, 10, 15]"
-                    (page)="onPaginateChange($event)"
-                    showFirstLastButtons></mat-paginator>
+
+                <mat-paginator [length]="0" [pageSize]="filterProducts.takePage" [pageIndex]="1"
+                    [pageSizeOptions]="[4, 2, 5, 10, 15]" (page)="onPaginateChange($event)" showFirstLastButtons>
+                </mat-paginator>
             </div>
         </div>
-        
+
     </div>
 </div>
