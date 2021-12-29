@@ -1,18 +1,22 @@
 import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_models/inventory/filter-inventory";
-import { InventoryDataSource } from "@app_models/inventory/inventory-data-source";
+import { InventoryDataServer } from "@app_models/inventory/inventory-data-server";
 import { InventoryService } from "@app_services/inventory/inventory.service";
 import { CreateInventoryDialog } from '../create-inventory-dialog/create-inventory.dialog';
 import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
 import { IncreaseInventoryDialog } from '../increase-inventory/increase-inventory.dialog';
 import { ReduceInventoryDialog } from '../reduce-inventory/reduce-inventory.dialog';
 import { InventoryOperationDialog } from '../inventory-operations/inventory-operations.dialog';
+import { MatSort } from '@angular/material/sort';
+import { InventoryModel } from '@app_models/inventory/inventory';
+import { MatTableDataSource } from '@angular/material/table';
+import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/common/IPaging';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -21,12 +25,15 @@ import { InventoryOperationDialog } from '../inventory-operations/inventory-oper
 export class FilterInventoryPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   filterInStockInputChecked: string = 'true';
   displayedColumns: string[] = ['id', 'product', 'productId', 'state', 'unitPrice', 'currentCount', 'creationDate', 'commands'];
-  dataSource: InventoryDataSource;
   inStockState: FilterInventoryInStockStateEnum = FilterInventoryInStockStateEnum.All;
-  filterInventory: FilterInventoryModel = new FilterInventoryModel(0, FilterInventoryInStockStateEnum.All, []);
+  dataServer: InventoryDataServer;
+  dataSource: MatTableDataSource<InventoryModel> = new MatTableDataSource<InventoryModel>([]);
+  isDataSourceLoaded: boolean = false;
+  filterInventory: FilterInventoryModel = new FilterInventoryModel(0, FilterInventoryInStockStateEnum.All, [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -38,11 +45,65 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new InventoryDataSource(this.inventoryService);
-    this.dataSource.loadInventories(this.filterInventory);
+    this.dataServer = new InventoryDataServer(this.inventoryService);
+    this.dataServer.loadInventories(this.filterInventory);
+    this.dataSource = new MatTableDataSource<InventoryModel>(this.dataServer.data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    if (this.dataSource.data.length === 0) {
+      this.isDataSourceLoaded = false;
+    }
   }
 
   ngAfterViewInit() {
+
+    setInterval(() => {
+      if (this.isDataSourceLoaded === false) {
+        this.dataSource = new MatTableDataSource<InventoryModel>(this.dataServer.data);
+        this.dataSource.sort = this.sort;
+        this.paginator.pageIndex = (this.dataServer.pageId - 1);
+        this.paginator.length = this.dataServer.resultsLength;
+        this.paginator.pageSize = this.filterInventory.takePage;
+
+        if (this.dataSource.data.length !== 0) {
+          this.isDataSourceLoaded = true;
+        } else {
+          this.isDataSourceLoaded = false;
+        }
+      }
+
+    }, 1000)
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
+    this.sort.sortChange
+      .pipe(
+        tap(change => {
+
+          if (change.active === 'id') {
+
+            if (change.direction === 'asc') {
+              this.filterInventory.sortIdOrder = PagingDataSortIdOrder.ASC;
+            } else {
+              this.filterInventory.sortIdOrder = PagingDataSortIdOrder.DES;
+            }
+          }
+
+          if (change.active === 'creationDate') {
+
+            if (change.direction === 'asc') {
+              this.filterInventory.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
+            } else {
+              this.filterInventory.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
+            }
+          }
+
+          this.loadInventoriesPage()
+        })
+      )
+      .subscribe();
+
 
     fromEvent(this.filterProductIdInput.nativeElement, 'keyup')
       .pipe(
@@ -54,12 +115,31 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
         })
       )
       .subscribe();
+  }
+  
+  onPaginateChange(event: PageEvent) {
+    let page = event.pageIndex;
+    let size = event.pageSize;
 
-    this.paginator.page
-      .pipe(
-        tap(() => this.loadInventoriesPage())
-      )
-      .subscribe();
+    page = page + 1;
+
+    if (this.filterInventory.takePage !== size) {
+      page = 1;
+    }
+    const sortDate: PagingDataSortCreationDateOrder = this.filterInventory.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterInventory.sortIdOrder;
+
+    this.filterInventory = new FilterInventoryModel(
+      this.filterProductIdInput.nativeElement.value,
+      this.inStockState,
+      [],
+      page,
+      size,
+      sortDate,
+      sortId
+    );
+    this.ngOnInit();
+    this.paginator.pageSize = size;
   }
 
   setInStockState(state: number) {
@@ -68,9 +148,22 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   loadInventoriesPage() {
-    this.filterInventory = new FilterInventoryModel(this.filterProductIdInput.nativeElement.value,
-      this.inStockState, []);
-    this.dataSource.loadInventories(this.filterInventory);
+    const sortDate: PagingDataSortCreationDateOrder = this.filterInventory.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterInventory.sortIdOrder;
+
+    this.filterInventory = new FilterInventoryModel(
+      this.filterProductIdInput.nativeElement.value,
+      this.inStockState,
+      [],
+      (this.paginator.pageIndex + 1),
+      this.paginator.pageSize,
+      sortDate,
+      sortId
+    );
+
+    this.ngOnInit();
+    this.paginator.length = this.dataServer.resultsLength;
+    this.paginator.pageSize = this.filterInventory.takePage;
   }
 
   openCreateDialog(): void {

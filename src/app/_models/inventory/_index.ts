@@ -1,4 +1,4 @@
-export * from './inventory-data-source';
+export * from './inventory-data-server';
 export * from './inventory';
 export * from './inventory-operation';
 export * from './create-inventory';
