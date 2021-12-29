@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { ProductCategoryDataSource, FilterProductCategoryModel } from '@app_models/shop/product-category/_index';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { ProductCategoryDataServer, FilterProductCategoryModel, ProductCategoryModel } from '@app_models/shop/product-category/_index';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,6 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 import { EditProductCategoryDialog } from '../edit-product-category/edit-product-category.dialog';
 import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
+import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/common/IPaging';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-filter-product-category',
@@ -19,11 +22,14 @@ import { Title } from '@angular/platform-browser';
 export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount', 'commands'];
-  dataSource: ProductCategoryDataSource;
   thumbnailBasePath: string = `${environment.productCategoryBaseImagePath}/thumbnail/`;
-  filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', []);
+  dataServer: ProductCategoryDataServer;
+  dataSource: MatTableDataSource<ProductCategoryModel> = new MatTableDataSource<ProductCategoryModel>([]);
+  isDataSourceLoaded: boolean = false;
+  filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -35,11 +41,64 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new ProductCategoryDataSource(this.productCategoryService);
-    this.dataSource.loadProductCategories(this.filterProductCategories);
+    this.dataServer = new ProductCategoryDataServer(this.productCategoryService);
+    this.dataServer.loadProductCategories(this.filterProductCategories);
+    this.dataSource = new MatTableDataSource<ProductCategoryModel>(this.dataServer.data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    if (this.dataSource.data.length === 0) {
+      this.isDataSourceLoaded = false;
+    }
   }
 
   ngAfterViewInit() {
+
+    setInterval(() => {
+      if (this.isDataSourceLoaded === false) {
+        this.dataSource = new MatTableDataSource<ProductCategoryModel>(this.dataServer.data);
+        this.dataSource.sort = this.sort;
+        this.paginator.pageIndex = (this.dataServer.pageId - 1);
+        this.paginator.length = this.dataServer.resultsLength;
+        this.paginator.pageSize = this.filterProductCategories.takePage;
+
+        if (this.dataSource.data.length !== 0) {
+          this.isDataSourceLoaded = true;
+        } else {
+          this.isDataSourceLoaded = false;
+        }
+      }
+
+    }, 1000)
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
+    this.sort.sortChange
+      .pipe(
+        tap(change => {
+
+          if (change.active === 'id') {
+
+            if (change.direction === 'asc') {
+              this.filterProductCategories.sortIdOrder = PagingDataSortIdOrder.ASC;
+            } else {
+              this.filterProductCategories.sortIdOrder = PagingDataSortIdOrder.DES;
+            }
+          }
+
+          if (change.active === 'creationDate') {
+
+            if (change.direction === 'asc') {
+              this.filterProductCategories.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
+            } else {
+              this.filterProductCategories.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
+            }
+          }
+
+          this.loadProductCategoriesPage()
+        })
+      )
+      .subscribe();
 
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
@@ -51,14 +110,33 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
         })
       )
       .subscribe();
-
-    this.paginator.page
-      .pipe(
-        tap(() => this.loadProductCategoriesPage())
-      )
-      .subscribe();
+      
   }
 
+  onPaginateChange(event: PageEvent) {
+    let page = event.pageIndex;
+    let size = event.pageSize;
+
+    page = page + 1;
+
+    if (this.filterProductCategories.takePage !== size) {
+      page = 1;
+    }
+    const sortDate: PagingDataSortCreationDateOrder = this.filterProductCategories.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterProductCategories.sortIdOrder;
+
+    this.filterProductCategories = new FilterProductCategoryModel(
+      this.input.nativeElement.value,
+      [],
+      page,
+      size,
+      sortDate,
+      sortId
+    );
+    this.ngOnInit();
+    this.paginator.pageSize = size;
+  }
+  
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProductCategoryDialog, {
       width: '600px',
@@ -81,8 +159,21 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   }
 
   loadProductCategoriesPage() {
-    this.filterProductCategories = new FilterProductCategoryModel(this.input.nativeElement.value, []);
-    this.dataSource.loadProductCategories(this.filterProductCategories);
+    const sortDate: PagingDataSortCreationDateOrder = this.filterProductCategories.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterProductCategories.sortIdOrder;
+
+    this.filterProductCategories = new FilterProductCategoryModel(
+      this.input.nativeElement.value,
+      [],
+      (this.paginator.pageIndex + 1),
+      this.paginator.pageSize,
+      sortDate,
+      sortId
+    );
+
+    this.ngOnInit();
+    this.paginator.length = this.dataServer.resultsLength;
+    this.paginator.pageSize = this.filterProductCategories.takePage;
   }
 
   deleteProductCategory(id: number) {

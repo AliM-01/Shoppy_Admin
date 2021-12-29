@@ -11,30 +11,31 @@
                     <mat-form-field appearance="fill">
                         <mat-label>جستجو</mat-label>
                         <input type="text" matInput #filterInput />
-                      </mat-form-field>
+                    </mat-form-field>
                 </div>
 
                 <div>
-                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button" class="mat-success">افزودن</button>
+                    <button mat-raised-button (click)="openCreateDialog()" color="primary" type="button"
+                        class="mat-success">افزودن</button>
                 </div>
 
             </div>
             <div class="widget-body">
 
-                <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+                <div class="spinner-container" *ngIf="dataServer.isLoadingResults">
                     <mat-spinner></mat-spinner>
                 </div>
 
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                     <ng-container matColumnDef="id">
-                        <th mat-header-cell *matHeaderCellDef> Id </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
                         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                     </ng-container>
-                
+
                     <ng-container matColumnDef="thumbnailImage">
                         <th mat-header-cell *matHeaderCellDef> تصویر </th>
-                        <td mat-cell *matCellDef="let element"> 
+                        <td mat-cell *matCellDef="let element">
                             <img [src]="thumbnailBasePath + element.imagePath" width="150" height="150">
                         </td>
                     </ng-container>
@@ -43,32 +44,36 @@
                         <th mat-header-cell *matHeaderCellDef> عنوان </th>
                         <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                     </ng-container>
-                
-                    <ng-container matColumnDef="creationDate">
+
+                    <ng-container matColumnDef="creationDate" mat-sort-header>
                         <th mat-header-cell *matHeaderCellDef> تاریخ </th>
                         <td mat-cell *matCellDef="let element"> {{element.creationDate}} </td>
                     </ng-container>
-                
+
                     <ng-container matColumnDef="productsCount">
-                      <th mat-header-cell *matHeaderCellDef> محصولات </th>
-                      <td mat-cell *matCellDef="let element"> {{element.productsCount}} </td>
+                        <th mat-header-cell *matHeaderCellDef> محصولات </th>
+                        <td mat-cell *matCellDef="let element"> {{element.productsCount}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="commands">
-                      <th mat-header-cell *matHeaderCellDef> دستورات </th>
-                      <td mat-cell *matCellDef="let element">
-                            <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>
-                            <button mat-raised-button color="warn" (click)="deleteProductCategory(element.id)">حذف</button>
+                        <th mat-header-cell *matHeaderCellDef> دستورات </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-raised-button color="primary" class="mr-2"
+                                (click)="openEditDialog(element.id)">ویرایش</button>
+                            <button mat-raised-button color="warn"
+                                (click)="deleteProductCategory(element.id)">حذف</button>
                         </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-            
-                <mat-paginator [length]="dataSource.length" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 15]" showFirstLastButtons></mat-paginator>
+
+                <mat-paginator [length]="0" [pageSize]="filterProductCategories.takePage" [pageIndex]="1"
+                    [pageSizeOptions]="[4, 2, 5, 10, 15]" (page)="onPaginateChange($event)" showFirstLastButtons>
+                </mat-paginator>
             </div>
         </div>
-        
+
     </div>
 </div>

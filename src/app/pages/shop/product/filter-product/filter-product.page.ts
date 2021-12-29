@@ -24,7 +24,7 @@ import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_mod
 export class FilterProductPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   @ViewChild('filterCategoryInput') categoryInput: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'commands'];
@@ -76,33 +76,33 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     }, 1000)
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-        
-        this.sort.sortChange
-            .pipe(
-                tap(change => {
 
-                  if(change.active === 'id'){
+    this.sort.sortChange
+      .pipe(
+        tap(change => {
 
-                    if(change.direction === 'asc'){
-                      this.filterProducts.sortIdOrder = PagingDataSortIdOrder.ASC;
-                    } else {
-                      this.filterProducts.sortIdOrder = PagingDataSortIdOrder.DES;
-                    }
-                  }
+          if (change.active === 'id') {
 
-                  if(change.active === 'creationDate'){
+            if (change.direction === 'asc') {
+              this.filterProducts.sortIdOrder = PagingDataSortIdOrder.ASC;
+            } else {
+              this.filterProducts.sortIdOrder = PagingDataSortIdOrder.DES;
+            }
+          }
 
-                    if(change.direction === 'asc'){
-                      this.filterProducts.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
-                    } else {                      
-                      this.filterProducts.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
-                    }
-                  }
+          if (change.active === 'creationDate') {
 
-                  this.loadProductCategoriesPage()
-                })
-            )
-            .subscribe();
+            if (change.direction === 'asc') {
+              this.filterProducts.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
+            } else {
+              this.filterProducts.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
+            }
+          }
+
+          this.loadProductCategoriesPage()
+        })
+      )
+      .subscribe();
 
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
@@ -136,8 +136,8 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     if (this.filterProducts.takePage !== size) {
       page = 1;
     }
-    const sortDate:PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
-    const sortId:PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
+    const sortDate: PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
 
     this.filterProducts = new FilterProductModel(
       this.input.nativeElement.value,
@@ -174,8 +174,8 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   loadProductCategoriesPage() {
-    const sortDate:PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
-    const sortId:PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
+    const sortDate: PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
 
     this.filterProducts = new FilterProductModel(
       this.input.nativeElement.value,
