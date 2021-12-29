@@ -15,6 +15,7 @@ import { DataHelperService } from '@app_services/common/data-helper/data-helper.
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductModel } from '@app_models/shop/product/product';
 import { MatSort } from '@angular/material/sort';
+import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/common/IPaging';
 
 @Component({
   selector: 'app-filter-product',
@@ -31,7 +32,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<ProductModel> = new MatTableDataSource<ProductModel>([]);
   isDataSourceLoaded: boolean = false;
   thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
-  filterProducts: FilterProductModel = new FilterProductModel('', '0', [], 1, 5);
+  filterProducts: FilterProductModel = new FilterProductModel('', '0', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -74,7 +75,34 @@ export class FilterProductPage implements OnInit, AfterViewInit {
 
     }, 1000)
 
-    this.sort.sortChange.subscribe(() => 0);
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        
+        this.sort.sortChange
+            .pipe(
+                tap(change => {
+
+                  if(change.active === 'id'){
+
+                    if(change.direction === 'asc'){
+                      this.filterProducts.sortIdOrder = PagingDataSortIdOrder.ASC;
+                    } else {
+                      this.filterProducts.sortIdOrder = PagingDataSortIdOrder.DES;
+                    }
+                  }
+
+                  if(change.active === 'creationDate'){
+
+                    if(change.direction === 'asc'){
+                      this.filterProducts.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
+                    } else {                      
+                      this.filterProducts.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
+                    }
+                  }
+
+                  this.loadProductCategoriesPage()
+                })
+            )
+            .subscribe();
 
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
@@ -108,12 +136,17 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     if (this.filterProducts.takePage !== size) {
       page = 1;
     }
+    const sortDate:PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
+    const sortId:PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
+
     this.filterProducts = new FilterProductModel(
       this.input.nativeElement.value,
       this.categoryInput.nativeElement.value,
       [],
       page,
-      size
+      size,
+      sortDate,
+      sortId
     );
     this.ngOnInit();
     this.paginator.pageSize = size;
@@ -141,12 +174,17 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   loadProductCategoriesPage() {
+    const sortDate:PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
+    const sortId:PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
+
     this.filterProducts = new FilterProductModel(
       this.input.nativeElement.value,
       this.categoryInput.nativeElement.value,
       [],
       (this.paginator.pageIndex + 1),
-      this.paginator.pageSize
+      this.paginator.pageSize,
+      sortDate,
+      sortId
     );
 
     this.ngOnInit();

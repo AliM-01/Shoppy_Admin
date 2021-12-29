@@ -22,7 +22,9 @@ export class ProductService {
         .set('Search', filter.search)
         .set('CategoryId', (filter.categoryId == '' ? 0 : parseInt(filter.categoryId)))
         .set('PageId', filter.pageId.toString())
-        .set('TakePage', filter.takePage.toString());
+        .set('TakePage', filter.takePage.toString())
+        .set('SortCreationDateOrder', filter.sortCreationDateOrder)
+        .set('SortIdOrder', filter.sortIdOrder);
     }
 
     return this.http.get<IResponse<FilterProductModel>>(`${environment.shopBaseApiUrl}/product/filter`, { params });
