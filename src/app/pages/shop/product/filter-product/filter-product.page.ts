@@ -14,6 +14,7 @@ import { EditProductDialog } from '../edit-product/edit-product.dialog';
 import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductModel } from '@app_models/shop/product/product';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-filter-product',
@@ -22,9 +23,10 @@ import { ProductModel } from '@app_models/shop/product/product';
 export class FilterProductPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   @ViewChild('filterCategoryInput') categoryInput: ElementRef;
-  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'productsCount', 'commands'];
+  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'commands'];
   dataServer: ProductDataServer;
   dataSource: MatTableDataSource<ProductModel> = new MatTableDataSource<ProductModel>([]);
   isDataSourceLoaded: boolean = false;
@@ -46,6 +48,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     this.dataServer.loadProducts(this.filterProducts);
     this.dataSource = new MatTableDataSource<ProductModel>(this.dataServer.data);
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
 
     if (this.dataSource.data.length === 0) {
       this.isDataSourceLoaded = false;
@@ -57,6 +60,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
         this.dataSource = new MatTableDataSource<ProductModel>(this.dataServer.data);
+        this.dataSource.sort = this.sort;
         this.paginator.pageIndex = (this.dataServer.pageId - 1);
         this.paginator.length = this.dataServer.resultsLength;
         this.paginator.pageSize = this.filterProducts.takePage;
@@ -70,7 +74,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
 
     }, 1000)
 
-
+    this.sort.sortChange.subscribe(() => 0);
 
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(

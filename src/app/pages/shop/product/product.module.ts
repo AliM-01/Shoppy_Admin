@@ -21,6 +21,7 @@ import { ProductPicturePage } from './product-picture/product-picture.page';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { DirectivesModule } from '@app_directives/directives.module';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProductCategoryService } from '@app_services/shop/product-category/prod
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatDialogModule,
     MatRadioModule,
     MatButtonModule,
