@@ -93,8 +93,8 @@
                         <td mat-cell *matCellDef="let element"> {{element.currentCount}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="creationDate" mat-sort-header>
-                        <th mat-header-cell *matHeaderCellDef> تاریخ </th>
+                    <ng-container matColumnDef="creationDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> تاریخ </th>
                         <td mat-cell *matCellDef="let element"> {{element.creationDate}} </td>
                     </ng-container>
 

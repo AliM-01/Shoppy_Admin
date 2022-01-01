@@ -19,6 +19,7 @@ import { DefineCustomerDiscountDialog } from './define-customer-discount-dialog/
 import { DefineCustomerDiscountPage } from './define-customer-discount/define-customer-discount.page';
 import { DirectivesModule } from '@app_directives/directives.module';
 import { EditCustomerDiscountDialog } from './edit-customer-discount-dialog/edit-customer-discount.dialog';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { EditCustomerDiscountDialog } from './edit-customer-discount-dialog/edit
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,

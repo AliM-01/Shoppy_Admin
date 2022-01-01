@@ -21,6 +21,7 @@ import { IncreaseInventoryDialog } from './increase-inventory/increase-inventory
 import { ReduceInventoryDialog } from './reduce-inventory/reduce-inventory.dialog';
 import { InventoryOperationDialog } from './inventory-operations/inventory-operations.dialog';
 import { CreateInventoryPage } from './create-inventory-page/create-inventory.page';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CreateInventoryPage } from './create-inventory-page/create-inventory.pa
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,

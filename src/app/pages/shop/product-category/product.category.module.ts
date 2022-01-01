@@ -16,6 +16,7 @@ import { EditProductCategoryDialog } from './edit-product-category/edit-product-
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { DirectivesModule } from '@app_directives/directives.module';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DirectivesModule } from '@app_directives/directives.module';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,

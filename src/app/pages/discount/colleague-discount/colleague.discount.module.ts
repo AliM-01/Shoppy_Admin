@@ -16,6 +16,7 @@ import { ColleagueDiscountRoutingModule } from './colleague.discount.routing.mod
 import { FilterColleagueDiscountPage } from './filter-colleague-discount/filter-colleague-discount.page';
 import { DefineColleagueDiscountDialog } from './define-colleague-discount/define-colleague-discount.dialog';
 import { EditColleagueDiscountDialog } from './edit-colleague-discount/edit-colleague-discount.dialog';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { EditColleagueDiscountDialog } from './edit-colleague-discount/edit-coll
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatButtonModule,
