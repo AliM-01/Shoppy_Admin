@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { PreloaderComponent } from './preloader/preloader.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
@@ -15,7 +14,6 @@ import { LoadingComponent } from './loading/loading.component';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PreloaderComponent,
     BreadcrumbComponent,
     LoadingComponent
   ],
@@ -29,7 +27,6 @@ import { LoadingComponent } from './loading/loading.component';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PreloaderComponent,
     BreadcrumbComponent,
     LoadingComponent
   ],
