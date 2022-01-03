@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingComponent } from './loading/loading.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,9 @@ import { LoadingComponent } from './loading/loading.component';
     CommonModule,
     RouterModule,
     CKEditorModule,
-    MatProgressSpinnerModule
+    NgxLoadingModule.forRoot({
+      fullScreenBackdrop: true
+    })
   ],
   exports: [
     HeaderComponent,
@@ -30,6 +32,6 @@ import { LoadingComponent } from './loading/loading.component';
     BreadcrumbComponent,
     LoadingComponent
   ],
-  schemas: []
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ]
 })
 export class ComponentsModule { }

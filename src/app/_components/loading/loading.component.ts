@@ -4,9 +4,7 @@ import { LoadingService } from '../../_services/common/loading/loading.service';
 @Component({
   selector: 'app-loading',
   template: `
-    <div class="spinner-container" *ngIf="(loadingService.loading$ | async)">
-        <mat-spinner></mat-spinner>
-    </div>
+    <ngx-loading [show]="(loadingService.loading$ | async)"></ngx-loading>
   `
 })
 export class LoadingComponent implements OnInit {
