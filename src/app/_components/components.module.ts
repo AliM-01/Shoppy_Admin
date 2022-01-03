@@ -7,6 +7,8 @@ import { PreloaderComponent } from './preloader/preloader.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -14,19 +16,22 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     SidebarComponent,
     FooterComponent,
     PreloaderComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    CKEditorModule
+    CKEditorModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
     PreloaderComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    LoadingComponent
   ],
   schemas: []
 })
