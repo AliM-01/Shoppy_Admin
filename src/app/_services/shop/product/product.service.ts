@@ -1,19 +1,26 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { CreateProductModel, CreateProductResponseModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel } from '@app_models/shop/product/_index';
+import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from '@app_services/common/loading/loading.service';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'platform'
 })
 export class ProductService {
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private loading: LoadingService,
   ) { }
 
   filterProduct(filter: FilterProductModel): Observable<IResponse<FilterProductModel>> {
+
+    this.loading.loadingOn();
 
     let params;
 
@@ -27,18 +34,58 @@ export class ProductService {
         .set('SortIdOrder', filter.sortIdOrder);
     }
 
-    return this.http.get<IResponse<FilterProductModel>>(`${environment.shopBaseApiUrl}/product/filter`, { params });
+    return this.http.get<IResponse<FilterProductModel>>
+    (`${environment.shopBaseApiUrl}/product/filter`, { params })
+    .pipe(
+      tap(() => this.loading.loadingOff()),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
   }
 
   existsProductId(id: number): Observable<IResponse<ExistsProductIdResponseModel>> {
-    return this.http.get<IResponse<ExistsProductIdResponseModel>>(`${environment.shopBaseApiUrl}/product/exists/${id}`);
+    this.loading.loadingOn();
+
+    return this.http.get<IResponse<ExistsProductIdResponseModel>>
+    (`${environment.shopBaseApiUrl}/product/exists/${id}`)
+    .pipe(
+      tap(() => this.loading.loadingOff()),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
   }
 
   getProductDetails(id: number): Observable<IResponse<EditProductModel>> {
-    return this.http.get<IResponse<EditProductModel>>(`${environment.shopBaseApiUrl}/product/${id}`);
+
+    this.loading.loadingOn();
+
+    return this.http.get<IResponse<EditProductModel>>
+    (`${environment.shopBaseApiUrl}/product/${id}`)
+    .pipe(
+      tap(() => this.loading.loadingOff()),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
   }
 
   createProduct(createData: CreateProductModel):Observable<IResponse<CreateProductResponseModel>> {
+    this.loading.loadingOn();
+
     const formData = new FormData();
 
     formData.append('categoryId', createData.categoryId.toString());
@@ -51,7 +98,23 @@ export class ProductService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
     
-    return this.http.post<IResponse<CreateProductResponseModel>>(`${environment.shopBaseApiUrl}/product/create`, formData);
+    return this.http.post<IResponse<CreateProductResponseModel>>
+    (`${environment.shopBaseApiUrl}/product/create`, formData)
+    .pipe(
+      tap((res: IResponse<any>) => {
+
+        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+        this.loading.loadingOff();
+
+      }),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
   }
 
   editProduct(editData: EditProductModel):Observable<IResponse<any>> {
@@ -73,10 +136,42 @@ export class ProductService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
     
-    return this.http.put<IResponse<any>>(`${environment.shopBaseApiUrl}/product/edit`, formData);
+    return this.http.put<IResponse<any>>
+    (`${environment.shopBaseApiUrl}/product/edit`, formData)
+    .pipe(
+      tap((res: IResponse<any>) => {
+
+        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+        this.loading.loadingOff();
+
+      }),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
   }
 
   deleteProduct(productId: number):Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>(`${environment.shopBaseApiUrl}/product/delete/${productId}`);
+    return this.http.delete<IResponse<any>>
+    (`${environment.shopBaseApiUrl}/product/delete/${productId}`)
+    .pipe(
+      tap((res: IResponse<any>) => {
+
+        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+        this.loading.loadingOff();
+
+      }),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
   }
 }

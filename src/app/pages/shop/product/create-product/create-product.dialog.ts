@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
 import { CreateProductModel } from '@app_models/shop/product/create-product';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { ToastrService } from 'ngx-toastr';
@@ -27,6 +28,7 @@ export class CreateProductDialog implements OnInit {
     private productService: ProductService,
     private productCategoryService: ProductCategoryService,
     private route: Router,
+    private loading: LoadingService,
     private ckeditorService: CkeditorService,
     private toastr: ToastrService
   ) { }
@@ -50,33 +52,21 @@ export class CreateProductDialog implements OnInit {
 
   getProductCategoriesForSelectList() {
 
-    this.productCategoryService.getProductCategoriesList().subscribe((res) => {
+    this.productCategoryService.getProductCategoriesList().subscribe(res => {
       if (res.status === 'success') {
-
         this.categories = res.data;
-
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-
-          this.onCloseClick();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
-        }
-      }
-    );
-
+    });
 
   }
 
   getImageFileToUpload(event: any) {
+    this.loading.loadingOn();
+
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
+
+    this.loading.loadingOff();
   }
 
   onCloseClick(): void {
@@ -84,6 +74,8 @@ export class CreateProductDialog implements OnInit {
   }
 
   submitCreateForm() {
+    this.loading.loadingOn();
+
     this.ckeditorTextValue = this.ckeditorService.getValue();
 
     if (this.createForm.valid) {
@@ -110,8 +102,6 @@ export class CreateProductDialog implements OnInit {
 
           this.createForm.reset();
 
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-
           const pleaseCreateInventoryMsg = `لطفا نسبت به ایجاد انبار این محصول اقدام کنید`
 
           this.toastr.info(pleaseCreateInventoryMsg, 'مهم', { timeOut: 4000 });
@@ -120,19 +110,13 @@ export class CreateProductDialog implements OnInit {
 
           this.route.navigate([`/inventory/create/${res.data.productId}`])
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-
-          }
-        }
-      );
+      });
 
 
     } else {
       this.createForm.markAllAsTouched();
     }
+    this.loading.loadingOff();
 
   }
 }

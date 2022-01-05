@@ -1,14 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
 import { EditProductModel } from '@app_models/shop/product/edit-product';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { environment } from '@environments/environment';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-product',
@@ -30,10 +29,12 @@ export class EditProductDialog implements OnInit {
     private productService: ProductService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
     private ckeditorService: CkeditorService,
-    private toastr: ToastrService
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
+
+    this.loading.loadingOn();
 
     this.ckeditorService.initCkeditor();
 
@@ -51,8 +52,6 @@ export class EditProductDialog implements OnInit {
     });
 
     this.productService.getProductDetails(this.data.id).subscribe((res) => {
-      console.log(res);
-
       if (res.status === 'success') {
 
         this.editForm.controls.categoryId.setValue(res.data.categoryId)
@@ -70,43 +69,29 @@ export class EditProductDialog implements OnInit {
 
       }
     },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
+      (error) => { this.onCloseClick(); });
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          this.onCloseClick();
+    this.loading.loadingOff();
 
-        }
-      }
-    );
   }
 
   getProductCategoriesForSelectList() {
-
     this.productCategoryService.getProductCategoriesList().subscribe((res) => {
       if (res.status === 'success') {
 
         this.categories = res.data;
 
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-
-          this.onCloseClick();
-
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-
-        }
-      }
-    );
-
-
+    });
   }
 
   getImageFileToUpload(event: any) {
+    this.loading.loadingOn();
+
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
+
+    this.loading.loadingOff();
   }
 
   onCloseClick(): void {
@@ -114,7 +99,7 @@ export class EditProductDialog implements OnInit {
   }
 
   submiteditForm() {
-    console.log(this.editForm.controls.categoryId.value);
+    this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
 
@@ -143,24 +128,15 @@ export class EditProductDialog implements OnInit {
         if (res.status === 'success') {
 
           this.editForm.reset();
-
-          let toasterMsg = `محصول ${editData.code} با موفقیت ویرایش شد`
-          this.toastr.success(toasterMsg, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
 
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
-
+      });
 
     } else {
       this.editForm.markAllAsTouched();
     }
+    this.loading.loadingOff();
 
   }
 
