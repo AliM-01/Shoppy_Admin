@@ -2,7 +2,7 @@ export function toSlug(text: string): string{
   return text.trim().replace(' ', '-')
 }
 
-export function separateNumbers(inputNumber:number):string {
+export function separateNumbers(inputNumber:any):string {
   let numberToString = inputNumber.toString();
   numberToString = numberToString.replace(',', '');
   let x = numberToString.split('.');
