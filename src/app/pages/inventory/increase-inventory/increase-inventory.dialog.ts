@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IncreaseInventoryModel } from '@app_models/inventory/increase-inventory';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { InventoryService } from '@app_services/inventory/inventory.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-Increase-inventory',
@@ -17,16 +16,20 @@ export class IncreaseInventoryDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<IncreaseInventoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
-    private inventoryService: InventoryService,
-    private toastr: ToastrService
+    private inventoryService: InventoryService,    
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
+
+    this.loading.loadingOn();
 
     this.increaseForm = new FormGroup({
       count: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required])
     });
+
+    this.loading.loadingOff();
 
   }
 
@@ -35,6 +38,9 @@ export class IncreaseInventoryDialog implements OnInit {
   }
 
   submitIncreaseForm() {
+
+    this.loading.loadingOn();
+
     if (this.increaseForm.valid) {
 
       const increaseData = new IncreaseInventoryModel(
@@ -45,24 +51,16 @@ export class IncreaseInventoryDialog implements OnInit {
 
       this.inventoryService.increaseInventory(increaseData).subscribe((res) => {
         if (res.status === 'success') {
-
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.increaseForm.reset();
           this.onCloseClick();
-
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {            
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
-
+      });
 
     } else {
       this.increaseForm.markAllAsTouched();
     }
+    
+    this.loading.loadingOff();
 
   }
 

@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InventoryOperationModel } from '@app_models/inventory/inventory-operation';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { InventoryService } from '@app_services/inventory/inventory.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-product-category',
@@ -17,24 +16,20 @@ export class InventoryOperationDialog implements OnInit {
     public dialogRef: MatDialogRef<InventoryOperationDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
     private inventoryService: InventoryService,
-    private toastr: ToastrService
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
+    this.loading.loadingOn();
+
     this.inventoryService.getInventoryOperationLog(this.data.id).subscribe((res) => {
       if (res.status === 'success') {
-
         this.operationLogs = res.data;
+      }
+    });
 
-      }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          this.onCloseClick()
-        }
-      }
-    );
+    this.loading.loadingOff();
+
   }
 
   onCloseClick(): void {

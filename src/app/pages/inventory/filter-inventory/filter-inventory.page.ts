@@ -3,7 +3,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_models/inventory/filter-inventory";
 import { InventoryDataServer } from "@app_models/inventory/inventory-data-server";
@@ -17,6 +16,7 @@ import { MatSort } from '@angular/material/sort';
 import { InventoryModel } from '@app_models/inventory/inventory';
 import { MatTableDataSource } from '@angular/material/table';
 import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/common/IPaging';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -39,12 +39,14 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     private pageTitle: Title,
     public dialog: MatDialog,
     private inventoryService: InventoryService,
-    private toastr: ToastrService
+    private loading: LoadingService
   ) {
     this.pageTitle.setTitle('مدیریت انبار');
   }
 
   ngOnInit(): void {
+    this.loading.loadingOn();
+
     this.dataServer = new InventoryDataServer(this.inventoryService);
     this.dataServer.loadInventories(this.filterInventory);
     this.dataSource = new MatTableDataSource<InventoryModel>(this.dataServer.data);
@@ -54,6 +56,9 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     if (this.dataSource.data.length === 0) {
       this.isDataSourceLoaded = false;
     }
+
+    this.loading.loadingOff();
+
   }
 
   ngAfterViewInit() {
@@ -148,6 +153,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   loadInventoriesPage() {
+    
     const sortDate: PagingDataSortCreationDateOrder = this.filterInventory.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterInventory.sortIdOrder;
 

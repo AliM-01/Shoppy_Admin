@@ -10,6 +10,7 @@ import { ComponentsModule } from '@app_components/components.module';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ToastrModule } from 'ngx-toastr';
 import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
+import { LoadingService } from './_services/common/loading/loading.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DataHelperService } from '@app_services/common/data-helper/data-helper.
   ],
   providers: [
     CkeditorService,
-    DataHelperService
+    DataHelperService,
+    LoadingService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

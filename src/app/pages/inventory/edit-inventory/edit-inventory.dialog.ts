@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { InventoryService } from '@app_services/inventory/inventory.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-inventory',
@@ -17,11 +16,13 @@ export class EditInventoryDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditInventoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
-    private inventoryService: InventoryService,
-    private toastr: ToastrService
+    private inventoryService: InventoryService,    
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
+
+    this.loading.loadingOn();
 
     this.editForm = new FormGroup({
       productId: new FormControl(null, [Validators.required]),
@@ -36,14 +37,10 @@ export class EditInventoryDialog implements OnInit {
         this.editForm.controls.unitPrice.setValue(res.data.unitPrice)
 
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.onCloseClick();
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        }
-      }
-    );
+    });
+
+    this.loading.loadingOff();
+
   }
 
   onCloseClick(): void {
@@ -51,6 +48,8 @@ export class EditInventoryDialog implements OnInit {
   }
 
   submiteditForm() {
+    this.loading.loadingOn()
+
     if (this.editForm.valid) {
 
       const editData = new EditInventoryModel(
@@ -62,23 +61,18 @@ export class EditInventoryDialog implements OnInit {
       this.inventoryService.editInventory(editData).subscribe((res) => {
         if (res.status === 'success') {
 
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.editForm.reset();
           this.onCloseClick();
 
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {            
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
+      });
 
 
     } else {
       this.editForm.markAllAsTouched();
     }
+
+    this.loading.loadingOff()
 
   }
 

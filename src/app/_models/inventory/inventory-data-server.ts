@@ -1,6 +1,4 @@
-import { of } from "rxjs";
 import { FilterInventoryModel, InventoryModel } from "./_index";
-import { catchError, finalize } from 'rxjs/operators';
 import { IResponse } from '@app_models/common/IResponse';
 import { InventoryService } from "@app_services/inventory/inventory.service";
 export class InventoryDataServer {
@@ -13,13 +11,9 @@ export class InventoryDataServer {
     public pageId: number = 1;
 
     loadInventories(filterInventories: FilterInventoryModel) {
-
         this.isLoadingResults = true;
 
         this.inventoryService.filterInventory(filterInventories)
-        .pipe(catchError(() => of([])),finalize(() => {
-            this.isLoadingResults = true;
-        }))
         .subscribe((res : IResponse<FilterInventoryModel>) => {
             if (res.status === 'success' || res.status === 'no-content') {
                 setTimeout(() => {
@@ -27,6 +21,7 @@ export class InventoryDataServer {
                     this.resultsLength = res.data.allPagesCount;
                     this.isLoadingResults = false;
                     this.pageId = res.data.pageId;
+
                 }, 750)
             }
         });
