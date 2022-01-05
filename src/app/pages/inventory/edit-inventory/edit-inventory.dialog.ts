@@ -22,8 +22,6 @@ export class EditInventoryDialog implements OnInit {
 
   ngOnInit(): void {
 
-    this.loading.loadingOn();
-
     this.editForm = new FormGroup({
       productId: new FormControl(null, [Validators.required]),
       unitPrice: new FormControl(null, [Validators.required])
@@ -38,8 +36,6 @@ export class EditInventoryDialog implements OnInit {
 
       }
     });
-
-    this.loading.loadingOff();
 
   }
 

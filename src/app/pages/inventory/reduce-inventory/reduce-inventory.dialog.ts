@@ -22,15 +22,11 @@ export class ReduceInventoryDialog implements OnInit {
 
   ngOnInit(): void {
 
-    this.loading.loadingOn()
-
     this.reduceForm = new FormGroup({
       productId: new FormControl(null, [Validators.required]),
       count: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required])
     });
-
-    this.loading.loadingOff()
 
   }
 

@@ -45,8 +45,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.loading.loadingOn();
-
     this.dataServer = new InventoryDataServer(this.inventoryService);
     this.dataServer.loadInventories(this.filterInventory);
     this.dataSource = new MatTableDataSource<InventoryModel>(this.dataServer.data);
@@ -56,9 +54,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     if (this.dataSource.data.length === 0) {
       this.isDataSourceLoaded = false;
     }
-
-    this.loading.loadingOff();
-
   }
 
   ngAfterViewInit() {

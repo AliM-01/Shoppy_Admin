@@ -7,7 +7,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LoadingComponent } from './loading/loading.component';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxLoadingModule  } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,10 @@ import { NgxLoadingModule } from 'ngx-loading';
     RouterModule,
     CKEditorModule,
     NgxLoadingModule.forRoot({
-      fullScreenBackdrop: true
+      fullScreenBackdrop: true,
+      primaryColour: '#57edbbe6',
+      secondaryColour: '#17e9a3e5',
+      tertiaryColour: '#57edbbe6'
     })
   ],
   exports: [

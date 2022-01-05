@@ -91,3 +91,7 @@ td {
     padding-right: 8px !important;
     padding-left: 10px !important;
 }
+.spinner-three-bounce {
+    display: flex;
+    align-items: center;
+}

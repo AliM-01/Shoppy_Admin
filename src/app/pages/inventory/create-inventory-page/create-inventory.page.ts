@@ -29,14 +29,10 @@ export class CreateInventoryPage implements OnInit {
 
   ngOnInit(): void {
 
-    this.loading.loadingOn();
-
     this.activatedRoute.params.subscribe(params => {
       this.productId = params.productId;
 
       if (this.productId === undefined) {
-        this.loading.loadingOff()
-
         this.route.navigate(['/product']);
       }
 
@@ -45,8 +41,6 @@ export class CreateInventoryPage implements OnInit {
     this.createForm = new FormGroup({
       unitPrice: new FormControl(null, [Validators.required])
     });
-
-    this.loading.loadingOff();
 
   }
 

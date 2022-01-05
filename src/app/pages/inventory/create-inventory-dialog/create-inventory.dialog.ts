@@ -21,14 +21,10 @@ export class CreateInventoryDialog implements OnInit {
 
   ngOnInit(): void {
 
-    this.loading.loadingOn();
-
     this.createForm = new FormGroup({
       productId: new FormControl(null, [Validators.required]),
       unitPrice: new FormControl(null, [Validators.required])
     });
-
-    this.loading.loadingOff()
 
   }
 
