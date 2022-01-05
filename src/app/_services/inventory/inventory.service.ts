@@ -34,12 +34,7 @@ export class InventoryService {
     return this.http.get<IResponse<FilterInventoryModel>>
       (`${environment.inventoryBaseApiUrl}/filter`)
       .pipe(
-        tap((res: IResponse<FilterInventoryModel>) => {
-
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-          this.loading.loadingOff();
-
-        }),
+        tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
@@ -51,18 +46,13 @@ export class InventoryService {
   }
 
   getInventoryDetails(id: number): Observable<IResponse<EditInventoryModel>> {
-    
+
     this.loading.loadingOn()
 
     return this.http.get<IResponse<EditInventoryModel>>
-    (`${environment.inventoryBaseApiUrl}/${id}`)
-    .pipe(
-        tap((res: IResponse<EditInventoryModel>) => {
-
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-          this.loading.loadingOff();
-
-        }),
+      (`${environment.inventoryBaseApiUrl}/${id}`)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
@@ -112,22 +102,17 @@ export class InventoryService {
     formData.append('productId', editData.productId.toString());
 
     return this.http.put<IResponse<any>>
-    (`${environment.inventoryBaseApiUrl}/edit`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.inventoryBaseApiUrl}/edit`, formData)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
-
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
-
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
   increaseInventory(increaseData: IncreaseInventoryModel): Observable<IResponse<any>> {
@@ -141,22 +126,17 @@ export class InventoryService {
     formData.append('description', increaseData.description.toString());
 
     return this.http.post<IResponse<any>>
-    (`${environment.inventoryBaseApiUrl}/increase`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.inventoryBaseApiUrl}/increase`, formData)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
-
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
-
-        return throwError(error);
-      })
-    );;
+          return throwError(error);
+        })
+      );;
   }
 
   reduceInventory(reduceData: ReduceInventoryModel): Observable<IResponse<any>> {
@@ -172,45 +152,35 @@ export class InventoryService {
     formData.append('description', reduceData.description.toString());
 
     return this.http.post<IResponse<any>>
-    (`${environment.inventoryBaseApiUrl}/reduce`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.inventoryBaseApiUrl}/reduce`, formData)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
-
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
-
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
   getInventoryOperationLog(id: number): Observable<IResponse<InventoryOperationModel[]>> {
-    
+
     this.loading.loadingOn();
 
     return this.http.get<IResponse<InventoryOperationModel[]>>
-    (`${environment.inventoryBaseApiUrl}/get-operation-log/${id}`)
-    .pipe(
-      tap((res: IResponse<InventoryOperationModel[]>) => {
+      (`${environment.inventoryBaseApiUrl}/get-operation-log/${id}`)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
-
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
-
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
 }
