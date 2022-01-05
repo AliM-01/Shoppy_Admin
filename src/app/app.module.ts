@@ -9,7 +9,6 @@ import { IndexModule } from '@app/pages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ToastrModule } from 'ngx-toastr';
-import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
 import { LoadingService } from './_services/common/loading/loading.service';
 
 @NgModule({
@@ -31,7 +30,6 @@ import { LoadingService } from './_services/common/loading/loading.service';
   ],
   providers: [
     CkeditorService,
-    DataHelperService,
     LoadingService
   ],
   bootstrap: [AppComponent],

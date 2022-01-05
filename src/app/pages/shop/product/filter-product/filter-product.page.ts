@@ -11,7 +11,6 @@ import { ProductService } from '@app_services/shop/product/product.service';
 import { CreateProductDialog } from '../create-product/create-product.dialog';
 import { environment } from '@environments/environment';
 import { EditProductDialog } from '../edit-product/edit-product.dialog';
-import { DataHelperService } from '@app_services/common/data-helper/data-helper.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductModel } from '@app_models/shop/product/product';
 import { MatSort } from '@angular/material/sort';
@@ -38,7 +37,6 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     private pageTitle: Title,
     public dialog: MatDialog,
     private productService: ProductService,
-    private helper: DataHelperService,
     private toastr: ToastrService
   ) {
     this.pageTitle.setTitle('مدیریت محصولات');
