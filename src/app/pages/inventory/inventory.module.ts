@@ -22,6 +22,7 @@ import { ReduceInventoryDialog } from './reduce-inventory/reduce-inventory.dialo
 import { InventoryOperationDialog } from './inventory-operations/inventory-operations.dialog';
 import { CreateInventoryPage } from './create-inventory-page/create-inventory.page';
 import { MatSortModule } from '@angular/material/sort';
+import { PipesModule } from '@app_pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatRadioModule,
-    DirectivesModule
+    DirectivesModule,
+    PipesModule
   ],
   exports: [FilterInventoryPage],
   schemas: [],

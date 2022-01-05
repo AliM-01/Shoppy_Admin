@@ -85,7 +85,7 @@
 
                     <ng-container matColumnDef="unitPrice">
                         <th mat-header-cell *matHeaderCellDef> قیمت </th>
-                        <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.unitPrice | thousandSeperator}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="currentCount">

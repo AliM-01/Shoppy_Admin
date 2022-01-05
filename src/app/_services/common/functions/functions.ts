@@ -2,7 +2,7 @@ export function toSlug(text: string): string{
   return text.trim().replace(' ', '-')
 }
 
-export function separateNumbers(inputNumber:any):string {
+export function separateThousands(inputNumber:any):string {
   let numberToString = inputNumber.toString();
   numberToString = numberToString.replace(',', '');
   let x = numberToString.split('.');
@@ -11,5 +11,5 @@ export function separateNumbers(inputNumber:any):string {
   var rgx = /(\d+)(\d{3})/;
   while (rgx.test(y))
     y = y.replace(rgx, '$1' + ',' + '$2');
-  return y + z;
+  return `${(y + z)} تومان`;
 }
