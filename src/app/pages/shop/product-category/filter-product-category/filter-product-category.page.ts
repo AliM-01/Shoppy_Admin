@@ -6,8 +6,6 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProductCategoryDialog } from '../create-product-category/create-product-category.dialog';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 import { EditProductCategoryDialog } from '../edit-product-category/edit-product-category.dialog';
 import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
@@ -34,8 +32,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
-    private productCategoryService: ProductCategoryService,
-    private toastr: ToastrService
+    private productCategoryService: ProductCategoryService
   ) {
     this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
   }
@@ -180,15 +177,8 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
     this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        }
-      }
-    );
+    });
   }
 
 }

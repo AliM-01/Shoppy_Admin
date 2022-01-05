@@ -1,11 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateProductCategoryModel } from '@app_models/shop/product-category/create-product-category';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-product-category',
@@ -22,7 +21,7 @@ export class CreateProductCategoryDialog implements OnInit {
     public dialogRef: MatDialogRef<CreateProductCategoryDialog>,
     private productCategoryService: ProductCategoryService,
     private ckeditorService: CkeditorService,
-    private toastr: ToastrService
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -38,9 +37,13 @@ export class CreateProductCategoryDialog implements OnInit {
     });
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any) {    
+    this.loading.loadingOn();
+
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
+
+    this.loading.loadingOff();
   }
 
   onCloseClick(): void {
@@ -48,6 +51,8 @@ export class CreateProductCategoryDialog implements OnInit {
   }
 
   submitCreateForm() {
+    this.loading.loadingOn();
+
     this.ckeditorTextValue = this.ckeditorService.getValue();
 
     if (this.createForm.valid) {
@@ -72,22 +77,16 @@ export class CreateProductCategoryDialog implements OnInit {
         if (res.status === 'success') {
 
           this.createForm.reset();
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
 
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
-
+      });
 
     } else {
       this.createForm.markAllAsTouched();
     }
+
+    this.loading.loadingOff();
 
   }
 }

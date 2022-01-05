@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditProductCategoryModel } from '@app_models/shop/product-category/edit-product-category';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +26,8 @@ export class EditProductCategoryDialog implements OnInit {
     public dialogRef: MatDialogRef<EditProductCategoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
     private productCategoryService: ProductCategoryService,
-    private ckeditorService: CkeditorService,
+    private ckeditorService: CkeditorService,    
+    private loading: LoadingService,
     private toastr: ToastrService
   ) { }
 
@@ -55,26 +57,25 @@ export class EditProductCategoryDialog implements OnInit {
         this.editForm.controls.metaDescription.setValue(res.data.metaDescription);
 
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.onCloseClick();
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        }
-      }
-    );
+    });
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any) {    
+    this.loading.loadingOn();
+
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
+
+    this.loading.loadingOff();
   }
 
   onCloseClick(): void {
     this.dialogRef.close();
   }
 
-  submiteditForm() {
+  submiteditForm() {    
+    this.loading.loadingOn();
+
     this.ckeditorTextValue = this.ckeditorService.getValue();
     
     if (this.editForm.valid) {
@@ -99,26 +100,16 @@ export class EditProductCategoryDialog implements OnInit {
       this.productCategoryService.editProductCategory(editData).subscribe((res) => {
         if (res.status === 'success') {
 
-          let toasterMsg = `دسته بندی ${this.editForm.controls.title.value} با موفقیت ویرایش شد`
-          this.toastr.success(toasterMsg, 'موفقیت', { timeOut: 1500 });
-
           this.editForm.reset();
-
           this.onCloseClick();
 
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {            
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
-
+      });
 
     } else {
       this.editForm.markAllAsTouched();
     }
+    this.loading.loadingOff();
 
   }
 
