@@ -38,8 +38,8 @@ export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
     this.ckeditorService.initCkeditor();
 
     this.defineForm = new FormGroup({
-      productId: new FormControl(null, [Validators.required]),
-      rate: new FormControl(null, [Validators.required])
+      productId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100000)]),
+      rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
   }
   

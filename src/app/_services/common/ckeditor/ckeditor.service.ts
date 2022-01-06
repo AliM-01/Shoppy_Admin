@@ -9,7 +9,7 @@ export class CkeditorService {
 
   constructor() { }
 
-  initCkeditor() {
+  initCkeditor(maxLength: number = 250) {
     ClassicEditor
       .create(document.querySelector('#editor'), {
         toolbar: [
@@ -41,8 +41,8 @@ export class CkeditorService {
           showCharCount: true,
           countSpacesAsChars: false,
           countHTML: false,
-          maxWordCount: 250,
-          maxCharCount: 250,
+          maxWordCount: maxLength,
+          maxCharCount: maxLength,
       }
       })
       .then(editor => {

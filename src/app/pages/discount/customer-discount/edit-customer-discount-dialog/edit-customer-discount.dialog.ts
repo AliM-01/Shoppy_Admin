@@ -40,8 +40,8 @@ export class EditCustomerDiscountDialog implements OnInit {
     this.ckeditorService.initCkeditor();
 
     this.editForm = new FormGroup({
-      productId: new FormControl(null, [Validators.required]),
-      rate: new FormControl(null, [Validators.required])
+      productId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100000)]),
+      rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
 
     this.customerDiscountService.getCustomerDiscountDetails(this.data.id).subscribe((res) => {

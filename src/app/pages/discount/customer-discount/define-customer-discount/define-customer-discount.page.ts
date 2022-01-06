@@ -54,7 +54,7 @@ export class DefineCustomerDiscountPage implements OnInit {
     });
 
     this.defineForm = new FormGroup({
-      rate: new FormControl(null, [Validators.required])
+      rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
   }
 
