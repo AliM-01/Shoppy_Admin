@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateSliderModel } from '@app_models/shop/slider/create-slider';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { SliderService } from '@app_services/shop/slider/slider.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-slider',
@@ -19,8 +18,8 @@ export class CreateSliderDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateSliderDialog>,
-    private sliderService: SliderService,
-    private toastr: ToastrService
+    private sliderService: SliderService,    
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -36,8 +35,12 @@ export class CreateSliderDialog implements OnInit {
   }
 
   getImageFileToUpload(event: any) {
+    this.loading.loadingOn();
+
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
+
+    this.loading.loadingOff();
   }
 
   onCloseClick(): void {
@@ -45,6 +48,8 @@ export class CreateSliderDialog implements OnInit {
   }
 
   submitCreateForm() {
+    this.loading.loadingOn();
+
     if (this.createForm.valid) {
 
       if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
@@ -65,24 +70,15 @@ export class CreateSliderDialog implements OnInit {
 
       this.sliderService.createSlider(createData).subscribe((res) => {
         if (res.status === 'success') {
-
           this.createForm.reset();
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
-
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
-
+      });
 
     } else {
       this.createForm.markAllAsTouched();
     }
+    this.loading.loadingOff();
 
   }
 }

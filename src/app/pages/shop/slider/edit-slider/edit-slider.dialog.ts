@@ -1,11 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditSliderModel } from '@app_models/shop/slider/edit-slider';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 import { environment } from '@environments/environment';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-slider',
@@ -22,11 +21,13 @@ export class EditSliderDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditSliderDialog>,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
-    private sliderService: SliderService,
-    private toastr: ToastrService
+    private sliderService: SliderService,    
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
+
+    this.loading.loadingOn();
 
     this.editForm = new FormGroup({
       heading: new FormControl(null, [Validators.required]),
@@ -50,19 +51,19 @@ export class EditSliderDialog implements OnInit {
         this.editForm.controls.btnText.setValue(res.data.btnText);
 
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.onCloseClick();
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        }
-      }
-    );
+    });
+
+    this.loading.loadingOff();
+
   }
 
   getImageFileToUpload(event: any) {
+    this.loading.loadingOn();
+
     this.imageFileToUpload = event.target.files[0];
     this.fileUploaded = true;
+
+    this.loading.loadingOff();
   }
 
   onCloseClick(): void {
@@ -70,6 +71,8 @@ export class EditSliderDialog implements OnInit {
   }
 
   submiteditForm() {
+    this.loading.loadingOn();
+
     if (this.editForm.valid) {
 
       if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
@@ -95,22 +98,16 @@ export class EditSliderDialog implements OnInit {
         if (res.status === 'success') {
 
           this.editForm.reset();
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.onCloseClick();
 
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
-
+      });
 
     } else {
       this.editForm.markAllAsTouched();
     }
+    this.loading.loadingOff();
+
 
   }
 }

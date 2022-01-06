@@ -2,8 +2,6 @@ import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
 import { SliderDataSource } from '@app_models/shop/slider/slider-data-source';
@@ -25,8 +23,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
-    private sliderService: SliderService,
-    private toastr: ToastrService
+    private sliderService: SliderService
   ) {
     this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
   }
@@ -74,31 +71,17 @@ export class SliderListPage implements OnInit, AfterViewInit {
   removeSlider(id: number) {
     this.sliderService.removeSlider(id).subscribe((res) => {
       if (res.status === 'success') {
-        this.ngOnInit();          
-        this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
+        this.ngOnInit();
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        }
-      }
-    );
+    });
   }
 
   restoreSlider(id: number) {
     this.sliderService.restoreSlider(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();
-        this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        }
-      }
-    );
+    });
   }
 
 }
