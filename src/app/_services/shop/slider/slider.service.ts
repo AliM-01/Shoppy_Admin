@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/common/IResponse';
 import { SliderModel, EditSliderModel, CreateSliderModel } from '@app_models/shop/slider/_index';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { LoadingService } from '@loading';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';

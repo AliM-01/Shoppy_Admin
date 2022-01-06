@@ -5,7 +5,7 @@ import { IResponse } from '@app/_models/common/IResponse';
 import { environment } from '@environments/environment';
 import { CheckProductHasColleagueDiscountResponseModel, DefineColleagueDiscountModel, EditColleagueDiscountModel, FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { LoadingService } from '@loading';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({

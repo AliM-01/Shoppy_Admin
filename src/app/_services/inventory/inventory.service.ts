@@ -7,7 +7,7 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { InventoryOperationModel } from '../../_models/inventory/inventory-operation';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { LoadingService } from '@loading';
 
 @Injectable({
   providedIn: 'platform'

@@ -18,7 +18,8 @@
     "allowJs": true,
     "paths": {
       "@app*": ["src/app/*"],
-      "@environments/*": ["src/environments/*"]
+      "@environments/*": ["src/environments/*"],
+      "@loading": ["src/app/_services/common/loading/loading.service"],
     },
     "module": "es2020",
     "lib": [
