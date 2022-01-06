@@ -35,7 +35,15 @@ export class CkeditorService {
             { model: 'heading2', view: 'h2', title: 'عنوان 2' },
             { model: 'heading3', view: 'h3', title: 'عنوان 3' },
           ]
-        }
+        },
+        wordcount: {
+          showWordCount: true,
+          showCharCount: true,
+          countSpacesAsChars: false,
+          countHTML: false,
+          maxWordCount: 250,
+          maxCharCount: 250,
+      }
       })
       .then(editor => {
         this.ckeditorInternal = editor;
