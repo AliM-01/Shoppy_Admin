@@ -31,6 +31,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.dataSource = new SliderDataSource(this.sliderService);
     this.dataSource.loadSliders();
+    
   }
 
   ngAfterViewInit() {

@@ -32,8 +32,7 @@ export class SliderDataSource implements DataSource<SliderModel> {
         .pipe(catchError(() => of([])),finalize(() => this.loadingSubject.next(true)))
         .subscribe((res : IResponse<any>) => {
             
-
-            setInterval(() => {
+            setTimeout(() => {
                 
                 this.length = res.data.length;
 
