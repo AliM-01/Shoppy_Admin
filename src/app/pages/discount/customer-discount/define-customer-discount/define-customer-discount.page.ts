@@ -1,13 +1,12 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
-import { ToastrService } from 'ngx-toastr';
 import {Location} from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 
 @Component({
   selector: 'app-define-customer-discount',
@@ -28,12 +27,13 @@ export class DefineCustomerDiscountPage implements OnInit {
     private route: Router,
     private pageTitle: Title,
     private _location: Location,
-    private toastr: ToastrService
+    private loading: LoadingService
   ) { 
     this.pageTitle.setTitle('تعریف تخفیف محصول');
   }
 
   ngOnInit(): void {
+    this.loading.loadingOn();
 
     this.ckeditorService.initCkeditor();
 
@@ -46,7 +46,6 @@ export class DefineCustomerDiscountPage implements OnInit {
 
       this.customerDiscountService.checkProductHasCustomerDiscount(this.productId).subscribe(res => {
         if(res.data.existsCustomerDiscount === true){
-          this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات");
           this.onCloseClick();
         }
       });
@@ -59,10 +58,13 @@ export class DefineCustomerDiscountPage implements OnInit {
   }
 
   onCloseClick(): void {
+    this.loading.loadingOff();
     this._location.back();
   }
 
   submitDefineForm() {
+    this.loading.loadingOn();
+
     this.ckeditorTextValue = this.ckeditorService.getValue();
     
     if (this.defineForm.valid) {
@@ -77,23 +79,16 @@ export class DefineCustomerDiscountPage implements OnInit {
 
       this.customerDiscountService.defineCustomerDiscount(defineData).subscribe((res) => {
         if (res.status === 'success') {
-
           this.defineForm.reset();
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          }
-        }
-      );
+      });
 
 
     } else {
       this.defineForm.markAllAsTouched();
     }
+
+    this.loading.loadingOff();
 
   }
 }

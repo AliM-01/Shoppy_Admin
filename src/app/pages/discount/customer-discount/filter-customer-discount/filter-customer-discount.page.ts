@@ -3,13 +3,11 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { CustomerDiscountModel, FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
 import { CustomerDiscountDataServer } from '@app_models/discount/customer-discount/customer-discount-data-server';
 import { DefineCustomerDiscountDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog';
-import { HttpErrorResponse } from '@angular/common/http';
 import { EditCustomerDiscountDialog } from '../edit-customer-discount-dialog/edit-customer-discount.dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/common/IPaging';
@@ -35,8 +33,7 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
-    private customerDiscountService: CustomerDiscountService,
-    private toastr: ToastrService
+    private customerDiscountService: CustomerDiscountService
   ) {
     this.pageTitle.setTitle('مدیریت تخفیفات محصولات');
   }
@@ -195,18 +192,9 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
 
       if (res.status === 'success') {
         this.ngOnInit();
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
       }
 
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-
-        }
-      }
-    );
+    });
   }
 
 }

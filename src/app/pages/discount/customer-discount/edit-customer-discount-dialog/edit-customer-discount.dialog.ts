@@ -1,14 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditCustomerDiscountModel } from '@app_models/discount/customer-discount/edit-customer-discount';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
-import { ToastrService } from 'ngx-toastr';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductService } from '@app_services/shop/product/product.service';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 
 @Component({
   selector: 'app-edit-customer-discount',
@@ -24,15 +23,15 @@ export class EditCustomerDiscountDialog implements OnInit {
   existsProductId: boolean = false;
   existsProductDiscount: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
-  unchangedProductId:number = 0;
+  unchangedProductId: number = 0;
 
   constructor(
     public dialogRef: MatDialogRef<EditCustomerDiscountDialog>,
     private customerDiscountService: CustomerDiscountService,
     private productService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public data: {id: number},
+    @Inject(MAT_DIALOG_DATA) public data: { id: number },
     private ckeditorService: CkeditorService,
-    private toastr: ToastrService
+    private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +44,7 @@ export class EditCustomerDiscountDialog implements OnInit {
     });
 
     this.customerDiscountService.getCustomerDiscountDetails(this.data.id).subscribe((res) => {
-      
+
       if (res.status === 'success') {
 
         this.unchangedProductId = res.data.productId;
@@ -59,15 +58,7 @@ export class EditCustomerDiscountDialog implements OnInit {
       }
     },
       (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.onCloseClick();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
-        }
+        this.onCloseClick();
       }
     );
   }
@@ -84,16 +75,19 @@ export class EditCustomerDiscountDialog implements OnInit {
       )
       .subscribe();
   }
-  
+
   onCloseClick(): void {
+    this.loading.loadingOff();
     this.dialogRef.close();
   }
 
   submitEditForm() {
+    this.loading.loadingOn();
+
     this.ckeditorTextValue = this.ckeditorService.getValue();
     this.checkProductId();
 
-    if(!this.existsProductDiscount){
+    if (!this.existsProductDiscount) {
       if (this.editForm.valid) {
 
         const editData = new EditCustomerDiscountModel(
@@ -104,71 +98,51 @@ export class EditCustomerDiscountDialog implements OnInit {
           this.endDatepickerInput.nativeElement.value,
           this.ckeditorService.getValue(),
         );
-  
+
         this.customerDiscountService.editCustomerDiscount(editData).subscribe((res) => {
           if (res.status === 'success') {
-  
             this.editForm.reset();
-  
-            this.toastr.toastrConfig.timeOut = 1500;
-  
-            this.toastr.success(res.message, 'موفقیت');
-  
             this.onCloseClick();
-  
           }
-        },
-          (error) => {
-            if (error instanceof HttpErrorResponse) {
-              this.toastr.toastrConfig.timeOut = 2500;
-  
-              this.toastr.error(error.error.message, 'خطا');
-            }
-          }
-        );
-  
-  
+        });
+
       } else {
         this.editForm.markAllAsTouched();
       }
     }
-    
+    this.loading.loadingOff();
 
   }
 
-  checkProductId(){
+  checkProductId() {
 
     let productId = this.editForm.controls.productId.value;
 
-    if(productId !== null) {
-      if(productId !== this.unchangedProductId){
+    if (productId !== null) {
 
-        this.productService.existsProductId(productId).subscribe(res => {
+      this.productService.existsProductId(productId).subscribe(res => {
 
-          if(res.data.exists === false){
-            this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
-            this.existsProductId = true
+        if (res.data.exists === false) {
+          this.existsProductId = false
 
-          } else {
+        } else {
+          this.checkProductHasCustomerDiscount(productId);
+        }
 
-            this.customerDiscountService.checkProductHasCustomerDiscount(productId).subscribe(res => {
-        
-              if(res.data.existsCustomerDiscount === true){
-                this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", {timeOut: 500});
-                this.existsProductDiscount = true
-              }
-        
-            });
-      
-          }
+      });
 
-        })
-
-       
-      }
     }
-    this.existsProductId = false;
+    this.existsProductId = true;
     this.existsProductDiscount = false;
-    
+  }
+
+  checkProductHasCustomerDiscount(productId: number) {
+    this.customerDiscountService.checkProductHasCustomerDiscount(productId).subscribe(res => {
+
+      if (res.data.existsCustomerDiscount === true) {
+        this.existsProductDiscount = true
+      }
+
+    });
   }
 }
