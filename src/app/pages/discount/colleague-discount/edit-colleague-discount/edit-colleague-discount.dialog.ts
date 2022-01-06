@@ -33,8 +33,8 @@ export class EditColleagueDiscountDialog implements OnInit {
   ngOnInit(): void {
 
     this.editForm = new FormGroup({
-      productId: new FormControl(null, [Validators.required]),
-      rate: new FormControl(null, [Validators.required])
+      productId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100000)]),
+      rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
 
     this.colleagueDiscountService.getColleagueDiscountDetails(this.data.id).subscribe((res) => {
