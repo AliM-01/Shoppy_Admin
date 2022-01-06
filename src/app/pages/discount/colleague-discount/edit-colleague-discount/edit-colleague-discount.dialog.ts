@@ -1,11 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditColleagueDiscountModel } from '@app_models/discount/colleague-discount/edit-colleague-discount';
+import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { ProductService } from '@app_services/shop/product/product.service';
-import { ToastrService } from 'ngx-toastr';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
@@ -17,7 +16,7 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 export class EditColleagueDiscountDialog implements OnInit {
 
   editForm: FormGroup;
-  existsProductId: boolean = false;
+  existsProductId: boolean = true;
   existsProductDiscount: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
   unchangedProductId: number = 0;
@@ -27,7 +26,8 @@ export class EditColleagueDiscountDialog implements OnInit {
     private productService: ProductService,
     private colleagueDiscountService: ColleagueDiscountService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
-    private toastr: ToastrService
+    private loading: LoadingService
+
   ) { }
 
   ngOnInit(): void {
@@ -46,19 +46,7 @@ export class EditColleagueDiscountDialog implements OnInit {
         this.editForm.controls.rate.setValue(res.data.rate);
 
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.onCloseClick();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
-        }
-      }
-    );
+    });
   }
 
   ngAfterViewInit() {
@@ -80,6 +68,9 @@ export class EditColleagueDiscountDialog implements OnInit {
 
   submitEditForm() {
 
+    this.loading.loadingOn();
+
+    this.checkProductId()
     if (this.editForm.valid) {
 
       const editData = new EditColleagueDiscountModel(
@@ -90,34 +81,16 @@ export class EditColleagueDiscountDialog implements OnInit {
 
       this.colleagueDiscountService.editColleagueDiscount(editData).subscribe((res) => {
         if (res.status === 'success') {
-
           this.editForm.reset();
-
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 1500;
-
-          this.toastr.success(res.message, 'موفقیت');
-
           this.onCloseClick();
-
         }
-      },
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.toastr.toastrConfig.tapToDismiss = false;
-            this.toastr.toastrConfig.autoDismiss = true;
-            this.toastr.toastrConfig.timeOut = 2500;
-
-            this.toastr.error(error.error.message, 'خطا');
-          }
-        }
-      );
-
+      });
 
     } else {
       this.editForm.markAllAsTouched();
     }
+
+    this.loading.loadingOff();
 
   }
 
@@ -130,29 +103,30 @@ export class EditColleagueDiscountDialog implements OnInit {
         this.productService.existsProductId(productId).subscribe(res => {
 
           if (res.data.exists === false) {
-            this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", { timeOut: 500 });
-            this.existsProductId = true
+            this.existsProductId = false
 
           } else {
-
-            this.colleagueDiscountService.checkProductHasColleagueDiscount(productId).subscribe(res => {
-
-              if (res.data.existsColleagueDiscount === true) {
-                this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", { timeOut: 500 });
-                this.existsProductDiscount = true
-              }
-
-            });
-
+            this.checkProductHasDiscount(productId);
           }
 
         })
 
 
       }
+    } else {
+      this.existsProductId = true;
+      this.existsProductDiscount = false;
     }
-    this.existsProductId = false;
-    this.existsProductDiscount = false;
 
+  }
+  
+  checkProductHasDiscount(productId: number) {
+    this.colleagueDiscountService.checkProductHasColleagueDiscount(productId).subscribe(res => {
+
+      if (res.data.existsColleagueDiscount === true) {
+        this.existsProductDiscount = true
+      }
+
+    });
   }
 }

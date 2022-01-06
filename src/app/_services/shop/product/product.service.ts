@@ -54,7 +54,13 @@ export class ProductService {
     return this.http.get<IResponse<ExistsProductIdResponseModel>>
     (`${environment.shopBaseApiUrl}/product/exists/${id}`)
     .pipe(
-      tap(() => this.loading.loadingOff()),
+      tap((res :IResponse<ExistsProductIdResponseModel>) => {
+        if (res.data.exists === false) {
+          this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", { timeOut: 500 });
+        }
+        this.loading.loadingOff();
+
+      }),
       catchError((error: HttpErrorResponse) => {
 
         this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });

@@ -3,14 +3,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { ColleagueDiscountModel, FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
 import { ColleagueDiscountDataServer } from '@app_models/discount/colleague-discount/colleague-discount-data-server';
 import { DefineColleagueDiscountDialog } from '../define-colleague-discount/define-colleague-discount.dialog';
 import { EditColleagueDiscountDialog } from '../edit-colleague-discount/edit-colleague-discount.dialog';
-import { HttpErrorResponse } from '@angular/common/http';
 import { MatSort } from '@angular/material/sort';
 import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/common/IPaging';
 import { MatTableDataSource } from '@angular/material/table';
@@ -34,8 +32,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
-    private ColleagueDiscountService: ColleagueDiscountService,
-    private toastr: ToastrService
+    private ColleagueDiscountService: ColleagueDiscountService
   ) {
     this.pageTitle.setTitle('مدیریت تخفیفات مشتریان');
   }
@@ -191,73 +188,25 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   removeColleagueDiscount(id: number) {
     this.ColleagueDiscountService.removeColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
-
-
         this.ngOnInit();
-
-        this.toastr.toastrConfig.tapToDismiss = false;
-        this.toastr.toastrConfig.autoDismiss = true;
-        this.toastr.toastrConfig.timeOut = 1500;
-
-        this.toastr.success(res.message, 'موفقیت');
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
-        }
-      }
-    );
+    });
   }
 
   restoreColleagueDiscount(id: number) {
     this.ColleagueDiscountService.restoreColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
-
-
         this.ngOnInit();
-
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-
-        }
-      }
-    );
+    });
   }
 
   deleteColleagueDiscount(id: number) {
     this.ColleagueDiscountService.deleteColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
-
-
         this.ngOnInit();
-
-        this.toastr.toastrConfig.tapToDismiss = false;
-        this.toastr.toastrConfig.autoDismiss = true;
-        this.toastr.toastrConfig.timeOut = 1500;
-
-        this.toastr.success(res.message, 'موفقیت');
       }
-    },
-      (error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.toastr.toastrConfig.tapToDismiss = false;
-          this.toastr.toastrConfig.autoDismiss = true;
-          this.toastr.toastrConfig.timeOut = 2500;
-
-          this.toastr.error(error.error.message, 'خطا');
-        }
-      }
-    );
+    });
   }
 
 }
