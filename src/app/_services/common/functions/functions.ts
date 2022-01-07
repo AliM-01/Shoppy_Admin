@@ -1,3 +1,5 @@
+import { FormGroup } from "@angular/forms";
+
 export function toSlug(text: string): string{
   return text.trim().replace(' ', '-')
 }
@@ -12,4 +14,8 @@ export function separateThousands(inputNumber:any):string {
   while (rgx.test(y))
     y = y.replace(rgx, '$1' + ',' + '$2');
   return `${(y + z)} تومان`;
+}
+
+export function checkFormGroupErrors(formGroup: FormGroup, controlName: string, errorName: string):boolean {
+  return formGroup.controls[controlName].hasError(errorName);
 }
