@@ -23,9 +23,9 @@ export class ReduceInventoryDialog implements OnInit {
   ngOnInit(): void {
 
     this.reduceForm = new FormGroup({
-      productId: new FormControl(null, [Validators.required]),
-      count: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required])
+      productId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(10000)]),
+      count: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(10000)]),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(250)])
     });
 
   }

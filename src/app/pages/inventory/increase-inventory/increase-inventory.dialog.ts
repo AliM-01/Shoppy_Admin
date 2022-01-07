@@ -23,8 +23,8 @@ export class IncreaseInventoryDialog implements OnInit {
   ngOnInit(): void {
 
     this.increaseForm = new FormGroup({
-      count: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required])
+      count: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(10000)]),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(250)])
     });
 
   }
