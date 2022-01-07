@@ -30,12 +30,12 @@ export class EditSliderDialog implements OnInit {
     this.loading.loadingOn();
 
     this.editForm = new FormGroup({
-      heading: new FormControl(null, [Validators.required]),
-      text: new FormControl(null, [Validators.required]),
-      imageAlt: new FormControl(null, [Validators.required]),
-      imageTitle: new FormControl(null, [Validators.required]),
-      btnLink: new FormControl(null, [Validators.required]),
-      btnText: new FormControl(null, [Validators.required])
+      heading: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      text: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
+      imageAlt: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      imageTitle: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      btnLink: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      btnText: new FormControl(null, [Validators.required, Validators.maxLength(50)])
     });
 
     this.sliderService.getSliderDetails(this.data.id).subscribe((res) => {
