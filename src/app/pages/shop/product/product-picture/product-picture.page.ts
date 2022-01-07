@@ -41,8 +41,8 @@ export class ProductPicturePage implements OnInit {
   ngOnInit(): void {
 
     this.createForm = new FormGroup({
-      imageAlt: new FormControl(null, [Validators.required]),
-      imageTitle: new FormControl(null, [Validators.required])
+      imageAlt: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
+      imageTitle: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
     });
 
     this.activatedRoute.params.subscribe(params => {

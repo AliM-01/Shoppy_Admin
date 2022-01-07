@@ -41,14 +41,13 @@ export class EditProductDialog implements OnInit {
     this.getProductCategoriesForSelectList();
 
     this.editForm = new FormGroup({
-      categoryId: new FormControl(null, [Validators.required]),
-      title: new FormControl(null, [Validators.required]),
-      code: new FormControl(null, [Validators.required]),
-      shortDescription: new FormControl(null, [Validators.required]),
-      imageAlt: new FormControl(null, [Validators.required]),
-      imageTitle: new FormControl(null, [Validators.required]),
-      metaKeywords: new FormControl(null, [Validators.required]),
-      metaDescription: new FormControl(null, [Validators.required])
+      categoryId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(10000)]),
+      title: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      shortDescription: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
+      imageAlt: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
+      imageTitle: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
+      metaKeywords: new FormControl(null, [Validators.required, Validators.maxLength(80)]),
+      metaDescription: new FormControl(null, [Validators.required, Validators.maxLength(100)])
     });
 
     this.productService.getProductDetails(this.data.id).subscribe((res) => {
