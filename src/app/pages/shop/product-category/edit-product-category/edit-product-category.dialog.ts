@@ -36,11 +36,11 @@ export class EditProductCategoryDialog implements OnInit {
     this.ckeditorService.initCkeditor();
 
     this.editForm = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      imageAlt: new FormControl(null, [Validators.required]),
-      imageTitle: new FormControl(null, [Validators.required]),
-      metaKeywords: new FormControl(null, [Validators.required]),
-      metaDescription: new FormControl(null, [Validators.required])
+      title: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      imageAlt: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
+      imageTitle: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
+      metaKeywords: new FormControl(null, [Validators.required, Validators.maxLength(80)]),
+      metaDescription: new FormControl(null, [Validators.required, Validators.maxLength(100)])
     });
 
     this.productCategoryService.getProductCategoryDetails(this.data.id).subscribe((res) => {
