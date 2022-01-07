@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IncreaseInventoryModel } from '@app_models/inventory/increase-inventory';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 
@@ -28,7 +29,11 @@ export class IncreaseInventoryDialog implements OnInit {
     });
 
   }
-
+  
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.increaseForm, controlName, errorName)
+  }
+  
   onCloseClick(): void {
     this.dialogRef.close();
   }

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { InventoryService } from '@app_services/inventory/inventory.service';
+import { checkFormGroupErrors } from '../../../_services/common/functions/functions';
 
 @Component({
   selector: 'app-edit-inventory',
@@ -15,8 +16,8 @@ export class EditInventoryDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditInventoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: {id: number},
-    private inventoryService: InventoryService,    
+    @Inject(MAT_DIALOG_DATA) public data: { id: number },
+    private inventoryService: InventoryService,
     private loading: LoadingService
   ) { }
 
@@ -28,7 +29,7 @@ export class EditInventoryDialog implements OnInit {
     });
 
     this.inventoryService.getInventoryDetails(this.data.id).subscribe((res) => {
-      
+
       if (res.status === 'success') {
 
         this.editForm.controls.productId.setValue(res.data.productId)
@@ -39,11 +40,15 @@ export class EditInventoryDialog implements OnInit {
 
   }
 
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.editForm, controlName, errorName)
+  }
+
   onCloseClick(): void {
     this.dialogRef.close();
   }
 
-  submiteditForm() {
+  submitEditForm() {
     this.loading.loadingOn()
 
     if (this.editForm.valid) {

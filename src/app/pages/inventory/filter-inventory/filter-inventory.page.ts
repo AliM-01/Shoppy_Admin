@@ -220,8 +220,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
       data: {
         id: id
       }
-    }).afterClosed().subscribe(() => {
-      this.ngOnInit();
     });
   } 
 

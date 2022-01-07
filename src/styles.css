@@ -46,6 +46,11 @@ td {
     padding-bottom: 0 !important;
 }
 
+.mat-form-field {
+    text-align: right !important;
+    margin-bottom: 8px !important;
+}
+
 .mat-form-field-infix {
     padding-top: 0 !important;
 }
@@ -94,4 +99,11 @@ td {
 .spinner-three-bounce {
     display: flex;
     align-items: center;
+}
+
+.mat-error {
+    display: block;
+    font-family: 'IRANSans' !important;
+    text-align: right !important;
+    margin-bottom: 8px !important;
 }
