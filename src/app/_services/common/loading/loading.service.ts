@@ -9,10 +9,16 @@ export class LoadingService {
   loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
   loadingOn(){
+    if(this.loadingSubject.value === true){
+      return;
+    }
     this.loadingSubject.next(true);
   }
 
   loadingOff(){
+    if(this.loadingSubject.value === false){
+      return;
+    }
     this.loadingSubject.next(false);
   }
   
