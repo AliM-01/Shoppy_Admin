@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditProductCategoryModel } from '@app_models/shop/product-category/edit-product-category';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { environment } from '@environments/environment';
@@ -58,6 +59,10 @@ export class EditProductCategoryDialog implements OnInit {
 
       }
     });
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
   getImageFileToUpload(event: any) {    
