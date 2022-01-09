@@ -8,6 +8,7 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 
 @Component({
   selector: 'app-edit-customer-discount',
@@ -61,6 +62,10 @@ export class EditCustomerDiscountDialog implements OnInit {
         this.onCloseClick();
       }
     );
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
   ngAfterViewInit() {

@@ -34,12 +34,10 @@
                       <mat-label>درصد تخفیف</mat-label>
                       <input matInput type="number" placeholder="0" formControlName="rate">
                     </mat-form-field>
-              
-                    <p class="text-danger"
-                          *ngIf="defineForm.controls.rate.errors?.required && defineForm.controls.rate.touched">
-                        لطفا درصد تخفیف را وارد نمایید
-                    </p>
+                    <mat-error *ngIf="checkError('rate', 'required')">لطفا شناسه محصول را وارد نمایید</mat-error>
                   </div>
+
+                  <br />
             
                   <div class="col-md-12">
                     <label>تاریخ شروع</label>

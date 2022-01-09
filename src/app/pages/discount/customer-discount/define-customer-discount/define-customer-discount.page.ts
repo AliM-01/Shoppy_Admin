@@ -7,6 +7,7 @@ import { CustomerDiscountService } from '@app_services/discount/customer-discoun
 import {Location} from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 
 @Component({
   selector: 'app-define-customer-discount',
@@ -55,6 +56,10 @@ export class DefineCustomerDiscountPage implements OnInit {
     this.defineForm = new FormGroup({
       rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.defineForm, controlName, errorName)
   }
 
   onCloseClick(): void {

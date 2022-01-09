@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { ProductService } from '@app_services/shop/product/product.service';
@@ -40,6 +41,10 @@ export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
       productId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100000)]),
       rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.defineForm, controlName, errorName)
   }
 
   ngAfterViewInit() {
