@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { CreateInventoryModel } from '@app_models/inventory/create-inventory';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 
 @Component({
   selector: 'app-create-product-category',
@@ -42,6 +43,10 @@ export class CreateInventoryPage implements OnInit {
       unitPrice: new FormControl(null, [Validators.required])
     });
 
+  }
+  
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
   onCloseClick(): void {
