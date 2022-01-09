@@ -10,24 +10,18 @@
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>عنوان</mat-label>
           <input matInput type="text" placeholder="..." formControlName="heading">
+          <mat-error *ngIf="checkError('heading', 'required')">لطفا عنوان را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('heading', 'maxlength')">مقدار عنوان نباید بیشتر از 100 کاراکتر باشد</mat-error>
         </mat-form-field>
-  
-        <p class="text-danger"
-              *ngIf="createForm.controls.heading.errors?.required && createForm.controls.heading.touched">
-            لطفا عنوان را وارد نمایید
-        </p>
       </div>
 
       <div class="col-md-12">
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>متن</mat-label>
           <input matInput type="text" placeholder="..." formControlName="text">
+          <mat-error *ngIf="checkError('text', 'required')">لطفا متن را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('text', 'maxlength')">مقدار متن نباید بیشتر از 250 کاراکتر باشد</mat-error>
         </mat-form-field>
-  
-        <p class="text-danger"
-              *ngIf="createForm.controls.text.errors?.required && createForm.controls.text.touched">
-            لطفا متن را وارد نمایید
-        </p>
       </div>
   
       <div class="col-md-12 mt-3 mb-3">
@@ -40,52 +34,43 @@
         </p>
       </div>
 
+     
       <div class="col-md-12">
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>عنوان تصویر</mat-label>
           <input matInput type="text" placeholder="..." formControlName="imageTitle">
+          <mat-error *ngIf="checkError('imageTitle', 'required')">لطفا عنوان تصویر را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('imageTitle', 'maxlength')">مقدار عنوان تصویر نباید بیشتر از 200 کاراکتر باشد
+          </mat-error>
         </mat-form-field>
-  
-        <p class="text-danger"
-              *ngIf="createForm.controls.imageTitle.errors?.required && createForm.controls.imageTitle.touched">
-            لطفاعنوان تصویر را وارد نمایید
-        </p>
       </div>
-  
+
       <div class="col-md-12">
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>Alt تصویر</mat-label>
-          <textarea matInput placeholder="..." formControlName="imageAlt" ></textarea>
+          <textarea matInput placeholder="..." formControlName="imageAlt"></textarea>
+          <mat-error *ngIf="checkError('imageAlt', 'required')">لطفا Alt تصویر را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('imageAlt', 'maxlength')">مقدار Alt تصویر نباید بیشتر از 200 کاراکتر باشد
+          </mat-error>
         </mat-form-field>
-  
-        <p class="text-danger"
-              *ngIf="createForm.controls.imageAlt.errors?.required && createForm.controls.imageAlt.touched">
-            لطفا Alt تصویر را وارد نمایید
-        </p>
       </div>
 
       <div class="col-md-12">
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>لینک</mat-label>
           <textarea matInput placeholder="..." formControlName="btnLink" ></textarea>
+          <mat-error *ngIf="checkError('btnLink', 'required')">لطفا لینک را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('btnLink', 'maxlength')">مقدار لینک نباید بیشتر از 100 کاراکتر باشد</mat-error>
         </mat-form-field>
-  
-        <p class="text-danger"
-              *ngIf="createForm.controls.btnLink.errors?.required && createForm.controls.btnLink.touched">
-            لطفا لینک را وارد نمایید
-        </p>
       </div>
       
       <div class="col-md-12">
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>متن لینک</mat-label>
           <textarea matInput placeholder="..." formControlName="btnText" ></textarea>
+          <mat-error *ngIf="checkError('btnText', 'required')">لطفا متن لینک را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('btnText', 'maxlength')">مقدار متن لینک نباید بیشتر از 50 کاراکتر باشد</mat-error>
         </mat-form-field>
-  
-        <p class="text-danger"
-              *ngIf="createForm.controls.btnText.errors?.required && createForm.controls.btnText.touched">
-            لطفا متن لینک را وارد نمایید
-        </p>
       </div>
     </div>
   

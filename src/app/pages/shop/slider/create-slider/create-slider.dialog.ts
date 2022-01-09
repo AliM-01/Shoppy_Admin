@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateSliderModel } from '@app_models/shop/slider/create-slider';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 
@@ -32,6 +33,10 @@ export class CreateSliderDialog implements OnInit {
       btnLink: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       btnText: new FormControl(null, [Validators.required, Validators.maxLength(50)])
     });
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
   getImageFileToUpload(event: any) {
