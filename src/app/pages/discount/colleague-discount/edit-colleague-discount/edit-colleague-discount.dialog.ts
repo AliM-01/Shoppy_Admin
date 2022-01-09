@@ -2,6 +2,7 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditColleagueDiscountModel } from '@app_models/discount/colleague-discount/edit-colleague-discount';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ColleagueDiscountService } from '@app_services/discount/colleague-discount/colleague-discount.service';
 import { ProductService } from '@app_services/shop/product/product.service';
@@ -47,6 +48,10 @@ export class EditColleagueDiscountDialog implements OnInit {
 
       }
     });
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
   ngAfterViewInit() {

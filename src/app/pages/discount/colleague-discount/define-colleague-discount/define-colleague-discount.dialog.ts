@@ -7,6 +7,7 @@ import { ProductService } from '@app_services/shop/product/product.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 
 @Component({
   selector: 'app-define-colleague-discount',
@@ -34,6 +35,10 @@ export class DefineColleagueDiscountDialog implements OnInit, AfterViewInit {
       rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
 
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.defineForm, controlName, errorName)
   }
 
   ngAfterViewInit() {
