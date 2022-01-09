@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
 import { CreateProductModel } from '@app_models/shop/product/create-product';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
@@ -48,6 +49,10 @@ export class CreateProductDialog implements OnInit {
       metaKeywords: new FormControl(null, [Validators.required, Validators.maxLength(80)]),
       metaDescription: new FormControl(null, [Validators.required, Validators.maxLength(100)])
     });
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
   getProductCategoriesForSelectList() {

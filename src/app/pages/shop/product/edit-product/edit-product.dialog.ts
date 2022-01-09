@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
 import { EditProductModel } from '@app_models/shop/product/edit-product';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
@@ -72,6 +73,10 @@ export class EditProductDialog implements OnInit {
 
     this.loading.loadingOff();
 
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
   getProductCategoriesForSelectList() {

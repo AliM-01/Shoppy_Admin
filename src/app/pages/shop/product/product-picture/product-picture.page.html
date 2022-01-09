@@ -36,24 +36,18 @@
                               <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>عنوان تصویر</mat-label>
                                 <input matInput type="text" placeholder="..." formControlName="imageTitle">
+                                <mat-error *ngIf="checkError('imageTitle', 'required')">لطفا عنوان تصویر را وارد نمایید</mat-error>
+                                <mat-error *ngIf="checkError('imageTitle', 'maxlength')">مقدار عنوان تصویر نباید بیشتر از 200 کاراکتر باشد</mat-error>
                               </mat-form-field>
-                        
-                              <p class="text-danger"
-                                    *ngIf="createForm.controls.imageTitle.errors?.required && createForm.controls.imageTitle.touched">
-                                  لطفاعنوان تصویر را وارد نمایید
-                              </p>
                             </div>
-                        
+                      
                             <div class="col-md-12">
                               <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Alt تصویر</mat-label>
-                                <textarea matInput placeholder="..." formControlName="imageAlt" ></textarea>
+                                <textarea matInput placeholder="..." formControlName="imageAlt"></textarea>
+                                <mat-error *ngIf="checkError('imageAlt', 'required')">لطفا Alt تصویر را وارد نمایید</mat-error>
+                                <mat-error *ngIf="checkError('imageAlt', 'maxlength')">مقدار Alt تصویر نباید بیشتر از 200 کاراکتر باشد</mat-error>
                               </mat-form-field>
-                        
-                              <p class="text-danger"
-                                    *ngIf="createForm.controls.imageAlt.errors?.required && createForm.controls.imageAlt.touched">
-                                  لطفا Alt تصویر را وارد نمایید
-                              </p>
                             </div>
 
                             <hr>

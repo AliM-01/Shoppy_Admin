@@ -8,6 +8,7 @@ import { ProductPictureService } from '@app_services/shop/product-picture/produc
 import { CreateProductPictureModel } from '@app_models/shop/product-picture/create-product-picture';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/common/functions/functions';
 
 @Component({
   selector: 'app-product-picture',
@@ -74,6 +75,10 @@ export class ProductPicturePage implements OnInit {
     });
 
 
+  }
+
+  checkError(controlName: string, errorName: string): boolean {
+    return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
   submitCreateForm() {
