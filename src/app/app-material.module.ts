@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCommonModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,21 +13,22 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
 const modules = [
-  MatButtonModule,
-  MatTableModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatButtonModule,
-  MatRadioModule,
-  MatDialogModule,
-  MatSelectModule,
-  MatSlideToggleModule,
-  MatProgressSpinnerModule,
+    MatCommonModule,
+    MatButtonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
 ]
 
 @NgModule({
-  exports: modules,
+    exports: modules,
 })
-export class AppMaterialModule {}
+export class AppMaterialModule { }

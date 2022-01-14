@@ -20,6 +20,7 @@
       "@app*": ["src/app/*"],
       "@environments/*": ["src/environments/*"],
       "@loading": ["src/app/_services/common/loading/loading.service"],
+      "@app_material": ["src/app/app-material.module.ts"],
     },
     "module": "es2020",
     "lib": [

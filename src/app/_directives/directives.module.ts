@@ -5,7 +5,7 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { DivCenterDirective } from './div-center/div-center.directive';
 import { DivCenterContentCenterDirective } from './div-center-content-center/div-center-content-center.directive';
 import { ThousandSepratorDirective } from './thousand-seprator/thousand-seprator.directive';
-import { MatCommonModule } from '@angular/material/core';
+import { AppMaterialModule } from '@appapp-material.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { MatCommonModule } from '@angular/material/core';
     DivCenterContentCenterDirective,
     ThousandSepratorDirective
   ],
-  imports: [CommonModule, MatCommonModule],
+  imports: [CommonModule, AppMaterialModule],
   exports: [
     CursorPointerDirective,
     DivCenterContentBetweenDirective,

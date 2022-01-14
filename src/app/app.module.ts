@@ -9,7 +9,8 @@ import { IndexModule } from '@app/pages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
 import { ToastrModule } from 'ngx-toastr';
-import { LoadingService } from './_services/common/loading/loading.service';
+import { LoadingService } from '@loading';
+import { AppMaterialModule } from '@app_material';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,9 @@ import { LoadingService } from './_services/common/loading/loading.service';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    AppMaterialModule,
     ComponentsModule,
     IndexModule,
     ToastrModule.forRoot({
