@@ -27,6 +27,7 @@
     "moment-jalaali": "^0.9.1",
     "ng-persian-datepicker": "^2.4.0",
     "ng2-charts": "^2.4.3",
+    "ngx-dropzone": "^3.0.0",
     "ngx-loading": "^8.0.0",
     "ngx-toastr": "^14.1.4",
     "rxjs": "~6.6.0",

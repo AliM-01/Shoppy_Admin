@@ -25,7 +25,7 @@ export class ProductPicturePage implements OnInit {
   pageLoading: boolean = false;
   imageFileToUpload: any;
   fileUploaded: boolean = false;
-
+  files: File[] = [];
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
@@ -99,13 +99,28 @@ export class ProductPicturePage implements OnInit {
 
   }
 
-  getImageFileToUpload(event: any) {    
+  getImageFileToUpload(event: any) {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
-    this.fileUploaded = true;    
-    
+    this.fileUploaded = true;
+
     this.loading.loadingOff();
+  }
+
+  onUploadFiles(event:any) {
+    console.log(event);
+    this.files.push(event.addedFiles);
+
+    const formData = new FormData();
+
+    for (var i = 0; i < this.files.length; i++) {
+      formData.append("file[]", this.files[i]);
+    }
+  }
+
+  onRemove(event:any) {
+    this.files.splice(this.files.indexOf(event), 1);
   }
 
   removeProductPicture(id: number) {
