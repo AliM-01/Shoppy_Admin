@@ -25,7 +25,6 @@ export class ProductPicturePage implements OnInit {
   pageLoading: boolean = false;
   imageFileToUpload: any;
   fileUploaded: boolean = false;
-  createForm: FormGroup;
 
   constructor(
     private pageTitle: Title,
@@ -40,11 +39,6 @@ export class ProductPicturePage implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.createForm = new FormGroup({
-      imageAlt: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
-      imageTitle: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
-    });
 
     this.activatedRoute.params.subscribe(params => {
       const productId = params.productId;
@@ -77,10 +71,6 @@ export class ProductPicturePage implements OnInit {
 
   }
 
-  checkError(controlName: string, errorName: string): boolean {
-    return checkFormGroupErrors(this.createForm, controlName, errorName)
-  }
-
   submitCreateForm() {
     this.loading.loadingOn();
 
@@ -92,9 +82,7 @@ export class ProductPicturePage implements OnInit {
 
     const createData = new CreateProductPictureModel(
       this.productId,
-      this.imageFileToUpload,
-      this.createForm.controls.imageAlt.value,
-      this.createForm.controls.imageTitle.value
+      this.imageFileToUpload
     );
 
     this.productPictureService.createProductPicture(createData).subscribe((res) => {
@@ -104,8 +92,6 @@ export class ProductPicturePage implements OnInit {
         this.ngOnInit();
 
         this.imageFileToUpload = null;
-        this.createForm.controls.imageAlt.setValue(null);
-        this.createForm.controls.imageTitle.setValue(null);
       }
     });
 

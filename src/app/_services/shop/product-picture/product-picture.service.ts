@@ -42,8 +42,6 @@ export class ProductPictureService {
     
     formData.append('productId', createData.productId.toString());
     formData.append('imageFile', createData.imageFile, createData.imageFile.name);
-    formData.append('imageAlt', createData.imageAlt);
-    formData.append('imageTitle', createData.imageTitle);
     
     return this.http.post<IResponse<any>>
     (`${environment.shopBaseApiUrl}/product-picture/create`, formData)
