@@ -41,7 +41,12 @@ export class ProductPictureService {
     const formData = new FormData();
     
     formData.append('productId', createData.productId.toString());
-    formData.append('imageFile', createData.imageFile, createData.imageFile.name);
+console.log( createData.imageFiles);
+
+    for (var i = 0; i < createData.imageFiles.length; i++) {
+      formData.append("imageFiles", createData.imageFiles[i]);
+    }
+    console.log(formData.get("imageFiles"));
     
     return this.http.post<IResponse<any>>
     (`${environment.shopBaseApiUrl}/product-picture/create`, formData)

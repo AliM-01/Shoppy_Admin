@@ -9,6 +9,7 @@ import { CreateProductPictureModel } from '@app_models/shop/product-picture/crea
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingService } from '@app_services/common/loading/loading.service';
 import { checkFormGroupErrors } from '@app_services/common/functions/functions';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-picture',
@@ -23,13 +24,13 @@ export class ProductPicturePage implements OnInit {
   productId: number = 0;
   productTitle: string = '';
   pageLoading: boolean = false;
-  imageFileToUpload: any;
-  fileUploaded: boolean = false;
-  files: File[] = [];
+  baseShopUrl = `${environment.shopBaseApiUrl}/product-picture/create`;
+  
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
     private productPictureService: ProductPictureService,
+    private toastr: ToastrService,
     private router: Router,
     private loading: LoadingService,
     private activatedRoute: ActivatedRoute
@@ -71,56 +72,15 @@ export class ProductPicturePage implements OnInit {
 
   }
 
-  submitCreateForm() {
-    this.loading.loadingOn();
+  onUploadFiles(event: any) {
 
-    if (this.imageFileToUpload === undefined || this.imageFileToUpload === null) {
-      this.fileUploaded = false;
-    } else {
-      this.fileUploaded = true;
-    }
-
-    const createData = new CreateProductPictureModel(
-      this.productId,
-      this.imageFileToUpload
-    );
-
-    this.productPictureService.createProductPicture(createData).subscribe((res) => {
-      if (res.status === 'success') {
-
-        document.getElementById('resetBtn').click();
-        this.ngOnInit();
-
-        this.imageFileToUpload = null;
-      }
-    });
-
-    this.loading.loadingOff();
+    this.toastr.success("فایل ها با موفقیت آپلود شدند", "موفقیت")
+    this.ngOnInit();
 
   }
 
-  getImageFileToUpload(event: any) {
-    this.loading.loadingOn();
-
-    this.imageFileToUpload = event.target.files[0];
-    this.fileUploaded = true;
-
-    this.loading.loadingOff();
-  }
-
-  onUploadFiles(event:any) {
-    console.log(event);
-    this.files.push(event.addedFiles);
-
-    const formData = new FormData();
-
-    for (var i = 0; i < this.files.length; i++) {
-      formData.append("file[]", this.files[i]);
-    }
-  }
-
-  onRemove(event:any) {
-    this.files.splice(this.files.indexOf(event), 1);
+  onUploadError(event: any) {
+    this.toastr.error("عملیات با خطا مواجه شد", "خطا")
   }
 
   removeProductPicture(id: number) {

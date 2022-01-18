@@ -12,7 +12,12 @@ import { ProductService } from '@app_services/shop/product/product.service';
 import { DirectivesModule } from '@app_directives/directives.module';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { AppMaterialModule } from '@appapp-material.module';
-import { NgxDropzoneModule } from 'ngx-dropzone';
+import { DropzoneConfigInterface, DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
+
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  maxFilesize: 15,
+  acceptedFiles: 'image/*'
+};
 
 @NgModule({
   declarations: [
@@ -29,7 +34,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     AppMaterialModule,
     ComponentsModule,
     DirectivesModule,
-    NgxDropzoneModule 
+    DropzoneModule
   ],
   exports: [
     FilterProductPage,
@@ -40,7 +45,11 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
     ProductService,
-    ProductCategoryService
+    ProductCategoryService,
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG
+    }
   ]
 })
 export class ProductModule { }

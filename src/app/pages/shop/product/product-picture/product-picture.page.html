@@ -19,12 +19,10 @@
                         <hr>
                         
                         <div class="w-100">
-                          <ngx-dropzone (change)="onUploadFiles($event)">  
-                            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>  
-                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">  
-                              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>  
-                            </ngx-dropzone-preview>  
-                          </ngx-dropzone>  
+                          <dropzone [config]="{
+                            url: baseShopUrl + '/' + productId
+                          }" 
+                          [message]="'تصاویر را آپلود کنید'" (error)="onUploadError($event)" (success)="onUploadFiles($event)"></dropzone>
                         </div>
                       </div>
                     </div>
