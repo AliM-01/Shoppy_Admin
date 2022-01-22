@@ -7,6 +7,7 @@ import { ProductFeatureService } from '@app_services/shop/product-feature/produc
 import { FilterProductFeatureModel, ProductFeatureDataServer, ProductFeatureModel } from '@app_models/shop/product-feature/_index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateProductFeatureDialog } from '../create-product-feature/create-product-feature.dialog';
+import { EditProductFeatureDialog } from '../edit-product-feature/edit-product-feature.dialog';
 
 @Component({
   selector: 'app-filter-product-feature',
@@ -114,6 +115,20 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
       height: '350px',
       data: {
         productId: this.productId
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+  openEditDialog(id: number): void {
+    const dialogRef = this.dialog.open(EditProductFeatureDialog, {
+      width: '600px',
+      height: '700px',
+      data: {
+        id: id,
+        productId: this.productId
+
       }
     }).afterClosed().subscribe(() => {
       this.ngOnInit();
