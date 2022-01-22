@@ -5,7 +5,7 @@ export class EditProductFeatureModel extends CreateProductFeatureModel {
 
     constructor(
         id: number,
-        productId: string,
+        productId: number,
         featureTitle: string,
         featureValue: string
     ) {

@@ -69,7 +69,7 @@ export class ProductFeatureService {
 
     const formData = new FormData();
     
-    formData.append('productId', createData.productId);
+    formData.append('productId', createData.productId.toString());
     formData.append('featureTitle', createData.featureTitle);
     formData.append('featureValue', createData.featureValue);
     
@@ -99,7 +99,7 @@ export class ProductFeatureService {
     const formData = new FormData();
 
     formData.append('id', editData.id.toString());
-    formData.append('productId', editData.productId);
+    formData.append('productId', editData.productId.toString());
     formData.append('featureTitle', editData.featureTitle);
     formData.append('featureValue', editData.featureValue);
     

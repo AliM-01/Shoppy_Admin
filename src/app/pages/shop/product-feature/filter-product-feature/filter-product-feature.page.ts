@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
 import { FilterProductFeatureModel, ProductFeatureDataServer, ProductFeatureModel } from '@app_models/shop/product-feature/_index';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CreateProductFeatureDialog } from '../create-product-feature/create-product-feature.dialog';
 
 @Component({
   selector: 'app-filter-product-feature',
@@ -39,6 +40,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
         this.router.navigate(['/']);
       }
       this.productId = productId;
+      this.filterProductFeatures.productId = this.productId;
 
       this.dataServer = new ProductFeatureDataServer(this.productFeatureService);
       this.dataServer.loadProductFeatures(this.filterProductFeatures);
@@ -51,6 +53,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
       
     });
   }
+  
 
   ngAfterViewInit() {
 
@@ -103,6 +106,18 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
     this.ngOnInit();
     this.paginator.length = this.dataServer.resultsLength;
     this.paginator.pageSize = this.filterProductFeatures.takePage;
+  }
+
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreateProductFeatureDialog, {
+      width: '450px',
+      height: '350px',
+      data: {
+        productId: this.productId
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   deleteProductFeature(id: number) {
