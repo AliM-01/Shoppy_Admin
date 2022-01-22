@@ -15,15 +15,11 @@ export class FilterProductFeatureModel implements IPaging {
         productId: number,
         productFeatures: ProductFeatureModel[],
         pageId: number,
-        takePage: number,
-        sortCreationDateOrder: PagingDataSortCreationDateOrder,
-        sortIdOrder: PagingDataSortIdOrder
+        takePage: number
     ) {
         this.productId = productId;
         this.productFeatures = productFeatures;
         this.pageId = pageId;
         this.takePage = takePage;
-        this.sortCreationDateOrder = sortCreationDateOrder;
-        this.sortIdOrder = sortIdOrder;
     }
 }

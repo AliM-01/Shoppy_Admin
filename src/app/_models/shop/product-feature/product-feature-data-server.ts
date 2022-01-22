@@ -13,7 +13,7 @@ export class ProductFeatureDataServer {
 
     constructor(private productFeatureService: ProductFeatureService) {}
 
-    loadProductCategories(filterProductFeatures: FilterProductFeatureModel) {
+    loadProductFeatures(filterProductFeatures: FilterProductFeatureModel) {
 
         this.isLoadingResults = true;
 

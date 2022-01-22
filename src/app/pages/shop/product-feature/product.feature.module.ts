@@ -7,9 +7,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '@app_directives/directives.module';
 import { AppMaterialModule } from '@appapp-material.module';
 import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
+import { FilterProductFeaturePage } from './filter-product-feature/filter-product-feature.page';
 
 @NgModule({
   declarations: [
+    FilterProductFeaturePage
   ],
   imports: [
     CommonModule,
