@@ -5,7 +5,7 @@ import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel, Increas
 import { environment } from '@environments/environment';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { InventoryOperationModel } from '../../_models/inventory/inventory-operation';
+import { InventoryOperationModel } from '@app_models/inventory/inventory-operation';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 
