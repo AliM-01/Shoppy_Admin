@@ -122,7 +122,7 @@ export class ColleagueDiscountService {
   removeColleagueDiscount(ColleagueDiscountId: number): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
-    return this.http.delete<IResponse<any>>
+    return this.http.post<IResponse<any>>
       (`${environment.discountBaseApiUrl}/colleague-discount/remove/${ColleagueDiscountId}`)
       .pipe(
         tap((res: IResponse<any>) => {
@@ -144,7 +144,7 @@ export class ColleagueDiscountService {
   restoreColleagueDiscount(ColleagueDiscountId: number): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
-    return this.http.put<IResponse<any>>
+    return this.http.post<IResponse<any>>
       (`${environment.discountBaseApiUrl}/colleague-discount/restore/${ColleagueDiscountId}`, null)
       .pipe(
         tap((res: IResponse<any>) => {
