@@ -8,9 +8,11 @@ import { PipesModule } from '@app_pipes/pipes.module';
 import { AppMaterialModule } from '@appapp-material.module';
 import { CommentService } from '@app_services/comment/comment.service';
 import { CommentRoutingModule } from './comment.routing.module';
+import { FilterCommentPage } from './filter-comment/filter-comment.page';
 
 @NgModule({
   declarations: [
+    FilterCommentPage
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,7 @@ import { CommentRoutingModule } from './comment.routing.module';
     DirectivesModule,
     PipesModule
   ],
-  exports: [],
+  exports: [FilterCommentPage],
   schemas: [],
   providers: [CommentService]
 })

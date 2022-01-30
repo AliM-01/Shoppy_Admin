@@ -9,12 +9,12 @@ export class FilterCommentModel implements IPaging {
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;
 
-    type: FilterCommentState = FilterCommentState.All;
+    type: FilterCommentType = FilterCommentType.All;
     state: FilterCommentState = FilterCommentState.All;
     comments: CommentModel[];
 
     constructor(
-        type: FilterCommentState,
+        type: FilterCommentType,
         state: FilterCommentState,
         comments: CommentModel[],
         pageId: number,
