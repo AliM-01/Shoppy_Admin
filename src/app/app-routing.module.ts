@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/shop/product/product.module').then(m => m.ProductModule)
   },
   {
+    path: 'product-feature',
+    loadChildren: () => import('./pages/shop/product-feature/product.feature.module').then(m => m.ProductFeatureModule)
+  },
+  {
     path: 'slider',
     loadChildren: () => import('./pages/shop/slider/slider.module').then(m => m.SliderModule)
   },
@@ -29,8 +33,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryModule)
   },
   {
-    path: 'product-feature',
-    loadChildren: () => import('./pages/shop/product-feature/product.feature.module').then(m => m.ProductFeatureModule)
+    path: 'comment',
+    loadChildren: () => import('./pages/comment/comment.module').then(m => m.CommentModule)
   },
 ];
 
