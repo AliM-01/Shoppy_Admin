@@ -2,7 +2,7 @@ import { ProductCategoryService } from "@app_services/shop/product-category/prod
 import { of } from "rxjs";
 import { FilterProductCategoryModel, ProductCategoryModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 
 export class ProductCategoryDataServer {
 

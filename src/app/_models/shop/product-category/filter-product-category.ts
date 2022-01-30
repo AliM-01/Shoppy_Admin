@@ -1,4 +1,4 @@
-import { IPaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/common/IPaging";
+import { IPaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/IPaging";
 import { ProductCategoryModel } from "./product-category";
 
 export class FilterProductCategoryModel implements IPaging {

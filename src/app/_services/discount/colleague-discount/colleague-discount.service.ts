@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { IResponse } from '@app/_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
 import { CheckProductHasColleagueDiscountResponseModel, DefineColleagueDiscountModel, EditColleagueDiscountModel, FilterColleagueDiscountModel } from '@app_models/discount/colleague-discount/_index';
 import { ToastrService } from 'ngx-toastr';
@@ -123,7 +123,7 @@ export class ColleagueDiscountService {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>
-      (`${environment.discountBaseApiUrl}/colleague-discount/remove/${ColleagueDiscountId}`)
+      (`${environment.discountBaseApiUrl}/colleague-discount/remove/${ColleagueDiscountId}`, null!)
       .pipe(
         tap((res: IResponse<any>) => {
 

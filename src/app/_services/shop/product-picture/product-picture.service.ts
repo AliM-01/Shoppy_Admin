@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { IResponse } from '@app_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
 import { CreateProductPictureModel } from '@app_models/shop/product-picture/_index';
 import { ToastrService } from 'ngx-toastr';

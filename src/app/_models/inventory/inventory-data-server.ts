@@ -1,5 +1,5 @@
 import { FilterInventoryModel, InventoryModel } from "./_index";
-import { IResponse } from '@app_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 import { InventoryService } from "@app_services/inventory/inventory.service";
 export class InventoryDataServer {
 

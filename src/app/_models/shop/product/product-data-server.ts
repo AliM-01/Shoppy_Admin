@@ -2,7 +2,7 @@ import { ProductService } from "@app_services/shop/product/product.service";
 import { of } from "rxjs";
 import { FilterProductModel, ProductModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 
 export class ProductDataServer {
 

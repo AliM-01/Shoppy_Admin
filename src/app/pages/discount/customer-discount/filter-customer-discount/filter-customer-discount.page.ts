@@ -10,7 +10,7 @@ import { CustomerDiscountDataServer } from '@app_models/discount/customer-discou
 import { DefineCustomerDiscountDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog';
 import { EditCustomerDiscountDialog } from '../edit-customer-discount-dialog/edit-customer-discount.dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/common/IPaging';
+import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/IPaging';
 import { MatSort } from '@angular/material/sort';
 
 @Component({

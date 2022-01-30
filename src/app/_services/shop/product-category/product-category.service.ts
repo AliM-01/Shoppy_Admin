@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { IResponse } from '@app/_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
 import { CreateProductCategoryModel, EditProductCategoryModel, FilterProductCategoryModel, ProductCategoryForSelectListModel }
  from '@app_models/shop/product-category/_index';

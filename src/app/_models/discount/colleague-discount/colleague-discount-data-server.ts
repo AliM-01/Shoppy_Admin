@@ -1,7 +1,7 @@
 import { of } from "rxjs";
 import { FilterColleagueDiscountModel, ColleagueDiscountModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 import { ColleagueDiscountService } from "@app_services/discount/colleague-discount/colleague-discount.service";
 
 export class ColleagueDiscountDataServer {

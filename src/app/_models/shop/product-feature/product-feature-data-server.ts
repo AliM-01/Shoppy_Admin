@@ -1,6 +1,6 @@
 import { FilterProductFeatureModel, ProductFeatureModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 import { ProductFeatureService } from "@app_services/shop/product-feature/product-feature.service";
 import { of } from "rxjs";
 

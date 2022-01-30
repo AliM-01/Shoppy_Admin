@@ -10,7 +10,7 @@ import { ColleagueDiscountDataServer } from '@app_models/discount/colleague-disc
 import { DefineColleagueDiscountDialog } from '../define-colleague-discount/define-colleague-discount.dialog';
 import { EditColleagueDiscountDialog } from '../edit-colleague-discount/edit-colleague-discount.dialog';
 import { MatSort } from '@angular/material/sort';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/common/IPaging';
+import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/IPaging';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({

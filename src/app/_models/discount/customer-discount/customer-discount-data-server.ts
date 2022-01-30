@@ -1,7 +1,7 @@
 import { of } from "rxjs";
 import { FilterCustomerDiscountModel, CustomerDiscountModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/common/IResponse';
+import { IResponse } from '@app_models/_common/IResponse';
 import { CustomerDiscountService } from "@app_services/discount/customer-discount/customer-discount.service";
 
 export class CustomerDiscountDataServer {
