@@ -16,7 +16,6 @@ import { MatSort } from '@angular/material/sort';
 import { InventoryModel } from '@app_models/inventory/inventory';
 import { MatTableDataSource } from '@angular/material/table';
 import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/IPaging';
-import { LoadingService } from '@app_services/common/loading/loading.service';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -38,8 +37,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
-    private inventoryService: InventoryService,
-    private loading: LoadingService
+    private inventoryService: InventoryService
   ) {
     this.pageTitle.setTitle('مدیریت انبار');
   }
@@ -142,8 +140,8 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = size;
   }
 
-  setInStockState(state: number) {
-    this.inStockState = state;
+  setInStockState(event: any) {
+    this.inStockState = event.value;
     this.loadInventoriesPage();
   }
 

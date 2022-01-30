@@ -24,6 +24,14 @@
 
             </li>
 
+            <li [ngClass]="{ active: route.toLowerCase().includes('/comment') }">
+
+                <a [routerLink]="'/comment'" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">
+                    <i class="las la-comment"></i><span>نظرات</span>
+                </a>
+
+            </li>
+
             <li [ngClass]="{ active: route.toLowerCase().includes('/slider') }">
                 <a href="#dropdown-site" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-cog"></i><span>سایت</span></a>

@@ -32,7 +32,7 @@ export class FilterInventoryModel implements IPaging {
 }
 
 export enum FilterInventoryInStockStateEnum {
-    All,
-    InStock,
-    NotInStock
+    All = "All",
+    InStock = "InStock",
+    NotInStock  = "NotInStock"
 }

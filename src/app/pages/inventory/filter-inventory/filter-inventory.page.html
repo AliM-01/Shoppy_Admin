@@ -1,4 +1,4 @@
-<app-breadcrumb [pageTitle]="'مدیریت تخفیفات مشتریان'"></app-breadcrumb>
+<app-breadcrumb [pageTitle]="'مدیریت انبار'"></app-breadcrumb>
 
 <div class="row">
     <div class="col-xl-12">
@@ -16,28 +16,16 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label>وضعیت :</label>
 
-                        <div class="row w-100" div-center-content-center>
-                            <div class="col-md-4 d-flex">
-                                <label>همه</label>
-                                <input (click)="setInStockState(0)" class="form-control" type="checkbox"
-                                    [checked]="inStockState === 0" cursor-pointer>
-                            </div>
-
-                            <div class="col-md-4 d-flex">
-                                <label>فعال</label>
-                                <input (click)="setInStockState(1)" class="col-md-4" type="checkbox"
-                                    [checked]="inStockState === 1" cursor-pointer>
-                            </div>
-
-                            <div class="col-md-4 d-flex">
-                                <label>غیر فعال</label>
-                                <input (click)="setInStockState(2)" class="col-md-4" type="checkbox"
-                                    [checked]="inStockState === 2" cursor-pointer>
-                            </div>
-
-                        </div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>وضعیت</mat-label>
+                            <mat-select [value]="inStockState" (selectionChange)="setInStockState($event)">
+                                <mat-option value="All">همه</mat-option>
+                                <mat-option value="InStock">فعال</mat-option>
+                                <mat-option value="NotInStock">غیر فعال</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
                     </div>
 
                     <div class="col-md-4" div-center style="justify-content: flex-end;">
