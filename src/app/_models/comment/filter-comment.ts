@@ -29,13 +29,13 @@ export class FilterCommentModel implements IPaging {
 }
 
 export enum FilterCommentState {
-    All,
-    Canceled,
-    Confirmed
+    All = "All",
+    Canceled = "Canceled",
+    Confirmed = "Confirmed"
 }
 
 export enum FilterCommentType {
-    All,
-    Product,
-    Article
+    All = "All",
+    Product = "Product",
+    Article = "Article"
 }

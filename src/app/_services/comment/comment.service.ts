@@ -26,12 +26,12 @@ export class CommentService {
 
     if (filter !== null) {
       params = new HttpParams()
-        .set('state', filter.state)
-        .set('type', filter.type);
+        .set('State', filter.state)
+        .set('Type', filter.type);
     }
 
     return this.http.get<IResponse<FilterCommentModel>>
-      (`${environment.commentBaseApiUrl}/filter`)
+      (`${environment.commentBaseApiUrl}/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {

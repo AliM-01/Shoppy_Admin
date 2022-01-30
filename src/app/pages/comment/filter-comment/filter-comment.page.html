@@ -8,19 +8,19 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>وضعیت</mat-label>
-                    <mat-select [(value)]="filterState">
-                        <mat-option [value]="0">همه</mat-option>
-                        <mat-option [value]="1">تایید شده</mat-option>
-                        <mat-option [value]="2">رد شده</mat-option>
+                    <mat-select [value]="filterState" (selectionChange)="setFilterState($event)">
+                        <mat-option value="All">همه</mat-option>
+                        <mat-option value="Canceled">رد شده</mat-option>
+                        <mat-option value="Confirmed">تایید شده</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>نوع</mat-label>
-                    <mat-select [(value)]="filterState">
-                        <mat-option [value]="0">همه</mat-option>
-                        <mat-option [value]="1">محصول</mat-option>
-                        <mat-option [value]="2">مقاله</mat-option>
+                    <mat-select [value]="filterType" (selectionChange)="setFilterType($event)" >
+                        <mat-option value="All">همه</mat-option>
+                        <mat-option value="Product">محصول</mat-option>
+                        <mat-option value="Article">مقاله</mat-option>
                     </mat-select>
                 </mat-form-field>
 

@@ -84,6 +84,16 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = size;
   }
 
+  setFilterType(event: any) {
+    this.filterType = event.value;
+    this.loadCommentsPage();
+  }
+
+  setFilterState(event: any) {
+    this.filterState = event.value;
+    this.loadCommentsPage();
+  }
+
   loadCommentsPage() {
     this.filterComments = new FilterCommentModel(
       this.filterType,
