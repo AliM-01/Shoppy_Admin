@@ -81,6 +81,11 @@
                     <ng-container matColumnDef="commands">
                         <th mat-header-cell *matHeaderCellDef> دستورات </th>
                         <td mat-cell *matCellDef="let element">
+                            <button mat-raised-button color="primary" type="button" class="mat-success"
+                            (click)="confirmComment(element.id)">تایید</button>
+                            
+                            <button mat-raised-button color="warn"
+                            (click)="cancelComment(element.id)">رد</button>
                         </td>
                     </ng-container>
 
