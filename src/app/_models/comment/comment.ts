@@ -4,20 +4,10 @@ export class CommentModel {
         public name: string,
         public email: string,
         public text: string,
-        public type: CommentType,
-        public state: CommentState,
+        public type: string,
+        public state: string,
         public ownerRecordId: number,
         public ownerName: string,
         public creationDate: string
     ) { }
-}
-
-export enum CommentType {
-    Product,
-    Article
-}
-
-export enum CommentState {
-    Canceled,
-    Confirmed
 }
