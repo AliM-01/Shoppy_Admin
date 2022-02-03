@@ -6,6 +6,7 @@ export const environment = {
   discountBaseApiUrl: "https://localhost:5001/api/admin/discount",
   inventoryBaseApiUrl: "https://localhost:5001/api/admin/inventory",
   commentBaseApiUrl: "https://localhost:5001/api/admin/comment",
+  blogBaseApiUrl: "https://localhost:5001/api/admin/blog",
 
   // image paths
   productCategoryBaseImagePath: "https://localhost:5001/product_category",
