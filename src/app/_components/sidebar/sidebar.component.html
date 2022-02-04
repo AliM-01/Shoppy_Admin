@@ -24,6 +24,17 @@
 
             </li>
 
+            <li [ngClass]="{ active: route.includes('/article') || route.includes('/article-category') }">
+
+                <a href="#dropdown-shop" aria-expanded="false" data-toggle="collapse">
+                    <i class="las la-book-alt"></i><span>مقالات</span>
+                </a>
+
+                <ul id="dropdown-shop" class="collapse list-unstyled show pt-0">
+                    <li><a [routerLink]="'/article-category'" routerLinkActive="active">دسته بندی مقالات</a></li>
+                </ul>
+            </li>
+
             <li [ngClass]="{ active: route.toLowerCase().includes('/comment') }">
 
                 <a [routerLink]="'/comment'" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">

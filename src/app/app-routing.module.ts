@@ -36,6 +36,10 @@ const routes: Routes = [
     path: 'comment',
     loadChildren: () => import('./pages/comment/comment.module').then(m => m.CommentModule)
   },
+  {
+    path: 'article-category',
+    loadChildren: () => import('./pages/blog/article-category/article.category.module').then(m => m.ArticleCategoryModule)
+  },
 ];
 
 @NgModule({
