@@ -6,7 +6,7 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading';
-import { FilterArticleCategoryModel } from '@app_models/blog/article-category/_index';
+import { EditArticleCategoryModel, FilterArticleCategoryModel } from '@app_models/blog/article-category/_index';
 
 @Injectable({
   providedIn: 'platform'
@@ -31,6 +31,24 @@ export class ArticleCategoryService {
 
     return this.http.get<IResponse<FilterArticleCategoryModel>>
     (`${environment.blogBaseApiUrl}/article-category/filter`, { params })
+    .pipe(
+      tap(() => this.loading.loadingOff()),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
+  }
+
+  getArticleCategoryDetails(id: number): Observable<IResponse<EditArticleCategoryModel>> {
+
+    this.loading.loadingOn();
+
+    return this.http.get<IResponse<EditArticleCategoryModel>>
+    (`${environment.blogBaseApiUrl}/article-category/${id}`)
     .pipe(
       tap(() => this.loading.loadingOff()),
       catchError((error: HttpErrorResponse) => {
