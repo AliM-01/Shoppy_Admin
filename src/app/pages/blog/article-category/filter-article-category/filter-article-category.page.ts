@@ -13,6 +13,7 @@ import { ArticleCategoryDataServer } from '@app_models/blog/article-category/art
 import { FilterArticleCategoryModel } from '@app_models/blog/article-category/filter-article-category';
 import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
 import { CreateArticleCategoryDialog } from '../create-article-category/create-article-category.dialog';
+import { EditArticleCategoryDialog } from '../edit-article-category/edit-article-category.dialog';
 
 @Component({
   selector: 'app-filter-article-category',
@@ -144,17 +145,17 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  // openEditDialog(id: number): void {
-  //   const dialogRef = this.dialog.open(EditArticleCategoryDialog, {
-  //     width: '600px',
-  //     height: '700px',
-  //     data: {
-  //       id: id
-  //     }
-  //   }).afterClosed().subscribe(() => {
-  //     this.ngOnInit();
-  //   });
-  // }
+  openEditDialog(id: number): void {
+    const dialogRef = this.dialog.open(EditArticleCategoryDialog, {
+      width: '600px',
+      height: '700px',
+      data: {
+        id: id
+      }
+    }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
   loadArticleCategoriesPage() {
     const sortDate: PagingDataSortCreationDateOrder = this.filterArticleCategories.sortCreationDateOrder;

@@ -1,0 +1,104 @@
+<div class="shadow">
+  <h2>ایجاد دسته بندی محصول</h2>
+  <hr>
+
+  <form [formGroup]="editForm" (ngSubmit)="submiteditForm()" enctype="multipart/form-data">
+
+    <div class="row">
+
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>عنوان</mat-label>
+          <input matInput type="text" placeholder="..." formControlName="title">
+          <mat-error *ngIf="checkError('title', 'required')">لطفا عنوان را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('title', 'maxlength')">مقدار عنوان نباید بیشتر از 100 کاراکتر باشد</mat-error>
+        </mat-form-field>
+      </div>
+      
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>اولویت نمایش</mat-label>
+          <input matInput type="number" placeholder="1" formControlName="orderShow">
+          <mat-error *ngIf="checkError('orderShow', 'required')">لطفا اولویت نمایش را وارد نمایید</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+
+        <label>توضیحات</label>
+
+        <textarea id="editor"></textarea>
+
+        <p class="text-danger" *ngIf="ckeditorTextValue === undefined || ckeditorTextValue == null">
+          لطفا توضیحات را وارد نمایید
+        </p>
+      </div>
+
+      <div class="col-md-12 mt-3 mb-3">
+
+        <img [src]="imagePath" alt="" width="200" height="200">
+
+        <br />
+
+        <label class="mt-3">فایل تصویر جدید</label>
+        <input type="file" class="form-control" (change)="getImageFileToUpload($event)" [value]="null">
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>عنوان تصویر</mat-label>
+          <input matInput type="text" placeholder="..." formControlName="imageTitle">
+          <mat-error *ngIf="checkError('imageTitle', 'required')">لطفا عنوان تصویر را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('imageTitle', 'maxlength')">مقدار عنوان تصویر نباید بیشتر از 200 کاراکتر باشد
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Alt تصویر</mat-label>
+          <textarea matInput placeholder="..." formControlName="imageAlt"></textarea>
+          <mat-error *ngIf="checkError('imageAlt', 'required')">لطفا Alt تصویر را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('imageAlt', 'maxlength')">مقدار Alt تصویر نباید بیشتر از 200 کاراکتر باشد
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>توضیحات متا</mat-label>
+          <textarea matInput placeholder="..." formControlName="metaDescription"></textarea>
+          <mat-error *ngIf="checkError('metaDescription', 'required')">لطفا توضیحات متا را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('metaDescription', 'maxlength')">مقدار توضیحات متا نباید بیشتر از 80 کاراکتر باشد
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>کلمات کلیدی</mat-label>
+          <textarea matInput placeholder="..." formControlName="metaKeywords"></textarea>
+          <mat-error *ngIf="checkError('metaKeywords', 'required')">لطفا کلمات کلیدی را وارد نمایید</mat-error>
+          <mat-error *ngIf="checkError('metaKeywords', 'maxlength')">مقدار کلمات کلیدی نباید بیشتر از 100 کاراکتر باشد
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Canonical Address</mat-label>
+          <textarea matInput placeholder="" formControlName="canonicalAddress"></textarea>
+          <mat-error *ngIf="checkError('canonicalAddress', 'maxlength')">مقدار Canonical Address نباید بیشتر از 500 کاراکتر باشد</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="d-flex">
+      <button mat-raised-button color="primary" type="submit">ثبت</button>
+      <button mat-button color="warn" type="button" (click)="onCloseClick()">بستن</button>
+    </div>
+
+  </form>
+</div>
