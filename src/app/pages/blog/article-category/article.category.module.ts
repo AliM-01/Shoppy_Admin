@@ -8,10 +8,12 @@ import { AppMaterialModule } from '@appapp-material.module';
 import { ArticleCategoryRoutingModule } from './article.category.routing.module';
 import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
 import { FilterArticleCategoryPage } from './filter-article-category/filter-article-category.page';
+import { CreateArticleCategoryDialog } from './create-article-category/create-article-category.dialog';
 
 @NgModule({
   declarations: [
-    FilterArticleCategoryPage
+    FilterArticleCategoryPage,
+    CreateArticleCategoryDialog
   ],
   imports: [
     CommonModule,
