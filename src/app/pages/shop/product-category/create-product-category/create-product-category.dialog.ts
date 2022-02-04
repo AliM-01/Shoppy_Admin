@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateProductCategoryModel } from '@app_models/shop/product-category/create-product-category';
-import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/common/functions/functions';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import { LoadingService } from '@loading';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 
 @Component({

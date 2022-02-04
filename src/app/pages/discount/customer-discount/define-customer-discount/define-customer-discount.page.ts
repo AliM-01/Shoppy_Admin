@@ -2,12 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
-import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import {Location} from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { LoadingService } from '@app_services/common/loading/loading.service';
-import { checkFormGroupErrors } from '@app_services/common/functions/functions';
+import { LoadingService } from '@loading';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({
   selector: 'app-define-customer-discount',

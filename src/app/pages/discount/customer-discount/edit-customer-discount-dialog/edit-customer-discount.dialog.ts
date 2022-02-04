@@ -2,13 +2,13 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditCustomerDiscountModel } from '@app_models/discount/customer-discount/edit-customer-discount';
-import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductService } from '@app_services/shop/product/product.service';
-import { LoadingService } from '@app_services/common/loading/loading.service';
-import { checkFormGroupErrors } from '@app_services/common/functions/functions';
+import { LoadingService } from '@loading';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({
   selector: 'app-edit-customer-discount',

@@ -6,8 +6,8 @@ import { ColleagueDiscountService } from '@app_services/discount/colleague-disco
 import { ProductService } from '@app_services/shop/product/product.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { LoadingService } from '@app_services/common/loading/loading.service';
-import { checkFormGroupErrors } from '@app_services/common/functions/functions';
+import { LoadingService } from '@loading';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({
   selector: 'app-define-colleague-discount',

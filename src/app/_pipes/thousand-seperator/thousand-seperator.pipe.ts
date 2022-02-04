@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { separateThousands } from '@app_services/common/functions/functions';
+import { separateThousands } from '@app_services/_common/functions/functions';
 
 @Pipe({
   name: 'thousandSeperator'

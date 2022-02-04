@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReduceInventoryModel } from '@app_models/inventory/reduce-inventory';
-import { checkFormGroupErrors } from '@app_services/common/functions/functions';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 
 @Component({

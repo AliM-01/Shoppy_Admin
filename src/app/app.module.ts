@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { IndexModule } from '@app/pages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
-import { CkeditorService } from '@app_services/common/ckeditor/ckeditor.service';
+import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { ToastrModule } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 import { AppMaterialModule } from '@app_material';

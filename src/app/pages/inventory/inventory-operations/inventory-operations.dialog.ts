@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InventoryOperationModel } from '@app_models/inventory/inventory-operation';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 
 @Component({

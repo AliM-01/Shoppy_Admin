@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
-import { checkFormGroupErrors } from '../../../_services/common/functions/functions';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({
   selector: 'app-edit-inventory',

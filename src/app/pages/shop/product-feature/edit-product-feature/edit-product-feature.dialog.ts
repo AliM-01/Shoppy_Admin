@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditProductFeatureModel } from '@app_models/shop/product-feature/edit-product-feature';
-import { checkFormGroupErrors } from '@app_services/common/functions/functions';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import { LoadingService } from '@loading';
 import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
 
 @Component({

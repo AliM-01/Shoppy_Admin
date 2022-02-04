@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateSliderModel } from '@app_models/shop/slider/create-slider';
-import { checkFormGroupErrors } from '@app_services/common/functions/functions';
-import { LoadingService } from '@app_services/common/loading/loading.service';
+import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import { LoadingService } from '@loading';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 
 @Component({
