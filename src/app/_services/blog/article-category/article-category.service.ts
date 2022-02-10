@@ -69,6 +69,7 @@ export class ArticleCategoryService {
     
     formData.append('title', createData.title);
     formData.append('description', createData.description);
+    formData.append('orderShow', createData.orderShow.toString());
     formData.append('imageFile', createData.imageFile, createData.imageFile.name);
     formData.append('imageAlt', createData.imageAlt);
     formData.append('imageTitle', createData.imageTitle);
@@ -102,6 +103,7 @@ export class ArticleCategoryService {
 
     formData.append('id', editData.id.toString());
     formData.append('title', editData.title);
+    formData.append('orderShow', editData.orderShow.toString());
     formData.append('description', editData.description);
 
     if(editData.imageFileUploaded){
