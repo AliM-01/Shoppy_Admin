@@ -40,6 +40,10 @@ const routes: Routes = [
     path: 'article-category',
     loadChildren: () => import('./pages/blog/article-category/article.category.module').then(m => m.ArticleCategoryModule)
   },
+  {
+    path: 'article',
+    loadChildren: () => import('./pages/blog/article/article.module').then(m => m.ArticleModule)
+  }
 ];
 
 @NgModule({
