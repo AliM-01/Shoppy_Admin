@@ -1,6 +1,6 @@
 export class ReduceInventoryModel {
     constructor(
-         public inventoryId: number,
+         public inventoryId: string,
          public orderId: number,
          public productId: number,
          public count: number,

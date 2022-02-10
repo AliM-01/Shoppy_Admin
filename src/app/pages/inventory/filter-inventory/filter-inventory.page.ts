@@ -175,7 +175,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
 
-  openEditDialog(id: number): void {
+  openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(EditInventoryDialog, {
       width: '450px',
       height: '350px',
@@ -187,7 +187,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  openIncreaseDialog(id: number): void {
+  openIncreaseDialog(id: string): void {
     const dialogRef = this.dialog.open(IncreaseInventoryDialog, {
       width: '450px',
       height: '350px',
@@ -199,7 +199,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  openReduceDialog(id: number): void {
+  openReduceDialog(id: string): void {
     const dialogRef = this.dialog.open(ReduceInventoryDialog, {
       width: '450px',
       height: '425px',
@@ -211,7 +211,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     });
   }
   
-  openOperationsDialog(id: number): void {
+  openOperationsDialog(id: string): void {
     const dialogRef = this.dialog.open(InventoryOperationDialog, {
       width: '950px',
       height: '800px',

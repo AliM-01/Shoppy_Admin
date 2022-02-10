@@ -14,7 +14,7 @@ export class InventoryOperationDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<InventoryOperationDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: {id: number},
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private inventoryService: InventoryService,
     private loading: LoadingService
   ) { }

@@ -1,6 +1,6 @@
 export class IncreaseInventoryModel {
     constructor(
-         public inventoryId: number,
+         public inventoryId: string,
          public count: number,
          public description: string
      ){}

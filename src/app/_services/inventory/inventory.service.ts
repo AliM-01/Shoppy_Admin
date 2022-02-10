@@ -45,7 +45,7 @@ export class InventoryService {
       );
   }
 
-  getInventoryDetails(id: number): Observable<IResponse<EditInventoryModel>> {
+  getInventoryDetails(id: string): Observable<IResponse<EditInventoryModel>> {
 
     this.loading.loadingOn()
 
@@ -97,7 +97,7 @@ export class InventoryService {
 
     const formData = new FormData();
 
-    formData.append('id', editData.id.toString());
+    formData.append('id', editData.id);
     formData.append('unitPrice', editData.unitPrice.toString());
     formData.append('productId', editData.productId.toString());
 
@@ -126,7 +126,7 @@ export class InventoryService {
 
     const formData = new FormData();
 
-    formData.append('inventoryId', increaseData.inventoryId.toString());
+    formData.append('inventoryId', increaseData.inventoryId);
     formData.append('count', increaseData.count.toString());
     formData.append('description', increaseData.description.toString());
 
@@ -155,7 +155,7 @@ export class InventoryService {
 
     const formData = new FormData();
 
-    formData.append('inventoryId', reduceData.inventoryId.toString());
+    formData.append('inventoryId', reduceData.inventoryId);
     formData.append('orderId', reduceData.orderId.toString());
     formData.append('productId', reduceData.productId.toString());
     formData.append('count', reduceData.count.toString());
@@ -180,7 +180,7 @@ export class InventoryService {
       );
   }
 
-  getInventoryOperationLog(id: number): Observable<IResponse<InventoryOperationModel[]>> {
+  getInventoryOperationLog(id: string): Observable<IResponse<InventoryOperationModel[]>> {
 
     this.loading.loadingOn();
 
