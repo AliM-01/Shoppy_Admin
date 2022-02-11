@@ -14,4 +14,5 @@ export const environment = {
   productPicutreBaseImagePath: "https://localhost:5001/product_picture",
   sliderBaseImagePath: "https://localhost:5001/slider",
   articleCategoryBaseImagePath: "https://localhost:5001/article_category",
+  articleBaseImagePath: "https://localhost:5001/article",
 };

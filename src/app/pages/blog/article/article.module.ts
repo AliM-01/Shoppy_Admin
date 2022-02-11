@@ -7,9 +7,11 @@ import { DirectivesModule } from '@app_directives/directives.module';
 import { AppMaterialModule } from '@appapp-material.module';
 import { ArticleRoutingModule } from './article.routing.module';
 import { ArticleService } from '@app_services/blog/article/article.service';
+import { FilterArticlePage } from './filter-article/filter-article.page';
 
 @NgModule({
   declarations: [
+    FilterArticlePage
   ],
   imports: [
     CommonModule,
@@ -21,6 +23,7 @@ import { ArticleService } from '@app_services/blog/article/article.service';
     DirectivesModule
   ],
   exports: [
+    FilterArticlePage
   ],
   schemas: [],
   providers: [ArticleService]
