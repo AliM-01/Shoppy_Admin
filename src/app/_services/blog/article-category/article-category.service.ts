@@ -6,7 +6,7 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading';
-import { CreateArticleCategoryModel, EditArticleCategoryModel, FilterArticleCategoryModel } from '@app_models/blog/article-category/_index';
+import { ArticleCategoryForSelectListModel, CreateArticleCategoryModel, EditArticleCategoryModel, FilterArticleCategoryModel } from '@app_models/blog/article-category/_index';
 
 @Injectable({
   providedIn: 'platform'
@@ -18,6 +18,24 @@ export class ArticleCategoryService {
     private loading: LoadingService,
   ) { }
   
+  getArticleCategoriesSelectList(): Observable<IResponse<ArticleCategoryForSelectListModel[]>> {
+    
+    this.loading.loadingOn();
+    
+    return this.http.get<IResponse<ArticleCategoryForSelectListModel[]>>
+    (`${environment.blogBaseApiUrl}/article-category/get-select-list`)
+    .pipe(
+      tap(() => this.loading.loadingOff()),
+      catchError((error: HttpErrorResponse) => {
+
+        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+        this.loading.loadingOff();
+
+        return throwError(error);
+      })
+    );
+  }
+
   filterArticleCategory(filter: FilterArticleCategoryModel): Observable<IResponse<FilterArticleCategoryModel>> {
     
     this.loading.loadingOn();
