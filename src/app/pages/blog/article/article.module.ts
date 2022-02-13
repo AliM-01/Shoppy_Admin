@@ -9,11 +9,13 @@ import { ArticleRoutingModule } from './article.routing.module';
 import { ArticleService } from '@app_services/blog/article/article.service';
 import { FilterArticlePage } from './filter-article/filter-article.page';
 import { CreateArticlePage } from './create-article/create-article.page';
+import { EditArticlePage } from './edit-article/edit-article.page';
 
 @NgModule({
   declarations: [
     FilterArticlePage,
-    CreateArticlePage
+    CreateArticlePage,
+    EditArticlePage
   ],
   imports: [
     CommonModule,
