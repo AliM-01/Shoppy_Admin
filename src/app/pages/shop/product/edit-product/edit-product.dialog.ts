@@ -9,6 +9,7 @@ import { LoadingService } from '@loading';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { environment } from '@environments/environment';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-edit-product',
@@ -16,6 +17,8 @@ import { environment } from '@environments/environment';
 })
 export class EditProductDialog implements OnInit {
 
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("محصول");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
   editForm: FormGroup;
   fileUploaded: boolean = false;
   imageFileToUpload: any;
@@ -54,19 +57,23 @@ export class EditProductDialog implements OnInit {
     this.productService.getProductDetails(this.data.id).subscribe((res) => {
       if (res.status === 'success') {
 
-        this.editForm.controls.categoryId.setValue(res.data.categoryId)
-        this.editForm.controls.title.setValue(res.data.title)
-        this.editForm.controls.code.setValue(res.data.code)
-        this.editForm.controls.shortDescription.setValue(res.data.shortDescription)
+        this.pageTitleSubject.next(res.data.title + "کد : " + res.data.code);
+
+        this.editForm.controls.categoryId.setValue(res.data.categoryId);
+        this.editForm.controls.title.setValue(res.data.title);
+        this.editForm.controls.shortDescription.setValue(res.data.shortDescription);
 
         this.ckeditorTextValue = res.data.description;
         this.ckeditorService.setValue(res.data.description);
-        this.imagePath = `${environment.productBaseImagePath}/original/${res.data.imagePath}`;
+        this.imagePath = `${environment.productBaseImagePath}/thumbnail/${res.data.imagePath}`;
         this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
         this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
         this.editForm.controls.metaKeywords.setValue(res.data.metaKeywords);
         this.editForm.controls.metaDescription.setValue(res.data.metaDescription);
 
+        console.log(res);
+        console.log(this.editForm.controls);
+        
       }
     },
       (error) => { this.onCloseClick(); });
@@ -116,7 +123,7 @@ export class EditProductDialog implements OnInit {
         this.data.id,
         this.editForm.controls.categoryId.value,
         this.editForm.controls.title.value,
-        this.editForm.controls.code.value,
+        "",
         this.editForm.controls.shortDescription.value,
         this.ckeditorTextValue,
         this.imagePath,
