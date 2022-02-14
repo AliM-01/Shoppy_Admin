@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
-import { CreateProductPictureModel } from '@app_models/shop/product-picture/_index';
+import { CreateProductPictureModel, ProductPictureModel } from '@app_models/shop/product-picture/_index';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 import { catchError, tap } from 'rxjs/operators';
@@ -18,10 +18,10 @@ export class ProductPictureService {
   ) { }
 
 
-  getProductPictures(productId: number): Observable<IResponse<any>> {
+  getProductPictures(productId: number): Observable<IResponse<ProductPictureModel[]>> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<any>>
+    return this.http.get<IResponse<ProductPictureModel[]>>
     (`${environment.shopBaseApiUrl}/product-picture/${productId}`)
     .pipe(
       tap(() => this.loading.loadingOff()),
@@ -41,12 +41,10 @@ export class ProductPictureService {
     const formData = new FormData();
     
     formData.append('productId', createData.productId.toString());
-console.log( createData.imageFiles);
 
     for (var i = 0; i < createData.imageFiles.length; i++) {
       formData.append("imageFiles", createData.imageFiles[i]);
     }
-    console.log(formData.get("imageFiles"));
     
     return this.http.post<IResponse<any>>
     (`${environment.shopBaseApiUrl}/product-picture/create`, formData)
