@@ -8,6 +8,8 @@ export const environment = {
   commentBaseApiUrl: "https://localhost:5001/api/admin/comment",
   blogBaseApiUrl: "https://localhost:5001/api/admin/blog",
 
+  ckeditorImgUploadUrl: "https://localhost:5001/upload/img-upload/",
+
   // image paths
   productCategoryBaseImagePath: "https://localhost:5001/product_category",
   productBaseImagePath: "https://localhost:5001/product",

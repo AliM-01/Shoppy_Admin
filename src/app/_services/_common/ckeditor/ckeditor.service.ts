@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { environment } from '@environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -43,7 +44,10 @@ export class CkeditorService {
           countHTML: false,
           maxWordCount: maxLength,
           maxCharCount: maxLength,
-      }
+        },
+        simpleUpload: {
+          uploadUrl: environment.ckeditorImgUploadUrl
+        }
       })
       .then(editor => {
         this.ckeditorInternal = editor;
