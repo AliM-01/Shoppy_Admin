@@ -5,12 +5,16 @@ import { EditSliderModel } from '@app_models/shop/slider/edit-slider';
 import { LoadingService } from '@loading';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 import { environment } from '@environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-slider',
   templateUrl: './edit-slider.dialog.html'
 })
 export class EditSliderDialog implements OnInit {
+  
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش اسلایدر");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   editForm: FormGroup;
   fileUploaded: boolean = false;
@@ -41,6 +45,8 @@ export class EditSliderDialog implements OnInit {
     this.sliderService.getSliderDetails(this.data.id).subscribe((res) => {
 
       if (res.status === 'success') {
+
+        this.pageTitleSubject.next(`ویرایش اسلایدر : ${res.data.heading}`);
 
         this.editForm.controls.heading.setValue(res.data.heading);
         this.editForm.controls.text.setValue(res.data.text);
