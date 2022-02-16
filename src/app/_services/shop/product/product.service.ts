@@ -62,7 +62,6 @@ export class ProductService {
 
       }),
       catchError((error: HttpErrorResponse) => {
-
         this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
         this.loading.loadingOff();
 

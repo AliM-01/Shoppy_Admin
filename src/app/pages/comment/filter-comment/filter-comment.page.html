@@ -49,8 +49,8 @@
                     </ng-container>
 
                     <ng-container matColumnDef="text">
-                        <th style="width: 35%;" mat-header-cell *matHeaderCellDef> نظر </th>
-                        <td style="width: 35%;" mat-cell *matCellDef="let element"> {{element.text}} </td>
+                        <th style="width: 30%;" mat-header-cell *matHeaderCellDef> نظر </th>
+                        <td style="width: 30%;" mat-cell *matCellDef="let element"> {{element.text}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="type">
@@ -79,13 +79,13 @@
                     </ng-container>
 
                     <ng-container matColumnDef="commands">
-                        <th mat-header-cell *matHeaderCellDef> دستورات </th>
-                        <td mat-cell *matCellDef="let element">
+                        <th style="width: 25%;" mat-header-cell *matHeaderCellDef> دستورات </th>
+                        <td style="width: 25%;" mat-cell *matCellDef="let element">
                             <button mat-raised-button color="primary" type="button" class="mat-success"
                             (click)="confirmComment(element.id)">تایید</button>
                             
                             <button mat-raised-button color="warn"
-                            (click)="cancelComment(element.id)">رد</button>
+                            (click)="cancelComment(element.id)" class="ml-2">رد</button>
                         </td>
                     </ng-container>
 

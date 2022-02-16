@@ -15,6 +15,7 @@ import { InventoryOperationDialog } from './inventory-operations/inventory-opera
 import { CreateInventoryPage } from './create-inventory-page/create-inventory.page';
 import { PipesModule } from '@app_pipes/pipes.module';
 import { AppMaterialModule } from '@appapp-material.module';
+import { ProductService } from '@app_services/shop/product/product.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,6 @@ import { AppMaterialModule } from '@appapp-material.module';
   ],
   exports: [FilterInventoryPage],
   schemas: [],
-  providers: [InventoryService]
+  providers: [InventoryService,ProductService]
 })
 export class InventoryModule { }

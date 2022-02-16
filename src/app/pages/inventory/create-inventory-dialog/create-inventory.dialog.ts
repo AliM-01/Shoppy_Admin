@@ -15,7 +15,7 @@ import { ProductService } from '@app_services/shop/product/product.service';
 })
 export class CreateInventoryDialog implements OnInit, AfterViewInit {
   
-  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ایجاد انبار محصول :");
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ایجاد انبار محصول");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   createForm: FormGroup;
@@ -39,7 +39,7 @@ export class CreateInventoryDialog implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.createForm.controls.productId.valueChanges.pipe(
-      debounceTime(150),
+      debounceTime(750),
       distinctUntilChanged(),
       tap(() => {
         this.checkProductId();
@@ -65,10 +65,12 @@ export class CreateInventoryDialog implements OnInit, AfterViewInit {
       this.productService.existsProductId(productId).subscribe(res => {
 
         if (res.data.exists === false) {
-          this.existsProductId = false
+          this.existsProductId = false;
+          this.pageTitleSubject.next("ایجاد انبار محصول");
+
         } else {
           this.existsProductId = true;
-          this.pageTitleSubject.next(`ایجاد انبار محصول : ${res.data.productTitle}`)
+          this.pageTitleSubject.next(`ایجاد انبار محصول : ${res.data.productTitle}`);
         }
 
       });
