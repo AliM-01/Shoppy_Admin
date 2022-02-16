@@ -5,19 +5,27 @@ import { ReduceInventoryModel } from '@app_models/inventory/reduce-inventory';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { ProductService } from '@app_services/shop/product/product.service';
 
 @Component({
   selector: 'app-Reduce-inventory',
   templateUrl: './Reduce-inventory.dialog.html'
 })
 export class ReduceInventoryDialog implements OnInit {
+  
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("کاهش انبار محصول");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   reduceForm: FormGroup;
+  existsProductId: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<ReduceInventoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private inventoryService: InventoryService,
+    private productService: ProductService,
     private loading: LoadingService
   ) { }
 
@@ -31,12 +39,47 @@ export class ReduceInventoryDialog implements OnInit {
 
   }
 
+  ngAfterViewInit() {
+    this.reduceForm.controls.productId.valueChanges.pipe(
+      debounceTime(750),
+      distinctUntilChanged(),
+      tap(() => {
+        this.checkProductId();
+      })
+    )
+    .subscribe();
+  }
   checkError(controlName: string, errorName: string): boolean {
     return checkFormGroupErrors(this.reduceForm, controlName, errorName)
   }
   
   onCloseClick(): void {
     this.dialogRef.close();
+  }
+
+  checkProductId() {
+
+    let productId = this.reduceForm.controls.productId.value;
+
+    if (productId !== null) {
+
+      this.productService.existsProductId(productId).subscribe(res => {
+
+        if (res.data.exists === false) {
+          this.existsProductId = false;
+          this.pageTitleSubject.next("کاهش انبار محصول");
+
+        } else {
+          this.existsProductId = true;
+          this.pageTitleSubject.next(`کاهش انبار محصول : ${res.data.productTitle}`);
+        }
+
+      });
+
+    } else {
+      this.existsProductId = true;
+    }
+
   }
 
   submitreduceForm() {

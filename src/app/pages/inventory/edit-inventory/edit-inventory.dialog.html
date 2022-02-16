@@ -10,6 +10,7 @@
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>شناسه محصول</mat-label>
           <input matInput type="number" placeholder="..." formControlName="productId">
+          <mat-error *ngIf="!existsProductId">محصولی با این شناسه وجود ندارد</mat-error>
           <mat-error *ngIf="checkError('productId', 'required')">لطفا شناسه محصول را وارد نمایید</mat-error>
         </mat-form-field>
       </div>

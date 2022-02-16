@@ -154,7 +154,7 @@ export class CustomerDiscountService {
       .pipe(
         tap((res: IResponse<CheckProductHasCustomerDiscountResponseModel>) => {
           if (res.data.existsCustomerDiscount === true) {
-            this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", { timeOut: 500 });
+            this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", { timeOut: 2500 });
           }
           this.loading.loadingOff()
         }),
