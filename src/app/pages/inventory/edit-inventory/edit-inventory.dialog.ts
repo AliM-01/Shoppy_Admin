@@ -5,6 +5,7 @@ import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
 import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-inventory',
@@ -12,6 +13,9 @@ import { checkFormGroupErrors } from '@app_services/_common/functions/functions'
 })
 export class EditInventoryDialog implements OnInit {
 
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش انبار محصول :");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
+  
   editForm: FormGroup;
 
   constructor(
@@ -31,6 +35,8 @@ export class EditInventoryDialog implements OnInit {
     this.inventoryService.getInventoryDetails(this.data.id).subscribe((res) => {
 
       if (res.status === 'success') {
+
+        this.pageTitleSubject.next(`ویرایش انبار محصول کد : ${res.data.productId}`);
 
         this.editForm.controls.productId.setValue(res.data.productId)
         this.editForm.controls.unitPrice.setValue(res.data.unitPrice)
