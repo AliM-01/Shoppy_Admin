@@ -1,6 +1,7 @@
 export * from './inventory-data-server';
 export * from './inventory';
 export * from './inventory-operation';
+export * from './get-inventory-operations';
 export * from './create-inventory';
 export * from './edit-inventory';
 export * from './filter-inventory';

@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { InventoryOperationModel } from '@app_models/inventory/inventory-operation';
 import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
+import { GetInventoryOperationsModel } from '@app_models/inventory/get-inventory-operations';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-create-product-category',
@@ -10,7 +11,10 @@ import { InventoryService } from '@app_services/inventory/inventory.service';
 })
 export class InventoryOperationDialog implements OnInit {
 
-  operationLogs: InventoryOperationModel[] = [];
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("گردش انبار محصول");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
+  
+  operations: GetInventoryOperationsModel;
 
   constructor(
     public dialogRef: MatDialogRef<InventoryOperationDialog>,
@@ -24,7 +28,8 @@ export class InventoryOperationDialog implements OnInit {
 
     this.inventoryService.getInventoryOperationLog(this.data.id).subscribe((res) => {
       if (res.status === 'success') {
-        this.operationLogs = res.data;
+        this.pageTitleSubject.next(`گردش انبار محصول : ${res.data.productTitle}`);
+        this.operations = res.data;
       }
     });
 

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/_common/IResponse';
-import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel, IncreaseInventoryModel, ReduceInventoryModel } from '@app_models/inventory/_index';
+import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel, GetInventoryOperationsModel, IncreaseInventoryModel, ReduceInventoryModel } from '@app_models/inventory/_index';
 import { environment } from '@environments/environment';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
@@ -180,11 +180,11 @@ export class InventoryService {
       );
   }
 
-  getInventoryOperationLog(id: string): Observable<IResponse<InventoryOperationModel[]>> {
+  getInventoryOperationLog(id: string): Observable<IResponse<GetInventoryOperationsModel>> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<InventoryOperationModel[]>>
+    return this.http.get<IResponse<GetInventoryOperationsModel>>
       (`${environment.inventoryBaseApiUrl}/get-operation-log/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
