@@ -5,12 +5,16 @@ import { EditProductFeatureModel } from '@app_models/shop/product-feature/edit-p
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { LoadingService } from '@loading';
 import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-product-feature',
   templateUrl: './edit-product-feature.dialog.html'
 })
 export class EditProductFeatureDialog implements OnInit {
+  
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش ویژگی محصول");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   editForm: FormGroup;
 
@@ -61,6 +65,8 @@ export class EditProductFeatureDialog implements OnInit {
 
       this.productFeatureService.editProductFeature(editData).subscribe((res) => {
         if (res.status === 'success') {
+
+          this.pageTitleSubject.next(`ویرایش ویژگی محصول : ${res.data.title}`);
 
           this.editForm.reset();
           this.onCloseClick();
