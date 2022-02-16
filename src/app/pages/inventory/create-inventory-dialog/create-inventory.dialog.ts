@@ -1,21 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateInventoryModel } from '@app_models/inventory/create-inventory';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import { LoadingService } from '@loading';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { ProductService } from '@app_services/shop/product/product.service';
 
 @Component({
   selector: 'app-create-product-category',
   templateUrl: './create-inventory.dialog.html'
 })
-export class CreateInventoryDialog implements OnInit {
+export class CreateInventoryDialog implements OnInit, AfterViewInit {
+  
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ایجاد انبار محصول :");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   createForm: FormGroup;
+  existsProductId: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<CreateInventoryDialog>,
+    private productService: ProductService,
     private inventoryService: InventoryService,
     private loading: LoadingService
   ) { }
@@ -28,13 +36,47 @@ export class CreateInventoryDialog implements OnInit {
     });
 
   }
-  
+
+  ngAfterViewInit() {
+    this.createForm.controls.productId.valueChanges.pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      tap(() => {
+        this.checkProductId();
+      })
+    )
+    .subscribe();
+  }
+
   checkError(controlName: string, errorName: string): boolean {
     return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
   onCloseClick(): void {
     this.dialogRef.close();
+  }
+
+  checkProductId() {
+
+    let productId = this.createForm.controls.productId.value;
+
+    if (productId !== null) {
+
+      this.productService.existsProductId(productId).subscribe(res => {
+
+        if (res.data.exists === false) {
+          this.existsProductId = false
+        } else {
+          this.existsProductId = true;
+          this.pageTitleSubject.next(`ایجاد انبار محصول : ${res.data.productTitle}`)
+        }
+
+      });
+
+    } else {
+      this.existsProductId = true;
+    }
+
   }
 
   submitCreateForm() {
