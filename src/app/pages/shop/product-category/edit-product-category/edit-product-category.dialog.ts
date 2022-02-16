@@ -8,6 +8,7 @@ import { LoadingService } from '@loading';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-product-category',
@@ -15,7 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditProductCategoryDialog implements OnInit {
 
-  
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش دسته بندی");
+  pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
+
   editForm: FormGroup;
   fileUploaded: boolean = false;
   imageFileToUpload: any;
@@ -46,6 +49,8 @@ export class EditProductCategoryDialog implements OnInit {
     this.productCategoryService.getProductCategoryDetails(this.data.id).subscribe((res) => {
       
       if (res.status === 'success') {
+
+        this.pageTitleSubject.next(`ویرایش دسته بندی : ${res.data.title}`);
 
         this.editForm.controls.title.setValue(res.data.title)
         this.ckeditorTextValue = res.data.description;
