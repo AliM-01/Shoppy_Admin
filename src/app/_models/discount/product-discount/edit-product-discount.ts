@@ -1,6 +1,6 @@
 export class EditProductDiscountModel {
     constructor(
-         public id: number,
+         public id: string,
          public productId: number,
          public rate: number,
          public startDate: string,
