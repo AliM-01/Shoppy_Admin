@@ -1,19 +1,19 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
+import { DefineProductDiscountModel } from '@app_models/discount/product-discount/define-product-discount';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
+import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
 import {Location} from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { LoadingService } from '@loading';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({
-  selector: 'app-define-customer-discount',
-  templateUrl: './define-customer-discount.page.html'
+  selector: 'app-define-product-discount',
+  templateUrl: './define-product-discount.page.html'
 })
-export class DefineCustomerDiscountPage implements OnInit {
+export class DefineProductDiscountPage implements OnInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
@@ -22,7 +22,7 @@ export class DefineCustomerDiscountPage implements OnInit {
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
   
   constructor(
-    private customerDiscountService: CustomerDiscountService,
+    private ProductDiscountService: ProductDiscountService,
     private ckeditorService: CkeditorService,
     private activatedRoute: ActivatedRoute,
     private route: Router,
@@ -42,11 +42,11 @@ export class DefineCustomerDiscountPage implements OnInit {
       this.productId = params.productId;
 
       if (this.productId === undefined) {
-          this.route.navigate(['/customer-discount']);
+          this.route.navigate(['/product-discount']);
       }
 
-      this.customerDiscountService.checkProductHasCustomerDiscount(this.productId).subscribe(res => {
-        if(res.data.existsCustomerDiscount === true){
+      this.ProductDiscountService.checkProductHasProductDiscount(this.productId).subscribe(res => {
+        if(res.data.existsProductDiscount === true){
           this.onCloseClick();
         }
       });
@@ -74,7 +74,7 @@ export class DefineCustomerDiscountPage implements OnInit {
     
     if (this.defineForm.valid) {
 
-      const defineData = new DefineCustomerDiscountModel(
+      const defineData = new DefineProductDiscountModel(
         this.productId,
         this.defineForm.controls.rate.value,
         this.startDatepickerInput.nativeElement.value,
@@ -82,7 +82,7 @@ export class DefineCustomerDiscountPage implements OnInit {
         this.ckeditorService.getValue(),
       );
 
-      this.customerDiscountService.defineCustomerDiscount(defineData).subscribe((res) => {
+      this.ProductDiscountService.defineProductDiscount(defineData).subscribe((res) => {
         if (res.status === 'success') {
           this.defineForm.reset();
         }

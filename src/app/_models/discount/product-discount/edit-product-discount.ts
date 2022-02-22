@@ -1,5 +1,6 @@
-export class DefineCustomerDiscountModel {
+export class EditProductDiscountModel {
     constructor(
+         public id: number,
          public productId: number,
          public rate: number,
          public startDate: string,

@@ -4,20 +4,20 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
-import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
-import { CustomerDiscountModel, FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
-import { CustomerDiscountDataServer } from '@app_models/discount/customer-discount/customer-discount-data-server';
-import { DefineCustomerDiscountDialog } from '../define-customer-discount-dialog/define-customer-discount.dialog';
-import { EditCustomerDiscountDialog } from '../edit-customer-discount-dialog/edit-customer-discount.dialog';
+import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
+import { ProductDiscountModel, FilterProductDiscountModel } from '@app_models/discount/product-discount/_index';
+import { ProductDiscountDataServer } from '@app_models/discount/product-discount/product-discount-data-server';
+import { DefineProductDiscountDialog } from '../define-product-discount-dialog/define-product-discount.dialog';
+import { EditProductDiscountDialog } from '../edit-product-discount-dialog/edit-product-discount.dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/IPaging';
 import { MatSort } from '@angular/material/sort';
 
 @Component({
-  selector: 'app-filter-customer-discount',
-  templateUrl: './filter-customer-discount.page.html'
+  selector: 'app-filter-product-discount',
+  templateUrl: './filter-product-discount.page.html'
 })
-export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
+export class FilterProductDiscountPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -25,23 +25,23 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
   displayedColumns: string[] = ['id', 'product', 'description', 'rate', 'startDate',
     'endDate', 'state', 'commands'];
-  dataServer: CustomerDiscountDataServer;
-  dataSource: MatTableDataSource<CustomerDiscountModel> = new MatTableDataSource<CustomerDiscountModel>([]);
+  dataServer: ProductDiscountDataServer;
+  dataSource: MatTableDataSource<ProductDiscountModel> = new MatTableDataSource<ProductDiscountModel>([]);
   isDataSourceLoaded: boolean = false;
-  filterCustomerDiscounts: FilterCustomerDiscountModel = new FilterCustomerDiscountModel(0, '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterProductDiscounts: FilterProductDiscountModel = new FilterProductDiscountModel(0, '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
-    private customerDiscountService: CustomerDiscountService
+    private ProductDiscountService: ProductDiscountService
   ) {
     this.pageTitle.setTitle('مدیریت تخفیفات محصولات');
   }
 
   ngOnInit(): void {
-    this.dataServer = new CustomerDiscountDataServer(this.customerDiscountService);
-    this.dataServer.loadCustomerDiscounts(this.filterCustomerDiscounts);
-    this.dataSource = new MatTableDataSource<CustomerDiscountModel>(this.dataServer.data);
+    this.dataServer = new ProductDiscountDataServer(this.ProductDiscountService);
+    this.dataServer.loadProductDiscounts(this.filterProductDiscounts);
+    this.dataSource = new MatTableDataSource<ProductDiscountModel>(this.dataServer.data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
@@ -54,11 +54,11 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
-        this.dataSource = new MatTableDataSource<CustomerDiscountModel>(this.dataServer.data);
+        this.dataSource = new MatTableDataSource<ProductDiscountModel>(this.dataServer.data);
         this.dataSource.sort = this.sort;
         this.paginator.pageIndex = (this.dataServer.pageId - 1);
         this.paginator.length = this.dataServer.resultsLength;
-        this.paginator.pageSize = this.filterCustomerDiscounts.takePage;
+        this.paginator.pageSize = this.filterProductDiscounts.takePage;
 
         if (this.dataSource.data.length !== 0) {
           this.isDataSourceLoaded = true;
@@ -78,22 +78,22 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
           if (change.active === 'id') {
 
             if (change.direction === 'asc') {
-              this.filterCustomerDiscounts.sortIdOrder = PagingDataSortIdOrder.ASC;
+              this.filterProductDiscounts.sortIdOrder = PagingDataSortIdOrder.ASC;
             } else {
-              this.filterCustomerDiscounts.sortIdOrder = PagingDataSortIdOrder.DES;
+              this.filterProductDiscounts.sortIdOrder = PagingDataSortIdOrder.DES;
             }
           }
 
           if (change.active === 'creationDate') {
 
             if (change.direction === 'asc') {
-              this.filterCustomerDiscounts.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
+              this.filterProductDiscounts.sortCreationDateOrder = PagingDataSortCreationDateOrder.ASC;
             } else {
-              this.filterCustomerDiscounts.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
+              this.filterProductDiscounts.sortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
             }
           }
 
-          this.loadCustomerDiscountsPage()
+          this.loadProductDiscountsPage()
         })
       )
       .subscribe();
@@ -104,7 +104,7 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
-          this.loadCustomerDiscountsPage();
+          this.loadProductDiscountsPage();
         })
       )
       .subscribe();
@@ -115,7 +115,7 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
-          this.loadCustomerDiscountsPage();
+          this.loadProductDiscountsPage();
         })
       )
       .subscribe();
@@ -127,13 +127,13 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
 
     page = page + 1;
 
-    if (this.filterCustomerDiscounts.takePage !== size) {
+    if (this.filterProductDiscounts.takePage !== size) {
       page = 1;
     }
-    const sortDate: PagingDataSortCreationDateOrder = this.filterCustomerDiscounts.sortCreationDateOrder;
-    const sortId: PagingDataSortIdOrder = this.filterCustomerDiscounts.sortIdOrder;
+    const sortDate: PagingDataSortCreationDateOrder = this.filterProductDiscounts.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterProductDiscounts.sortIdOrder;
 
-    this.filterCustomerDiscounts = new FilterCustomerDiscountModel(
+    this.filterProductDiscounts = new FilterProductDiscountModel(
       this.filterProductIdInput.nativeElement.value,
       this.filterProductTitleInput.nativeElement.value,
       [],
@@ -148,7 +148,7 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
 
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(DefineCustomerDiscountDialog, {
+    const dialogRef = this.dialog.open(DefineProductDiscountDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -157,7 +157,7 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditCustomerDiscountDialog, {
+    const dialogRef = this.dialog.open(EditProductDiscountDialog, {
       width: '600px',
       height: '700px',
       data: {
@@ -168,11 +168,11 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
     });
   }
 
-  loadCustomerDiscountsPage() {
-    const sortDate: PagingDataSortCreationDateOrder = this.filterCustomerDiscounts.sortCreationDateOrder;
-    const sortId: PagingDataSortIdOrder = this.filterCustomerDiscounts.sortIdOrder;
+  loadProductDiscountsPage() {
+    const sortDate: PagingDataSortCreationDateOrder = this.filterProductDiscounts.sortCreationDateOrder;
+    const sortId: PagingDataSortIdOrder = this.filterProductDiscounts.sortIdOrder;
 
-    this.filterCustomerDiscounts = new FilterCustomerDiscountModel(
+    this.filterProductDiscounts = new FilterProductDiscountModel(
       this.filterProductIdInput.nativeElement.value,
       this.filterProductTitleInput.nativeElement.value,
       [],
@@ -184,11 +184,11 @@ export class FilterCustomerDiscountPage implements OnInit, AfterViewInit {
 
     this.ngOnInit();
     this.paginator.length = this.dataServer.resultsLength;
-    this.paginator.pageSize = this.filterCustomerDiscounts.takePage;
+    this.paginator.pageSize = this.filterProductDiscounts.takePage;
   }
 
-  deleteCustomerDiscount(id: number) {
-    this.customerDiscountService.deleteCustomerDiscount(id).subscribe((res) => {
+  deleteProductDiscount(id: number) {
+    this.ProductDiscountService.deleteProductDiscount(id).subscribe((res) => {
 
       if (res.status === 'success') {
         this.ngOnInit();

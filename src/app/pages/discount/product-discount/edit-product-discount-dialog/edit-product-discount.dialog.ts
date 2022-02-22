@@ -1,9 +1,9 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditCustomerDiscountModel } from '@app_models/discount/customer-discount/edit-customer-discount';
+import { EditProductDiscountModel } from '@app_models/discount/product-discount/edit-product-discount';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
+import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductService } from '@app_services/shop/product/product.service';
@@ -11,11 +11,11 @@ import { LoadingService } from '@loading';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({
-  selector: 'app-edit-customer-discount',
-  templateUrl: './edit-customer-discount.dialog.html',
+  selector: 'app-edit-product-discount',
+  templateUrl: './edit-product-discount.dialog.html',
   providers: [ProductService]
 })
-export class EditCustomerDiscountDialog implements OnInit {
+export class EditProductDiscountDialog implements OnInit {
 
   editForm: FormGroup;
   ckeditorTextValue = null;
@@ -27,8 +27,8 @@ export class EditCustomerDiscountDialog implements OnInit {
   unchangedProductId: number = 0;
 
   constructor(
-    public dialogRef: MatDialogRef<EditCustomerDiscountDialog>,
-    private customerDiscountService: CustomerDiscountService,
+    public dialogRef: MatDialogRef<EditProductDiscountDialog>,
+    private ProductDiscountService: ProductDiscountService,
     private productService: ProductService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
     private ckeditorService: CkeditorService,
@@ -44,7 +44,7 @@ export class EditCustomerDiscountDialog implements OnInit {
       rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
 
-    this.customerDiscountService.getCustomerDiscountDetails(this.data.id).subscribe((res) => {
+    this.ProductDiscountService.getProductDiscountDetails(this.data.id).subscribe((res) => {
 
       if (res.status === 'success') {
 
@@ -95,7 +95,7 @@ export class EditCustomerDiscountDialog implements OnInit {
     if (!this.existsProductDiscount) {
       if (this.editForm.valid) {
 
-        const editData = new EditCustomerDiscountModel(
+        const editData = new EditProductDiscountModel(
           this.data.id,
           this.editForm.controls.productId.value,
           this.editForm.controls.rate.value,
@@ -104,7 +104,7 @@ export class EditCustomerDiscountDialog implements OnInit {
           this.ckeditorService.getValue(),
         );
 
-        this.customerDiscountService.editCustomerDiscount(editData).subscribe((res) => {
+        this.ProductDiscountService.editProductDiscount(editData).subscribe((res) => {
           if (res.status === 'success') {
             this.editForm.reset();
             this.onCloseClick();
@@ -131,7 +131,7 @@ export class EditCustomerDiscountDialog implements OnInit {
           this.existsProductId = false
 
         } else {
-          this.checkProductHasCustomerDiscount(productId);
+          this.checkProductHasProductDiscount(productId);
         }
 
       });
@@ -141,10 +141,10 @@ export class EditCustomerDiscountDialog implements OnInit {
     this.existsProductDiscount = false;
   }
 
-  checkProductHasCustomerDiscount(productId: number) {
-    this.customerDiscountService.checkProductHasCustomerDiscount(productId).subscribe(res => {
+  checkProductHasProductDiscount(productId: number) {
+    this.ProductDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
 
-      if (res.data.existsCustomerDiscount === true) {
+      if (res.data.existsProductDiscount === true) {
         this.existsProductDiscount = true
       }
 

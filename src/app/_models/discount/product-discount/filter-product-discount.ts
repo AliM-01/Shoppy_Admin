@@ -1,21 +1,21 @@
 import { IPaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/IPaging";
-import { CustomerDiscountModel } from "./customer-discount";
+import { ProductDiscountModel } from "./product-discount";
 
-export class FilterCustomerDiscountModel implements IPaging {
+export class FilterProductDiscountModel implements IPaging {
 
     pageId: number;
     allPagesCount: number;
     takePage: number;
     productId: number;
     productTitle: string;
-    discounts: CustomerDiscountModel[];
+    discounts: ProductDiscountModel[];
     sortCreationDateOrder: PagingDataSortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
     sortIdOrder: PagingDataSortIdOrder = PagingDataSortIdOrder.NotSelected;
 
     constructor(
         productId: number,
         productTitle: string,
-        discounts: CustomerDiscountModel[],
+        discounts: ProductDiscountModel[],
         pageId: number,
         takePage: number,
         sortCreationDateOrder: PagingDataSortCreationDateOrder,

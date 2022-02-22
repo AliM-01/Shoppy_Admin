@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
-import { CheckProductHasCustomerDiscountResponseModel, DefineCustomerDiscountModel, EditCustomerDiscountModel, FilterCustomerDiscountModel } from '@app_models/discount/customer-discount/_index';
+import { CheckProductHasProductDiscountResponseModel, DefineProductDiscountModel, EditProductDiscountModel, FilterProductDiscountModel } from '@app_models/discount/product-discount/_index';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 import { catchError, tap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { catchError, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'platform'
 })
-export class CustomerDiscountService {
+export class ProductDiscountService {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -19,7 +19,7 @@ export class CustomerDiscountService {
   ) { }
 
 
-  filterCustomerDiscount(filter: FilterCustomerDiscountModel): Observable<IResponse<FilterCustomerDiscountModel>> {
+  filterProductDiscount(filter: FilterProductDiscountModel): Observable<IResponse<FilterProductDiscountModel>> {
     this.loading.loadingOn();
 
     let params;
@@ -30,8 +30,8 @@ export class CustomerDiscountService {
         .set('productTitle', filter.productTitle);
     }
 
-    return this.http.get<IResponse<FilterCustomerDiscountModel>>
-      (`${environment.discountBaseApiUrl}/customer-discount/filter`, { params })
+    return this.http.get<IResponse<FilterProductDiscountModel>>
+      (`${environment.discountBaseApiUrl}/product-discount/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
@@ -44,11 +44,11 @@ export class CustomerDiscountService {
       );
   }
 
-  getCustomerDiscountDetails(id: number): Observable<IResponse<EditCustomerDiscountModel>> {
+  getProductDiscountDetails(id: number): Observable<IResponse<EditProductDiscountModel>> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditCustomerDiscountModel>>
-      (`${environment.discountBaseApiUrl}/customer-discount/${id}`)
+    return this.http.get<IResponse<EditProductDiscountModel>>
+      (`${environment.discountBaseApiUrl}/product-discount/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
@@ -61,7 +61,7 @@ export class CustomerDiscountService {
       );
   }
 
-  defineCustomerDiscount(createData: DefineCustomerDiscountModel): Observable<IResponse<any>> {
+  defineProductDiscount(createData: DefineProductDiscountModel): Observable<IResponse<any>> {
 
     this.loading.loadingOn();
 
@@ -74,7 +74,7 @@ export class CustomerDiscountService {
     formData.append('description', createData.description);
 
     return this.http.post<IResponse<any>>
-      (`${environment.discountBaseApiUrl}/customer-discount/define`, formData)
+      (`${environment.discountBaseApiUrl}/product-discount/define`, formData)
       .pipe(
         tap((res: IResponse<any>) => {
 
@@ -92,7 +92,7 @@ export class CustomerDiscountService {
       );
   }
 
-  editCustomerDiscount(editData: EditCustomerDiscountModel): Observable<IResponse<any>> {
+  editProductDiscount(editData: EditProductDiscountModel): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -105,7 +105,7 @@ export class CustomerDiscountService {
     formData.append('description', editData.description);
 
     return this.http.put<IResponse<any>>
-      (`${environment.discountBaseApiUrl}/customer-discount/edit`, formData)
+      (`${environment.discountBaseApiUrl}/product-discount/edit`, formData)
       .pipe(
         tap((res: IResponse<any>) => {
 
@@ -123,11 +123,11 @@ export class CustomerDiscountService {
       );
   }
 
-  deleteCustomerDiscount(CustomerDiscountId: number): Observable<IResponse<any>> {
+  deleteProductDiscount(ProductDiscountId: number): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>
-      (`${environment.discountBaseApiUrl}/customer-discount/remove/${CustomerDiscountId}`)
+      (`${environment.discountBaseApiUrl}/product-discount/remove/${ProductDiscountId}`)
       .pipe(
         tap((res: IResponse<any>) => {
 
@@ -145,15 +145,15 @@ export class CustomerDiscountService {
       );
   }
 
-  checkProductHasCustomerDiscount(productId: number)
-    : Observable<IResponse<CheckProductHasCustomerDiscountResponseModel>> {
+  checkProductHasProductDiscount(productId: number)
+    : Observable<IResponse<CheckProductHasProductDiscountResponseModel>> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<CheckProductHasCustomerDiscountResponseModel>>
-      (`${environment.discountBaseApiUrl}/customer-discount/check-product-has-discount/${productId}`)
+    return this.http.get<IResponse<CheckProductHasProductDiscountResponseModel>>
+      (`${environment.discountBaseApiUrl}/product-discount/check-product-has-discount/${productId}`)
       .pipe(
-        tap((res: IResponse<CheckProductHasCustomerDiscountResponseModel>) => {
-          if (res.data.existsCustomerDiscount === true) {
+        tap((res: IResponse<CheckProductHasProductDiscountResponseModel>) => {
+          if (res.data.existsProductDiscount === true) {
             this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", { timeOut: 2500 });
           }
           this.loading.loadingOff()

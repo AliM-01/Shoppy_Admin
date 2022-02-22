@@ -1,21 +1,21 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DefineCustomerDiscountModel } from '@app_models/discount/customer-discount/define-customer-discount';
+import { DefineProductDiscountModel } from '@app_models/discount/product-discount/define-product-discount';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { LoadingService } from '@loading';
-import { CustomerDiscountService } from '@app_services/discount/customer-discount/customer-discount.service';
+import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-define-customer-discount',
-  templateUrl: './define-customer-discount.dialog.html',
+  selector: 'app-define-product-discount',
+  templateUrl: './define-product-discount.dialog.html',
   providers: [ProductService]
 })
-export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
+export class DefineProductDiscountDialog implements OnInit, AfterViewInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
@@ -26,8 +26,8 @@ export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
   @ViewChild('productIdInput') productIdInput: ElementRef;
 
   constructor(
-    public dialogRef: MatDialogRef<DefineCustomerDiscountDialog>,
-    private customerDiscountService: CustomerDiscountService,
+    public dialogRef: MatDialogRef<DefineProductDiscountDialog>,
+    private ProductDiscountService: ProductDiscountService,
     private productService: ProductService,
     private ckeditorService: CkeditorService,
     private loading: LoadingService
@@ -74,7 +74,7 @@ export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
 
       if (this.defineForm.valid) {
 
-        const defineData = new DefineCustomerDiscountModel(
+        const defineData = new DefineProductDiscountModel(
           this.defineForm.controls.productId.value,
           this.defineForm.controls.rate.value,
           this.startDatepickerInput.nativeElement.value,
@@ -82,7 +82,7 @@ export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
           this.ckeditorService.getValue(),
         );
 
-        this.customerDiscountService.defineCustomerDiscount(defineData).subscribe((res) => {
+        this.ProductDiscountService.defineProductDiscount(defineData).subscribe((res) => {
           if (res.status === 'success') {
 
             this.defineForm.reset();
@@ -113,7 +113,7 @@ export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
           this.existsProductId = false
 
         } else {
-          this.checkProductHasCustomerDiscount(productId);
+          this.checkProductHasProductDiscount(productId);
         }
 
       });
@@ -123,10 +123,10 @@ export class DefineCustomerDiscountDialog implements OnInit, AfterViewInit {
     this.existsProductDiscount = false;
   }
 
-  checkProductHasCustomerDiscount(productId: number) {
-    this.customerDiscountService.checkProductHasCustomerDiscount(productId).subscribe(res => {
+  checkProductHasProductDiscount(productId: number) {
+    this.ProductDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
 
-      if (res.data.existsCustomerDiscount === true) {
+      if (res.data.existsProductDiscount === true) {
         this.existsProductDiscount = true
       }
 

@@ -1,27 +1,27 @@
 import { of } from "rxjs";
-import { FilterCustomerDiscountModel, CustomerDiscountModel} from "./_index";
+import { FilterProductDiscountModel, ProductDiscountModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
 import { IResponse } from '@app_models/_common/IResponse';
-import { CustomerDiscountService } from "@app_services/discount/customer-discount/customer-discount.service";
+import { ProductDiscountService } from "@app_services/discount/product-discount/product-discount.service";
 
-export class CustomerDiscountDataServer {
+export class ProductDiscountDataServer {
 
-    constructor(private customerDiscountService: CustomerDiscountService) {}
+    constructor(private ProductDiscountService: ProductDiscountService) {}
 
-    public data: CustomerDiscountModel[] = [];
+    public data: ProductDiscountModel[] = [];
     public resultsLength = 0;
     public isLoadingResults = true;
     public pageId: number = 1;
 
-    loadCustomerDiscounts(filterProducts: FilterCustomerDiscountModel) {
+    loadProductDiscounts(filterProducts: FilterProductDiscountModel) {
 
         this.isLoadingResults = true;
 
-        this.customerDiscountService.filterCustomerDiscount(filterProducts)
+        this.ProductDiscountService.filterProductDiscount(filterProducts)
         .pipe(catchError(() => of([])),finalize(() => {
             this.isLoadingResults = true;
         }))
-        .subscribe((res : IResponse<FilterCustomerDiscountModel>) => {
+        .subscribe((res : IResponse<FilterProductDiscountModel>) => {
             setTimeout(() => {
                 this.data = res.data.discounts;
                 this.resultsLength = res.data.allPagesCount;

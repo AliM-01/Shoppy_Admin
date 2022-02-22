@@ -52,11 +52,11 @@
                 </ul>
             </li>
 
-            <li [ngClass]="{ active: route.toLowerCase().includes('/customer-discount') || route.toLowerCase().includes('/colleague-discount') }">
+            <li [ngClass]="{ active: route.toLowerCase().includes('/product-discount') || route.toLowerCase().includes('/colleague-discount') }">
                 <a href="#dropdown-discount" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-wallet"></i><span>تخفیفات</span></a>
                 <ul id="dropdown-discount" class="collapse list-unstyled show pt-0">
-                    <li><a [routerLink]="'/customer-discount'" routerLinkActive="active">تخفیفات محصولات</a></li>
+                    <li><a [routerLink]="'/product-discount'" routerLinkActive="active">تخفیفات محصولات</a></li>
                     <li><a [routerLink]="'/colleague-discount'" routerLinkActive="active">تخفیفات همکاران</a></li>
                 </ul>
             </li>
