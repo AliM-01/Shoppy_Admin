@@ -10,6 +10,7 @@
                     <mat-label>وضعیت</mat-label>
                     <mat-select [value]="filterState" (selectionChange)="setFilterState($event)">
                         <mat-option value="All">همه</mat-option>
+                        <mat-option value="UnderProgress">در حال بررسی</mat-option>
                         <mat-option value="Canceled">رد شده</mat-option>
                         <mat-option value="Confirmed">تایید شده</mat-option>
                     </mat-select>

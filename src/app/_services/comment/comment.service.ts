@@ -44,7 +44,7 @@ export class CommentService {
       );
   }
 
-  confirmComment(commentId: number):Observable<IResponse<any>> {
+  confirmComment(commentId: string):Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>
@@ -66,7 +66,7 @@ export class CommentService {
     );
   }
 
-  cancelComment(commentId: number):Observable<IResponse<any>> {
+  cancelComment(commentId: string):Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>

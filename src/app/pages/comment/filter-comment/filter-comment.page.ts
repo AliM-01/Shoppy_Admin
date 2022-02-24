@@ -108,7 +108,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterComments.takePage;
   }
 
-  confirmComment(id: number) {
+  confirmComment(id: string) {
     this.commentService.confirmComment(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

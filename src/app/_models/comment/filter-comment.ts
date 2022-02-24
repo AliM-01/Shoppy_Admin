@@ -30,6 +30,7 @@ export class FilterCommentModel implements IPaging {
 
 export enum FilterCommentState {
     All = "All",
+    UnderProgress = "UnderProgress",
     Canceled = "Canceled",
     Confirmed = "Confirmed"
 }
