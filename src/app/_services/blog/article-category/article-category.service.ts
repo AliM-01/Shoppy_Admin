@@ -61,7 +61,7 @@ export class ArticleCategoryService {
     );
   }
 
-  getArticleCategoryDetails(id: number): Observable<IResponse<EditArticleCategoryModel>> {
+  getArticleCategoryDetails(id: string): Observable<IResponse<EditArticleCategoryModel>> {
 
     this.loading.loadingOn();
 
@@ -119,7 +119,7 @@ export class ArticleCategoryService {
 
     const formData = new FormData();
 
-    formData.append('id', editData.id.toString());
+    formData.append('id', editData.id);
     formData.append('title', editData.title);
     formData.append('orderShow', editData.orderShow.toString());
     formData.append('description', editData.description);
@@ -152,11 +152,11 @@ export class ArticleCategoryService {
     );
   }
 
-  deleteArticleCategory(ArticleCategoryId: number):Observable<IResponse<any>> {
+  deleteArticleCategory(id: string):Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>
-    (`${environment.blogBaseApiUrl}/article-category/delete/${ArticleCategoryId}`)
+    (`${environment.blogBaseApiUrl}/article-category/delete/${id}`)
     .pipe(
       tap((res: IResponse<any>) => {
 

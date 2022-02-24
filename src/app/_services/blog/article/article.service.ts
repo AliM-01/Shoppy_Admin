@@ -43,7 +43,7 @@ export class ArticleService {
     );
   }
 
-  getArticleDetails(id: number): Observable<IResponse<EditArticleModel>> {
+  getArticleDetails(id: string): Observable<IResponse<EditArticleModel>> {
 
     this.loading.loadingOn();
 
@@ -67,6 +67,7 @@ export class ArticleService {
 
     const formData = new FormData();
     
+    formData.append('categoryId', createData.categoryId);
     formData.append('title', createData.title);
     formData.append('summary', createData.summary);
     formData.append('text', createData.text);
@@ -75,6 +76,7 @@ export class ArticleService {
     formData.append('imageTitle', createData.imageTitle);
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
+    formData.append('canonicalAddress', createData.canonicalAddress);
     
     return this.http.post<IResponse<any>>
     (`${environment.blogBaseApiUrl}/article/create`, formData)
@@ -101,10 +103,11 @@ export class ArticleService {
 
     const formData = new FormData();
 
-    formData.append('id', editData.id.toString());
+    formData.append('id', editData.id);
     formData.append('title', editData.title);
     formData.append('summary', editData.summary);
     formData.append('text', editData.text);
+    formData.append('categoryId', editData.categoryId);
 
     if(editData.imageFileUploaded){
       formData.append('imageFile', editData.imageFile, editData.imageFile.name);
@@ -114,6 +117,7 @@ export class ArticleService {
     formData.append('imageTitle', editData.imageTitle);
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
+    formData.append('canonicalAddress', editData.canonicalAddress);
     
     return this.http.put<IResponse<any>>
     (`${environment.blogBaseApiUrl}/article/edit`, formData)
@@ -134,7 +138,7 @@ export class ArticleService {
     );
   }
 
-  deleteArticle(articleId: number):Observable<IResponse<any>> {
+  deleteArticle(articleId: string):Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>
