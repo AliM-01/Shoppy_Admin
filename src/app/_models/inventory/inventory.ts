@@ -1,7 +1,7 @@
 export class InventoryModel {
     constructor(
          public id: string,
-         public productId: number,
+         public productId: string,
          public product: string,
          public inStock: boolean,
          public unitPrice: number,

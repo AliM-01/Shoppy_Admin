@@ -1,7 +1,7 @@
 export class EditProductModel {
     constructor(
-         public id: number,
-         public categoryId: number,
+         public id: string,
+         public categoryId: string,
          public title: string,
          public code: string,
          public shortDescription: string,

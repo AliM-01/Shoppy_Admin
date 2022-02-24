@@ -1,10 +1,10 @@
 export class CreateProductFeatureModel {
-    productId: number;
+    productId: string;
     featureTitle: string;
     featureValue: string;
 
     constructor(
-        productId: number,
+        productId: string,
         featureTitle: string,
         featureValue: string
     ) {

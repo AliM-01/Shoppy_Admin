@@ -5,14 +5,14 @@ export class FilterColleagueDiscountModel implements IPaging {
     pageId: number;
     allPagesCount: number;
     takePage: number;
-    productId: number;
+    productId: string;
     productTitle: string;
     discounts: ColleagueDiscountModel[];
     sortCreationDateOrder: PagingDataSortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
     sortIdOrder: PagingDataSortIdOrder = PagingDataSortIdOrder.NotSelected;
 
     constructor(
-        productId: number,
+        productId: string,
         productTitle: string,
         discounts: ColleagueDiscountModel[],
         pageId: number,

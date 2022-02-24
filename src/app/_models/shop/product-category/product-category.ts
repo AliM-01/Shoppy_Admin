@@ -1,9 +1,8 @@
 export class ProductCategoryModel {
     constructor(
-         public id: number,
+         public id: string,
          public title: string,
          public imagePath: string,
-         public creationDate: string,
-         public productsCount: number,
+         public creationDate: string
      ){}
  }

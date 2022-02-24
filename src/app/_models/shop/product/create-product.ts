@@ -1,6 +1,6 @@
 export class CreateProductModel {
     constructor(
-         public categoryId: number,
+         public categoryId: string,
          public title: string,
          public shortDescription: string,
          public description: string,

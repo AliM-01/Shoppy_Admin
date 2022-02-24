@@ -1,6 +1,6 @@
 export class EditProductCategoryModel {
     constructor(
-         public id: number,
+         public id: string,
          public title: string,
          public description: string,
          public imagePath: any,

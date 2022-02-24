@@ -1,7 +1,7 @@
 export class EditColleagueDiscountModel {
     constructor(
-         public id: number,
-         public productId: number,
+         public id: string,
+         public productId: string,
          public rate: number
      ){}
  }

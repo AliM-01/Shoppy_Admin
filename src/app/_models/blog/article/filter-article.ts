@@ -9,12 +9,12 @@ export class FilterArticleModel implements IPaging {
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;
     title: string;
-    categoryId: number;
+    categoryId: string;
     articles: ArticleModel[];
 
    constructor(
         title: string,
-        categoryId: number,
+        categoryId: string,
         articles: ArticleModel[],
         pageId: number,
         takePage: number,

@@ -1,6 +1,6 @@
 export class DefineProductDiscountModel {
     constructor(
-         public productId: number,
+         public productId: string,
          public rate: number,
          public startDate: string,
          public endDate: string,

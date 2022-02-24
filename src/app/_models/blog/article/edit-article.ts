@@ -1,10 +1,10 @@
 export class EditArticleModel {
     constructor(
-         public id: number,
+         public id: string,
          public title: string,
          public summary: string,
          public text: string,
-         public categoryId: number,
+         public categoryId: string,
          public imagePath: any,
          public imageFileUploaded: boolean,
          public imageFile: any,

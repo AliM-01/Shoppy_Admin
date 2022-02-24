@@ -1,5 +1,5 @@
 export class ExistsProductIdResponseModel {
     exists: boolean;
-    productId: number;
+    productId: string;
     productTitle: string;
  }

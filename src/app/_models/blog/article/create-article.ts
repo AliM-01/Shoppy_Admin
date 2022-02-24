@@ -3,7 +3,7 @@ export class CreateArticleModel {
          public title: string,
          public summary: string,
          public text: string,
-         public categoryId: number,
+         public categoryId: string,
          public imageFile: any,
          public imageAlt: string,
          public imageTitle: string,

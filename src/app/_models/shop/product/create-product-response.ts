@@ -1,5 +1,5 @@
 export class CreateProductResponseModel {
     constructor(
-         public productId: number
+         public productId: string
      ){}
  }

@@ -1,11 +1,11 @@
 import { CreateProductFeatureModel } from "./create-product-feature";
 
 export class EditProductFeatureModel extends CreateProductFeatureModel {
-    id: number;
+    id: string;
 
     constructor(
-        id: number,
-        productId: number,
+        id: string,
+        productId: string,
         featureTitle: string,
         featureValue: string
     ) {

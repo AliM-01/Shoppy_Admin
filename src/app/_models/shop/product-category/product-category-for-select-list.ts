@@ -1,6 +1,6 @@
 export class ProductCategoryForSelectListModel {
     constructor(
-         public id: number,
+         public id: string,
          public title: string
      ){}
  }

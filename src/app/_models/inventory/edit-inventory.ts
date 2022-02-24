@@ -1,7 +1,7 @@
 export class EditInventoryModel {
     constructor(
          public id: string,
-         public productId: number,
+         public productId: string,
          public unitPrice: number
      ){}
  }

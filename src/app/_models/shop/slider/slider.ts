@@ -1,6 +1,6 @@
 export class SliderModel {
     constructor(
-         public id: number,
+         public id: string,
          public heading: string,
          public text: string,
          public isRemoved: boolean,

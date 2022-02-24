@@ -6,14 +6,14 @@ export class FilterProductDiscountModel implements IPaging {
     pageId: number;
     allPagesCount: number;
     takePage: number;
-    productId: number;
+    productId: string;
     productTitle: string;
     discounts: ProductDiscountModel[];
     sortCreationDateOrder: PagingDataSortCreationDateOrder = PagingDataSortCreationDateOrder.DES;
     sortIdOrder: PagingDataSortIdOrder = PagingDataSortIdOrder.NotSelected;
 
     constructor(
-        productId: number,
+        productId: string,
         productTitle: string,
         discounts: ProductDiscountModel[],
         pageId: number,

@@ -1,6 +1,6 @@
 export class CreateProductPictureModel {
     constructor(
-         public productId: number,
+         public productId: string,
          public imageFiles: any[] = []
      ){}
  }

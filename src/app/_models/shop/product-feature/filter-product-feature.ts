@@ -8,11 +8,11 @@ export class FilterProductFeatureModel implements IPaging {
     takePage: number;
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;
-    productId: number;
+    productId: string;
     productFeatures: ProductFeatureModel[];
 
     constructor(
-        productId: number,
+        productId: string,
         productFeatures: ProductFeatureModel[],
         pageId: number,
         takePage: number
