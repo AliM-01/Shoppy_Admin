@@ -40,7 +40,7 @@ export class EditInventoryDialog implements OnInit, AfterViewInit {
 
       if (res.status === 'success') {
 
-        this.pageTitleSubject.next(`ویرایش انبار محصول کد : ${res.data.productId}`);
+        this.pageTitleSubject.next(`ویرایش انبار محصول`);
 
         this.editForm.controls.productId.setValue(res.data.productId)
         this.editForm.controls.unitPrice.setValue(res.data.unitPrice)

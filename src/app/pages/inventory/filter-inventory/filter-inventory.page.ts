@@ -168,7 +168,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateInventoryDialog, {
       width: '450px',
-      height: '350px'
+      height: '450px'
     }).afterClosed().subscribe(() => {
       this.ngOnInit();
     });
@@ -178,7 +178,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(EditInventoryDialog, {
       width: '450px',
-      height: '350px',
+      height: '425px',
       data: {
         id: id
       }
@@ -193,7 +193,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   openIncreaseDialog(id: string): void {
     const dialogRef = this.dialog.open(IncreaseInventoryDialog, {
       width: '450px',
-      height: '350px',
+      height: '425px',
       data: {
         id: id
       }

@@ -49,8 +49,6 @@ export class ProductService {
   }
 
   existsProductId(id: string): Observable<IResponse<ExistsProductIdResponseModel>> {
-    this.loading.loadingOn();
-
     return this.http.get<IResponse<ExistsProductIdResponseModel>>
     (`${environment.shopBaseApiUrl}/product/exists/${id}`)
     .pipe(
