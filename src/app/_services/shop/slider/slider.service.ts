@@ -35,7 +35,7 @@ export class SliderService {
     );
   }
 
-  getSliderDetails(id: number): Observable<IResponse<EditSliderModel>> {
+  getSliderDetails(id: string): Observable<IResponse<EditSliderModel>> {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<EditSliderModel>>
@@ -91,7 +91,7 @@ export class SliderService {
 
     const formData = new FormData();
 
-    formData.append('id', editData.id.toString());
+    formData.append('id', editData.id);
     formData.append('heading', editData.heading);
     formData.append('text', editData.text);
 
@@ -123,7 +123,7 @@ export class SliderService {
     );
   }
 
-  removeSlider(sliderId: number):Observable<IResponse<any>> {
+  removeSlider(sliderId: string):Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>
     (`${environment.shopBaseApiUrl}/slider/remove/${sliderId}`)
     .pipe(
@@ -143,7 +143,7 @@ export class SliderService {
     );
   }
 
-  restoreSlider(sliderId: number):Observable<IResponse<any>> {
+  restoreSlider(sliderId: string):Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>
     (`${environment.shopBaseApiUrl}/slider/restore/${sliderId}`)
     .pipe(

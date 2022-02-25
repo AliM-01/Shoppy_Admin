@@ -53,7 +53,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
     });
   }
 
-  openEditDialog(id: number): void {
+  openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(EditSliderDialog, {
       width: '600px',
       height: '700px',
@@ -69,7 +69,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
     this.dataSource.loadSliders();
   }
 
-  removeSlider(id: number) {
+  removeSlider(id: string) {
     this.sliderService.removeSlider(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();
@@ -77,7 +77,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
     });
   }
 
-  restoreSlider(id: number) {
+  restoreSlider(id: string) {
     this.sliderService.restoreSlider(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

@@ -24,7 +24,7 @@ export class EditSliderDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditSliderDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number },
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private sliderService: SliderService,    
     private loading: LoadingService
   ) { }
