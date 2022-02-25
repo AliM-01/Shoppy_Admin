@@ -28,18 +28,18 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
   dataServer: ProductDiscountDataServer;
   dataSource: MatTableDataSource<ProductDiscountModel> = new MatTableDataSource<ProductDiscountModel>([]);
   isDataSourceLoaded: boolean = false;
-  filterProductDiscounts: FilterProductDiscountModel = new FilterProductDiscountModel(0, '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterProductDiscounts: FilterProductDiscountModel = new FilterProductDiscountModel("", '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
     public dialog: MatDialog,
-    private ProductDiscountService: ProductDiscountService
+    private productDiscountService: ProductDiscountService
   ) {
     this.pageTitle.setTitle('مدیریت تخفیفات محصولات');
   }
 
   ngOnInit(): void {
-    this.dataServer = new ProductDiscountDataServer(this.ProductDiscountService);
+    this.dataServer = new ProductDiscountDataServer(this.productDiscountService);
     this.dataServer.loadProductDiscounts(this.filterProductDiscounts);
     this.dataSource = new MatTableDataSource<ProductDiscountModel>(this.dataServer.data);
     this.dataSource.paginator = this.paginator;
@@ -187,8 +187,8 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterProductDiscounts.takePage;
   }
 
-  deleteProductDiscount(id: number) {
-    this.ProductDiscountService.deleteProductDiscount(id).subscribe((res) => {
+  deleteProductDiscount(id: string) {
+    this.productDiscountService.deleteProductDiscount(id).subscribe((res) => {
 
       if (res.status === 'success') {
         this.ngOnInit();

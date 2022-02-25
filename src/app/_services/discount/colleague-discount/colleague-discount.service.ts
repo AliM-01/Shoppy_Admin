@@ -45,7 +45,7 @@ export class ColleagueDiscountService {
       );
   }
 
-  getColleagueDiscountDetails(id: number): Observable<IResponse<EditColleagueDiscountModel>> {
+  getColleagueDiscountDetails(id: string): Observable<IResponse<EditColleagueDiscountModel>> {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<EditColleagueDiscountModel>>
@@ -119,7 +119,7 @@ export class ColleagueDiscountService {
       );
   }
 
-  removeColleagueDiscount(ColleagueDiscountId: number): Observable<IResponse<any>> {
+  removeColleagueDiscount(ColleagueDiscountId: string): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>
@@ -141,7 +141,7 @@ export class ColleagueDiscountService {
       );
   }
 
-  restoreColleagueDiscount(ColleagueDiscountId: number): Observable<IResponse<any>> {
+  restoreColleagueDiscount(ColleagueDiscountId: string): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>
@@ -163,7 +163,7 @@ export class ColleagueDiscountService {
       );
   }
 
-  deleteColleagueDiscount(ColleagueDiscountId: number): Observable<IResponse<any>> {
+  deleteColleagueDiscount(ColleagueDiscountId: string): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>
@@ -185,7 +185,7 @@ export class ColleagueDiscountService {
       );
   }
 
-  checkProductHasColleagueDiscount(productId: number)
+  checkProductHasColleagueDiscount(productId: string)
     : Observable<IResponse<CheckProductHasColleagueDiscountResponseModel>> {
     this.loading.loadingOn();
 

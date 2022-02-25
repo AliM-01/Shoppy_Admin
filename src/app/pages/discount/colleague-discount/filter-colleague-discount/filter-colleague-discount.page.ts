@@ -27,7 +27,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   dataServer: ColleagueDiscountDataServer;
   dataSource: MatTableDataSource<ColleagueDiscountModel> = new MatTableDataSource<ColleagueDiscountModel>([]);
   isDataSourceLoaded: boolean = false;
-  filterColleagueDiscounts: FilterColleagueDiscountModel = new FilterColleagueDiscountModel(0, '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterColleagueDiscounts: FilterColleagueDiscountModel = new FilterColleagueDiscountModel("", '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -154,7 +154,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
     });
   }
 
-  openEditDialog(id: number): void {
+  openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(EditColleagueDiscountDialog, {
       width: '600px',
       height: '700px',
@@ -185,7 +185,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterColleagueDiscounts.takePage;
   }
 
-  removeColleagueDiscount(id: number) {
+  removeColleagueDiscount(id: string) {
     this.ColleagueDiscountService.removeColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();
@@ -193,7 +193,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
     });
   }
 
-  restoreColleagueDiscount(id: number) {
+  restoreColleagueDiscount(id: string) {
     this.ColleagueDiscountService.restoreColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();
@@ -201,7 +201,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
     });
   }
 
-  deleteColleagueDiscount(id: number) {
+  deleteColleagueDiscount(id: string) {
     this.ColleagueDiscountService.deleteColleagueDiscount(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

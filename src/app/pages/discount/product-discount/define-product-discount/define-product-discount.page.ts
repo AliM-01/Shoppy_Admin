@@ -17,7 +17,7 @@ export class DefineProductDiscountPage implements OnInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
-  productId: number = 0;
+  productId: string = "";
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
   

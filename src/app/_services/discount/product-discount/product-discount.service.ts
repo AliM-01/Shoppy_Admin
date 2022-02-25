@@ -44,7 +44,7 @@ export class ProductDiscountService {
       );
   }
 
-  getProductDiscountDetails(id: number): Observable<IResponse<EditProductDiscountModel>> {
+  getProductDiscountDetails(id: string): Observable<IResponse<EditProductDiscountModel>> {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<EditProductDiscountModel>>
@@ -123,7 +123,7 @@ export class ProductDiscountService {
       );
   }
 
-  deleteProductDiscount(ProductDiscountId: number): Observable<IResponse<any>> {
+  deleteProductDiscount(ProductDiscountId: string): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>
@@ -145,7 +145,7 @@ export class ProductDiscountService {
       );
   }
 
-  checkProductHasProductDiscount(productId: number)
+  checkProductHasProductDiscount(productId: string)
     : Observable<IResponse<CheckProductHasProductDiscountResponseModel>> {
     this.loading.loadingOn();
 

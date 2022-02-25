@@ -10,7 +10,7 @@
 
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>کد محصول</mat-label>
-          <input matInput #productIdInput type="number" placeholder="0" formControlName="productId">
+          <input matInput #productIdInput type="text" placeholder="0" formControlName="productId">
           <mat-error *ngIf="checkError('productId', 'required')">لطفا شناسه محصول را وارد نمایید</mat-error>
           <mat-error *ngIf="!existsProductId">محصولی با این شناسه وجود ندارد</mat-error>
           <mat-error *ngIf="existsProductDiscount">برای این محصول یک تخفیف فعال وجود دارد</mat-error>

@@ -20,13 +20,13 @@ export class EditColleagueDiscountDialog implements OnInit {
   existsProductId: boolean = true;
   existsProductDiscount: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
-  unchangedProductId: number = 0;
+  unchangedProductId: string = "0";
 
   constructor(
     public dialogRef: MatDialogRef<EditColleagueDiscountDialog>,
     private productService: ProductService,
     private colleagueDiscountService: ColleagueDiscountService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number },
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private loading: LoadingService
 
   ) { }
@@ -34,7 +34,7 @@ export class EditColleagueDiscountDialog implements OnInit {
   ngOnInit(): void {
 
     this.editForm = new FormGroup({
-      productId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100000)]),
+      productId: new FormControl(null, [Validators.required]),
       rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
 
@@ -125,7 +125,7 @@ export class EditColleagueDiscountDialog implements OnInit {
 
   }
   
-  checkProductHasDiscount(productId: number) {
+  checkProductHasDiscount(productId: string) {
     this.colleagueDiscountService.checkProductHasColleagueDiscount(productId).subscribe(res => {
 
       if (res.data.existsColleagueDiscount === true) {

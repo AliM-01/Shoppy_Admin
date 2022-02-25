@@ -24,13 +24,13 @@ export class EditProductDiscountDialog implements OnInit {
   existsProductId: boolean = false;
   existsProductDiscount: boolean = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
-  unchangedProductId: number = 0;
+  unchangedProductId: string = "";
 
   constructor(
     public dialogRef: MatDialogRef<EditProductDiscountDialog>,
     private ProductDiscountService: ProductDiscountService,
     private productService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number },
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private ckeditorService: CkeditorService,
     private loading: LoadingService
   ) { }
@@ -141,7 +141,7 @@ export class EditProductDiscountDialog implements OnInit {
     this.existsProductDiscount = false;
   }
 
-  checkProductHasProductDiscount(productId: number) {
+  checkProductHasProductDiscount(productId: string) {
     this.ProductDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
 
       if (res.data.existsProductDiscount === true) {
