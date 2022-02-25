@@ -27,7 +27,7 @@ export class EditProductCategoryDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditProductCategoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: {id: number},
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private productCategoryService: ProductCategoryService,
     private ckeditorService: CkeditorService,    
     private loading: LoadingService,

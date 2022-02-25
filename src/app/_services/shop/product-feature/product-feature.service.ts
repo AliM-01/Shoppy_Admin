@@ -45,7 +45,7 @@ export class ProductFeatureService {
     );
   }
 
-  getProductFeatureDetails(id: number): Observable<IResponse<EditProductFeatureModel>> {
+  getProductFeatureDetails(id: string): Observable<IResponse<EditProductFeatureModel>> {
 
     this.loading.loadingOn();
 
@@ -122,7 +122,7 @@ export class ProductFeatureService {
     );
   }
 
-  deleteProductFeature(productFeatureId: number):Observable<IResponse<any>> {
+  deleteProductFeature(productFeatureId: string):Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>

@@ -20,7 +20,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
   dataServer: ProductFeatureDataServer;
   dataSource: MatTableDataSource<ProductFeatureModel> = new MatTableDataSource<ProductFeatureModel>([]);
   isDataSourceLoaded: boolean = false;
-  productId: number = 0;
+  productId: string = "";
   filterProductFeatures: FilterProductFeatureModel = new FilterProductFeatureModel(this.productId, [], 1, 10);
 
   constructor(
@@ -121,7 +121,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
     });
   }
 
-  openEditDialog(id: number): void {
+  openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(EditProductFeatureDialog, {
       width: '600px',
       height: '700px',
@@ -135,7 +135,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
     });
   }
 
-  deleteProductFeature(id: number) {
+  deleteProductFeature(id: string) {
     this.productFeatureService.deleteProductFeature(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

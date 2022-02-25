@@ -16,7 +16,7 @@ export class CreateProductFeatureDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductFeatureDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { productId: number },
+    @Inject(MAT_DIALOG_DATA) public data: { productId: string },
     private productFeatureService: ProductFeatureService,
     private loading: LoadingService
   ) { }

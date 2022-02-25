@@ -22,7 +22,7 @@ export class ProductPicturePage implements OnInit {
   
   productPictures: ProductPictureModel[] = [];
   productPictureBasePath: string = `${environment.productPicutreBaseImagePath}/thumbnail/`;
-  productId: number = 0;
+  productId: string = "";
   pageLoading: boolean = false;
   baseShopUrl = `${environment.shopBaseApiUrl}/product-picture/create`;
   
@@ -85,7 +85,7 @@ export class ProductPicturePage implements OnInit {
     this.toastr.error("عملیات با خطا مواجه شد", "خطا")
   }
 
-  removeProductPicture(id: number) {
+  removeProductPicture(id: string) {
     this.productPictureService.removeProductPicture(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

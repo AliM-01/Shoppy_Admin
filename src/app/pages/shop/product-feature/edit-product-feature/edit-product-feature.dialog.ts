@@ -20,7 +20,7 @@ export class EditProductFeatureDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditProductFeatureDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: {productId: number, id: number},
+    @Inject(MAT_DIALOG_DATA) public data: {productId: string, id: string},
     private productFeatureService: ProductFeatureService,
     private loading: LoadingService
   ) { }

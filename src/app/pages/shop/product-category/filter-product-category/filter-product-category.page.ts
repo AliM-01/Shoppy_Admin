@@ -143,7 +143,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  openEditDialog(id: number): void {
+  openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(EditProductCategoryDialog, {
       width: '600px',
       height: '700px',
@@ -173,7 +173,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterProductCategories.takePage;
   }
 
-  deleteProductCategory(id: number) {
+  deleteProductCategory(id: string) {
     this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

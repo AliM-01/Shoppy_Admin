@@ -63,7 +63,7 @@ export class ProductCategoryService {
     );
   }
 
-  getProductCategoryDetails(id: number): Observable<IResponse<EditProductCategoryModel>> {
+  getProductCategoryDetails(id: string): Observable<IResponse<EditProductCategoryModel>> {
 
     this.loading.loadingOn();
 
@@ -120,7 +120,7 @@ export class ProductCategoryService {
 
     const formData = new FormData();
 
-    formData.append('id', editData.id.toString());
+    formData.append('id', editData.id);
     formData.append('title', editData.title);
     formData.append('description', editData.description);
 
@@ -152,7 +152,7 @@ export class ProductCategoryService {
     );
   }
 
-  deleteProductCategory(productCategoryId: number):Observable<IResponse<any>> {
+  deleteProductCategory(productCategoryId: string):Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>

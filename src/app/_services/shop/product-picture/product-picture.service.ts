@@ -18,7 +18,7 @@ export class ProductPictureService {
   ) { }
 
 
-  getProductPictures(productId: number): Observable<IResponse<ProductPictureModel[]>> {
+  getProductPictures(productId: string): Observable<IResponse<ProductPictureModel[]>> {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<ProductPictureModel[]>>
@@ -40,7 +40,7 @@ export class ProductPictureService {
 
     const formData = new FormData();
     
-    formData.append('productId', createData.productId.toString());
+    formData.append('productId', createData.productId);
 
     for (var i = 0; i < createData.imageFiles.length; i++) {
       formData.append("imageFiles", createData.imageFiles[i]);
@@ -65,7 +65,7 @@ export class ProductPictureService {
     );
   }
 
-  removeProductPicture(productPictureId: number):Observable<IResponse<any>> {
+  removeProductPicture(productPictureId: string):Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>
     (`${environment.shopBaseApiUrl}/product-picture/remove/${productPictureId}`)
     .pipe(
