@@ -8,6 +8,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LoadingComponent } from './loading/loading.component';
 import { NgxLoadingModule  } from 'ngx-loading';
+import { ConfirmDialog } from './confirm-dialog/confirm.dialog';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NgxLoadingModule  } from 'ngx-loading';
     SidebarComponent,
     FooterComponent,
     BreadcrumbComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmDialog
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { NgxLoadingModule  } from 'ngx-loading';
     SidebarComponent,
     FooterComponent,
     BreadcrumbComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmDialog
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ]
 })
