@@ -28,7 +28,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
   dataServer: ArticleDataServer;
   dataSource: MatTableDataSource<ArticleModel> = new MatTableDataSource<ArticleModel>([]);
   isDataSourceLoaded: boolean = false;
-  filterArticles: FilterArticleModel = new FilterArticleModel('', 0, [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterArticles: FilterArticleModel = new FilterArticleModel('', '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -135,7 +135,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
 
     this.filterArticles = new FilterArticleModel(
       this.input.nativeElement.value,
-      Number(this.categoryInput.nativeElement.value),
+      this.categoryInput.nativeElement.value,
       [],
       page,
       size,
@@ -186,7 +186,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterArticles.takePage;
   }
 
-  deleteArticle(id: number) {
+  deleteArticle(id: string) {
     this.articleService.deleteArticle(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

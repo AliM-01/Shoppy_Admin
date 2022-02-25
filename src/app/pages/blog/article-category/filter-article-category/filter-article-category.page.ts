@@ -175,7 +175,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterArticleCategories.takePage;
   }
 
-  deleteArticleCategory(id: number) {
+  deleteArticleCategory(id: string) {
     this.articleCategoryService.deleteArticleCategory(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();

@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
 
 @Component({
-  selector: 'app-loading',
+  selector: 'app-confim-dialog',
   template: `
     <div class="shadow">
       <h2>{{data.title}}</h2>

@@ -18,7 +18,7 @@ import { environment } from '@environments/environment';
 })
 export class EditArticlePage implements OnInit {
 
-  articleId:number = 0;
+  articleId:string = "";
   editForm: FormGroup;
   imagePath: any;
   fileUploaded: boolean = false;
@@ -134,7 +134,7 @@ export class EditArticlePage implements OnInit {
         this.editForm.controls.title.value,
         this.editForm.controls.summary.value,
         this.ckeditorTextValue,
-        Number(this.editForm.controls.categoryId.value),
+        this.editForm.controls.categoryId.value,
         this.imagePath,
         this.fileUploaded,
         this.imageFileToUpload,

@@ -92,7 +92,7 @@ export class CreateArticlePage implements OnInit {
         this.createForm.controls.title.value,
         this.createForm.controls.summary.value,
         this.ckeditorTextValue,
-        Number(this.createForm.controls.categoryId.value),
+        this.createForm.controls.categoryId.value,
         this.imageFileToUpload,
         this.createForm.controls.imageAlt.value,
         this.createForm.controls.imageTitle.value,

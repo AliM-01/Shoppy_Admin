@@ -32,7 +32,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   dataServer: InventoryDataServer;
   dataSource: MatTableDataSource<InventoryModel> = new MatTableDataSource<InventoryModel>([]);
   isDataSourceLoaded: boolean = false;
-  filterInventory: FilterInventoryModel = new FilterInventoryModel(0, FilterInventoryInStockStateEnum.All, [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterInventory: FilterInventoryModel = new FilterInventoryModel("", FilterInventoryInStockStateEnum.All, [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
