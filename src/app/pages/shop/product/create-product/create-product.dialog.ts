@@ -40,7 +40,7 @@ export class CreateProductDialog implements OnInit {
     this.getProductCategoriesForSelectList();
 
     this.createForm = new FormGroup({
-      categoryId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(10000)]),
+      categoryId: new FormControl(null, [Validators.required]),
       title: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       shortDescription: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
       imageAlt: new FormControl(null, [Validators.required, Validators.maxLength(200)]),

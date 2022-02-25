@@ -27,7 +27,7 @@ export class ProductService {
     if (filter !== null) {
       params = new HttpParams()
         .set('Search', filter.search)
-        .set('CategoryId', filter.categoryId.toString() === '' ? '0' : filter.categoryId.toString())
+        .set('CategoryId', filter.categoryId === '' ? '' : filter.categoryId)
         .set('PageId', filter.pageId.toString())
         .set('TakePage', filter.takePage.toString())
         .set('SortCreationDateOrder', filter.sortCreationDateOrder)
@@ -48,7 +48,7 @@ export class ProductService {
     );
   }
 
-  existsProductId(id: number): Observable<IResponse<ExistsProductIdResponseModel>> {
+  existsProductId(id: string): Observable<IResponse<ExistsProductIdResponseModel>> {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<ExistsProductIdResponseModel>>
@@ -70,7 +70,7 @@ export class ProductService {
     );
   }
 
-  getProductDetails(id: number): Observable<IResponse<EditProductModel>> {
+  getProductDetails(id: string): Observable<IResponse<EditProductModel>> {
 
     this.loading.loadingOn();
 
@@ -160,7 +160,7 @@ export class ProductService {
     );
   }
 
-  deleteProduct(productId: number):Observable<IResponse<any>> {
+  deleteProduct(productId: string):Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>
     (`${environment.shopBaseApiUrl}/product/delete/${productId}`)
     .pipe(

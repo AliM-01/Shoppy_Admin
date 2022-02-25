@@ -31,7 +31,7 @@ export class EditProductDialog implements OnInit {
     public dialogRef: MatDialogRef<EditProductDialog>,
     private productCategoryService: ProductCategoryService,
     private productService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number },
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private ckeditorService: CkeditorService,
     private loading: LoadingService
   ) { }
@@ -45,7 +45,7 @@ export class EditProductDialog implements OnInit {
     this.getProductCategoriesForSelectList();
 
     this.editForm = new FormGroup({
-      categoryId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(10000)]),
+      categoryId: new FormControl(null, [Validators.required]),
       title: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       shortDescription: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
       imageAlt: new FormControl(null, [Validators.required, Validators.maxLength(200)]),

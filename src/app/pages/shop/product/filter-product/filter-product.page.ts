@@ -187,7 +187,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterProducts.takePage;
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: string) {
     this.productService.deleteProduct(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();
