@@ -9,6 +9,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LoadingComponent } from './loading/loading.component';
 import { NgxLoadingModule  } from 'ngx-loading';
 import { ConfirmDialog } from './confirm-dialog/confirm.dialog';
+import { AppMaterialModule } from '../app-material.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ConfirmDialog } from './confirm-dialog/confirm.dialog';
     CommonModule,
     RouterModule,
     CKEditorModule,
+    AppMaterialModule,
     NgxLoadingModule.forRoot({
       fullScreenBackdrop: true,
       primaryColour: '#57edbbe6',

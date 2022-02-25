@@ -42,11 +42,6 @@
                         <th mat-header-cell *matHeaderCellDef> محصول </th>
                         <td mat-cell *matCellDef="let element"> {{element.product}} </td>
                     </ng-container>
-                    
-                    <ng-container matColumnDef="description">
-                        <th mat-header-cell *matHeaderCellDef> عنوان </th>
-                        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-                    </ng-container>
                 
                     <ng-container matColumnDef="rate">
                         <th mat-header-cell *matHeaderCellDef> درصد </th>
@@ -55,12 +50,12 @@
                 
                     <ng-container matColumnDef="startDate">
                         <th mat-header-cell *matHeaderCellDef> تاریخ شروع </th>
-                        <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.startDate}} </td>
                     </ng-container>
                     
                     <ng-container matColumnDef="endDate">
                         <th mat-header-cell *matHeaderCellDef> تاریخ پایان </th>
-                        <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.endDate}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="state">
@@ -80,8 +75,8 @@
                     </ng-container>
 
                     <ng-container matColumnDef="commands">
-                      <th mat-header-cell *matHeaderCellDef> دستورات </th>
-                      <td mat-cell *matCellDef="let element">
+                      <th mat-header-cell *matHeaderCellDef style="width: 20%;"> دستورات </th>
+                      <td mat-cell *matCellDef="let element" style="width: 20%;">
                             <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>
                             <button mat-raised-button color="warn" (click)="deleteProductDiscount(element.id)">حذف</button>
                         </td>

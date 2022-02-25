@@ -27,7 +27,7 @@ export class ColleagueDiscountService {
 
     if (filter !== null) {
       params = new HttpParams()
-        .set('productId', filter.productId.toString() === '' ? '0' : filter.productId.toString())
+        .set('productId', filter.productId.toString() === '' ? '' : filter.productId.toString())
         .set('productTitle', filter.productTitle);
     }
 

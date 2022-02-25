@@ -27,7 +27,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   filterInStockInputChecked: string = 'true';
-  displayedColumns: string[] = ['id', 'product', 'productId', 'state', 'unitPrice', 'currentCount', 'creationDate', 'commands'];
+  displayedColumns: string[] = ['product', 'state', 'unitPrice', 'currentCount', 'creationDate', 'commands'];
   inStockState: FilterInventoryInStockStateEnum = FilterInventoryInStockStateEnum.All;
   dataServer: InventoryDataServer;
   dataSource: MatTableDataSource<InventoryModel> = new MatTableDataSource<InventoryModel>([]);

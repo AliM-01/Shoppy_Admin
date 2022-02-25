@@ -12,6 +12,8 @@ import { EditProductDiscountDialog } from '../edit-product-discount-dialog/edit-
 import { MatTableDataSource } from '@angular/material/table';
 import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/IPaging';
 import { MatSort } from '@angular/material/sort';
+import { ConfirmDialog } from '@app_components/confirm-dialog/confirm.dialog';
+import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
 
 @Component({
   selector: 'app-filter-product-discount',
@@ -23,7 +25,7 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
-  displayedColumns: string[] = ['id', 'product', 'description', 'rate', 'startDate',
+  displayedColumns: string[] = ['id', 'product', 'rate', 'startDate',
     'endDate', 'state', 'commands'];
   dataServer: ProductDiscountDataServer;
   dataSource: MatTableDataSource<ProductDiscountModel> = new MatTableDataSource<ProductDiscountModel>([]);
@@ -163,7 +165,10 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
       data: {
         id: id
       }
-    }).afterClosed().subscribe(() => {
+    }).afterClosed().subscribe(result => {
+      if(!result)
+        return;
+        
       this.ngOnInit();
     });
   }
@@ -188,12 +193,27 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
   }
 
   deleteProductDiscount(id: string) {
-    this.productDiscountService.deleteProductDiscount(id).subscribe((res) => {
 
-      if (res.status === 'success') {
-        this.ngOnInit();
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '300px',
+      height: '300px',
+      data: <IConfirmDialogConfig>{
+        message: "آیا از حذف این تخفیف اطمینان دارید ؟",
+        title: "حذف تخفیف",
+        cancelBtnMessage: "بستن",
+        submitBtnMessage: "حذف"
       }
+    }).afterClosed().subscribe(result => {
+      if (!result)
+        return;
 
+      this.productDiscountService.deleteProductDiscount(id).subscribe((res) => {
+
+        if (res.status === 'success') {
+          this.ngOnInit();
+        }
+
+      });
     });
   }
 

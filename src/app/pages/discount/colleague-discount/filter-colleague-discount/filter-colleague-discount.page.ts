@@ -12,6 +12,8 @@ import { EditColleagueDiscountDialog } from '../edit-colleague-discount/edit-col
 import { MatSort } from '@angular/material/sort';
 import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/IPaging';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmDialog } from '@app_components/confirm-dialog/confirm.dialog';
+import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
 
 @Component({
   selector: 'app-filter-colleague-discount',
@@ -23,7 +25,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
-  displayedColumns: string[] = ['id', 'product', 'productId', 'rate', 'state','creationDate', 'commands'];
+  displayedColumns: string[] = ['id', 'product', 'productId', 'rate', 'state', 'creationDate', 'commands'];
   dataServer: ColleagueDiscountDataServer;
   dataSource: MatTableDataSource<ColleagueDiscountModel> = new MatTableDataSource<ColleagueDiscountModel>([]);
   isDataSourceLoaded: boolean = false;
@@ -119,7 +121,7 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
       )
       .subscribe();
   }
-  
+
   onPaginateChange(event: PageEvent) {
     let page = event.pageIndex;
     let size = event.pageSize;
@@ -162,9 +164,9 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
         id: id
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
-        
+
       this.ngOnInit();
     });
   }
@@ -189,11 +191,26 @@ export class FilterColleagueDiscountPage implements OnInit, AfterViewInit {
   }
 
   removeColleagueDiscount(id: string) {
-    this.ColleagueDiscountService.removeColleagueDiscount(id).subscribe((res) => {
-      if (res.status === 'success') {
-        this.ngOnInit();
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '600px',
+      height: '700px',
+      data: <IConfirmDialogConfig>{
+        message: "آیا از حذف این تخفیف اطمینان دارید ؟",
+        title: "حذف تخفیف",
+        cancelBtnMessage: "بستن",
+        submitBtnMessage: "حذف"
       }
+    }).afterClosed().subscribe(result => {
+      if (!result)
+        return;
+        
+      this.ColleagueDiscountService.removeColleagueDiscount(id).subscribe((res) => {
+        if (res.status === 'success') {
+          this.ngOnInit();
+        }
+      });
     });
+
   }
 
   restoreColleagueDiscount(id: string) {

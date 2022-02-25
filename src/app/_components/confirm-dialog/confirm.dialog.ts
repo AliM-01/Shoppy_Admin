@@ -10,23 +10,21 @@ import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
       <hr>
 
       <div class="row">
-
         <div class="col-md-12">
           <p>{{data.message}}</p>
         </div>
+      </div>
 
-        <hr>
-
-        <div class="col-md-12">
-          <button mat-raised-button color="primary" [mat-dialog-close]="true">
+      <hr />
+      <div class="d-flex">
+        <button mat-raised-button color="warn" [mat-dialog-close]="true">
             {{ data.submitBtnMessage }}
           </button>
-          <button mat-button color="warn" [mat-dialog-close]="false">
+        <button mat-raised-button color="primary" class="mat-success ml-2" [mat-dialog-close]="false">
             {{ data.cancelBtnMessage }}
-          </button>
-        </div>
-
+        </button>
       </div>
+
     </div>
   `
 })
