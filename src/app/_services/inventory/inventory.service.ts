@@ -27,7 +27,7 @@ export class InventoryService {
 
     if (filter !== null) {
       params = new HttpParams()
-        .set('ProductId', filter.productId.toString() === '' ? '0' : filter.productId.toString())
+        .set('ProductId', filter.productId.toString() === '' ? '' : filter.productId.toString())
         .set('InStockState', filter.inStockState);
     }
 
@@ -70,7 +70,7 @@ export class InventoryService {
     const formData = new FormData();
 
     formData.append('unitPrice', createData.unitPrice.toString());
-    formData.append('productId', createData.productId.toString());
+    formData.append('productId', createData.productId);
 
     return this.http.post<IResponse<any>>
       (`${environment.inventoryBaseApiUrl}/create`, formData)
@@ -99,7 +99,7 @@ export class InventoryService {
 
     formData.append('id', editData.id);
     formData.append('unitPrice', editData.unitPrice.toString());
-    formData.append('productId', editData.productId.toString());
+    formData.append('productId', editData.productId);
 
     return this.http.put<IResponse<any>>
       (`${environment.inventoryBaseApiUrl}/edit`, formData)

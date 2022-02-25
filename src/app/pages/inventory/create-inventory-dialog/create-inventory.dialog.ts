@@ -31,7 +31,7 @@ export class CreateInventoryDialog implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.createForm = new FormGroup({
-      productId: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100000)]),
+      productId: new FormControl(null, [Validators.required]),
       unitPrice: new FormControl(null, [Validators.required])
     });
 

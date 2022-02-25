@@ -15,7 +15,7 @@ import { checkFormGroupErrors } from '@app_services/_common/functions/functions'
 export class CreateInventoryPage implements OnInit {
 
   createForm: FormGroup;
-  productId: number = 0;
+  productId: string = "";
 
   constructor(
     private inventoryService: InventoryService,
