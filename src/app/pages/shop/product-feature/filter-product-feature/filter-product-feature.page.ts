@@ -130,7 +130,10 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
         productId: this.productId
 
       }
-    }).afterClosed().subscribe(() => {
+    }).afterClosed().subscribe(result => {
+      if(!result)
+        return;
+        
       this.ngOnInit();
     });
   }

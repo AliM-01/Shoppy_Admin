@@ -60,7 +60,10 @@ export class SliderListPage implements OnInit, AfterViewInit {
       data: {
         id: id
       }
-    }).afterClosed().subscribe(() => {
+    }).afterClosed().subscribe(result => {
+      if(!result)
+        return;
+        
       this.ngOnInit();
     });
   }
