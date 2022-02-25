@@ -9,19 +9,18 @@
                 <mat-form-field appearance="fill">
                     <mat-label>وضعیت</mat-label>
                     <mat-select [value]="filterState" (selectionChange)="setFilterState($event)">
-                        <mat-option value="All">همه</mat-option>
-                        <mat-option value="UnderProgress">در حال بررسی</mat-option>
-                        <mat-option value="Canceled">رد شده</mat-option>
-                        <mat-option value="Confirmed">تایید شده</mat-option>
+                        <mat-option *ngFor="let state of statesForView" [value]="state.text">
+                            {{state.value }}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>نوع</mat-label>
                     <mat-select [value]="filterType" (selectionChange)="setFilterType($event)" >
-                        <mat-option value="All">همه</mat-option>
-                        <mat-option value="Product">محصول</mat-option>
-                        <mat-option value="Article">مقاله</mat-option>
+                        <mat-option *ngFor="let type of typesForView" [value]="type.text">
+                            {{type.value }}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
 

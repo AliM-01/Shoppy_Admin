@@ -15,6 +15,23 @@ import { FilterCommentState, FilterCommentType } from '@app_models/comment/filte
 export class FilterCommentPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  statesForView: {
+    text: string,
+    value: string
+  }[] = [
+    {text: "همه", value: FilterCommentState.All},
+    {text: "در حال بررسی", value: FilterCommentState.UnderProgress},
+    {text: "رد شده", value: FilterCommentState.Canceled},
+    {text: "تایید شده", value: FilterCommentState.Confirmed},
+  ];
+  typesForView: {
+    text: string,
+    value: string
+  }[] = [
+    {text: "همه", value: FilterCommentType.All},
+    {text: "محصول", value: FilterCommentType.Product},
+    {text: "مقاله", value: FilterCommentType.Article},
+  ];
   displayedColumns: string[] = ['id', 'name', 'email', 'text', 'type', 'state', 'ownerName', 'creationDate', 'commands'];
   dataServer: CommentDataServer;
   filterType: FilterCommentType = FilterCommentType.All;
@@ -116,7 +133,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     });
   }
 
-  cancelComment(id: number) {
+  cancelComment(id: string) {
     this.commentService.cancelComment(id).subscribe((res) => {
       if (res.status === 'success') {
         this.ngOnInit();
