@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 import { IndexComponent } from './pages/index/index.component';
+import { LoginPage } from './pages/auth/login/login.page';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardLayoutComponent,
-    children: [
-      { path: '', component: IndexComponent },
+    children: [     
+      { path: '', component: IndexComponent, pathMatch: 'full'},
       {
         path: 'product-category',
         loadChildren: () => import('./pages/shop/product-category/product.category.module').then(m => m.ProductCategoryModule)
@@ -51,9 +53,15 @@ const routes: Routes = [
       }
     ]
   },
-  // login route
-  // { path: 'login', component: LoginComponent },
-  // redirect to home
+  
+  { 
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      { path: 'login', component: LoginPage },
+    ]
+   },
+
   { path: '**', redirectTo: '' },
 
 ];
