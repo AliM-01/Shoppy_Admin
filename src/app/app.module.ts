@@ -11,10 +11,12 @@ import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service
 import { ToastrModule } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 import { AppMaterialModule } from '@app_material';
+import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,9 @@ import { AppMaterialModule } from '@app_material';
       tapToDismiss: false,
       autoDismiss: true
     }),
+  ],
+  exports: [
+    DashboardLayoutComponent
   ],
   providers: [
     CkeditorService,
