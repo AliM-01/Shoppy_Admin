@@ -16,6 +16,10 @@ export function separateThousands(inputNumber:any):string {
   return `${(y + z)} تومان`;
 }
 
+export function isEmptyString(value: string): boolean {
+  return !value || 0 === value.length;
+}
+
 export function checkFormGroupErrors(formGroup: FormGroup, controlName: string, errorName: string):boolean {
   return formGroup.controls[controlName].hasError(errorName);
 }
