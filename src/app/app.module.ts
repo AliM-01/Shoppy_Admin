@@ -12,11 +12,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 import { AppMaterialModule } from '@app_material';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
+import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
+import { LoginPage } from '@apppages/auth/login/login.page';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardLayoutComponent
+    DashboardLayoutComponent,
+    AuthLayoutComponent,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout
     }),
   ],
   exports: [
-    DashboardLayoutComponent
+    DashboardLayoutComponent,
+    AuthLayoutComponent
   ],
   providers: [
     CkeditorService,
