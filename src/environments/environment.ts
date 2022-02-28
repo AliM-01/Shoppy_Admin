@@ -2,6 +2,7 @@ export const environment = {
   production: false,
 
   // api urls
+  authBaseApiUrl: "https://localhost:5001/api/account",
   shopBaseApiUrl: "https://localhost:5001/api/admin/shop",
   discountBaseApiUrl: "https://localhost:5001/api/admin/discount",
   inventoryBaseApiUrl: "https://localhost:5001/api/admin/inventory",
