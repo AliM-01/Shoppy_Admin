@@ -5,6 +5,7 @@ import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout
 import { IndexComponent } from './pages/index/index.component';
 import { AuthGuard } from '@app_http/auth.guard';
 import { AuthGuardPermission } from '@app_models/auth/auth-guard-permission';
+import { NotFoundPage } from '@apppages/not-found/not-found.page';
 
 const routes: Routes = [
   {
@@ -72,7 +73,8 @@ const routes: Routes = [
     ]
    },
 
-  { path: '**', redirectTo: '' },
+  { path: 'not-found', component: NotFoundPage},
+  { path: '**', redirectTo: '/not-found' },
 
 ];
 

@@ -3,7 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { LoginPage } from '@apppages/auth/login/login.page';
 
 const routes: Routes = [
-  { path: 'login', component: LoginPage }
+  { path: 'login', component: LoginPage },
+  { path: 'accessDenied', component: LoginPage }
 ];
 
 @NgModule({

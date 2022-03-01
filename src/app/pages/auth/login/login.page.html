@@ -1,33 +1,67 @@
-<div role="tabpanel" class="tab-pane show active" id="singin" aria-labelledby="singin-tab">
-    <h3>به سـین بورد خوش آمدید</h3>
-    <form>
-        <div class="group material-input">
-            <input type="text" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>ایمیل</label>
-        </div>
-        <div class="group material-input">
-            <input type="password" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>پسورد</label>
-        </div>
-    </form>
-    <div class="row">
-        <div class="col text-left">
-            <div class="styled-checkbox">
-                <input type="checkbox" name="checkbox" id="remeber">
-                <label for="remeber">مرا به خاطر بسپار</label>
+<body class="bg-white">
+
+    <div class="container-fluid no-padding h-100">
+        <div class="row flex-row h-100 bg-white">
+            <!-- Begin Left Content -->
+            <div class="col-xl-3 col-lg-5 col-md-5 col-sm-12 col-12 no-padding">
+                <div class="seenbord-bg background-03">
+                    <div class="seenboard-overlay overlay-08"></div>
+                    <div class="authentication-col-content-2 mx-auto text-center">
+                        <div class="logo-centered">
+                            <a href="db-default.html">
+                                <img src="assets/img/logo.png" alt="logo">
+                            </a>
+                        </div>
+                        <h1>ورود به حساب</h1>
+                        <span class="description">
+                            پنل مدیریتی سین بورد کامل و زیبا برای پیاده سازی ایده هایتان می توانید بهترین گزینه ها را
+                            ببنید و انتخاب کنید.
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col text-right">
-            <a href="pages-forgot-password.html">فراموشی رمز عبور</a>
+
+            <div class="col-xl-9 col-lg-7 col-md-7 col-sm-12 col-12 my-auto no-padding">
+                <div class="authentication-form-2 mx-auto">
+                    <div class="tab-content">
+
+                        <div role="tabpanel" class="tab-pane show active" id="singin" aria-labelledby="singin-tab">
+                            <h3>به سـین بورد خوش آمدید</h3>
+                            <form>
+                                <div class="group material-input">
+                                    <input type="text" required>
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>ایمیل</label>
+                                </div>
+                                <div class="group material-input">
+                                    <input type="password" required>
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>پسورد</label>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col text-left">
+                                    <div class="styled-checkbox">
+                                        <input type="checkbox" name="checkbox" id="remeber">
+                                        <label for="remeber">مرا به خاطر بسپار</label>
+                                    </div>
+                                </div>
+                                <div class="col text-right">
+                                    <a href="pages-forgot-password.html">فراموشی رمز عبور</a>
+                                </div>
+                            </div>
+                            <div class="sign-btn text-center">
+                                <a href="db-default.html" class="btn btn-lg btn-gradient-01">
+                                    ثبت نام
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="sign-btn text-center">
-        <a href="db-default.html" class="btn btn-lg btn-gradient-01">
-            ثبت نام
-        </a>
-    </div>
-</div>
+</body>
