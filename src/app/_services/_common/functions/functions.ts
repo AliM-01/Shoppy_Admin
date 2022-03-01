@@ -23,3 +23,14 @@ export function isEmptyString(value: string): boolean {
 export function checkFormGroupErrors(formGroup: FormGroup, controlName: string, errorName: string):boolean {
   return formGroup.controls[controlName].hasError(errorName);
 }
+
+export function getCurrentTabId(): number {
+  const tabIdToken = "currentTabId";
+  let tabId = this.browserStorageService.getSession(tabIdToken);
+  if (tabId) {
+    return tabId;
+  }
+  tabId = Math.random();
+  this.browserStorageService.setSession(tabIdToken, tabId);
+  return tabId;
+}
