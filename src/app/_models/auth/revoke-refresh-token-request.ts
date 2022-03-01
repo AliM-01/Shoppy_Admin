@@ -1,3 +1,3 @@
 export class RevokeRefreshTokenRequestModel {
-    refreshToken: string;
+    constructor(public refreshToken: string){}
 }

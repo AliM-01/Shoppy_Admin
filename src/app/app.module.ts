@@ -1,11 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { IndexModule } from '@app/pages/index/index.module';
 import { ComponentsModule } from '@app_components/components.module';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { ToastrModule } from 'ngx-toastr';
@@ -14,7 +13,6 @@ import { AppMaterialModule } from '@app_material';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
 import { LoginPage } from '@apppages/auth/login/login.page';
-import { AuthInterceptor } from '@app_http/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +29,6 @@ import { AuthInterceptor } from '@app_http/auth.interceptor';
     AppRoutingModule,
     AppMaterialModule,
     ComponentsModule,
-    IndexModule,
     ToastrModule.forRoot({
       tapToDismiss: false,
       autoDismiss: true
@@ -43,12 +40,7 @@ import { AuthInterceptor } from '@app_http/auth.interceptor';
   ],
   providers: [
     CkeditorService,
-    LoadingService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
+    LoadingService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -11,6 +11,7 @@ import { AuthTokenType } from "@app_models/auth/auth-token-type";
 import { AuthUser } from "@app_models/auth/auth-user";
 import { ToastrService } from "ngx-toastr";
 import { LoadingService } from "@app_services/_common/loading/loading.service";
+import { RevokeRefreshTokenRequestModel } from '../../_models/auth/revoke-refresh-token-request';
 
 @Injectable({
   providedIn: 'root'
@@ -78,11 +79,12 @@ export class AuthService {
   logout(navigateToHome: boolean): void {
     this.loading.loadingOn();
 
-    const headers = new HttpHeaders({ "Content-Type": "application/json" });
     const refreshToken = encodeURIComponent(this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
+
+    const logoutData = new RevokeRefreshTokenRequestModel(refreshToken);
+
     this.http
-      .get(`${environment.authBaseApiUrl}/logout?refreshToken=${refreshToken}`,
-        { headers: headers })
+      .post(`${environment.authBaseApiUrl}/logout`, logoutData)
       .pipe(
         map(response => response || {}),
         catchError((error: HttpErrorResponse) => {

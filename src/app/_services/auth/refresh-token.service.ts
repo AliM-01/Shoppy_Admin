@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
+import { RevokeRefreshTokenRequestModel } from "@app_models/auth/revoke-refresh-token-request";
 import { getCurrentTabId } from "@app_services/_common/functions/functions";
 import { environment } from "@environments/environment";
 import { Subscription, throwError, timer } from "rxjs";
@@ -77,11 +78,10 @@ export class RefreshTokenService {
   }
 
   private refreshToken(isAuthUserLoggedIn: boolean) {
-    const headers = new HttpHeaders({ "Content-Type": "application/json" });
-    const model = { refreshToken: this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken) };
+    const data = new RevokeRefreshTokenRequestModel(this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
+
     return this.http
-      .post(`${environment.authBaseApiUrl}/refreshToken`,
-        model, { headers: headers })
+      .post(`${environment.authBaseApiUrl}/refreshToken`, data)
       .pipe(
         map(response => response || {}),
         catchError((error: HttpErrorResponse) => throwError(error))
