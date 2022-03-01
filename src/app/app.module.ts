@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -14,6 +14,7 @@ import { AppMaterialModule } from '@app_material';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
 import { LoginPage } from '@apppages/auth/login/login.page';
+import { AuthInterceptor } from '@app_http/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,12 @@ import { LoginPage } from '@apppages/auth/login/login.page';
   ],
   providers: [
     CkeditorService,
-    LoadingService
+    LoadingService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
