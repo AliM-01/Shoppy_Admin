@@ -4,7 +4,7 @@ import { LoginPage } from '@apppages/auth/login/login.page';
 
 const routes: Routes = [
   { path: 'login', component: LoginPage },
-  { path: 'accessDenied', component: LoginPage }
+  { path: 'access-denied', component: LoginPage }
 ];
 
 @NgModule({

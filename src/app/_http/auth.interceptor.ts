@@ -50,7 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
               console.log("Try new AuthRequest ...");
               return next.handle(newRequest);
             }
-            this.router.navigate(["/auth/accessDenied"]);
+            this.router.navigate(["/auth/access-denied"]);
           }
           return throwError(error);
         })

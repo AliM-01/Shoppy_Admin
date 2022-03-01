@@ -11,10 +11,12 @@ import { AuthRoutingModule } from './auth.routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@app_http/auth.interceptor';
 import { AuthService } from '../../_services/auth/auth.service';
+import { AccessDeniedPage } from './accessDenied/access-denied.page';
 
 @NgModule({
     declarations: [
-        LoginPage
+        LoginPage,
+        AccessDeniedPage
     ],
     imports: [
         CommonModule,
@@ -27,7 +29,7 @@ import { AuthService } from '../../_services/auth/auth.service';
         DirectivesModule,
         PipesModule
     ],
-    exports: [LoginPage],
+    exports: [LoginPage, AccessDeniedPage],
     schemas: [],
     providers: [
         AuthService,
