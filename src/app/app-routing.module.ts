@@ -4,11 +4,19 @@ import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 import { IndexComponent } from './pages/index/index.component';
 import { LoginPage } from './pages/auth/login/login.page';
+import { AuthGuard } from '@app_http/auth.guard';
+import { AuthGuardPermission } from '@app_models/auth/auth-guard-permission';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardLayoutComponent,
+    data: {
+      permission: {
+        permittedRoles: ["Admin"]
+      } as AuthGuardPermission
+    },
+    canActivate: [AuthGuard],
     children: [     
       { path: '', component: IndexComponent, pathMatch: 'full'},
       {
