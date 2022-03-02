@@ -46,9 +46,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   private hasAuthUserAccessToThisRoute(permissionData: Data, returnUrl: string): boolean {
-    console.log('guard is login ', this.authService.isAuthUserLoggedIn());
+    const isLoggedIn:boolean = this.authService.isAuthUserLoggedIn();
+    console.log('guard is login ', isLoggedIn);
 
-    if (!this.authService.isAuthUserLoggedIn()) {
+    if (!isLoggedIn) {
       this.showAccessDenied(returnUrl);
       return false;
     }

@@ -37,7 +37,7 @@ export class AuthService {
 
   login(loginData: LoginRequestModel): Observable<boolean> {
     console.log('login service loginData', loginData);
-    
+
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -114,8 +114,30 @@ export class AuthService {
   }
 
   isAuthUserLoggedIn(): boolean {
-    return this.tokenStoreService.hasStoredAccessAndRefreshTokens() &&
+    const tokenIsSaved: boolean = this.tokenStoreService.hasStoredAccessAndRefreshTokens() &&
       !this.tokenStoreService.isAccessTokenTokenExpired();
+
+    if (!tokenIsSaved)
+      return false;
+
+    this.http
+      .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-authenticated`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
+
+          return throwError(error);
+        }))
+      .subscribe(result => {
+        if(result.status === 'success'){
+          return true;
+        }
+        return false;
+      });
+
+    return false;
   }
 
   getAuthUser(): AuthUser | null {

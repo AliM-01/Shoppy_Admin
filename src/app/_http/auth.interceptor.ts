@@ -19,6 +19,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
+    console.log('inter ceptor init');
+    console.log('inter ceptor token', accessToken);
+    
     if (accessToken !== '') {
       request = request.clone({
         headers: request.headers.set(this.authorizationHeader, `Bearer ${accessToken}`)

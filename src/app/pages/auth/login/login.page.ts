@@ -25,12 +25,14 @@ export class LoginPage implements OnInit {
     private toastr: ToastrService
   ) {
     this.loading.loadingOff();
-   }
+  }
 
   ngOnInit() {
     this.loading.loadingOff();
 
-    this.authService.logout(false);
+    if ((this.authService.isAuthUserLoggedIn())) {
+      this.authService.logout(false);
+    }
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams["returnUrl"];
 
@@ -56,16 +58,19 @@ export class LoginPage implements OnInit {
       );
 
       this.authService.login(loginData)
-      .subscribe(isLoggedIn => {console.log(isLoggedIn);
-      
-        // if (isLoggedIn) {
-        //   if (this.returnUrl) {
-        //     this.router.navigate([this.returnUrl]);
-        //   } else {
-        //     this.router.navigate(["/"]);
-        //   }
-        // }
-      });
+        .subscribe(isLoggedIn => {
+          
+          console.log(isLoggedIn);
+
+          if (isLoggedIn) {
+            if (this.returnUrl) {
+              this.router.navigate([this.returnUrl]);
+            } else {
+              this.router.navigate(["/"]);
+            }
+          }
+
+        });
 
 
     } else {
@@ -73,6 +78,6 @@ export class LoginPage implements OnInit {
     }
 
     this.loading.loadingOff();
-    
+
   }
 }

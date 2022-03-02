@@ -78,7 +78,7 @@ export class TokenStoreService {
     this.setToken(AuthTokenType.AccessToken, response.accessToken);
     this.setToken(AuthTokenType.RefreshToken, response.refreshToken);
   }
-  
+
   hasStoredAccessAndRefreshTokens(): boolean {
 
     const accessToken = this.getRawAuthToken(AuthTokenType.AccessToken);
@@ -86,6 +86,13 @@ export class TokenStoreService {
     console.log('store access', accessToken);
     console.log('store refreshToken', refreshToken);
 
-    return !isEmptyString(accessToken) && !isEmptyString(refreshToken);
+    if ((!isEmptyString(accessToken)) && (!isEmptyString(refreshToken))){
+      console.log('token service is login');
+      
+      return true;
+
+    }
+
+    return false;
   }
 }
