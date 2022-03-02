@@ -6,7 +6,7 @@ import { RevokeRefreshTokenRequestModel } from "@app_models/auth/revoke-refresh-
 import { IResponse } from "@app_models/_common/IResponse";
 import { getCurrentTabId } from "@app_services/_common/functions/functions";
 import { environment } from "@environments/environment";
-import { Subscription, throwError, timer } from "rxjs";
+import { Observable, Subscription, throwError, timer } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 import { BrowserStorageService } from "./browser-storage.service";
 import { TokenStoreService } from "./token-store.service";
@@ -73,6 +73,24 @@ export class RefreshTokenService {
     if (timerStat && timerStat.tabId === currentTabId) {
       this.setRefreshTokenTimerStopped();
     }
+  }
+
+  revokeRefreshTokenRequestModel(refreshToken: string): Observable<IResponse<LoginResponseModel>> {
+    const data = new RevokeRefreshTokenRequestModel(refreshToken);
+
+    return this.http
+      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refreshToken`, data)
+      .pipe(
+        tap((res) => {
+          if(res.status === 'success'){
+            console.log("RefreshToken Result", res);
+            this.tokenStoreService.storeLoginSession(res.data);
+            this.deleteRefreshTokenTimerCheckId();
+            this.scheduleRefreshToken(true, false);
+          }
+        }),
+        catchError((error: HttpErrorResponse) => throwError(error))
+      );
   }
 
   private refreshToken(isAuthUserLoggedIn: boolean) {

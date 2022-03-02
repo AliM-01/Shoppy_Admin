@@ -24,15 +24,16 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService
   ) {
-    this.loading.loadingOff();
   }
 
   ngOnInit() {
-    this.loading.loadingOff();
+    this.loading.loadingOn();
 
-    if ((this.authService.isAuthUserLoggedIn())) {
-      this.authService.logout(false);
-    }
+    this.authService.isAuthUserLoggedIn().subscribe(res => {
+      if(res){
+        this.authService.logout(false);
+      }
+    })
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams["returnUrl"];
 
@@ -41,6 +42,9 @@ export class LoginPage implements OnInit {
       password: new FormControl(null, [Validators.required]),
       rememberMe: new FormControl(false)
     });
+    
+    this.loading.loadingOff();
+
   }
 
   checkError(controlName: string, errorName: string): boolean {

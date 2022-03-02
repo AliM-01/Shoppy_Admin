@@ -2,31 +2,33 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
+import { RefreshTokenService } from "@app_services/auth/refresh-token.service";
 import { TokenStoreService } from "@app_services/auth/token-store.service";
 import { Observable, of, throwError } from "rxjs";
 import { catchError, delay, mergeMap, retryWhen, take } from "rxjs/operators";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthInterceptor implements HttpInterceptor {
 
   private delayBetweenRetriesMs = 1000;
   private numberOfRetries = 3;
-  private authorizationHeader = "Authorization";
 
   constructor(
     private tokenStoreService: TokenStoreService,
+    private refreshTokenService: RefreshTokenService,
     private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
-    console.log('inter ceptor init');
-    console.log('inter ceptor token', accessToken);
     
     if (accessToken !== '') {
       request = request.clone({
-        headers: request.headers.set(this.authorizationHeader, `Bearer ${accessToken}`)
+        headers: request.headers.append('Authorization', 'Bearer ' + accessToken)
       });
-      return next.handle(request).pipe(
+      return next.handle(request)
+      .pipe(
         retryWhen(errors => errors.pipe(
           mergeMap((error: HttpErrorResponse, retryAttempt: number) => {
             if (retryAttempt === this.numberOfRetries - 1) {
@@ -45,7 +47,7 @@ export class AuthInterceptor implements HttpInterceptor {
           delay(this.delayBetweenRetriesMs),
           take(this.numberOfRetries)
         )),
-        catchError((error: any, caught: Observable<HttpEvent<any>>) => {
+        catchError((error: HttpErrorResponse, caught: Observable<HttpEvent<any>>) => {
           console.error({ error, caught });
           if (error.status === 401 || error.status === 403) {
             const newRequest = this.getNewAuthRequest(request);
@@ -65,17 +67,18 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   getNewAuthRequest(request: HttpRequest<any>): HttpRequest<any> | null {
-    const newStoredToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
-    const requestAccessTokenHeader = request.headers.get(this.authorizationHeader);
-    if (!newStoredToken || !requestAccessTokenHeader) {
-      console.log("There is no new AccessToken.", { requestAccessTokenHeader: requestAccessTokenHeader, newStoredToken: newStoredToken });
-      return null;
-    }
-    const newAccessTokenHeader = `Bearer ${newStoredToken}`;
-    if (requestAccessTokenHeader === newAccessTokenHeader) {
-      console.log("There is no new AccessToken.", { requestAccessTokenHeader: requestAccessTokenHeader, newAccessTokenHeader: newAccessTokenHeader });
-      return null;
-    }
-    return request.clone({ headers: request.headers.set(this.authorizationHeader, newAccessTokenHeader) });
+    const oldAccessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
+    if (oldAccessToken !== '') {
+      this.refreshTokenService.revokeRefreshTokenRequestModel(oldAccessToken)
+      .subscribe(res => {    
+        console.log('int new req auth');
+        
+        if(res.status !== 'success'){
+          return request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + res.data.accessToken) });
+        }   
+        return request;
+      })
+    } 
+    return request;
   }
 }

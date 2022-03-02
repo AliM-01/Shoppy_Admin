@@ -13,7 +13,7 @@ const routes: Routes = [
     component: DashboardLayoutComponent,
     data: {
       permission: {
-        permittedRoles: ["Admin"]
+        permittedRoles: ["ADMIN"]
       } as AuthGuardPermission
     },
     canActivate: [AuthGuard],

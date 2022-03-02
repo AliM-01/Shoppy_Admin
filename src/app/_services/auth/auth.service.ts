@@ -32,7 +32,12 @@ export class AuthService {
     private refreshTokenService: RefreshTokenService
   ) {
     this.updateStatusOnPageRefresh();
-    this.refreshTokenService.scheduleRefreshToken(this.isAuthUserLoggedIn(), false);
+    this.isAuthUserLoggedIn()
+      .subscribe(res => {
+        if (res) {
+          this.refreshTokenService.scheduleRefreshToken(true, false);
+        }
+      })
   }
 
   login(loginData: LoginRequestModel): Observable<boolean> {
@@ -113,55 +118,73 @@ export class AuthService {
       });
   }
 
-  isAuthUserLoggedIn(): boolean {
-    const tokenIsSaved: boolean = this.tokenStoreService.hasStoredAccessAndRefreshTokens() &&
-      !this.tokenStoreService.isAccessTokenTokenExpired();
+  isAuthUserLoggedIn(): Observable<boolean> {
+    const tokenIsSaved: boolean = (this.tokenStoreService.hasStoredAccessAndRefreshTokens() &&
+      !this.tokenStoreService.isAccessTokenTokenExpired());
 
-    if (!tokenIsSaved)
-      return false;
+    if (!tokenIsSaved) {
+      return new Observable<boolean>(subscriber => {
+        subscriber.next(false);
+      });
+    }
 
-    this.http
+
+    return this.http
       .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-authenticated`)
       .pipe(
+        map(res => {
+          console.log('is res', res);
+          
+          if (res.status === 'success') {
+            console.log('is res success');
+            return true;
+          } else {
+            return false;
+          }
+        }),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           this.loading.loadingOff();
 
           return throwError(error);
-        }))
-      .subscribe(result => {
-        if(result.status === 'success'){
-          return true;
-        }
-        return false;
-      });
-
-    return false;
+        }));
   }
 
   getAuthUser(): AuthUser | null {
-    if (!this.isAuthUserLoggedIn()) {
-      return null;
-    }
+    this.isAuthUserLoggedIn()
+    .subscribe(res => {
+      if (!res) {
+        return null;
+      }
+    })
 
     const decodedToken = this.tokenStoreService.getDecodedAccessToken();
     const roles = this.tokenStoreService.getDecodedTokenRoles();
+
+    let returnRoles = [];
+    for (const role of roles) {
+      returnRoles.push(role.toUpperCase())
+    }
+
     return new AuthUser(
       decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
       decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
       decodedToken["DisplayName"],
-      roles
+      returnRoles
     );
   }
 
   isAuthUserInRoles(requiredRoles: string[]): boolean {
     const user = this.getAuthUser();
+    console.log('current user', user);
+    console.log('current user', user.roles);
+    
     if (!user || !user.roles) {
       return false;
     }
 
-    if (user.roles.indexOf("Admin") >= 0) {
+    if (user.roles.indexOf("ADMIN") >= 0) {
       return true;
     }
 
@@ -179,6 +202,7 @@ export class AuthService {
   }
 
   private updateStatusOnPageRefresh(): void {
-    this.authStatusSource.next(this.isAuthUserLoggedIn());
+    this.isAuthUserLoggedIn()
+      .subscribe(res => this.authStatusSource.next(res) )
   }
 }

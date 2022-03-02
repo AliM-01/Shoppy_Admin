@@ -4,12 +4,14 @@ import {
   CanActivate,
   CanActivateChild,
   CanLoad,
-  Data,
   Route,
   Router,
   RouterStateSnapshot,
+  UrlSegment,
+  UrlTree,
 } from "@angular/router";
 import { AuthService } from "@app_services/auth/auth.service";
+import { Observable } from "rxjs";
 import { AuthGuardPermission } from '../_models/auth/auth-guard-permission';
 
 @Injectable({
@@ -17,45 +19,50 @@ import { AuthGuardPermission } from '../_models/auth/auth-guard-permission';
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
-  private permissionObjectKey = "permission";
-
   constructor(private authService: AuthService, private router: Router) { }
-
+  
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const permissionData = route.data[this.permissionObjectKey] as AuthGuardPermission;
+    const permissionData = route.data["permission"] as AuthGuardPermission;
     console.log('guard ', permissionData);
-    
-    const returnUrl = state.url;
-    return this.hasAuthUserAccessToThisRoute(permissionData, returnUrl);
+
+    return this.checkAuth(permissionData, state.url);
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const permissionData = childRoute.data[this.permissionObjectKey] as AuthGuardPermission;
-    const returnUrl = state.url;
-    return this.hasAuthUserAccessToThisRoute(permissionData, returnUrl);
+    const permissionData = childRoute.data["permission"] as AuthGuardPermission;
+    console.log('guard ', permissionData);
+    
+    return this.checkAuth(permissionData, state.url);
   }
 
-  canLoad(route: Route): boolean {
+  canLoad(route: Route, segments: UrlSegment[]): boolean {
     if (route.data) {
-      const permissionData = route.data[this.permissionObjectKey] as AuthGuardPermission;
+      const permissionData = route.data["permission"] as AuthGuardPermission;
       const returnUrl = `/${route.path}`;
-      return this.hasAuthUserAccessToThisRoute(permissionData, returnUrl);
+
+      return this.checkAuth(permissionData, returnUrl);
     } else {
-      return true;
+      return false;
     }
   }
+  
+  private checkAuth(permissionData: any, returnUrl: string): boolean {
 
-  private hasAuthUserAccessToThisRoute(permissionData: Data, returnUrl: string): boolean {
-    const isLoggedIn:boolean = this.authService.isAuthUserLoggedIn();
-    console.log('guard is login ', isLoggedIn);
+    let hasAccess: boolean = false;
+    let isLoggedIn: boolean = false;
+
+    this.authService.isAuthUserLoggedIn()
+      .subscribe(res => isLoggedIn = res);
 
     if (!isLoggedIn) {
       this.showAccessDenied(returnUrl);
-      return false;
+      hasAccess = false;
+    } else {
+      hasAccess = true;
     }
 
     if (!permissionData) {
-      return true;
+      hasAccess = true;
     }
 
     if (Array.isArray(permissionData.deniedRoles) && Array.isArray(permissionData.permittedRoles)) {
@@ -67,24 +74,28 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       console.log('guard isInRole ', isInRole);
 
       if (isInRole) {
-        return true;
+        hasAccess = true;
+      } else {
+        this.showAccessDenied(returnUrl);
+        hasAccess = false;
       }
 
-      this.showAccessDenied(returnUrl);
-      return false;
+      
     }
 
     if (Array.isArray(permissionData.deniedRoles)) {
       const isInRole = this.authService.isAuthUserInRoles(permissionData.deniedRoles);
       if (!isInRole) {
-        return true;
+        hasAccess = true;
+      } else {
+        this.showAccessDenied(returnUrl);
+        hasAccess = false;
       }
-
-      this.showAccessDenied(returnUrl);
-      return false;
     }
 
-    return true;
+    console.log('final', isLoggedIn);
+    
+    return isLoggedIn;
   }
 
   private showAccessDenied(returnUrl: string) {

@@ -8,10 +8,11 @@ import { PipesModule } from '@app_pipes/pipes.module';
 import { AppMaterialModule } from '@appapp-material.module';
 import { LoginPage } from './login/login.page';
 import { AuthRoutingModule } from './auth.routing.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '@app_http/auth.interceptor';
 import { AuthService } from '../../_services/auth/auth.service';
 import { AccessDeniedPage } from './accessDenied/access-denied.page';
+import { TokenStoreService } from '../../_services/auth/token-store.service';
+import { RefreshTokenService } from '../../_services/auth/refresh-token.service';
+import { BrowserStorageService } from '../../_services/auth/browser-storage.service';
 
 @NgModule({
     declarations: [
@@ -33,11 +34,9 @@ import { AccessDeniedPage } from './accessDenied/access-denied.page';
     schemas: [],
     providers: [
         AuthService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        }
+        TokenStoreService,
+        RefreshTokenService,
+        BrowserStorageService
     ]
 })
 export class AuthModule { }
