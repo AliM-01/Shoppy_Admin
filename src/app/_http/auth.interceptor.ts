@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
-    if (accessToken) {
+    if (accessToken !== '') {
       request = request.clone({
         headers: request.headers.set(this.authorizationHeader, `Bearer ${accessToken}`)
       });

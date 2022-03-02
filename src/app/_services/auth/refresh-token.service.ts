@@ -1,11 +1,13 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
+import { LoginResponseModel } from "@app_models/auth/login-response";
 import { RevokeRefreshTokenRequestModel } from "@app_models/auth/revoke-refresh-token-request";
+import { IResponse } from "@app_models/_common/IResponse";
 import { getCurrentTabId } from "@app_services/_common/functions/functions";
 import { environment } from "@environments/environment";
 import { Subscription, throwError, timer } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { catchError, map, tap } from 'rxjs/operators';
 import { BrowserStorageService } from "./browser-storage.service";
 import { TokenStoreService } from "./token-store.service";
 
@@ -64,11 +66,7 @@ export class RefreshTokenService {
   }
 
   invalidateCurrentTabId() {
-    if (!this.tokenStoreService.rememberMe()) {
-      return;
-    }
-
-    const currentTabId = getCurrentTabId();
+    const currentTabId = getCurrentTabId(this.browserStorageService);
     const timerStat = this.browserStorageService.getLocal(
       this.refreshTokenTimerCheckId
     );
@@ -81,25 +79,21 @@ export class RefreshTokenService {
     const data = new RevokeRefreshTokenRequestModel(this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
 
     return this.http
-      .post(`${environment.authBaseApiUrl}/refreshToken`, data)
+      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refreshToken`, data)
       .pipe(
-        map(response => response || {}),
         catchError((error: HttpErrorResponse) => throwError(error))
       )
       .subscribe(result => {
         console.log("RefreshToken Result", result);
-        this.tokenStoreService.storeLoginSession(result);
+        this.tokenStoreService.storeLoginSession(result.data);
         this.deleteRefreshTokenTimerCheckId();
         this.scheduleRefreshToken(isAuthUserLoggedIn, false);
       });
   }
 
   private isRefreshTokenTimerStartedInAnotherTab(): boolean {
-    if (!this.tokenStoreService.rememberMe()) {
-      return false; // It uses the session storage for the tokens and its access scope is limited to the current tab.
-    }
 
-    const currentTabId = getCurrentTabId();
+    const currentTabId = getCurrentTabId(this.browserStorageService);
     const timerStat = this.browserStorageService.getLocal(this.refreshTokenTimerCheckId);
     console.log("RefreshTokenTimer Check", {
       refreshTokenTimerCheckId: timerStat,
@@ -117,7 +111,7 @@ export class RefreshTokenService {
     this.browserStorageService.setLocal(this.refreshTokenTimerCheckId,
       {
         isStarted: true,
-        tabId: getCurrentTabId()
+        tabId: getCurrentTabId(this.browserStorageService)
       });
   }
 

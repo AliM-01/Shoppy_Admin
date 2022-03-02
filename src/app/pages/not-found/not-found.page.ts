@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-notfound',
@@ -17,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
                         <h1 class="text-gradient-03">404</h1>
                         <h2>صفحه مورد نظر پیدا نشد!</h2>
                         <p>اما ما صفحات زیادی برای دیدن شما داریم. </p>
-                        <a href="db-default.html" class="btn btn-gradient-01">
+                        <a (click)="goBack()" class="btn btn-gradient-01 text-white">
                             برگشت به عقب
                         </a>
                     </div>             
@@ -31,11 +32,12 @@ import { Component, OnInit } from '@angular/core';
     </body>
   `
 })
-export class NotFoundPage implements OnInit {
+export class NotFoundPage {
 
-    constructor() { }
-
-    ngOnInit(): void {
+    constructor(private location: Location) { }
+    
+    goBack() {
+        this.location.back();
     }
 
 }

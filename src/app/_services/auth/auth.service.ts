@@ -12,6 +12,8 @@ import { AuthUser } from "@app_models/auth/auth-user";
 import { ToastrService } from "ngx-toastr";
 import { LoadingService } from "@app_services/_common/loading/loading.service";
 import { RevokeRefreshTokenRequestModel } from '../../_models/auth/revoke-refresh-token-request';
+import { IResponse } from "@app_models/_common/IResponse";
+import { LoginResponseModel } from "@app_models/auth/login-response";
 
 @Injectable({
   providedIn: 'root'
@@ -34,35 +36,39 @@ export class AuthService {
   }
 
   login(loginData: LoginRequestModel): Observable<boolean> {
+    console.log('login service loginData', loginData);
+    
     this.loading.loadingOn();
 
     const formData = new FormData();
     formData.append('email', loginData.email);
     formData.append('password', loginData.password);
+    console.log('login service formData', formData);
 
     return this.http
-      .post(`${environment.authBaseApiUrl}/login`, formData)
+      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/login`, formData)
       .pipe(
-        map((response: any) => {
-          this.tokenStoreService.setRememberMe(loginData.rememberMe);
-          if (!response) {
-            this.authStatusSource.next(false);
-            this.loading.loadingOff();
-            this.toastr.error("عملیات با خطا مواجه شد", 'خطا', { timeOut: 2500 });
-            return false;
-          }
-          this.tokenStoreService.storeLoginSession(response);
-          console.log("Logged-in user info", this.getAuthUser());
-          this.refreshTokenService.scheduleRefreshToken(true, true);
-          this.authStatusSource.next(true);
+        map((res) => {
+          if (res.status === 'success') {
+            console.log('login service res', res);
 
+            this.tokenStoreService.storeLoginSession(res.data);
+            console.log("Logged-in user info", this.getAuthUser());
+            this.refreshTokenService.scheduleRefreshToken(true, true);
+            this.authStatusSource.next(true);
+            return true;
+          }
           this.loading.loadingOff();
-          return true;
+
+          return false;
         }),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           this.loading.loadingOff();
+          this.authStatusSource.next(false);
+          this.loading.loadingOff();
+          this.toastr.error("عملیات با خطا مواجه شد", 'خطا', { timeOut: 2500 });
 
           return throwError(error);
         })
@@ -84,9 +90,8 @@ export class AuthService {
     const logoutData = new RevokeRefreshTokenRequestModel(refreshToken);
 
     this.http
-      .post(`${environment.authBaseApiUrl}/logout`, logoutData)
+      .post<IResponse<string>>(`${environment.authBaseApiUrl}/logout`, logoutData)
       .pipe(
-        map(response => response || {}),
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 

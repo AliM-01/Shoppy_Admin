@@ -1,10 +1,11 @@
 import { FormGroup } from "@angular/forms";
+import { BrowserStorageService } from "@app_services/auth/browser-storage.service";
 
-export function toSlug(text: string): string{
+export function toSlug(text: string): string {
   return text.trim().replace(' ', '-')
 }
 
-export function separateThousands(inputNumber:any):string {
+export function separateThousands(inputNumber: any): string {
   let numberToString = inputNumber.toString();
   numberToString = numberToString.replace(',', '');
   let x = numberToString.split('.');
@@ -20,17 +21,21 @@ export function isEmptyString(value: string): boolean {
   return !value || 0 === value.length;
 }
 
-export function checkFormGroupErrors(formGroup: FormGroup, controlName: string, errorName: string):boolean {
+export function checkFormGroupErrors(formGroup: FormGroup, controlName: string, errorName: string): boolean {
+  if (!formGroup.controls[controlName].touched) {
+    return false;
+  }
+
   return formGroup.controls[controlName].hasError(errorName);
 }
 
-export function getCurrentTabId(): number {
+export function getCurrentTabId(browserStorageService: BrowserStorageService): number {
   const tabIdToken = "currentTabId";
-  let tabId = this.browserStorageService.getSession(tabIdToken);
+  let tabId = browserStorageService.getLocal(tabIdToken);
   if (tabId) {
     return tabId;
   }
   tabId = Math.random();
-  this.browserStorageService.setSession(tabIdToken, tabId);
+  browserStorageService.setLocal(tabIdToken, tabId);
   return tabId;
 }

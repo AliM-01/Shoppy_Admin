@@ -27,7 +27,7 @@
 
                         <div role="tabpanel" class="tab-pane show active" id="singin" aria-labelledby="singin-tab">
                             <h3>به سـین بورد خوش آمدید</h3>
-                            <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+                            <form [formGroup]="loginForm" (ngSubmit)="submitForm()" enctype="multipart/form-data">
                                 <div class="group material-input">
                                     <input type="email" formControlName="email" required>
                                     <span class="highlight"></span>
@@ -43,24 +43,23 @@
                                     <label>پسورد</label>
                                 </div>
                                 <p class="text-danger" *ngIf="checkError('password', 'required')">لطفا رمز عبور را وارد نمایید</p>
-
-                            </form>
-                            <div class="row">
-                                <div class="col text-left">
-                                    <div class="styled-checkbox">
-                                        <input formControlName="remeberMe" type="checkbox" name="checkbox" id="remeber">
-                                        <label for="remeber">مرا به خاطر بسپار</label>
+                                
+                                <br />
+                                
+                                <div class="row">
+                                    <div class="col text-left">
+                                    </div>
+                                    <div class="col text-right">
+                                        <a href="/">فراموشی رمز عبور</a>
                                     </div>
                                 </div>
-                                <div class="col text-right">
-                                    <a href="/">فراموشی رمز عبور</a>
+                                <div class="sign-btn text-center">
+                                    <a href="/" class="btn btn-lg btn-gradient-01">
+                                        ثبت نام
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="sign-btn text-center">
-                                <a href="/" class="btn btn-lg btn-gradient-01">
-                                    ثبت نام
-                                </a>
-                            </div>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>

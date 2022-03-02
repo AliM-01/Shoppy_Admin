@@ -6,7 +6,7 @@ import { AuthService } from '@app_services/auth/auth.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { LoadingService } from '@app_services/_common/loading/loading.service';
 import { ToastrService } from 'ngx-toastr';
-import { LoginRequestModel } from '../../../_models/auth/login-request';
+import { LoginRequestModel } from '@app_models/auth/login-request';
 
 @Component({
   selector: 'auth-login',
@@ -23,7 +23,9 @@ export class LoginPage implements OnInit {
     private loading: LoadingService,
     private authService: AuthService,
     private toastr: ToastrService
-  ) { }
+  ) {
+    this.loading.loadingOff();
+   }
 
   ngOnInit() {
     this.loading.loadingOff();
@@ -42,25 +44,35 @@ export class LoginPage implements OnInit {
   checkError(controlName: string, errorName: string): boolean {
     return checkFormGroupErrors(this.loginForm, controlName, errorName)
   }
-  
+
   submitForm() {
     this.loading.loadingOn();
 
-    const loginData = new LoginRequestModel(
-      this.loginForm.controls.email.value,
-      this.loginForm.controls.password.value,
-      (this.loginForm.controls.rememberMe.value as boolean),
-    );
+    if (this.loginForm.valid) {
+      const loginData = new LoginRequestModel(
+        this.loginForm.controls.email.value,
+        this.loginForm.controls.password.value,
+        (this.loginForm.controls.rememberMe.value as boolean),
+      );
 
-    this.authService.login(loginData
-      ).subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        if (this.returnUrl) {
-          this.router.navigate([this.returnUrl]);
-        } else {
-          this.router.navigate(["/"]);
-        }
-      }
-    });
+      this.authService.login(loginData)
+      .subscribe(isLoggedIn => {console.log(isLoggedIn);
+      
+        // if (isLoggedIn) {
+        //   if (this.returnUrl) {
+        //     this.router.navigate([this.returnUrl]);
+        //   } else {
+        //     this.router.navigate(["/"]);
+        //   }
+        // }
+      });
+
+
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
+
+    this.loading.loadingOff();
+    
   }
 }

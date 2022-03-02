@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
+import { LoginResponseModel } from "@app_models/auth/login-response";
 import { isEmptyString } from "@app_services/_common/functions/functions";
 import jwt_decode from "jwt-decode";
 import { BrowserStorageService } from "./browser-storage.service";
@@ -9,17 +10,11 @@ import { BrowserStorageService } from "./browser-storage.service";
 })
 export class TokenStoreService {
 
-  private rememberMeToken = "rememberMe_token";
-
   constructor(
     private browserStorageService: BrowserStorageService) { }
 
   getRawAuthToken(tokenType: AuthTokenType): string {
-    if (this.rememberMe()) {
-      return this.browserStorageService.getLocal(AuthTokenType[tokenType]);
-    } else {
-      return this.browserStorageService.getSession(AuthTokenType[tokenType]);
-    }
+    return this.browserStorageService.getLocal(AuthTokenType[tokenType]);
   }
 
   getDecodedAccessToken(): any {
@@ -49,14 +44,8 @@ export class TokenStoreService {
   }
 
   deleteAuthTokens() {
-    if (this.rememberMe()) {
-      this.browserStorageService.removeLocal(AuthTokenType[AuthTokenType.AccessToken]);
-      this.browserStorageService.removeLocal(AuthTokenType[AuthTokenType.RefreshToken]);
-    } else {
-      this.browserStorageService.removeSession(AuthTokenType[AuthTokenType.AccessToken]);
-      this.browserStorageService.removeSession(AuthTokenType[AuthTokenType.RefreshToken]);
-    }
-    this.browserStorageService.removeLocal(this.rememberMeToken);
+    this.browserStorageService.removeLocal(AuthTokenType[AuthTokenType.AccessToken]);
+    this.browserStorageService.removeLocal(AuthTokenType[AuthTokenType.RefreshToken]);
   }
 
   setToken(tokenType: AuthTokenType, tokenValue: string): void {
@@ -68,11 +57,7 @@ export class TokenStoreService {
       throw new Error("AccessToken can't be null or empty.");
     }
 
-    if (this.rememberMe()) {
-      this.browserStorageService.setLocal(AuthTokenType[tokenType], tokenValue);
-    } else {
-      this.browserStorageService.setSession(AuthTokenType[tokenType], tokenValue);
-    }
+    this.browserStorageService.setLocal(AuthTokenType[tokenType], tokenValue);
   }
 
   getDecodedTokenRoles(): string[] | null {
@@ -89,23 +74,17 @@ export class TokenStoreService {
     }
   }
 
-  storeLoginSession(response: any): void {
-    this.setToken(AuthTokenType.AccessToken, response["accessToken"]);
-    this.setToken(AuthTokenType.RefreshToken, response["refreshToken"]);
+  storeLoginSession(response: LoginResponseModel): void {
+    this.setToken(AuthTokenType.AccessToken, response.accessToken);
+    this.setToken(AuthTokenType.RefreshToken, response.refreshToken);
   }
-
-  rememberMe(): boolean {
-    return this.browserStorageService.getLocal(this.rememberMeToken) === true;
-  }
-
-  setRememberMe(value: boolean): void {
-    this.browserStorageService.setLocal(this.rememberMeToken, value);
-  }
-
+  
   hasStoredAccessAndRefreshTokens(): boolean {
 
     const accessToken = this.getRawAuthToken(AuthTokenType.AccessToken);
     const refreshToken = this.getRawAuthToken(AuthTokenType.RefreshToken);
+    console.log('store access', accessToken);
+    console.log('store refreshToken', refreshToken);
 
     return !isEmptyString(accessToken) && !isEmptyString(refreshToken);
   }

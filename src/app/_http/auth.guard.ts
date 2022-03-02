@@ -23,6 +23,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const permissionData = route.data[this.permissionObjectKey] as AuthGuardPermission;
+    console.log('guard ', permissionData);
+    
     const returnUrl = state.url;
     return this.hasAuthUserAccessToThisRoute(permissionData, returnUrl);
   }
@@ -44,6 +46,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   private hasAuthUserAccessToThisRoute(permissionData: Data, returnUrl: string): boolean {
+    console.log('guard is login ', this.authService.isAuthUserLoggedIn());
+
     if (!this.authService.isAuthUserLoggedIn()) {
       this.showAccessDenied(returnUrl);
       return false;
@@ -59,6 +63,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     if (Array.isArray(permissionData.permittedRoles)) {
       const isInRole = this.authService.isAuthUserInRoles(permissionData.permittedRoles);
+      console.log('guard isInRole ', isInRole);
+
       if (isInRole) {
         return true;
       }

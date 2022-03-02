@@ -4,7 +4,7 @@
   providedIn: 'root'
 })
 export class BrowserStorageService {
-
+  
   getSession(key: string): any {
     const data = window.sessionStorage.getItem(key);
     if (data) {
