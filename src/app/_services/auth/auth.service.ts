@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, finalize, map } from "rxjs/operators";
+import { catchError, finalize, map, tap } from "rxjs/operators";
 import { TokenStoreService } from "./token-store.service";
 import { RefreshTokenService } from './refresh-token.service';
 import { environment } from "@environments/environment";
@@ -87,6 +87,7 @@ export class AuthService {
       .post(`${environment.authBaseApiUrl}/logout`, logoutData)
       .pipe(
         map(response => response || {}),
+        tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });

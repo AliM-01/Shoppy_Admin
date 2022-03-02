@@ -12,14 +12,13 @@ import { LoadingService } from '@loading';
 import { AppMaterialModule } from '@app_material';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
-import { LoginPage } from '@apppages/auth/login/login.page';
+import { IndexModule } from '@apppages/index/index.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardLayoutComponent,
-    AuthLayoutComponent,
-    LoginPage
+    AuthLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +28,7 @@ import { LoginPage } from '@apppages/auth/login/login.page';
     AppRoutingModule,
     AppMaterialModule,
     ComponentsModule,
+    IndexModule,
     ToastrModule.forRoot({
       tapToDismiss: false,
       autoDismiss: true
