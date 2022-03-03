@@ -14,6 +14,7 @@ import { LoadingService } from "@app_services/_common/loading/loading.service";
 import { RevokeRefreshTokenRequestModel } from '../../_models/auth/revoke-refresh-token-request';
 import { IResponse } from "@app_models/_common/IResponse";
 import { LoginResponseModel } from "@app_models/auth/login-response";
+import { of } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -119,13 +120,11 @@ export class AuthService {
   }
 
   isAuthUserLoggedIn(): Observable<boolean> {
-    const tokenIsSaved: boolean = (this.tokenStoreService.hasStoredAccessAndRefreshTokens() &&
-      !this.tokenStoreService.isAccessTokenTokenExpired());
 
-    if (!tokenIsSaved) {
-      return new Observable<boolean>(subscriber => {
-        subscriber.next(false);
-      });
+    if (!this.tokenStoreService.hasStoredAccessAndRefreshTokens()) {
+      console.log('has stotrd /fgffff');
+      
+      return of(false)
     }
 
 
