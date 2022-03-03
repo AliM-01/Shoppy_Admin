@@ -42,50 +42,39 @@ export class AuthService {
   }
 
   login(loginData: LoginRequestModel): Observable<boolean> {
-    console.log('login service loginData', loginData);
 
     this.loading.loadingOn();
 
     const formData = new FormData();
     formData.append('email', loginData.email);
     formData.append('password', loginData.password);
-    console.log('login service formData', formData);
 
     return this.http
       .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/login`, formData)
       .pipe(
         map((res) => {
           if (res.status === 'success') {
-            console.log('login service res', res);
-
+            
+            this.loading.loadingOff();
             this.tokenStoreService.storeLoginSession(res.data);
-            console.log("Logged-in user info", this.getAuthUser());
             this.refreshTokenService.scheduleRefreshToken(true, true);
             this.authStatusSource.next(true);
             return true;
           }
-          this.loading.loadingOff();
 
           return false;
         }),
+        tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          this.loading.loadingOff();
           this.authStatusSource.next(false);
-          this.loading.loadingOff();
           this.toastr.error("عملیات با خطا مواجه شد", 'خطا', { timeOut: 2500 });
 
+          this.loading.loadingOff();
           return throwError(error);
         })
       );
-  }
-
-  getBearerAuthHeader(): HttpHeaders {
-    return new HttpHeaders({
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken)}`
-    });
   }
 
   logout(navigateToHome: boolean): void {
@@ -122,8 +111,6 @@ export class AuthService {
   isAuthUserLoggedIn(): Observable<boolean> {
 
     if (!this.tokenStoreService.hasStoredAccessAndRefreshTokens()) {
-      console.log('has stotrd /fgffff');
-      
       return of(false)
     }
 
@@ -132,10 +119,7 @@ export class AuthService {
       .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-authenticated`)
       .pipe(
         map(res => {
-          console.log('is res', res);
-          
           if (res.status === 'success') {
-            console.log('is res success');
             return true;
           } else {
             return false;
@@ -148,56 +132,6 @@ export class AuthService {
 
           return throwError(error);
         }));
-  }
-
-  getAuthUser(): AuthUser | null {
-    this.isAuthUserLoggedIn()
-    .subscribe(res => {
-      if (!res) {
-        return null;
-      }
-    })
-
-    const decodedToken = this.tokenStoreService.getDecodedAccessToken();
-    const roles = this.tokenStoreService.getDecodedTokenRoles();
-
-    let returnRoles = [];
-    for (const role of roles) {
-      returnRoles.push(role.toUpperCase())
-    }
-
-    return new AuthUser(
-      decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
-      decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-      decodedToken["DisplayName"],
-      returnRoles
-    );
-  }
-
-  isAuthUserInRoles(requiredRoles: string[]): boolean {
-    const user = this.getAuthUser();
-    console.log('current user', user);
-    console.log('current user', user.roles);
-    
-    if (!user || !user.roles) {
-      return false;
-    }
-
-    if (user.roles.indexOf("ADMIN") >= 0) {
-      return true;
-    }
-
-    return requiredRoles.some(requiredRole => {
-      if (user.roles) {
-        return user.roles.indexOf(requiredRole.toLowerCase()) >= 0;
-      } else {
-        return false;
-      }
-    });
-  }
-
-  isAuthUserInRole(requiredRole: string): boolean {
-    return this.isAuthUserInRoles([requiredRole]);
   }
 
   private updateStatusOnPageRefresh(): void {

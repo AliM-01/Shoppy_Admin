@@ -32,7 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
         retryWhen(errors => errors.pipe(
           mergeMap((error: HttpErrorResponse, retryAttempt: number) => {
             if (retryAttempt === this.numberOfRetries - 1) {
-              console.log(`HTTP call '${request.method} ${request.url}' failed after ${this.numberOfRetries} retries.`);
               return throwError(error); // no retry
             }
 
@@ -52,7 +51,6 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error.status === 401 || error.status === 403) {
             const newRequest = this.getNewAuthRequest(request);
             if (newRequest) {
-              console.log("Try new AuthRequest ...");
               return next.handle(newRequest);
             }
             this.router.navigate(["/auth/access-denied"]);
@@ -71,8 +69,6 @@ export class AuthInterceptor implements HttpInterceptor {
     if (oldAccessToken !== '') {
       this.refreshTokenService.revokeRefreshTokenRequestModel(oldAccessToken)
       .subscribe(res => {    
-        console.log('int new req auth');
-        
         if(res.status !== 'success'){
           return request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + res.data.accessToken) });
         }   

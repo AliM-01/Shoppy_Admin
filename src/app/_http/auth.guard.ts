@@ -2,17 +2,12 @@
 import {
   ActivatedRouteSnapshot,
   CanActivate,
-  CanActivateChild,
-  CanLoad,
-  Route,
   Router,
   RouterStateSnapshot,
-  UrlSegment,
   UrlTree,
 } from "@angular/router";
 import { AuthService } from "@app_services/auth/auth.service";
 import { Observable } from "rxjs";
-import { AuthGuardPermission } from '../_models/auth/auth-guard-permission';
 
 @Injectable({
   providedIn: 'root'
