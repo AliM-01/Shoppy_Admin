@@ -54,7 +54,7 @@ export class AuthService {
       .pipe(
         map((res) => {
           if (res.status === 'success') {
-            
+
             this.loading.loadingOff();
             this.tokenStoreService.storeLoginSession(res.data);
             this.refreshTokenService.scheduleRefreshToken(true, true);
@@ -130,7 +130,7 @@ export class AuthService {
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
           this.loading.loadingOff();
 
-          return throwError(error);
+          return of(false);
         }));
   }
 

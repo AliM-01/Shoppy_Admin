@@ -79,7 +79,7 @@ export class RefreshTokenService {
     const data = new RevokeRefreshTokenRequestModel(refreshToken);
 
     return this.http
-      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refreshToken`, data)
+      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, data)
       .pipe(
         tap((res) => {
           if(res.status === 'success'){
@@ -97,7 +97,7 @@ export class RefreshTokenService {
     const data = new RevokeRefreshTokenRequestModel(this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
 
     return this.http
-      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refreshToken`, data)
+      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, data)
       .pipe(
         catchError((error: HttpErrorResponse) => throwError(error))
       )

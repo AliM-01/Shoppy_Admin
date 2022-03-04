@@ -29,11 +29,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.loading.loadingOn();
 
-    this.authService.isAuthUserLoggedIn().subscribe(res => {
-      if(res){
-        this.authService.logout(false);
-      }
-    })
+    this.authService.logout(false);
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams["returnUrl"];
 
@@ -42,7 +38,7 @@ export class LoginPage implements OnInit {
       password: new FormControl(null, [Validators.required]),
       rememberMe: new FormControl(false)
     });
-    
+
     this.loading.loadingOff();
 
   }
@@ -63,7 +59,7 @@ export class LoginPage implements OnInit {
 
       this.authService.login(loginData)
         .subscribe(isLoggedIn => {
-          
+
           console.log(isLoggedIn);
 
           if (isLoggedIn) {

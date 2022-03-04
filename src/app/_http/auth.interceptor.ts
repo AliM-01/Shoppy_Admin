@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
-    
+
     if (accessToken !== '') {
       request = request.clone({
         headers: request.headers.append('Authorization', 'Bearer ' + accessToken)
@@ -51,9 +51,14 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error.status === 401 || error.status === 403) {
             const newRequest = this.getNewAuthRequest(request);
             if (newRequest) {
-              return next.handle(newRequest);
+              return next.handle(newRequest)
+              .pipe(
+                catchError((error: HttpErrorResponse) => {
+                  this.router.navigate(["/auth/access-denied"]);
+                  return throwError(error); // no retry
+                })
+              );
             }
-            this.router.navigate(["/auth/access-denied"]);
           }
           return throwError(error);
         })
@@ -68,13 +73,13 @@ export class AuthInterceptor implements HttpInterceptor {
     const oldAccessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
     if (oldAccessToken !== '') {
       this.refreshTokenService.revokeRefreshTokenRequestModel(oldAccessToken)
-      .subscribe(res => {    
+      .subscribe(res => {
         if(res.status !== 'success'){
           return request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + res.data.accessToken) });
-        }   
+        }
         return request;
       })
-    } 
+    }
     return request;
   }
 }

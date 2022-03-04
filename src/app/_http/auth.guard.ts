@@ -23,6 +23,9 @@ export class AuthGuard implements CanActivate {
         this.showAccessDenied(state.url);
         return false;
       }
+    }).catch(() => {
+      this.showAccessDenied(state.url);
+      return false;
     })
   }
 
