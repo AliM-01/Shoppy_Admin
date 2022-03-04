@@ -38,7 +38,7 @@
 
             <li [ngClass]="{ active: route.toLowerCase().includes('/comment') }">
 
-                <a [routerLink]="'/comment'" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">
+                <a routerLink="/comment" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-comment"></i><span>نظرات</span>
                 </a>
 
@@ -48,7 +48,7 @@
                 <a href="#dropdown-site" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-cog"></i><span>سایت</span></a>
                 <ul id="dropdown-site" class="collapse list-unstyled show pt-0">
-                    <li><a [routerLink]="'/slider'" routerLinkActive="active">اسلایدر</a></li>
+                    <li><a routerLink="/slider" routerLinkActive="active">اسلایدر</a></li>
                 </ul>
             </li>
 
@@ -56,8 +56,8 @@
                 <a href="#dropdown-discount" aria-expanded="false" data-toggle="collapse">
                     <i class="las la-wallet"></i><span>تخفیفات</span></a>
                 <ul id="dropdown-discount" class="collapse list-unstyled show pt-0">
-                    <li><a [routerLink]="'/product-discount'" routerLinkActive="active">تخفیفات محصولات</a></li>
-                    <li><a [routerLink]="'/colleague-discount'" routerLinkActive="active">تخفیفات همکاران</a></li>
+                    <li><a routerLink="/product-discount" routerLinkActive="active">تخفیفات محصولات</a></li>
+                    <li><a routerLink="/discount-code" routerLinkActive="active">کد های تخفیف</a></li>
                 </ul>
             </li>
 

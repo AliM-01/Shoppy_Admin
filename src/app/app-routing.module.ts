@@ -17,7 +17,7 @@ const routes: Routes = [
       } as AuthGuardPermission
     },
     canActivate: [AuthGuard],
-    children: [     
+    children: [
       { path: '', component: IndexComponent, pathMatch: 'full'},
       {
         path: 'product-category',
@@ -40,6 +40,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/discount/product-discount/product.discount.module').then(m => m.ProductDiscountModule)
       },
       {
+        path: 'discount-code',
+        loadChildren: () => import('./pages/discount/discount-code/discount.code.module').then(m => m.DiscountCodeModule)
+      },
+      {
         path: 'inventory',
         loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryModule)
       },
@@ -57,8 +61,8 @@ const routes: Routes = [
       }
     ]
   },
-  
-  { 
+
+  {
     path: '',
     component: AuthLayoutComponent,
     children: [
