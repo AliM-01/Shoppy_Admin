@@ -19,13 +19,13 @@ export class ProductPicturePage implements OnInit {
 
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("گالری تصاویر محصول : ");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
-  
+
   productPictures: ProductPictureModel[] = [];
-  productPictureBasePath: string = `${environment.productPicutreBaseImagePath}/thumbnail/`;
+  productPictureBasePath: string = `${environment.productPictureBaseImagePath}/thumbnail/`;
   productId: string = "";
   pageLoading: boolean = false;
   baseShopUrl = `${environment.shopBaseApiUrl}/product-picture/create`;
-  
+
   constructor(
     private title: Title,
     public dialog: MatDialog,
