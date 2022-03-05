@@ -8,6 +8,7 @@ export const environment = {
   inventoryBaseApiUrl: "https://localhost:5001/api/admin/inventory",
   commentBaseApiUrl: "https://localhost:5001/api/admin/comment",
   blogBaseApiUrl: "https://localhost:5001/api/admin/blog",
+  accountBaseApiUrl: "https://localhost:5001/api/admin/account",
 
   ckeditorImgUploadUrl: "https://localhost:5001/upload/img-upload/",
 
