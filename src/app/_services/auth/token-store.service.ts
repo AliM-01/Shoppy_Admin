@@ -83,15 +83,9 @@ export class TokenStoreService {
 
     const accessToken = this.getRawAuthToken(AuthTokenType.AccessToken);
     const refreshToken = this.getRawAuthToken(AuthTokenType.RefreshToken);
-    console.log('store access', accessToken);
-    console.log('store refreshToken', refreshToken);
 
-    if ((!isEmptyString(accessToken)) && (!isEmptyString(refreshToken))){
-      console.log('token service is login');
-      
+    if ((!isEmptyString(accessToken)) && (!isEmptyString(refreshToken)))
       return true;
-
-    }
 
     return false;
   }

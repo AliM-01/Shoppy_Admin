@@ -76,6 +76,9 @@ export class RefreshTokenService {
   }
 
   revokeRefreshTokenRequestModel(refreshToken: string): Observable<IResponse<LoginResponseModel>> {
+    console.log('revoke init');
+    console.log('revoke old token', refreshToken);
+
     const data = new RevokeRefreshTokenRequestModel(refreshToken);
 
     return this.http
@@ -83,7 +86,7 @@ export class RefreshTokenService {
       .pipe(
         tap((res) => {
           if(res.status === 'success'){
-            console.log("RefreshToken Result", res);
+            console.log("revoke result", res);
             this.tokenStoreService.storeLoginSession(res.data);
             this.deleteRefreshTokenTimerCheckId();
             this.scheduleRefreshToken(true, false);

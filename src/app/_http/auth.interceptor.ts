@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
 import { RefreshTokenService } from "@app_services/auth/refresh-token.service";
 import { TokenStoreService } from "@app_services/auth/token-store.service";
+import { ToastrService } from "ngx-toastr";
 import { Observable, of, throwError } from "rxjs";
 import { catchError, delay, mergeMap, retryWhen, take } from "rxjs/operators";
 
@@ -12,15 +13,15 @@ import { catchError, delay, mergeMap, retryWhen, take } from "rxjs/operators";
 })
 export class AuthInterceptor implements HttpInterceptor {
 
-  private delayBetweenRetriesMs = 1000;
-  private numberOfRetries = 3;
-
   constructor(
+    private toastr: ToastrService,
     private tokenStoreService: TokenStoreService,
     private refreshTokenService: RefreshTokenService,
     private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log('inercept init');
+
     const accessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
 
     if (accessToken !== '') {
@@ -28,41 +29,17 @@ export class AuthInterceptor implements HttpInterceptor {
         headers: request.headers.append('Authorization', 'Bearer ' + accessToken)
       });
       return next.handle(request)
-      .pipe(
-        retryWhen(errors => errors.pipe(
-          mergeMap((error: HttpErrorResponse, retryAttempt: number) => {
-            if (retryAttempt === this.numberOfRetries - 1) {
-              return throwError(error); // no retry
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if(error.status === 0){
+              this.router.navigate(["/auth/access-denied"]);
+            } else {
+              this.toastr.error("عملیات با خطا مواجه شد", "خطا")
+              this.router.navigate(["/"]);
             }
-
-            switch (error.status) {
-              case 400:
-              case 404:
-                return throwError(error); // no retry
-            }
-
-            return of(error); // retry
-          }),
-          delay(this.delayBetweenRetriesMs),
-          take(this.numberOfRetries)
-        )),
-        catchError((error: HttpErrorResponse, caught: Observable<HttpEvent<any>>) => {
-          console.error({ error, caught });
-          if (error.status === 401 || error.status === 403) {
-            const newRequest = this.getNewAuthRequest(request);
-            if (newRequest) {
-              return next.handle(newRequest)
-              .pipe(
-                catchError((error: HttpErrorResponse) => {
-                  this.router.navigate(["/auth/access-denied"]);
-                  return throwError(error); // no retry
-                })
-              );
-            }
-          }
-          return throwError(error);
-        })
-      );
+            return throwError(error);
+          })
+        );
     } else {
       // login page
       return next.handle(request);
@@ -70,15 +47,19 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   getNewAuthRequest(request: HttpRequest<any>): HttpRequest<any> | null {
+    console.log('new token init');
     const oldAccessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
     if (oldAccessToken !== '') {
       this.refreshTokenService.revokeRefreshTokenRequestModel(oldAccessToken)
-      .subscribe(res => {
-        if(res.status !== 'success'){
-          return request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + res.data.accessToken) });
-        }
-        return request;
-      })
+        .subscribe(res => {
+          console.log('new token success');
+          console.log('new token token', res.data.accessToken);
+
+          if (res.status !== 'success') {
+            return request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + res.data.accessToken) });
+          }
+          return request;
+        })
     }
     return request;
   }
