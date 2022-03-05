@@ -81,7 +81,7 @@ export class RefreshTokenService {
 
     const formData = new FormData();
 
-    formData.append('refreshToken', refreshToken);
+    formData.append('RefreshToken', refreshToken);
 
     return this.http
       .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, formData)
@@ -102,7 +102,7 @@ export class RefreshTokenService {
 
     const formData = new FormData();
 
-    formData.append('refreshToken', this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
+    formData.append('RefreshToken', this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
 
     let headers:HttpHeaders = new HttpHeaders();
     return this.http
