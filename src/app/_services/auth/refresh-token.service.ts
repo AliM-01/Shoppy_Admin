@@ -79,10 +79,12 @@ export class RefreshTokenService {
     console.log('revoke init');
     console.log('revoke old token', refreshToken);
 
-    const data = new RevokeRefreshTokenRequestModel(refreshToken);
+    const formData = new FormData();
+
+    formData.append('refreshToken', refreshToken);
 
     return this.http
-      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, data)
+      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, formData)
       .pipe(
         tap((res) => {
           if(res.status === 'success'){
@@ -97,10 +99,14 @@ export class RefreshTokenService {
   }
 
   private refreshToken(isAuthUserLoggedIn: boolean) {
-    const data = new RevokeRefreshTokenRequestModel(this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
 
+    const formData = new FormData();
+
+    formData.append('refreshToken', this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
+
+    let headers:HttpHeaders = new HttpHeaders();
     return this.http
-      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, data)
+      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, formData)
       .pipe(
         catchError((error: HttpErrorResponse) => throwError(error))
       )

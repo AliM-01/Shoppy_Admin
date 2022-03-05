@@ -23,7 +23,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount', 'commands'];
-  thumbnailBasePath: string = `${environment.productCategoryBaseImagePath}/thumbnail/`;
+  thumbnailBasePath: string = `${environment.productCategoryBaseImagePath}/`;
   dataServer: ProductCategoryDataServer;
   dataSource: MatTableDataSource<ProductCategoryModel> = new MatTableDataSource<ProductCategoryModel>([]);
   isDataSourceLoaded: boolean = false;
@@ -107,7 +107,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
         })
       )
       .subscribe();
-      
+
   }
 
   onPaginateChange(event: PageEvent) {
@@ -133,7 +133,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
     this.ngOnInit();
     this.paginator.pageSize = size;
   }
-  
+
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProductCategoryDialog, {
       width: '600px',
@@ -153,7 +153,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }

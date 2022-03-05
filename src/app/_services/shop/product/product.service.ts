@@ -22,50 +22,57 @@ export class ProductService {
 
     this.loading.loadingOn();
 
-    let params;
+    let params = new HttpParams();
 
     if (filter !== null) {
-      params = new HttpParams()
-        .set('Search', filter.search)
-        .set('CategoryId', filter.categoryId === '' ? '' : filter.categoryId)
+      params
         .set('PageId', filter.pageId.toString())
         .set('TakePage', filter.takePage.toString())
         .set('SortCreationDateOrder', filter.sortCreationDateOrder)
         .set('SortIdOrder', filter.sortIdOrder);
+
+      if (filter.search !== '') {
+        params
+          .set('Search', filter.search)
+      }
+      if (filter.categoryId !== '') {
+        params
+        .set('CategoryId', filter.categoryId)
+      }
     }
 
     return this.http.get<IResponse<FilterProductModel>>
-    (`${environment.shopBaseApiUrl}/product/filter`, { params })
-    .pipe(
-      tap(() => this.loading.loadingOff()),
-      catchError((error: HttpErrorResponse) => {
+      (`${environment.shopBaseApiUrl}/product/filter`, { params })
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
   existsProductId(id: string): Observable<IResponse<ExistsProductIdResponseModel>> {
     return this.http.get<IResponse<ExistsProductIdResponseModel>>
-    (`${environment.shopBaseApiUrl}/product/exists/${id}`)
-    .pipe(
-      tap((res :IResponse<ExistsProductIdResponseModel>) => {
-        if (res.data.exists === false) {
-          this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", { timeOut: 500 });
-        }
-        this.loading.loadingOff();
+      (`${environment.shopBaseApiUrl}/product/exists/${id}`)
+      .pipe(
+        tap((res: IResponse<ExistsProductIdResponseModel>) => {
+          if (res.data.exists === false) {
+            this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", { timeOut: 500 });
+          }
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
   getProductDetails(id: string): Observable<IResponse<EditProductModel>> {
@@ -73,20 +80,20 @@ export class ProductService {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<EditProductModel>>
-    (`${environment.shopBaseApiUrl}/product/${id}`)
-    .pipe(
-      tap(() => this.loading.loadingOff()),
-      catchError((error: HttpErrorResponse) => {
+      (`${environment.shopBaseApiUrl}/product/${id}`)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  createProduct(createData: CreateProductModel):Observable<IResponse<CreateProductResponseModel>> {
+  createProduct(createData: CreateProductModel): Observable<IResponse<CreateProductResponseModel>> {
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -100,37 +107,37 @@ export class ProductService {
     formData.append('imageTitle', createData.imageTitle);
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
-    
+
     return this.http.post<IResponse<CreateProductResponseModel>>
-    (`${environment.shopBaseApiUrl}/product/create`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.shopBaseApiUrl}/product/create`, formData)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  editProduct(editData: EditProductModel):Observable<IResponse<any>> {
-    
+  editProduct(editData: EditProductModel): Observable<IResponse<any>> {
+
     const formData = new FormData();
-    
+
     formData.append('id', editData.id.toString());
     formData.append('categoryId', editData.categoryId.toString());
     formData.append('title', editData.title);
     formData.append('shortDescription', editData.shortDescription);
     formData.append('description', editData.description);
 
-    if(editData.imageFileUploaded){
+    if (editData.imageFileUploaded) {
       formData.append('imageFile', editData.imageFile, editData.imageFile.name);
     }
 
@@ -138,43 +145,43 @@ export class ProductService {
     formData.append('imageTitle', editData.imageTitle);
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
-    
+
     return this.http.put<IResponse<any>>
-    (`${environment.shopBaseApiUrl}/product/edit`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.shopBaseApiUrl}/product/edit`, formData)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  deleteProduct(productId: string):Observable<IResponse<any>> {
+  deleteProduct(productId: string): Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>
-    (`${environment.shopBaseApiUrl}/product/delete/${productId}`)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.shopBaseApiUrl}/product/delete/${productId}`)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 }

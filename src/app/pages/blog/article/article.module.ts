@@ -10,6 +10,7 @@ import { ArticleService } from '@app_services/blog/article/article.service';
 import { FilterArticlePage } from './filter-article/filter-article.page';
 import { CreateArticlePage } from './create-article/create-article.page';
 import { EditArticlePage } from './edit-article/edit-article.page';
+import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,6 @@ import { EditArticlePage } from './edit-article/edit-article.page';
     FilterArticlePage
   ],
   schemas: [],
-  providers: [ArticleService]
+  providers: [ArticleService, ArticleCategoryService]
 })
 export class ArticleModule { }

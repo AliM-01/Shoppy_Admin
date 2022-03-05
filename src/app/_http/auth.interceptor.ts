@@ -5,8 +5,9 @@ import { AuthTokenType } from "@app_models/auth/auth-token-type";
 import { RefreshTokenService } from "@app_services/auth/refresh-token.service";
 import { TokenStoreService } from "@app_services/auth/token-store.service";
 import { ToastrService } from "ngx-toastr";
-import { Observable, of, throwError } from "rxjs";
-import { catchError, delay, mergeMap, retryWhen, take } from "rxjs/operators";
+import { throttleTime } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,22 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(request)
         .pipe(
+          throttleTime(1000),
           catchError((error: HttpErrorResponse) => {
-            if(error.status === 0){
-              this.router.navigate(["/auth/access-denied"]);
+            if (error.status === 0) {
+              const newRequest = this.getNewAuthRequest(request);
+              if (newRequest) {
+                return next.handle(newRequest)
+                  .pipe(
+                    catchError((error: HttpErrorResponse) => {
+                      this.router.navigate(["/auth/access-denied"]);
+                      return throwError(error); // no retry
+                    })
+                  );
+              } else {
+                this.router.navigate(["/auth/access-denied"]);
+                return throwError(error);
+              }
             } else {
               this.toastr.error("عملیات با خطا مواجه شد", "خطا")
               this.router.navigate(["/"]);
