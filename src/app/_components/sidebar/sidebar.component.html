@@ -4,70 +4,78 @@
 
     <ul class="list-unstyled">
 
-      <li [ngClass]="{ active: route.includes('/product') || route.includes('/product-category') }">
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
 
         <a href="#dropdown-shop" aria-expanded="false" data-toggle="collapse">
           <i class="las la-store-alt"></i><span>فروشگاه</span>
         </a>
 
         <ul id="dropdown-shop" class="collapse list-unstyled show pt-0">
-          <li><a [routerLink]="'/product'" routerLinkActive="active">محصولات</a></li>
-          <li><a [routerLink]="'/product-category'" routerLinkActive="active">دسته بندی محصولات</a></li>
+          <li><a [routerLink]="'/product'">محصولات</a></li>
+          <li><a [routerLink]="'/product-category'">دسته بندی محصولات</a></li>
         </ul>
       </li>
 
-      <li [ngClass]="{ active: route.toLowerCase().includes('/inventory') }">
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
 
-        <a [routerLink]="'/inventory'" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">
+        <a [routerLink]="'/inventory'" aria-expanded="false" data-toggle="collapse">
           <i class="las la-warehouse"></i><span>انبار</span>
         </a>
 
       </li>
 
-      <li [ngClass]="{ active: route.toLowerCase().includes('/account') }">
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
 
-        <a [routerLink]="'/account'" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">
+        <a [routerLink]="'/account'" aria-expanded="false" data-toggle="collapse">
           <i class="las la-user"></i><span>کاربران</span>
         </a>
 
       </li>
 
-      <li [ngClass]="{ active: route.includes('/article') || route.includes('/article-category') }">
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
 
         <a href="#dropdown-shop" aria-expanded="false" data-toggle="collapse">
           <i class="las la-book-alt"></i><span>مقالات</span>
         </a>
 
         <ul id="dropdown-shop" class="collapse list-unstyled show pt-0">
-          <li><a [routerLink]="'/article'" routerLinkActive="active">مدیریت مقالات</a></li>
-          <li><a [routerLink]="'/article-category'" routerLinkActive="active">دسته بندی مقالات</a></li>
+          <li><a routerLink="/article">مدیریت مقالات</a></li>
+          <li><a routerLink="/article-category">دسته بندی مقالات</a></li>
         </ul>
       </li>
 
-      <li [ngClass]="{ active: route.toLowerCase().includes('/comment') }">
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
 
-        <a routerLink="/comment" routerLinkActive="active" aria-expanded="false" data-toggle="collapse">
+        <a routerLink="/comment" aria-expanded="false" data-toggle="collapse">
           <i class="las la-comment"></i><span>نظرات</span>
         </a>
 
       </li>
 
-      <li [ngClass]="{ active: route.toLowerCase().includes('/slider') }">
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
         <a href="#dropdown-site" aria-expanded="false" data-toggle="collapse">
-          <i class="las la-cog"></i><span>سایت</span></a>
+          <i class="las la-cog"></i><span>سایت</span>
+        </a>
+
         <ul id="dropdown-site" class="collapse list-unstyled show pt-0">
-          <li><a routerLink="/slider" routerLinkActive="active">اسلایدر</a></li>
+
+          <li><a routerLink="/slider">اسلایدر</a></li>
         </ul>
+
       </li>
 
-      <li
-        [ngClass]="{ active: route.toLowerCase().includes('/product-discount') || route.toLowerCase().includes('/colleague-discount') }">
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
         <a href="#dropdown-discount" aria-expanded="false" data-toggle="collapse">
-          <i class="las la-wallet"></i><span>تخفیفات</span></a>
+          <i class="las la-wallet"></i><span>تخفیفات</span>
+
+        </a>
         <ul id="dropdown-discount" class="collapse list-unstyled show pt-0">
-          <li><a routerLink="/product-discount" routerLinkActive="active">تخفیفات محصولات</a></li>
-          <li><a routerLink="/discount-code" routerLinkActive="active">کد های تخفیف</a></li>
+
+          <li><a routerLink="/product-discount">تخفیفات محصولات</a></li>
+          <li><a routerLink="/discount-code">کد های تخفیف</a></li>
+
         </ul>
+
       </li>
 
     </ul>
