@@ -15,6 +15,7 @@ import { RevokeRefreshTokenRequestModel } from '../../_models/auth/revoke-refres
 import { IResponse } from "@app_models/_common/IResponse";
 import { LoginResponseModel } from "@app_models/auth/login-response";
 import { of } from "rxjs";
+import { AccountModel } from '../../_models/account/account';
 
 @Injectable({
   providedIn: 'root'
@@ -131,6 +132,21 @@ export class AuthService {
           this.loading.loadingOff();
 
           return of(false);
+        }));
+  }
+
+  getCurrentUser(): Observable<AccountModel> {
+
+    return this.http
+      .get<IResponse<AccountModel>>(`${environment.authBaseApiUrl}/get-current-user`)
+      .pipe(
+        map(res => res.data),
+        catchError((error: HttpErrorResponse) => {
+
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
+
+          return throwError(false);
         }));
   }
 
