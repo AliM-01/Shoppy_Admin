@@ -1,8 +1,10 @@
 export class AccountModel {
-    id: string;
-    roles: string[];
-    fullName: string;
-    email: string;
-    avatarPath: string;
-    registerDate: string;
+  constructor(
+    public id: string,
+    public roles: string[],
+    public fullName: string,
+    public email: string,
+    public avatarPath: string,
+    public registerDate: string,
+  ) { }
 }

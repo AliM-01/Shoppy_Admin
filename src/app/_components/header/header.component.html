@@ -111,27 +111,12 @@
                             <a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="/assets/assets/img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
                             <ul aria-labelledby="user" class="user-size dropdown-menu">
                                 <li class="welcome">
-                                    <a href="#" class="edit-profil"><i class="la la-gear"></i></a>
-                                    <img src="/assets/img/logo.png" alt="..." class="rounded-circle">
-                                </li>
-                                <li>
-                                    <a href="pages-profile.html" class="dropdown-item">
-                                      پروفایل
-                                  </a>
-                                </li>
-                                <li>
-                                    <a href="app-mail.html" class="dropdown-item">
-                                      پیامها
-                                  </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="dropdown-item no-padding-bottom">
-                                      تنظیمات
-                                  </a>
+                                    <a href="#" class="edit-profil"><i class="la la-gear">{{ (currentUser$ | async).fullName}}</i></a>
+                                    <img [src]="avatarPath" alt="..." class="rounded-circle">
                                 </li>
                                 <li class="separator"></li>
                                 <li>
-                                    <a href="pages-faq.html" class="dropdown-item no-padding-top">
+                                    <a (click)="authService.logout(true)" class="dropdown-item no-padding-top">
                                       خروج از حساب
                                   </a>
                                 </li>

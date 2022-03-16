@@ -101,7 +101,7 @@ export class AuthService {
           this.refreshTokenService.unscheduleRefreshToken(true);
           this.authStatusSource.next(false);
           if (navigateToHome) {
-            this.router.navigate(["/"]);
+            this.router.navigate(["/auth/login"]);
           }
         }))
       .subscribe(result => {
@@ -135,12 +135,12 @@ export class AuthService {
         }));
   }
 
-  getCurrentUser(): Observable<AccountModel> {
+  getCurrentUser(): Observable<IResponse<AccountModel>> {
 
     return this.http
       .get<IResponse<AccountModel>>(`${environment.authBaseApiUrl}/get-current-user`)
       .pipe(
-        map(res => res.data),
+        tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
