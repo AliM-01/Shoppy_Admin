@@ -4,18 +4,12 @@ import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 import { IndexComponent } from './pages/index/index.component';
 import { AuthGuard } from '@app_http/auth.guard';
-import { AuthGuardPermission } from '@app_models/auth/auth-guard-permission';
 import { NotFoundPage } from '@apppages/not-found/not-found.page';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardLayoutComponent,
-    data: {
-      permission: {
-        permittedRoles: ["ADMIN"]
-      } as AuthGuardPermission
-    },
     canActivate: [AuthGuard],
     children: [
       { path: '', component: IndexComponent, pathMatch: 'full'},
@@ -75,6 +69,8 @@ const routes: Routes = [
 
   { path: 'not-found', component: NotFoundPage},
   { path: '**', redirectTo: '/not-found' },
+
+  { path: 'login', redirectTo: '/auth/login' },
 
 ];
 
