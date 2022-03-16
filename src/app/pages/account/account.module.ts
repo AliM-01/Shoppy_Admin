@@ -8,9 +8,10 @@ import { PipesModule } from '@app_pipes/pipes.module';
 import { AppMaterialModule } from '@app/app-material.module';
 import { AccountService } from '@app_services/account/account.service';
 import { AccountRoutingModule } from './account.routing.module';
+import { FilterAccountPage } from './filter-account/filter-account.page';
 
 @NgModule({
-  declarations: [],
+  declarations: [FilterAccountPage],
   imports: [
     CommonModule,
     RouterModule,

@@ -13,6 +13,7 @@ export const environment = {
   ckeditorImgUploadUrl: "https://localhost:5001/upload/img-upload/",
 
   // image paths
+  avatarBaseImagePath: "https://localhost:5001/upload/avatar",
   productCategoryBaseImagePath: "https://localhost:5001/upload/product_category",
   productBaseImagePath: "https://localhost:5001/upload/product",
   productPictureBaseImagePath: "https://localhost:5001/upload/product_picture",
