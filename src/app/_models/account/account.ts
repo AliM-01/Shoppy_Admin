@@ -1,6 +1,6 @@
 export class AccountModel {
     id: string;
-    role: string;
+    roles: string[];
     fullName: string;
     email: string;
     avatarPath: string;

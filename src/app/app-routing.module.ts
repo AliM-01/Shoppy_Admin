@@ -14,6 +14,10 @@ const routes: Routes = [
     children: [
       { path: '', component: IndexComponent, pathMatch: 'full'},
       {
+        path: 'account',
+        loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule)
+      },
+      {
         path: 'product-category',
         loadChildren: () => import('./pages/shop/product-category/product.category.module').then(m => m.ProductCategoryModule)
       },
