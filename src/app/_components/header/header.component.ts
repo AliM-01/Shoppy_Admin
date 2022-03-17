@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit {
       if(res.status === 'success'){
         this.currentUserSubject.next(res.data)
         this.avatarPath = `${environment.avatarBaseImagePath}/${res.data.avatarPath}`
+        console.log(this.avatarPath);
+
       } else {
         this.avatarPath = "/assets/img/logo.png";
       }

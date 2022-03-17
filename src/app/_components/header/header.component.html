@@ -1,132 +1,69 @@
 <header class="header">
-    <nav class="navbar fixed-top">
-        <!-- Begin Search Box-->
-        <div class="search-box">
-            <button class="dismiss"><i class="ion-close-round"></i></button>
-            <form id="searchForm" action="#" role="search">
-                <input type="search" placeholder="جستجو کنید ..." class="form-control">
-            </form>
+  <nav class="navbar fixed-top">
+    <!-- Begin Search Box-->
+    <div class="search-box">
+      <button class="dismiss"><i class="ion-close-round"></i></button>
+      <form id="searchForm" action="#" role="search">
+        <input type="search" placeholder="جستجو کنید ..." class="form-control">
+      </form>
+    </div>
+    <!-- End Search Box-->
+    <!-- Begin Topbar -->
+    <div class="navbar-holder">
+      <div class="row align-items-center">
+        <div class="col-xl-4 col-2">
+          <!-- Toggle Button -->
+          <a id="toggle-btn" href="#" class="menu-btn active ml-2">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+          <!-- End Toggle -->
         </div>
-        <!-- End Search Box-->
-        <!-- Begin Topbar -->
-        <div class="navbar-holder">
-            <div class="row align-items-center">
-                <div class="col-xl-4 col-2">
-                    <!-- Toggle Button -->
-                    <a id="toggle-btn" href="#" class="menu-btn active ml-2">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
-                    <!-- End Toggle -->
-                </div>
-                <div class="col-xl-4 col-3 d-flex justify-content-center">
-                    <div class="navbar-header">
-                        <a href="db-default.html" class="navbar-brand">
-                            <div class="brand-image brand-big">
-                                <img src="/assets/img/logo.png" alt="logo" class="logo-big">
-                            </div>
-                            <div class="brand-image brand-small">
-                                <img src="/assets/img/logo.png" alt="logo" class="logo-small">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-7">
-                    <!-- Begin Navbar Menu -->
-                    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
-                        <!-- Search -->
-                        <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="la la-search"></i></a></li>
-                        <!-- End Search -->
-                        <!-- Begin Notifications -->
-                        <li class="nav-item dropdown">
-                            <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="la la-bell animated infinite swing"></i><span class="badge-pulse"></span></a>
-                            <ul aria-labelledby="notifications" class="dropdown-menu notification">
-                                <li>
-                                    <div class="notifications-header">
-                                        <div class="title">اعلان ها (4)</div>
-                                        <div class="notifications-overlay"></div>
-                                        <img src="/assets/img/logo.png" alt="..." class="img-fluid">
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="message-icon">
-                                            <i class="la la-user"></i>
-                                        </div>
-                                        <div class="message-body">
-                                            <div class="message-body-heading">
-                                                کاربر جدید ثبت نام کرده است
-                                            </div>
-                                            <span class="date">2 ساعت قبل</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="message-icon">
-                                            <i class="la la-calendar-check-o"></i>
-                                        </div>
-                                        <div class="message-body">
-                                            <div class="message-body-heading">
-                                                رویداد جدید اضافه شده
-                                            </div>
-                                            <span class="date">7 ساعت قبل</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="message-icon">
-                                            <i class="la la-history"></i>
-                                        </div>
-                                        <div class="message-body">
-                                            <div class="message-body-heading">
-                                                سرور دوباره راه اندازی شد
-                                            </div>
-                                            <span class="date">7 ساعت قبل</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="message-icon">
-                                            <i class="la la-twitter"></i>
-                                        </div>
-                                        <div class="message-body">
-                                            <div class="message-body-heading">
-                                                شما سه فالور جدید دارید
-                                            </div>
-                                            <span class="date">10 ساعت قبل</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a rel="nofollow" href="#" class="dropdown-item all-notifications text-center">مشاهده همه اعلان ها</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="/assets/assets/img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
-                            <ul aria-labelledby="user" class="user-size dropdown-menu">
-                                <li class="welcome">
-                                    <a href="#" class="edit-profil"><i class="la la-gear">{{ (currentUser$ | async).fullName}}</i></a>
-                                    <img [src]="avatarPath" alt="..." class="rounded-circle">
-                                </li>
-                                <li class="separator"></li>
-                                <li>
-                                    <a (click)="authService.logout(true)" class="dropdown-item no-padding-top">
-                                      خروج از حساب
-                                  </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item"><a href="#off-canvas" class="open-sidebar"><i class="la la-ellipsis-h"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+        <div class="col-xl-4 col-3 d-flex justify-content-center">
+          <div class="navbar-header">
+            <a href="db-default.html" class="navbar-brand">
+              <div class="brand-image brand-big">
+                <img src="/assets/img/logo.png" alt="logo" class="logo-big" height="50" width="50">
+              </div>
+              <div class="brand-image brand-small">
+                <img src="/assets/img/logo.png" alt="logo" class="logo-small">
+              </div>
+            </a>
+          </div>
         </div>
-    </nav>
+        <div class="col-xl-4 col-7">
+
+          <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
+
+            <li class="nav-item dropdown">
+              <a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" class="nav-link">
+                <img [src]="avatarPath" class="avatar rounded-circle">
+              </a>
+              <ul aria-labelledby="user" class="user-size dropdown-menu pt-2">
+                <li>
+                  <a class="dropdown-item no-padding-top pb-0">
+                    {{ (currentUser$ | async).fullName}}
+                  </a>
+                </li>
+                <li class="separator pt-0"></li>
+                <li>
+                  <a (click)="authService.logout(true)" class="dropdown-item no-padding-top">
+                    خروج از حساب
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <p style="font-size: 1em;">
+                {{ (currentUser$ | async).fullName}}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
 </header>

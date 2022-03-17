@@ -140,7 +140,7 @@ export class AuthService {
   getCurrentUser(): Observable<IResponse<AccountModel>> {
 
     return this.http
-      .get<IResponse<AccountModel>>(`${environment.authBaseApiUrl}/get-current-user`)
+      .get<IResponse<AccountModel>>(`${environment.authBaseApiUrl}/get-currentUser`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
