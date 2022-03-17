@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
@@ -115,9 +115,11 @@ export class AuthService {
       return of(false)
     }
 
+    let params = new HttpParams()
+      .set('roles', 'Admin');
 
     return this.http
-      .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-authenticated`)
+      .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-in-role`, { params })
       .pipe(
         map(res => {
           if (res.status === 'success') {
