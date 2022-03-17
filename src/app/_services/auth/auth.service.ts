@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
@@ -15,6 +15,7 @@ import { RevokeRefreshTokenRequestModel } from '../../_models/auth/revoke-refres
 import { IResponse } from "@app_models/_common/IResponse";
 import { LoginResponseModel } from "@app_models/auth/login-response";
 import { of } from "rxjs";
+import { AccountModel } from '../../_models/account/account';
 
 @Injectable({
   providedIn: 'root'
@@ -100,7 +101,7 @@ export class AuthService {
           this.refreshTokenService.unscheduleRefreshToken(true);
           this.authStatusSource.next(false);
           if (navigateToHome) {
-            this.router.navigate(["/"]);
+            this.router.navigate(["/auth/login"]);
           }
         }))
       .subscribe(result => {
@@ -114,9 +115,11 @@ export class AuthService {
       return of(false)
     }
 
+    let params = new HttpParams()
+      .set('roles', 'Admin');
 
     return this.http
-      .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-authenticated`)
+      .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-in-role`, { params })
       .pipe(
         map(res => {
           if (res.status === 'success') {
@@ -131,6 +134,21 @@ export class AuthService {
           this.loading.loadingOff();
 
           return of(false);
+        }));
+  }
+
+  getCurrentUser(): Observable<IResponse<AccountModel>> {
+
+    return this.http
+      .get<IResponse<AccountModel>>(`${environment.authBaseApiUrl}/get-currentUser`)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
+
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
+
+          return throwError(false);
         }));
   }
 

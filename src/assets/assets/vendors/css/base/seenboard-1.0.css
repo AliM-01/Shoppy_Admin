@@ -19,7 +19,7 @@ Author: Morteza rezaei
   02.06) Tooltip
   02.07) Notifications
   02.08) Datepicker
-  02.09) Hover 
+  02.09) Hover
 03) Layout
   03.01) Dashboard
   03.02) Header
@@ -6907,16 +6907,13 @@ nav.navbar .user-size.dropdown-menu a:hover {
 }
 
 nav.navbar .user-size.dropdown-menu .separator {
-  margin: 1.4rem 0;
   border-bottom: 0.07rem solid rgba(0, 0, 0, 0.05)!important;
 }
 
-nav.navbar .user-size.dropdown-menu li.welcome {
-  width: 150px;
-  margin: 0 auto;
-  padding: 1.4rem 0;
-  position: relative;
+nav.navbar .user-size.dropdown-menu li {
+  padding: 5px;
 }
+
 
 nav.navbar .user-size.dropdown-menu li.welcome a.edit-profil {
   position: absolute;
