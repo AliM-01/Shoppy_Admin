@@ -32,7 +32,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     {text: "محصول", value: FilterCommentType.Product},
     {text: "مقاله", value: FilterCommentType.Article},
   ];
-  displayedColumns: string[] = ['id', 'name', 'email', 'text', 'type', 'state', 'ownerName', 'creationDate', 'commands'];
+  displayedColumns: string[] = ['name', 'email', 'text', 'type', 'state', 'ownerName', 'creationDate', 'commands'];
   dataServer: CommentDataServer;
   filterType: FilterCommentType = FilterCommentType.All;
   filterState: FilterCommentState = FilterCommentState.All;
@@ -77,7 +77,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
 
     }, 1000);
 
-      
+
   }
 
   onPaginateChange(event: PageEvent) {
