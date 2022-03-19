@@ -25,7 +25,7 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
-  displayedColumns: string[] = ['id', 'product', 'rate', 'startDate',
+  displayedColumns: string[] = ['product', 'rate', 'startDate',
     'endDate', 'state', 'commands'];
   dataServer: ProductDiscountDataServer;
   dataSource: MatTableDataSource<ProductDiscountModel> = new MatTableDataSource<ProductDiscountModel>([]);
@@ -168,7 +168,7 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }

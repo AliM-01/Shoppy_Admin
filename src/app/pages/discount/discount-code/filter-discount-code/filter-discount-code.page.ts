@@ -24,7 +24,7 @@ export class FilterDiscountCodePage implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterInput') filterInput: ElementRef;
-  displayedColumns: string[] = ['id', 'code', 'rate', 'startDate',
+  displayedColumns: string[] = ['code', 'rate', 'startDate',
     'endDate', 'state', 'commands'];
   dataServer: DiscountCodeDataServer;
   dataSource: MatTableDataSource<DiscountCodeModel> = new MatTableDataSource<DiscountCodeModel>([]);

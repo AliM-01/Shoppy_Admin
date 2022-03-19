@@ -24,7 +24,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
-  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'commands'];
+  displayedColumns: string[] = ['thumbnailImage', 'title', 'creationDate', 'commands'];
   thumbnailBasePath: string = `${environment.articleCategoryBaseImagePath}/`;
   dataServer: ArticleCategoryDataServer;
   dataSource: MatTableDataSource<ArticleCategoryModel> = new MatTableDataSource<ArticleCategoryModel>([]);

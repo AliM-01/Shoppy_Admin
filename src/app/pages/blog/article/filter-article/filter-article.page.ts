@@ -23,7 +23,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   @ViewChild('filterCategoryInput') categoryInput: ElementRef;
-  displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'summary', 'category', 'creationDate', 'commands'];
+  displayedColumns: string[] = ['thumbnailImage', 'title', 'summary', 'category', 'creationDate', 'commands'];
   thumbnailBasePath: string = `${environment.articleBaseImagePath}/thumbnail/`;
   dataServer: ArticleDataServer;
   dataSource: MatTableDataSource<ArticleModel> = new MatTableDataSource<ArticleModel>([]);
@@ -145,7 +145,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
     this.ngOnInit();
     this.paginator.pageSize = size;
   }
-  
+
   // openCreateDialog(): void {
   //   const dialogRef = this.dialog.open(CreateArticleDialog, {
   //     width: '600px',
