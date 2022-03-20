@@ -112,7 +112,7 @@ export class CreateProductDialog implements OnInit {
 
           this.onCloseClick();
 
-          this.route.navigate([`/inventory/create/${res.data.productId}`])
+          // this.route.navigate([`/inventory/${res.data.productId}`])
         }
       });
 

@@ -7,7 +7,6 @@ import { Title } from '@angular/platform-browser';
 import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_models/inventory/filter-inventory";
 import { InventoryDataServer } from "@app_models/inventory/inventory-data-server";
 import { InventoryService } from "@app_services/inventory/inventory.service";
-import { CreateInventoryDialog } from '../create-inventory-dialog/create-inventory.dialog';
 import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
 import { IncreaseInventoryDialog } from '../increase-inventory/increase-inventory.dialog';
 import { ReduceInventoryDialog } from '../reduce-inventory/reduce-inventory.dialog';
@@ -114,7 +113,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
       )
       .subscribe();
   }
-  
+
   onPaginateChange(event: PageEvent) {
     let page = event.pageIndex;
     let size = event.pageSize;
@@ -146,7 +145,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   loadInventoriesPage() {
-    
+
     const sortDate: PagingDataSortCreationDateOrder = this.filterInventory.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterInventory.sortIdOrder;
 
@@ -165,16 +164,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterInventory.takePage;
   }
 
-  openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateInventoryDialog, {
-      width: '450px',
-      height: '450px'
-    }).afterClosed().subscribe(() => {
-      this.ngOnInit();
-    });
-  }
-
-
   openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(EditInventoryDialog, {
       width: '450px',
@@ -185,7 +174,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }
@@ -200,7 +189,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }
@@ -215,11 +204,11 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }
-  
+
   openOperationsDialog(id: string): void {
     const dialogRef = this.dialog.open(InventoryOperationDialog, {
       width: '950px',
@@ -228,6 +217,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
         id: id
       }
     });
-  } 
+  }
 
 }
