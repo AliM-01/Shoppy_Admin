@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
@@ -6,20 +6,19 @@ import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductService } from '@app_services/shop/product/product.service';
 
 @Component({
   selector: 'app-edit-inventory',
   templateUrl: './edit-inventory.dialog.html'
 })
-export class EditInventoryDialog implements OnInit, AfterViewInit {
+export class EditInventoryDialog implements OnInit {
 
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش انبار محصول :");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
-  
+
+  productId: string = '';
   editForm: FormGroup;
-  existsProductId: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<EditInventoryDialog>,
@@ -32,7 +31,6 @@ export class EditInventoryDialog implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.editForm = new FormGroup({
-      productId: new FormControl(null, [Validators.required]),
       unitPrice: new FormControl(null, [Validators.required])
     });
 
@@ -42,23 +40,15 @@ export class EditInventoryDialog implements OnInit, AfterViewInit {
 
         this.pageTitleSubject.next(`ویرایش انبار محصول`);
 
-        this.editForm.controls.productId.setValue(res.data.productId)
+        this.productId = res.data.productId;
         this.editForm.controls.unitPrice.setValue(res.data.unitPrice)
 
+        this.productService.existsProductId(this.productId).subscribe(res => {
+          this.pageTitleSubject.next(`ویرایش انبار محصول : ${res.data.productTitle}`);
+        });
       }
     });
 
-  }
-
-  ngAfterViewInit() {
-    this.editForm.controls.productId.valueChanges.pipe(
-      debounceTime(750),
-      distinctUntilChanged(),
-      tap(() => {
-        this.checkProductId();
-      })
-    )
-    .subscribe();
   }
 
   checkError(controlName: string, errorName: string): boolean {
@@ -67,31 +57,6 @@ export class EditInventoryDialog implements OnInit, AfterViewInit {
 
   onCloseClick(): void {
     this.dialogRef.close();
-  }
-
-  checkProductId() {
-
-    let productId = this.editForm.controls.productId.value;
-
-    if (productId !== null) {
-
-      this.productService.existsProductId(productId).subscribe(res => {
-
-        if (res.data.exists === false) {
-          this.existsProductId = false;
-          this.pageTitleSubject.next("ویرایش انبار محصول");
-
-        } else {
-          this.existsProductId = true;
-          this.pageTitleSubject.next(`ویرایش انبار محصول : ${res.data.productTitle}`);
-        }
-
-      });
-
-    } else {
-      this.existsProductId = true;
-    }
-
   }
 
   submitEditForm() {
