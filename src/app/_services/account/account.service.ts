@@ -26,7 +26,7 @@ export class AccountService {
     let params = new HttpParams();
 
     if (filter.fullName !== '') {
-      params.set('fullName', filter.fullName)
+      params.set('FullName', filter.fullName)
     }
     if (filter.email !== '') {
       params.set('Email', filter.email)
