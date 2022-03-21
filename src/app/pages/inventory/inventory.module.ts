@@ -14,10 +14,12 @@ import { InventoryOperationDialog } from './inventory-operations/inventory-opera
 import { PipesModule } from '@app_pipes/pipes.module';
 import { AppMaterialModule } from '@appapp-material.module';
 import { ProductService } from '@app_services/shop/product/product.service';
+import { InventoryDetailsPage } from './inventory-details/inventory-details.page';
 
 @NgModule({
   declarations: [
     FilterInventoryPage,
+    InventoryDetailsPage,
     EditInventoryDialog,
     IncreaseInventoryDialog,
     ReduceInventoryDialog,
