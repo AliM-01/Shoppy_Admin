@@ -34,17 +34,17 @@ export class EditInventoryDialog implements OnInit {
       unitPrice: new FormControl(null, [Validators.required])
     });
 
-    this.inventoryService.getInventoryDetails(this.data.id).subscribe((res) => {
+    this.inventoryService.getInventoryDetails(this.data.id).subscribe((iRes) => {
 
-      if (res.status === 'success') {
+      if (iRes.status === 'success') {
 
         this.pageTitleSubject.next(`ویرایش انبار محصول`);
 
-        this.productId = res.data.productId;
-        this.editForm.controls.unitPrice.setValue(res.data.unitPrice)
+        this.productId = iRes.data.productId;
+        this.editForm.controls.unitPrice.setValue(iRes.data.unitPrice)
 
-        this.productService.existsProductId(this.productId).subscribe(res => {
-          this.pageTitleSubject.next(`ویرایش انبار محصول : ${res.data.productTitle}`);
+        this.productService.existsProductId(this.productId).subscribe((pRes) => {
+          this.pageTitleSubject.next(`ویرایش انبار محصول : ${pRes.data.productTitle}`);
         });
       }
     });
