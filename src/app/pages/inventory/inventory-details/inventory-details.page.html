@@ -1,0 +1,75 @@
+<app-breadcrumb [pageTitle]="'مدیریت انبار'"></app-breadcrumb>
+
+<div class="row">
+  <div class="col-xl-12">
+
+    <div class="widget has-shadow" *ngIf="inventory">
+      <div class="widget-header bordered no-actions">
+
+        <div>
+          <button mat-raised-button (click)="openEditDialog()" color="primary" type="button" class="mat-success">ویرایش</button>
+        </div>
+
+
+      </div>
+      <div class="widget-body">
+
+        <div class="row">
+
+          <div class="col-md-4">
+
+            <ul class="list-group">
+              <li class="list-group-item active">محصول : {{ productTitle }}</li>
+              <li class="list-group-item">قیمت پایه محصول : {{ inventory.unitPrice }}</li>
+            </ul>
+
+          </div>
+
+          <div class="col-md-8" *ngIf="operations.operations.length > 0">
+            <table class="table table-bordered" dir="rtl" style="overflow-y: scroll;">
+
+              <thead>
+                <tr>
+
+                  <th>#</th>
+                  <th>تعداد</th>
+                  <th>تاریخ</th>
+                  <th>عملیات</th>
+                  <th>موجودی فعلی</th>
+                  <th>اپراتور</th>
+                  <th>توضیحات</th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let log of operations.operations"
+                  [ngClass]="log.operationType === true ? 'bg-success' : 'bg-danger'">
+
+                  <td>{{log.id}}</td>
+                  <td>{{log.count}}</td>
+                  <td>{{log.operationDate}}</td>
+
+                  <td *ngIf="log.operationType">افزایش</td>
+                  <td *ngIf="!log.operationType">کاهش</td>
+
+                  <td>{{log.currentCount}}</td>
+                  <td>{{log.operator}}</td>
+                  <td>{{log.description}}</td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <h2>{{pageTitle | async}}</h2>
   <hr>
 
-  <table class="table table-bordered" dir="rtl">
+  <table class="table table-bordered" dir="rtl" style="overflow-y: scroll;">
 
     <thead>
       <tr>
@@ -21,7 +21,7 @@
 
     <tbody>
 
-      <tr *ngFor="let log of operations.operations" 
+      <tr *ngFor="let log of operations.operations"
         [ngClass]="log.operationType === true ? 'bg-success' : 'bg-danger'">
 
         <td>{{log.id}}</td>
@@ -41,7 +41,7 @@
 
   </table>
   <hr>
-  
+
   <div class="d-flex">
     <button mat-button color="warn" type="button" (click)="onCloseClick()">بستن</button>
   </div>
