@@ -15,6 +15,7 @@ import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
 import { IndexModule } from '@apppages/index/index.module';
 import { AuthInterceptor } from '@app_http/auth.interceptor';
 import { AuthModule } from '@apppages/auth/auth.module';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AuthModule } from '@apppages/auth/auth.module';
     AuthLayoutComponent
   ],
   providers: [
+    CookieService,
     CkeditorService,
     LoadingService,
     {
