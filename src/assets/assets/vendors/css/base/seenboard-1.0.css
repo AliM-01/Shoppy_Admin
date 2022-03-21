@@ -15113,3 +15113,24 @@ be a descendant of the grid when it is being dragged.
     padding-top: 1.4rem;
   }
 }
+
+.tableFixHead {
+  overflow-y: auto;
+  height: 550px;
+}
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+}
+.tableScroll table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.tableScroll th,
+.tableScroll td {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+}
+.tableScroll th {
+  background: #eee;
+}

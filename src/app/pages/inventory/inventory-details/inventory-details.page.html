@@ -7,7 +7,8 @@
       <div class="widget-header bordered no-actions">
 
         <div>
-          <button mat-raised-button (click)="openEditDialog()" color="primary" type="button" class="mat-success">ویرایش</button>
+          <button mat-raised-button (click)="openEditDialog()" color="primary" type="button"
+            class="mat-success">ویرایش</button>
         </div>
 
 
@@ -25,8 +26,8 @@
 
           </div>
 
-          <div class="col-md-8" *ngIf="operations.operations.length > 0">
-            <table class="table table-bordered" dir="rtl" style="overflow-y: scroll;">
+          <div class="col-md-8 tableFixHead tableScroll" *ngIf="operations.operations.length > 0">
+            <table class="table table-bordered" dir="rtl">
 
               <thead>
                 <tr>

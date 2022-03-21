@@ -2,44 +2,48 @@
   <h2>{{pageTitle | async}}</h2>
   <hr>
 
-  <table class="table table-bordered" dir="rtl" style="overflow-y: scroll;">
+  <div class="tableFixHead tableScroll">
 
-    <thead>
-      <tr>
+    <table class="table table-bordered" dir="rtl">
 
-        <th>#</th>
-        <th>تعداد</th>
-        <th>تاریخ</th>
-        <th>عملیات</th>
-        <th>موجودی فعلی</th>
-        <th>اپراتور</th>
-        <th>توضیحات</th>
+      <thead>
+        <tr>
 
-      </tr>
+          <th>#</th>
+          <th>تعداد</th>
+          <th>تاریخ</th>
+          <th>عملیات</th>
+          <th>موجودی فعلی</th>
+          <th>اپراتور</th>
+          <th>توضیحات</th>
 
-    </thead>
+        </tr>
 
-    <tbody>
+      </thead>
 
-      <tr *ngFor="let log of operations.operations"
-        [ngClass]="log.operationType === true ? 'bg-success' : 'bg-danger'">
+      <tbody>
 
-        <td>{{log.id}}</td>
-        <td>{{log.count}}</td>
-        <td>{{log.operationDate}}</td>
+        <tr *ngFor="let log of operations.operations"
+          [ngClass]="log.operationType === true ? 'bg-success' : 'bg-danger'">
 
-        <td *ngIf="log.operationType">افزایش</td>
-        <td *ngIf="!log.operationType">کاهش</td>
+          <td>{{log.id}}</td>
+          <td>{{log.count}}</td>
+          <td>{{log.operationDate}}</td>
 
-        <td>{{log.currentCount}}</td>
-        <td>{{log.operator}}</td>
-        <td>{{log.description}}</td>
+          <td *ngIf="log.operationType">افزایش</td>
+          <td *ngIf="!log.operationType">کاهش</td>
 
-      </tr>
+          <td>{{log.currentCount}}</td>
+          <td>{{log.operator}}</td>
+          <td>{{log.description}}</td>
 
-    </tbody>
+        </tr>
 
-  </table>
+      </tbody>
+
+    </table>
+
+  </div>
   <hr>
 
   <div class="d-flex">
