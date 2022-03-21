@@ -33,6 +33,8 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     const accessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
+    console.log('accessToken', accessToken);
+
     if(!accessToken){
       return next.handle(request);
     } else {
@@ -44,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 0)) {
           return this.handle401Error(request, next);
         } else {
-          this.router.navigate(["/auth/access-denied"]);
+          this.router.navigate(["/not-found"]);
           return throwError(error);
         }
       }));
@@ -80,22 +82,13 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>, token: string) {
+    console.log(token);
+
     return request.clone({
       setHeaders: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token.toString()}`
       }
     });
   }
 
-  private isValidRequestForInterceptor(requestUrl: string): boolean {
-    let positionIndicator: string = 'api/';
-    let position = requestUrl.indexOf(positionIndicator);
-    if (position > 0) {
-      let destination: string = requestUrl.substr(position + positionIndicator.length);
-        if (new RegExp("refresh-token").test(destination)) {
-          return false;
-        }
-    }
-    return true;
-  }
 }

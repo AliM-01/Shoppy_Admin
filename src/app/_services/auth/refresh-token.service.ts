@@ -33,22 +33,25 @@ export class RefreshTokenService {
 
     const expDateUtc = this.tokenStoreService.getAccessTokenExpirationDateUtc();
     if (!expDateUtc) {
-      throw new Error("This access token has not the `exp` property.");
+      return;
     }
+
     const expiresAtUtc = expDateUtc.valueOf();
     const nowUtc = new Date().valueOf();
     const threeSeconds = 3000;
-    // threeSeconds instead of 1 to prevent other tab timers run less than threeSeconds
+
     const initialDelay = Math.max(threeSeconds, expiresAtUtc - nowUtc - threeSeconds);
-    console.log("Initial scheduleRefreshToken Delay(ms)", initialDelay);
+
     const timerSource$ = timer(initialDelay);
-    this.refreshTokenSubscription = timerSource$.subscribe(() => {
-      if (calledFromLogin || !this.isRefreshTokenTimerStartedInAnotherTab()) {
-        this.refreshToken(isAuthUserLoggedIn);
-      } else {
-        this.scheduleRefreshToken(isAuthUserLoggedIn, false);
-      }
-    });
+
+    this.refreshTokenSubscription = timerSource$
+      .subscribe(() => {
+        if (calledFromLogin || !this.isRefreshTokenTimerStartedInAnotherTab()) {
+          this.refreshToken(isAuthUserLoggedIn);
+        } else {
+          this.scheduleRefreshToken(isAuthUserLoggedIn, false);
+        }
+      });
 
     if (calledFromLogin || !this.isRefreshTokenTimerStartedInAnotherTab()) {
       this.setRefreshTokenTimerStarted();
@@ -87,7 +90,7 @@ export class RefreshTokenService {
       .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, formData)
       .pipe(
         tap((res) => {
-          if(res.status === 'success'){
+          if (res.status === 'success') {
             console.log("revoke result", res);
             this.tokenStoreService.storeLoginSession(res.data);
             this.deleteRefreshTokenTimerCheckId();
@@ -104,14 +107,12 @@ export class RefreshTokenService {
 
     formData.append('RefreshToken', this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
 
-    let headers:HttpHeaders = new HttpHeaders();
     return this.http
       .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, formData)
       .pipe(
         catchError((error: HttpErrorResponse) => throwError(error))
       )
       .subscribe(result => {
-        console.log("RefreshToken Result", result);
         this.tokenStoreService.storeLoginSession(result.data);
         this.deleteRefreshTokenTimerCheckId();
         this.scheduleRefreshToken(isAuthUserLoggedIn, false);
@@ -122,15 +123,9 @@ export class RefreshTokenService {
 
     const currentTabId = getCurrentTabId(this.browserStorageService);
     const timerStat = this.browserStorageService.getLocal(this.refreshTokenTimerCheckId);
-    console.log("RefreshTokenTimer Check", {
-      refreshTokenTimerCheckId: timerStat,
-      currentTabId: currentTabId
-    });
+
     const isStarted = timerStat && timerStat.isStarted === true && timerStat.tabId !== currentTabId;
-    if (isStarted) {
-      console.log(`RefreshToken timer has already been started in another tab with tabId=${timerStat.tabId}.
-      currentTabId=${currentTabId}.`);
-    }
+
     return isStarted;
   }
 

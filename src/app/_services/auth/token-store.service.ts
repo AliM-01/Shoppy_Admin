@@ -3,18 +3,18 @@ import { AuthTokenType } from "@app_models/auth/auth-token-type";
 import { LoginResponseModel } from "@app_models/auth/login-response";
 import { isEmptyString } from "@app_services/_common/functions/functions";
 import jwt_decode from "jwt-decode";
-import { BrowserStorageService } from "./browser-storage.service";
+import moment from 'moment';
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStoreService {
 
-  constructor(
-    private browserStorageService: BrowserStorageService) { }
+  constructor(private cookie: CookieService) { }
 
   getRawAuthToken(tokenType: AuthTokenType): string {
-    return this.browserStorageService.getLocal(AuthTokenType[tokenType]);
+    return this.cookie.get(AuthTokenType[tokenType]).toString().replace(/['"]+/g, '');
   }
 
   getDecodedAccessToken(): any {
@@ -35,20 +35,12 @@ export class TokenStoreService {
     return date;
   }
 
-  isAccessTokenTokenExpired(): boolean {
-    const expirationDateUtc = this.getAccessTokenExpirationDateUtc();
-    if (!expirationDateUtc) {
-      return true;
-    }
-    return !(expirationDateUtc.valueOf() > new Date().valueOf());
-  }
-
   deleteAuthTokens() {
-    this.browserStorageService.removeLocal(AuthTokenType[AuthTokenType.AccessToken]);
-    this.browserStorageService.removeLocal(AuthTokenType[AuthTokenType.RefreshToken]);
+    this.cookie.delete(AuthTokenType[AuthTokenType.AccessToken], "/");
+    this.cookie.delete(AuthTokenType[AuthTokenType.RefreshToken], "/");
   }
 
-  setToken(tokenType: AuthTokenType, tokenValue: string): void {
+  setToken(tokenType: AuthTokenType, tokenValue: string, expireDate: Date): void {
     if (isEmptyString(tokenValue)) {
       console.error(`${AuthTokenType[tokenType]} is null or empty.`);
     }
@@ -57,7 +49,7 @@ export class TokenStoreService {
       throw new Error("AccessToken can't be null or empty.");
     }
 
-    this.browserStorageService.setLocal(AuthTokenType[tokenType], tokenValue);
+    this.cookie.set(AuthTokenType[tokenType], JSON.stringify(tokenValue), { expires: expireDate });
   }
 
   getDecodedTokenRoles(): string[] | null {
@@ -75,8 +67,12 @@ export class TokenStoreService {
   }
 
   storeLoginSession(response: LoginResponseModel): void {
-    this.setToken(AuthTokenType.AccessToken, response.accessToken);
-    this.setToken(AuthTokenType.RefreshToken, response.refreshToken);
+
+    const accessTokenExpireDate = moment(new Date()).add(5, 'm').toDate();
+    const refreshTokenExpireDate = moment(new Date()).add(168, 'h').toDate();
+
+    this.setToken(AuthTokenType.AccessToken, response.accessToken, accessTokenExpireDate);
+    this.setToken(AuthTokenType.RefreshToken, response.refreshToken, refreshTokenExpireDate);
   }
 
   hasStoredAccessAndRefreshTokens(): boolean {
