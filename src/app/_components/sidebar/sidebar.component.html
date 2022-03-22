@@ -26,6 +26,14 @@
 
       <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
 
+        <a [routerLink]="'/order'" aria-expanded="false" data-toggle="collapse">
+          <i class="las la-coins"></i><span>سفارشات</span>
+        </a>
+
+      </li>
+
+      <li [routerLinkActive]="'active'" [routerLinkOptions]="{exact: false}">
+
         <a [routerLink]="'/account'" aria-expanded="false" data-toggle="collapse">
           <i class="las la-user"></i><span>کاربران</span>
         </a>
