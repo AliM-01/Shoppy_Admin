@@ -1,10 +1,9 @@
 ﻿import { Injectable } from "@angular/core";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
 import { LoginResponseModel } from "@app_models/auth/login-response";
+import { CookieService } from "@app_services/_common/cookie/cookie.service";
 import { isEmptyString } from "@app_services/_common/functions/functions";
 import jwt_decode from "jwt-decode";
-import moment from 'moment';
-import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +39,7 @@ export class TokenStoreService {
     this.cookie.delete(AuthTokenType[AuthTokenType.RefreshToken], "/");
   }
 
-  setToken(tokenType: AuthTokenType, tokenValue: string, expireDate: Date): void {
+  setToken(tokenType: AuthTokenType, tokenValue: string, expireInSeconds: number): void {
     if (isEmptyString(tokenValue)) {
       console.error(`${AuthTokenType[tokenType]} is null or empty.`);
     }
@@ -49,7 +48,7 @@ export class TokenStoreService {
       throw new Error("AccessToken can't be null or empty.");
     }
 
-    this.cookie.set(AuthTokenType[tokenType], JSON.stringify(tokenValue), { expires: expireDate });
+    this.cookie.set(AuthTokenType[tokenType], JSON.stringify(tokenValue), { expires: expireInSeconds });
   }
 
   getDecodedTokenRoles(): string[] | null {
@@ -67,12 +66,8 @@ export class TokenStoreService {
   }
 
   storeLoginSession(response: LoginResponseModel): void {
-
-    const accessTokenExpireDate = moment(new Date()).add(5, 'm').toDate();
-    const refreshTokenExpireDate = moment(new Date()).add(168, 'h').toDate();
-
-    this.setToken(AuthTokenType.AccessToken, response.accessToken, accessTokenExpireDate);
-    this.setToken(AuthTokenType.RefreshToken, response.refreshToken, refreshTokenExpireDate);
+    this.setToken(AuthTokenType.AccessToken, response.accessToken, (5*60));
+    this.setToken(AuthTokenType.RefreshToken, response.refreshToken, (168*60*60));
   }
 
   hasStoredAccessAndRefreshTokens(): boolean {
