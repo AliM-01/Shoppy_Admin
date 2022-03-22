@@ -13,7 +13,11 @@ export class TokenStoreService {
   constructor(private cookie: CookieService) { }
 
   getRawAuthToken(tokenType: AuthTokenType): string {
-    return this.cookie.get(AuthTokenType[tokenType]).toString().replace(/['"]+/g, '');
+    const token = this.cookie.get(AuthTokenType[tokenType]);
+    if(!token)
+      return '';
+
+    return token.toString().replace(/['"]+/g, '');
   }
 
   getDecodedAccessToken(): any {

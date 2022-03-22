@@ -25,33 +25,37 @@ export class AuthInterceptor implements HttpInterceptor {
     private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('inercept init');
 
-    if(request.url.includes("refresh-token")){
-      console.log("includes");
+    if (request.url.includes("refresh-token")) {
       return next.handle(request)
     }
 
     const accessToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.AccessToken);
-    console.log('accessToken', accessToken);
 
-    if(!accessToken){
-      return next.handle(request);
+    if (!accessToken) {
+      const refreshToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken);
+
+      if(!refreshToken){
+        return next.handle(request);
+      } else {
+        return this.handle401Error(request, next);
+      }
     } else {
       request = this.addToken(request, accessToken);
 
       return next.handle(request)
-      .pipe(
-        catchError(error => {
-        if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 0)) {
-          return this.handle401Error(request, next);
-        } else {
-          this.router.navigate(["/not-found"]);
-          return throwError(error);
-        }
-      }));
+        .pipe(
+          catchError(error => {
+            if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 0)) {
+              return this.handle401Error(request, next);
+            } else {
+              this.router.navigate(["/not-found"]);
+              return throwError(error);
+            }
+          }));
     }
   }
+
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
@@ -59,17 +63,17 @@ export class AuthInterceptor implements HttpInterceptor {
       this.refreshTokenSubject.next(null);
       const oldToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken);
       return this.refreshTokenService.revokeRefreshTokenRequestModel(oldToken)
-      .pipe(
-        switchMap(res => {
-          this.isRefreshing = false;
-          this.refreshTokenSubject.next(res.data.accessToken);
-          return next.handle(this.addToken(request, res.data.accessToken));
-        }),
-        catchError((error) => {
-          this.router.navigate(["/auth/access-denied"]);
-          return throwError(error);
-        })
-      );
+        .pipe(
+          switchMap(res => {
+            this.isRefreshing = false;
+            this.refreshTokenSubject.next(res.data.accessToken);
+            return next.handle(this.addToken(request, res.data.accessToken));
+          }),
+          catchError((error) => {
+            this.router.navigate(["/auth/access-denied"]);
+            return throwError(error);
+          })
+        );
 
     } else {
       return this.refreshTokenSubject.pipe(
@@ -82,8 +86,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>, token: string) {
-    console.log(token);
-
     return request.clone({
       setHeaders: {
         'Authorization': `Bearer ${token.toString()}`
