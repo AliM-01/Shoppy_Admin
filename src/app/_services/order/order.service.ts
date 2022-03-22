@@ -66,4 +66,27 @@ export class OrderService {
       );
   }
 
+  cancel(orderId: string): Observable<IResponse<any>> {
+
+    this.loading.loadingOn()
+
+    return this.http.delete<IResponse<any>>
+      (`${environment.orderBaseApiUrl}/cancel/${orderId}`)
+      .pipe(
+        tap((res: IResponse<any>) => {
+
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
+
+        }),
+        catchError((error: HttpErrorResponse) => {
+
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
+
+          return throwError(error);
+        })
+      );
+  }
+
 }
