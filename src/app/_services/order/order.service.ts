@@ -7,6 +7,7 @@ import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 import { FilterOrderModel } from '@app_models/order/filter-inventory';
+import { OrderItemModel } from '@app_models/order/order-item';
 
 @Injectable({
   providedIn: 'platform'
@@ -35,6 +36,24 @@ export class OrderService {
 
     return this.http.get<IResponse<FilterOrderModel>>
       (`${environment.orderBaseApiUrl}/filter`, { params })
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
+
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
+
+          return throwError(error);
+        })
+      );
+  }
+
+  getItems(orderId: string): Observable<IResponse<OrderItemModel[]>> {
+
+    this.loading.loadingOn()
+
+    return this.http.get<IResponse<OrderItemModel[]>>
+      (`${environment.orderBaseApiUrl}/items/${orderId}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
