@@ -11,7 +11,7 @@ import { OrderDataServer } from '@app_models/order/order-data-server';
 import { FilterOrderModel, FilterOrderPaymentStatus } from '@app_models/order/filter-inventory';
 import { OrderModel } from '@app_models/order/order';
 import { OrderService } from '@app_services/order/order.service';
-import { OrderItemsDialog } from '../order-items/order-items.dialog';
+import { OrderItemsPage } from '../order-items/order-items.page';
 
 @Component({
   selector: 'app-filter-orders',
@@ -162,7 +162,7 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
   }
 
   openItemsDialog(id: string): void {
-    const dialogRef = this.dialog.open(OrderItemsDialog, {
+    const dialogRef = this.dialog.open(OrderItemsPage, {
       width: '950px',
       height: '800px',
       data: {
