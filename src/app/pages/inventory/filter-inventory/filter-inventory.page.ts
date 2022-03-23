@@ -104,7 +104,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
 
     fromEvent(this.filterProductIdInput.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;

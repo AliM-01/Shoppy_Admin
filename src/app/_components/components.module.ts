@@ -29,7 +29,8 @@ import { AppMaterialModule } from '../app-material.module';
       fullScreenBackdrop: true,
       primaryColour: '#57edbbe6',
       secondaryColour: '#17e9a3e5',
-      tertiaryColour: '#57edbbe6'
+      tertiaryColour: '#57edbbe6',
+      backdropBackgroundColour: '#fff'
     })
   ],
   exports: [

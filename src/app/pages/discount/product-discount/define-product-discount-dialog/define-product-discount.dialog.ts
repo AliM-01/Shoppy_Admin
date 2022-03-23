@@ -51,7 +51,7 @@ export class DefineProductDiscountDialog implements OnInit, AfterViewInit {
 
     fromEvent(this.productIdInput.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.checkProductId();

@@ -101,7 +101,7 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
 
     fromEvent(this.filterUserNameInput.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;

@@ -99,7 +99,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;

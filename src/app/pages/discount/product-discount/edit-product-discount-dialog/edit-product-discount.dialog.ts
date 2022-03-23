@@ -72,7 +72,7 @@ export class EditProductDiscountDialog implements OnInit {
 
     fromEvent(this.productIdInput.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.checkProductId();

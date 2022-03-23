@@ -100,7 +100,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
 
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
@@ -111,7 +111,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
 
       fromEvent(this.categoryInput.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;

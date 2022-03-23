@@ -101,7 +101,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
 
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
@@ -112,7 +112,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
 
     fromEvent(this.categoryInput.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
@@ -166,7 +166,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }
