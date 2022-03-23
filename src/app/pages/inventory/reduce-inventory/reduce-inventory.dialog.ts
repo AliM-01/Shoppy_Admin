@@ -10,11 +10,11 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductService } from '@app_services/shop/product/product.service';
 
 @Component({
-  selector: 'app-Reduce-inventory',
-  templateUrl: './Reduce-inventory.dialog.html'
+  selector: 'app-reduce-inventory',
+  templateUrl: './reduce-inventory.dialog.html'
 })
 export class ReduceInventoryDialog implements OnInit {
-  
+
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("کاهش انبار محصول");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
@@ -52,7 +52,7 @@ export class ReduceInventoryDialog implements OnInit {
   checkError(controlName: string, errorName: string): boolean {
     return checkFormGroupErrors(this.reduceForm, controlName, errorName)
   }
-  
+
   onCloseClick(): void {
     this.dialogRef.close();
   }

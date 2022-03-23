@@ -6,14 +6,14 @@ import { GetInventoryOperationsModel } from '@app_models/inventory/get-inventory
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-create-product-category',
+  selector: 'app-inventory-operations',
   templateUrl: './inventory-operations.dialog.html'
 })
 export class InventoryOperationDialog implements OnInit {
 
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("گردش انبار محصول");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
-  
+
   operations: GetInventoryOperationsModel;
 
   constructor(

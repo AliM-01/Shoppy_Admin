@@ -17,7 +17,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/IPaging';
 
 @Component({
-  selector: 'app-filter-colleague-discount',
+  selector: 'app-filter-inventory',
   templateUrl: './filter-inventory.page.html'
 })
 export class FilterInventoryPage implements OnInit, AfterViewInit {

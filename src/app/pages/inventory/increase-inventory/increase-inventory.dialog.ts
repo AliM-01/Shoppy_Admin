@@ -7,7 +7,7 @@ import { LoadingService } from '@loading';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 
 @Component({
-  selector: 'app-Increase-inventory',
+  selector: 'app-increase-inventory',
   templateUrl: './increase-inventory.dialog.html'
 })
 export class IncreaseInventoryDialog implements OnInit {
@@ -17,7 +17,7 @@ export class IncreaseInventoryDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<IncreaseInventoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: string},
-    private inventoryService: InventoryService,    
+    private inventoryService: InventoryService,
     private loading: LoadingService
   ) { }
 
@@ -29,11 +29,11 @@ export class IncreaseInventoryDialog implements OnInit {
     });
 
   }
-  
+
   checkError(controlName: string, errorName: string): boolean {
     return checkFormGroupErrors(this.increaseForm, controlName, errorName)
   }
-  
+
   onCloseClick(): void {
     this.dialogRef.close();
   }
@@ -60,7 +60,7 @@ export class IncreaseInventoryDialog implements OnInit {
     } else {
       this.increaseForm.markAllAsTouched();
     }
-    
+
     this.loading.loadingOff();
 
   }
