@@ -22,23 +22,15 @@ export class ProductService {
 
     this.loading.loadingOn();
 
-    let params = new HttpParams();
+    let params = new HttpParams()
+      .set('SortCreationDateOrder', filter.sortCreationDateOrder)
+      .set('SortIdOrder', filter.sortIdOrder);
 
-    if (filter !== null) {
-      params
-        .set('PageId', filter.pageId.toString())
-        .set('TakePage', filter.takePage.toString())
-        .set('SortCreationDateOrder', filter.sortCreationDateOrder)
-        .set('SortIdOrder', filter.sortIdOrder);
-
-      if (filter.search !== '') {
-        params
-          .set('Search', filter.search)
-      }
-      if (filter.categoryId !== '') {
-        params
-        .set('CategoryId', filter.categoryId)
-      }
+    if (filter.search) {
+      params.set('Search', filter.search)
+    }
+    if (filter.categoryId) {
+      params.set('CategoryId', filter.categoryId)
     }
 
     return this.http.get<IResponse<FilterProductModel>>

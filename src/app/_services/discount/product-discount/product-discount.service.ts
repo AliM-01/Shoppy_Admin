@@ -22,12 +22,13 @@ export class ProductDiscountService {
   filterProductDiscount(filter: FilterProductDiscountModel): Observable<IResponse<FilterProductDiscountModel>> {
     this.loading.loadingOn();
 
-    let params;
+    let params = new HttpParams();
 
-    if (filter !== null) {
-      params = new HttpParams()
-        .set('productId', filter.productId.toString() === '' ? '' : filter.productId.toString())
-        .set('productTitle', filter.productTitle);
+    if (filter.productTitle) {
+      params.set('productTitle', filter.productTitle);
+    }
+    if (filter.productId) {
+      params.set('productId', filter.productId.toString())
     }
 
     return this.http.get<IResponse<FilterProductDiscountModel>>

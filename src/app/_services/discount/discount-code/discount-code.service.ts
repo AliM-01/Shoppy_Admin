@@ -24,11 +24,10 @@ export class DiscountCodeService {
   filterDiscountCode(filter: FilterDiscountCodeModel): Observable<IResponse<FilterDiscountCodeModel>> {
     this.loading.loadingOn();
 
-    let params;
+    let params = new HttpParams();
 
-    if (filter.phrase !== '') {
-      params = new HttpParams()
-        .set('phrase', filter.phrase);
+    if (filter.phrase) {
+      params.set('phrase', filter.phrase);
     }
 
     return this.http.get<IResponse<FilterDiscountCodeModel>>

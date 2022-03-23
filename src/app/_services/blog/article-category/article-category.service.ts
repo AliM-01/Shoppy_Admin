@@ -17,11 +17,11 @@ export class ArticleCategoryService {
     private toastr: ToastrService,
     private loading: LoadingService,
   ) { }
-  
+
   getArticleCategoriesSelectList(): Observable<IResponse<ArticleCategoryForSelectListModel[]>> {
-    
+
     this.loading.loadingOn();
-    
+
     return this.http.get<IResponse<ArticleCategoryForSelectListModel[]>>
     (`${environment.blogBaseApiUrl}/article-category/get-select-list`)
     .pipe(
@@ -37,14 +37,13 @@ export class ArticleCategoryService {
   }
 
   filterArticleCategory(filter: FilterArticleCategoryModel): Observable<IResponse<FilterArticleCategoryModel>> {
-    
+
     this.loading.loadingOn();
 
-    let params;
+    let params = new HttpParams();
 
-    if (filter !== null) {
-      params = new HttpParams()
-        .set('Title', filter.title)
+    if (filter.title) {
+      params.set('Title', filter.title)
     }
 
     return this.http.get<IResponse<FilterArticleCategoryModel>>
@@ -84,7 +83,7 @@ export class ArticleCategoryService {
     this.loading.loadingOn();
 
     const formData = new FormData();
-    
+
     formData.append('title', createData.title);
     formData.append('description', createData.description);
     formData.append('orderShow', createData.orderShow.toString());
@@ -93,7 +92,7 @@ export class ArticleCategoryService {
     formData.append('imageTitle', createData.imageTitle);
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
-    
+
     return this.http.post<IResponse<any>>
     (`${environment.blogBaseApiUrl}/article-category/create`, formData)
     .pipe(
@@ -114,7 +113,7 @@ export class ArticleCategoryService {
   }
 
   editArticleCategory(editData: EditArticleCategoryModel):Observable<IResponse<any>> {
-    
+
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -132,7 +131,7 @@ export class ArticleCategoryService {
     formData.append('imageTitle', editData.imageTitle);
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
-    
+
     return this.http.put<IResponse<any>>
     (`${environment.blogBaseApiUrl}/article-category/edit`, formData)
     .pipe(

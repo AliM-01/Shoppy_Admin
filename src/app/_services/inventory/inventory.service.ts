@@ -23,12 +23,11 @@ export class InventoryService {
 
     this.loading.loadingOn()
 
-    let params;
+    let params = new HttpParams()
+      .set('InStockState', filter.inStockState);
 
-    if (filter !== null) {
-      params = new HttpParams()
-        .set('ProductId', filter.productId.toString() === '' ? '' : filter.productId.toString())
-        .set('InStockState', filter.inStockState);
+    if (filter.productId) {
+      params.set('ProductId', filter.productId)
     }
 
     return this.http.get<IResponse<FilterInventoryModel>>

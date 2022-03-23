@@ -22,13 +22,9 @@ export class CommentService {
 
     this.loading.loadingOn()
 
-    let params;
-
-    if (filter !== null) {
-      params = new HttpParams()
-        .set('State', filter.state)
-        .set('Type', filter.type);
-    }
+    let params = new HttpParams()
+      .set('State', filter.state)
+      .set('Type', filter.type);
 
     return this.http.get<IResponse<FilterCommentModel>>
       (`${environment.commentBaseApiUrl}/filter`, { params })
@@ -44,48 +40,48 @@ export class CommentService {
       );
   }
 
-  confirmComment(commentId: string):Observable<IResponse<any>> {
+  confirmComment(commentId: string): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>
-    (`${environment.commentBaseApiUrl}/cofirm/${commentId}`, null!)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.commentBaseApiUrl}/cofirm/${commentId}`, null!)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  cancelComment(commentId: string):Observable<IResponse<any>> {
+  cancelComment(commentId: string): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>
-    (`${environment.commentBaseApiUrl}/cancel/${commentId}`, null!)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.commentBaseApiUrl}/cancel/${commentId}`, null!)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
 }

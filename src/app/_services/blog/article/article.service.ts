@@ -17,30 +17,29 @@ export class ArticleService {
     private toastr: ToastrService,
     private loading: LoadingService,
   ) { }
-  
+
   filterArticle(filter: FilterArticleModel): Observable<IResponse<FilterArticleModel>> {
-    
+
     this.loading.loadingOn();
 
-    let params;
+    let params = new HttpParams();
 
-    if (filter !== null) {
-      params = new HttpParams()
-        .set('Title', filter.title)
+    if (filter.title) {
+      params.set('Title', filter.title)
     }
 
     return this.http.get<IResponse<FilterArticleModel>>
-    (`${environment.blogBaseApiUrl}/article/filter`, { params })
-    .pipe(
-      tap(() => this.loading.loadingOff()),
-      catchError((error: HttpErrorResponse) => {
+      (`${environment.blogBaseApiUrl}/article/filter`, { params })
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
   getArticleDetails(id: string): Observable<IResponse<EditArticleModel>> {
@@ -48,25 +47,25 @@ export class ArticleService {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<EditArticleModel>>
-    (`${environment.blogBaseApiUrl}/article/${id}`)
-    .pipe(
-      tap(() => this.loading.loadingOff()),
-      catchError((error: HttpErrorResponse) => {
+      (`${environment.blogBaseApiUrl}/article/${id}`)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  createArticle(createData: CreateArticleModel):Observable<IResponse<any>> {
+  createArticle(createData: CreateArticleModel): Observable<IResponse<any>> {
 
     this.loading.loadingOn();
 
     const formData = new FormData();
-    
+
     formData.append('categoryId', createData.categoryId);
     formData.append('title', createData.title);
     formData.append('summary', createData.summary);
@@ -77,28 +76,28 @@ export class ArticleService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
     formData.append('canonicalAddress', createData.canonicalAddress);
-    
+
     return this.http.post<IResponse<any>>
-    (`${environment.blogBaseApiUrl}/article/create`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.blogBaseApiUrl}/article/create`, formData)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  editArticle(editData: EditArticleModel):Observable<IResponse<any>> {
-    
+  editArticle(editData: EditArticleModel): Observable<IResponse<any>> {
+
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -109,7 +108,7 @@ export class ArticleService {
     formData.append('text', editData.text);
     formData.append('categoryId', editData.categoryId);
 
-    if(editData.imageFileUploaded){
+    if (editData.imageFileUploaded) {
       formData.append('imageFile', editData.imageFile, editData.imageFile.name);
     }
 
@@ -118,45 +117,45 @@ export class ArticleService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
     formData.append('canonicalAddress', editData.canonicalAddress);
-    
+
     return this.http.put<IResponse<any>>
-    (`${environment.blogBaseApiUrl}/article/edit`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.blogBaseApiUrl}/article/edit`, formData)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  deleteArticle(articleId: string):Observable<IResponse<any>> {
+  deleteArticle(articleId: string): Observable<IResponse<any>> {
     this.loading.loadingOn();
 
     return this.http.delete<IResponse<any>>
-    (`${environment.blogBaseApiUrl}/article/delete/${articleId}`)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.blogBaseApiUrl}/article/delete/${articleId}`)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 }

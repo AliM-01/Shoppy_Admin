@@ -22,42 +22,42 @@ export class SliderService {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<SliderModel[]>>
-    (`${environment.shopBaseApiUrl}/slider/get-list`)
-    .pipe(
-      tap(() => this.loading.loadingOff()),
-      catchError((error: HttpErrorResponse) => {
+      (`${environment.shopBaseApiUrl}/slider/get-list`)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
   getSliderDetails(id: string): Observable<IResponse<EditSliderModel>> {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<EditSliderModel>>
-    (`${environment.shopBaseApiUrl}/slider/${id}`)
-    .pipe(
-      tap(() => this.loading.loadingOff()),
-      catchError((error: HttpErrorResponse) => {
+      (`${environment.shopBaseApiUrl}/slider/${id}`)
+      .pipe(
+        tap(() => this.loading.loadingOff()),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  createSlider(createData: CreateSliderModel):Observable<IResponse<any>> {
+  createSlider(createData: CreateSliderModel): Observable<IResponse<any>> {
 
     this.loading.loadingOn();
 
     const formData = new FormData();
-    
+
     formData.append('heading', createData.heading);
     formData.append('text', createData.text);
     formData.append('imageFile', createData.imageFile, createData.imageFile.name);
@@ -65,27 +65,27 @@ export class SliderService {
     formData.append('imageTitle', createData.imageTitle);
     formData.append('btnLink', createData.btnLink);
     formData.append('btnText', createData.btnText);
-    
+
     return this.http.post<IResponse<any>>
-    (`${environment.shopBaseApiUrl}/slider/create`, formData)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.shopBaseApiUrl}/slider/create`, formData)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  editSlider(editData: EditSliderModel):Observable<IResponse<any>> {
+  editSlider(editData: EditSliderModel): Observable<IResponse<any>> {
 
     this.loading.loadingOn();
 
@@ -95,7 +95,7 @@ export class SliderService {
     formData.append('heading', editData.heading);
     formData.append('text', editData.text);
 
-    if(editData.imageFileUploaded){
+    if (editData.imageFileUploaded) {
       formData.append('imageFile', editData.imageFile, editData.imageFile.name);
     }
 
@@ -103,63 +103,63 @@ export class SliderService {
     formData.append('imageTitle', editData.imageTitle);
     formData.append('btnLink', editData.btnLink);
     formData.append('btnText', editData.btnText);
-    
+
     return this.http.put<IResponse<any>>
-    (`${environment.shopBaseApiUrl}/slider/edit`, formData) 
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.shopBaseApiUrl}/slider/edit`, formData)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  removeSlider(sliderId: string):Observable<IResponse<any>> {
+  removeSlider(sliderId: string): Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>
-    (`${environment.shopBaseApiUrl}/slider/remove/${sliderId}`)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.shopBaseApiUrl}/slider/remove/${sliderId}`)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 
-  restoreSlider(sliderId: string):Observable<IResponse<any>> {
+  restoreSlider(sliderId: string): Observable<IResponse<any>> {
     return this.http.delete<IResponse<any>>
-    (`${environment.shopBaseApiUrl}/slider/restore/${sliderId}`)
-    .pipe(
-      tap((res: IResponse<any>) => {
+      (`${environment.shopBaseApiUrl}/slider/restore/${sliderId}`)
+      .pipe(
+        tap((res: IResponse<any>) => {
 
-        this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-        this.loading.loadingOff();
+          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.loading.loadingOff();
 
-      }),
-      catchError((error: HttpErrorResponse) => {
+        }),
+        catchError((error: HttpErrorResponse) => {
 
-        this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-        this.loading.loadingOff();
+          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.loading.loadingOff();
 
-        return throwError(error);
-      })
-    );
+          return throwError(error);
+        })
+      );
   }
 }

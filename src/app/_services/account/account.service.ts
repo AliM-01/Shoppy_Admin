@@ -24,8 +24,6 @@ export class AccountService {
     this.loading.loadingOn();
 
     let params = new HttpParams();
-console.log(filter.fullName);
-console.log(typeof filter.fullName);
 
     if (filter.fullName) {
       params.set('FullName', filter.fullName)
