@@ -10,6 +10,7 @@ export const environment = {
   blogBaseApiUrl: "https://localhost:5001/api/admin/blog",
   accountBaseApiUrl: "https://localhost:5001/api/admin/account",
   orderBaseApiUrl: "https://localhost:5001/api/admin/order",
+  reportBaseApiUrl: "https://localhost:5001/api/admin/report",
 
   ckeditorImgUploadUrl: "https://localhost:5001/upload/img-upload/",
 
