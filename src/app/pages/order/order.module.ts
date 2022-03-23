@@ -9,10 +9,12 @@ import { AppMaterialModule } from '@app/app-material.module';
 import { OrderService } from '@app_services/order/order.service';
 import { OrderRoutingModule } from './order.routing.module';
 import { FilterOrderPage } from './filter-order/filter-order.page';
+import { OrderItemsPage } from './order-items/order-items.page';
 
 @NgModule({
   declarations: [
-    FilterOrderPage
+    FilterOrderPage,
+    OrderItemsPage
   ],
   imports: [
     CommonModule,

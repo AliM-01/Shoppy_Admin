@@ -1,0 +1,52 @@
+<app-breadcrumb [pageTitle]="pageTitle | async"></app-breadcrumb>
+
+<div class="row">
+  <div class="col-xl-12">
+
+    <div class="widget has-shadow" *ngIf="items.length">
+      <div class="widget-header bordered no-actions d-flex justify-content-end">
+
+        <button mat-raised-button (click)="onCloseClick()" color="warn" type="button">بازگشت
+          <i class="las la-return"></i>
+        </button>
+
+
+      </div>
+
+      <div class="widget-body">
+
+        <div class="row" *ngIf="items.length">
+
+          <div *ngFor="let item of items" class="col-md-4">
+
+            <div class="d-flex justify-content-center">
+              <img [src]="thumbnailBasePath + item.productImage" class="img-fluid">
+
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title">{{ item.product }}</h5>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">شناسه محصول : {{item.productId}}</li>
+              <li class="list-group-item">قیت پایه : {{item.unitPrice | thousandSeperator }}</li>
+              <li class="list-group-item">تعداد : {{item.count}}</li>
+              <li class="list-group-item">تخفیف : {{item.discountRate}}</li>
+            </ul>
+
+            <div class="card-body">
+              <a href="#" class="card-link">جزییات محصول
+                <i class="las la-long-arrow-left"></i>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
