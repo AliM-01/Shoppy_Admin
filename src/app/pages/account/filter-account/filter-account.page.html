@@ -22,9 +22,7 @@
       </div>
       <div class="widget-body">
 
-        <div class="spinner-container" *ngIf="dataServer.isLoadingResults">
-          <mat-spinner></mat-spinner>
-        </div>
+        <mat-progress-bar mode="indeterminate" *ngIf="dataServer.isLoadingResults"></mat-progress-bar>
 
         <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 

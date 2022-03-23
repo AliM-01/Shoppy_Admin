@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const modules = [
     MatCommonModule,
@@ -26,6 +27,7 @@ const modules = [
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
 ]
 
 @NgModule({

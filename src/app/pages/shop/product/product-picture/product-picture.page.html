@@ -1,53 +1,43 @@
-
 <app-breadcrumb [pageTitle]="pageTitle | async"></app-breadcrumb>
 
 <div class="row">
-    <div class="col-xl-12">
+  <div class="col-xl-12">
 
-        <div class="widget has-shadow">
-            <div class="widget-body">
+    <div class="widget has-shadow">
+      <div class="widget-body">
 
-                <div class="spinner-container" *ngIf="pageLoading !== true">
-                    <mat-spinner></mat-spinner>
-                </div>
+        <mat-progress-bar mode="indeterminate" *ngIf="!pageLoading"></mat-progress-bar>
 
-                <div class="row">
-                    <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-4">
 
-                      <div class="shadow">
-                        <h2>ایجاد گالری محصول</h2>
-                        <hr>
-                        
-                        <div class="w-100">
-                          <dropzone [config]="{
+            <div class="shadow">
+              <h2>ایجاد گالری محصول</h2>
+              <hr>
+
+              <div class="w-100">
+                <dropzone [config]="{
                             url: baseShopUrl + '/' + productId
-                          }" 
-                          [message]="'تصاویر را آپلود کنید'" (error)="onUploadError($event)" (success)="onUploadFiles($event)"></dropzone>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="col-md-8 row pb-4"
-                      *ngIf="pageLoading"
-                    >
-                      <div *ngFor="let pic of productPictures" class="col-md-4 container-gallery mb-2">
-                        <img
-                          [src]="productPictureBasePath + pic.imagePath"
-                          class="img-fluid img-gallery mx-auto"
-                          width="200"
-                          height="150"
-                        />
-
-                        <div class="overlay">
-                          <a cursor-pointer (click)="removeProductPicture(pic.id)">حذف</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                
+                          }" [message]="'تصاویر را آپلود کنید'" (error)="onUploadError($event)"
+                  (success)="onUploadFiles($event)"></dropzone>
+              </div>
             </div>
+          </div>
+          <div class="col-md-8 row pb-4" *ngIf="pageLoading">
+            <div *ngFor="let pic of productPictures" class="col-md-4 container-gallery mb-2">
+              <img [src]="productPictureBasePath + pic.imagePath" class="img-fluid img-gallery mx-auto" width="200"
+                height="150" />
+
+              <div class="overlay">
+                <a cursor-pointer (click)="removeProductPicture(pic.id)">حذف</a>
+              </div>
+            </div>
+          </div>
         </div>
 
+
+      </div>
     </div>
+
+  </div>
 </div>
