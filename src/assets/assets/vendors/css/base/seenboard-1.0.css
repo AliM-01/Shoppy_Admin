@@ -15126,3 +15126,15 @@ be a descendant of the grid when it is being dragged.
 .tableScroll th {
   background: #eee;
 }
+
+.border-radius-none {
+  border-radius: 0 !important;
+}
+
+.border-top-none {
+  border-top: none !important;
+}
+
+.border-bottom-none {
+  border-bottom: none !important;
+}
