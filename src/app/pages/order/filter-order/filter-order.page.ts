@@ -135,8 +135,8 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = size;
   }
 
-  setInStockState(event: any) {
-    this.paymentState = event.value;
+  setPayment(event: any) {
+    this.paymentState = FilterOrderPaymentStatus[event.value];
     this.load();
   }
 

@@ -24,16 +24,12 @@ export class OrderService {
 
     this.loading.loadingOn()
 
-    let params = new HttpParams();
+    let params = new HttpParams()
+      .set('PaymentState', filter.paymentState);
 
     if(filter.userNames){
       params.set('UserNames', filter.userNames)
     }
-
-    if(filter.paymentState){
-      params.set('PaymentState', filter.paymentState)
-    }
-
     return this.http.get<IResponse<FilterOrderModel>>
       (`${environment.orderBaseApiUrl}/filter`, { params })
       .pipe(
