@@ -5,6 +5,7 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReportService } from '../../_services/report/report.service';
 
 
 
@@ -24,6 +25,7 @@ import { RouterModule } from '@angular/router';
     LineChartComponent,
     BarChartComponent
   ],
+  providers: [ReportService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class IndexModule { }
