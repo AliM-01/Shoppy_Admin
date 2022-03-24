@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ReportService } from '@app_services/report/report.service';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
@@ -6,9 +7,25 @@ import { Color, Label } from 'ng2-charts';
   selector: 'index-bar-chart',
   templateUrl: './bar-chart.component.html'
 })
-export class BarChartComponent {
+export class BarChartComponent implements OnInit {
 
-  constructor() { }
+  isLoaded: boolean = false;
+  constructor(private reportService: ReportService) { }
+
+  ngOnInit(): void {
+    this.reportService.productSale().subscribe(res => {
+      if(res.status === 'success'){
+        const data = [];
+
+        for (const chart of res.data) {
+          data.push(chart.count);
+        }
+
+        this.barChartData = [{ data: data, label: 'فروش', fill: true }];
+        this.isLoaded = true;
+      }
+    })
+  }
 
   barChartOptions: any = {
     responsive: true,
@@ -64,17 +81,11 @@ export class BarChartComponent {
   barChartLabels: Label[] = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
 
   barChartData: ChartDataSets[] = [
-    { data: [30, 24, 22, 17, 22, 24, 9, 14, 20, 13, 17, 13], label: 'تحویل داده شده', fill: true },
-    { data: [10, 14, 12, 20, 20, 8, 10, 20, 7, 11, 8, 10], label: 'برآورد شده', fill: true }
+    { data: [30, 24, 22, 17, 22, 24, 9, 14, 20, 13, 17, 13], label: 'تحویل داده شده', fill: true }
   ];
 
   barChartColors: Color[] = [
 
-    {
-      borderColor: "#fff",
-      backgroundColor: "#de1759",
-      hoverBackgroundColor: "#de1759"
-    },
     {
       borderColor: "#fff",
       backgroundColor: "#5d5386",

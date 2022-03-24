@@ -1,23 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { ReportService } from '../../../_services/report/report.service';
 
 @Component({
   selector: 'index-line-chart',
   templateUrl: './line-chart.component.html'
 })
-export class LineChartComponent {
+export class LineChartComponent implements OnInit {
 
-  constructor() { }
-
-  // Array of different segments in chart
+  isLoaded: boolean = false;
   lineChartData: ChartDataSets[] = [
-    { data: [90, 100, 80, 120, 100, 110, 90, 130, 110, 100, 120, 130], label: 'فروش', fill: true },
-    { data: [90, 100, 80, 120, 100, 110, 90, 130, 110, 100, 120, 130], label: 'ویزیت شده', fill: true }
+    { data: [90, 100, 80, 120, 100, 110, 90, 130, 110, 100, 120, 130], label: 'فروش', fill: true }
   ];
 
-  //Labels shown on the x-axis
   lineChartLabels: Label[] = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
+
 
   options: any = {
     responsive: true,
@@ -38,7 +36,6 @@ export class LineChartComponent {
     }
   };
 
-  // Define colors of chart segments
   lineChartColors: Color[] = [
 
     {
@@ -51,19 +48,25 @@ export class LineChartComponent {
       borderWidth: 4,
       pointBorderWidth: 3,
       pointRadius: 6,
-    },
-    {
-      borderColor: "#aea9c3",
-      pointBackgroundColor: "#aea9c3",
-      pointHoverBorderColor: "#5d5386",
-      pointHoverBackgroundColor: "#5d5386",
-      pointBorderColor: "#fff",
-      pointBorderWidth: 3,
-      pointRadius: 6,
-      backgroundColor: "transparent",
-      borderWidth: 3,
-      borderDash: [10, 5],
     }
   ];
+
+  constructor(private reportService: ReportService) { }
+
+  ngOnInit(): void {
+    this.reportService.orders().subscribe(res => {
+      if(res.status === 'success'){
+        const data = [];
+
+        for (const chart of res.data) {
+          data.push(chart.count);
+        }
+
+        this.lineChartData = [{ data: data, label: 'فروش', fill: true }];
+        this.isLoaded = true;
+      }
+    })
+  }
+
 
 }
