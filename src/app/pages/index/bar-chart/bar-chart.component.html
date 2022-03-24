@@ -1,56 +1,19 @@
 <div class="widget widget-09 has-shadow">
 
     <div class="widget-header" div-center>
-        <h2>سفارشات تحویل داده شده</h2>
-        <div class="widget-options">
-            <div class="dropdown">
-                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-                    <i class="la la-circle-o-notch"></i>
-                </button>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">
-                        <i class="la la-history"></i>تاریخچه
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="la la-bell-slash"></i>غیرفعالسازی هشدارها
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="la la-edit"></i>ویرایش ابزارک
-                    </a>
-                    <a href="#" class="dropdown-item faq">
-                        <i class="la la-question-circle"></i>پرسش و پاسخ
-                    </a>
-                </div>
-            </div>
-        </div>
+        <h2>محصولات فروخته شده</h2>
     </div>
 
     <div class="widget-body">
         <div class="row">
-            <div class="col-xl-12 col-12 d-flex flex-column my-auto no-padding text-center">
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="some-stats mb-4">
-                            <div class="title">مجموع تحویل شده ها</div>
-                            <div class="number text-secondary">856</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="some-stats mb-4">
-                            <div class="title">مجموع تخمین زده شده</div>
-                            <div class="number text-secondary">297</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col-xl-12 col-12 p-0">
-                <div class="chartjs-container">
-                    <canvas baseChart 
-                        [datasets]="barChartData" 
-                        [labels]="barChartLabels" 
+                <div class="chartjs-container" *ngIf="isLoaded">
+                    <canvas baseChart
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
                         [colors]="barChartColors"
                         [options]="barChartOptions"
-                        [legend]="true" 
+                        [legend]="true"
                         [chartType]="'bar'">
                     </canvas>
                 </div>
