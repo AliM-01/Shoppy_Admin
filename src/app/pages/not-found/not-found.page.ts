@@ -17,7 +17,6 @@ import { Location } from '@angular/common';
                     <div class="error-02 mx-auto mb-3 text-center">
                         <h1 class="text-gradient-03">404</h1>
                         <h2>صفحه مورد نظر پیدا نشد!</h2>
-                        <p>اما ما صفحات زیادی برای دیدن شما داریم. </p>
                         <a (click)="goBack()" class="btn btn-gradient-01 text-white">
                             برگشت به عقب
                         </a>
