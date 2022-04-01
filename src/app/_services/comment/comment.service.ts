@@ -44,7 +44,7 @@ export class CommentService {
     this.loading.loadingOn();
 
     return this.http.post<IResponse<any>>
-      (`${environment.commentBaseApiUrl}/cofirm/${commentId}`, null!)
+      (`${environment.commentBaseApiUrl}/confirm/${commentId}`, null!)
       .pipe(
         tap((res: IResponse<any>) => {
 

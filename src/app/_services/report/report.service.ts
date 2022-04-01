@@ -41,7 +41,7 @@ export class ReportService {
     this.loading.loadingOn()
 
     return this.http.get<IResponse<ChartModel[]>>
-      (`${environment.reportBaseApiUrl}/product-sale`)
+      (`${environment.reportBaseApiUrl}/product-sales`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {

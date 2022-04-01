@@ -49,7 +49,7 @@ export class OrderService {
     this.loading.loadingOn()
 
     return this.http.get<IResponse<OrderItemModel[]>>
-      (`${environment.orderBaseApiUrl}/items/${orderId}`)
+      (`${environment.orderBaseApiUrl}/${orderId}/items`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {

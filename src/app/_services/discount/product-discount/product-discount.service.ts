@@ -151,7 +151,7 @@ export class ProductDiscountService {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<CheckProductHasProductDiscountResponseModel>>
-      (`${environment.discountBaseApiUrl}/product-discount/check-product-has-discount/${productId}`)
+      (`${environment.discountBaseApiUrl}/product-discount/has-discount/${productId}`)
       .pipe(
         tap((res: IResponse<CheckProductHasProductDiscountResponseModel>) => {
           if (res.data.existsProductDiscount === true) {

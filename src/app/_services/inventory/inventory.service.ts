@@ -5,7 +5,6 @@ import { CreateInventoryModel, EditInventoryModel, FilterInventoryModel, GetInve
 import { environment } from '@environments/environment';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { InventoryOperationModel } from '@app_models/inventory/inventory-operation';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading';
 
@@ -52,34 +51,6 @@ export class InventoryService {
       (`${environment.inventoryBaseApiUrl}/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
-        catchError((error: HttpErrorResponse) => {
-
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
-          this.loading.loadingOff();
-
-          return throwError(error);
-        })
-      );
-  }
-
-  createInventory(createData: CreateInventoryModel): Observable<IResponse<any>> {
-
-    this.loading.loadingOn();
-
-    const formData = new FormData();
-
-    formData.append('unitPrice', createData.unitPrice.toString());
-    formData.append('productId', createData.productId);
-
-    return this.http.post<IResponse<any>>
-      (`${environment.inventoryBaseApiUrl}/create`, formData)
-      .pipe(
-        tap((res: IResponse<any>) => {
-
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
-          this.loading.loadingOff();
-
-        }),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
@@ -184,7 +155,7 @@ export class InventoryService {
     this.loading.loadingOn();
 
     return this.http.get<IResponse<GetInventoryOperationsModel>>
-      (`${environment.inventoryBaseApiUrl}/get-operation-log/${id}`)
+      (`${environment.inventoryBaseApiUrl}/${id}/logs`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
