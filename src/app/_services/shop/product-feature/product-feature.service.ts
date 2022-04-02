@@ -27,7 +27,7 @@ export class ProductFeatureService {
     let params = new HttpParams();
 
     if (filter.pageId) {
-      params.set('ProductId', filter.productId)
+      params = params.set('ProductId', filter.productId)
     }
 
     return this.http.get<IResponse<FilterProductFeatureModel>>

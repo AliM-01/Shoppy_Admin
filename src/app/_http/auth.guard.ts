@@ -35,6 +35,7 @@ export class AuthGuard implements CanActivate {
       const refreshToken = this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken);
 
       if (!refreshToken) {
+        this.showAccessDenied();
         return false;
       } else {
         return this.checkRefreshToken()

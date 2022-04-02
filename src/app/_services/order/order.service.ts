@@ -28,7 +28,7 @@ export class OrderService {
       .set('PaymentState', filter.paymentState);
 
     if(filter.userNames){
-      params.set('UserNames', filter.userNames)
+      params = params.set('UserNames', filter.userNames)
     }
     return this.http.get<IResponse<FilterOrderModel>>
       (`${environment.orderBaseApiUrl}/filter`, { params })

@@ -17,7 +17,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ProductPicturePage implements OnInit {
 
-  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("گالری تصاویر محصول : ");
+  pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("گالری تصاویر محصول");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   productPictures: ProductPictureModel[] = [];
@@ -52,6 +52,8 @@ export class ProductPicturePage implements OnInit {
 
       this.productPictureService.getProductPictures(this.productId)
         .subscribe((res) => {
+          console.log(res);
+
           if (res.status === 'success') {
 
             this.title.setTitle(`گالری تصاویر محصول : ${res.data[0].product}`);

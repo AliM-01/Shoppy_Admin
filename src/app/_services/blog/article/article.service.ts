@@ -25,7 +25,7 @@ export class ArticleService {
     let params = new HttpParams();
 
     if (filter.title) {
-      params.set('Title', filter.title)
+      params = params.set('Title', filter.title)
     }
 
     return this.http.get<IResponse<FilterArticleModel>>

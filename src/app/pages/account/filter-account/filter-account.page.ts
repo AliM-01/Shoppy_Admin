@@ -100,7 +100,7 @@ export class FilterAccountPage implements OnInit, AfterViewInit {
 
     fromEvent(this.nameInput.nativeElement, 'keyup')
       .pipe(
-        debounceTime(300),
+        debounceTime(1500),
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
@@ -109,6 +109,16 @@ export class FilterAccountPage implements OnInit, AfterViewInit {
       )
       .subscribe();
 
+    fromEvent(this.emailInput.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(1500),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.load();
+        })
+      )
+      .subscribe();
   }
 
   onPaginateChange(event: PageEvent) {

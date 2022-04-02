@@ -21,15 +21,17 @@ export class AccountService {
 
   filterAccount(filter: FilterAccountModel): Observable<IResponse<FilterAccountModel>> {
 
+    console.log(filter);
+
     this.loading.loadingOn();
 
     let params = new HttpParams();
 
     if (filter.fullName) {
-      params.set('FullName', filter.fullName)
+      params = params.set('FullName', filter.fullName);
     }
     if (filter.email) {
-      params.set('Email', filter.email)
+      params = params.set('Email', filter.email);
     }
 
     return this.http.get<IResponse<FilterAccountModel>>

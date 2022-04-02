@@ -27,10 +27,10 @@ export class ProductService {
       .set('SortIdOrder', filter.sortIdOrder);
 
     if (filter.search) {
-      params.set('Search', filter.search)
+      params = params.set('Search', filter.search)
     }
     if (filter.categoryId) {
-      params.set('CategoryId', filter.categoryId)
+      params = params.set('CategoryId', filter.categoryId)
     }
 
     return this.http.get<IResponse<FilterProductModel>>

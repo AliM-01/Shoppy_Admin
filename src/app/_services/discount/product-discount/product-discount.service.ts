@@ -25,10 +25,10 @@ export class ProductDiscountService {
     let params = new HttpParams();
 
     if (filter.productTitle) {
-      params.set('productTitle', filter.productTitle);
+      params = params.set('productTitle', filter.productTitle);
     }
     if (filter.productId) {
-      params.set('productId', filter.productId.toString())
+      params = params.set('productId', filter.productId.toString())
     }
 
     return this.http.get<IResponse<FilterProductDiscountModel>>

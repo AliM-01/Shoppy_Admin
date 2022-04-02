@@ -27,7 +27,7 @@ export class DiscountCodeService {
     let params = new HttpParams();
 
     if (filter.phrase) {
-      params.set('phrase', filter.phrase);
+      params = params.set('phrase', filter.phrase);
     }
 
     return this.http.get<IResponse<FilterDiscountCodeModel>>
