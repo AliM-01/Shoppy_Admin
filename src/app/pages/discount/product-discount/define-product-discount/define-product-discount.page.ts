@@ -6,7 +6,7 @@ import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service
 import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
 import {Location} from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({
@@ -20,7 +20,7 @@ export class DefineProductDiscountPage implements OnInit {
   productId: string = "";
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
-  
+
   constructor(
     private ProductDiscountService: ProductDiscountService,
     private ckeditorService: CkeditorService,
@@ -29,7 +29,7 @@ export class DefineProductDiscountPage implements OnInit {
     private pageTitle: Title,
     private _location: Location,
     private loading: LoadingService
-  ) { 
+  ) {
     this.pageTitle.setTitle('تعریف تخفیف محصول');
   }
 
@@ -50,7 +50,7 @@ export class DefineProductDiscountPage implements OnInit {
           this.onCloseClick();
         }
       });
-      
+
     });
 
     this.defineForm = new FormGroup({
@@ -71,7 +71,7 @@ export class DefineProductDiscountPage implements OnInit {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
-    
+
     if (this.defineForm.valid) {
 
       const defineData = new DefineProductDiscountModel(

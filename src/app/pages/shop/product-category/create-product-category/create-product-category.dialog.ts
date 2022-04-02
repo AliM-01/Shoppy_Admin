@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { CreateProductCategoryModel } from '@app_models/shop/product-category/create-product-category';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 
 @Component({
@@ -42,7 +42,7 @@ export class CreateProductCategoryDialog implements OnInit {
     return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
-  getImageFileToUpload(event: any) {    
+  getImageFileToUpload(event: any) {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];

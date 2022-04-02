@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditDiscountCodeModel } from '@app_models/discount/discount-code/edit-discount-code';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { DiscountCodeService } from '@app_services/discount/discount-code/discount-code.service';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({

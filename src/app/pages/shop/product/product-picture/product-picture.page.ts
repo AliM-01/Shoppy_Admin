@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductPictureModel } from '@app_models/shop/product-picture/product-picture';
 import { ProductPictureService } from '@app_services/shop/product-picture/product-picture.service';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 

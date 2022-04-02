@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReduceInventoryModel } from '@app_models/inventory/reduce-inventory';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { InventoryService } from '@app_services/inventory/inventory.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateProductFeatureModel } from '@app_models/shop/product-feature/create-product-feature';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class CreateProductFeatureDialog implements OnInit {
     if(this.data.productId === undefined){
       this.onCloseClick();
     }
-    
+
     this.createForm = new FormGroup({
       featureTitle: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       featureValue: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
@@ -43,7 +43,7 @@ export class CreateProductFeatureDialog implements OnInit {
 
   submitCreateForm() {
     this.loading.loadingOn();
-    
+
     if (this.createForm.valid) {
 
       const createData = new CreateProductFeatureModel(

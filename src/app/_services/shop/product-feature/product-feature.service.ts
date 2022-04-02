@@ -6,7 +6,7 @@ import { environment } from '@environments/environment';
 import { CreateProductFeatureModel, EditProductFeatureModel, FilterProductFeatureModel }
   from '@app_models/shop/product-feature/_index';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({

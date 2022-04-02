@@ -5,7 +5,7 @@ import { IResponse } from '@app_models/_common/IResponse';
 import { ChartModel } from '../../_models/report/chart';
 import { environment } from '@environments/environment';
 import { catchError, tap } from 'rxjs/operators';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 @Injectable({

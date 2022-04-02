@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DefineProductDiscountModel } from '@app_models/discount/product-discount/define-product-discount';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { fromEvent } from 'rxjs';

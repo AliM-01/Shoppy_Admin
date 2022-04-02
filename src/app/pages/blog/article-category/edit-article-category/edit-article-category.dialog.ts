@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
@@ -15,7 +15,7 @@ import { EditArticleCategoryModel } from '@app_models/blog/article-category/edit
 })
 export class EditArticleCategoryDialog implements OnInit {
 
-  
+
   editForm: FormGroup;
   fileUploaded: boolean = false;
   imageFileToUpload: any;
@@ -26,7 +26,7 @@ export class EditArticleCategoryDialog implements OnInit {
     public dialogRef: MatDialogRef<EditArticleCategoryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private articleCategoryService: ArticleCategoryService,
-    private ckeditorService: CkeditorService,    
+    private ckeditorService: CkeditorService,
     private loading: LoadingService,
     private toastr: ToastrService
   ) { }
@@ -46,7 +46,7 @@ export class EditArticleCategoryDialog implements OnInit {
     });
 
     this.articleCategoryService.getArticleCategoryDetails(this.data.id).subscribe((res) => {
-      
+
       if (res.status === 'success') {
 
         this.editForm.controls.title.setValue(res.data.title)
@@ -68,7 +68,7 @@ export class EditArticleCategoryDialog implements OnInit {
     return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
-  getImageFileToUpload(event: any) {    
+  getImageFileToUpload(event: any) {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -81,11 +81,11 @@ export class EditArticleCategoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm() {    
+  submiteditForm() {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
-    
+
     if (this.editForm.valid) {
 
       if (!this.fileUploaded) {

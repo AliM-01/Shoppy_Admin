@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { FilterOrderModel } from '@app_models/order/filter-inventory';
 import { OrderItemModel } from '@app_models/order/order-item';
 

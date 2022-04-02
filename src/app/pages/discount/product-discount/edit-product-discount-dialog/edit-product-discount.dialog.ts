@@ -7,7 +7,7 @@ import { ProductDiscountService } from '@app_services/discount/product-discount/
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductService } from '@app_services/shop/product/product.service';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 
 @Component({

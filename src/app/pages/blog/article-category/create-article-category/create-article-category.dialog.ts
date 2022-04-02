@@ -5,7 +5,7 @@ import { CreateArticleCategoryModel } from '@app_models/blog/article-category/cr
 import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 
 @Component({
   selector: 'app-create-article-category',
@@ -44,7 +44,7 @@ export class CreateArticleCategoryDialog implements OnInit {
     return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
-  getImageFileToUpload(event: any) {    
+  getImageFileToUpload(event: any) {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];

@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { CreateProductModel, CreateProductResponseModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel } from '@app_models/shop/product/_index';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({

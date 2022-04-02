@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditProductFeatureModel } from '@app_models/shop/product-feature/edit-product-feature';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   templateUrl: './edit-product-feature.dialog.html'
 })
 export class EditProductFeatureDialog implements OnInit {
-  
+
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش ویژگی محصول");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
@@ -33,7 +33,7 @@ export class EditProductFeatureDialog implements OnInit {
     });
 
     this.productFeatureService.getProductFeatureDetails(this.data.id).subscribe((res) => {
-      
+
       if (res.status === 'success') {
 
         this.editForm.controls.featureTitle.setValue(res.data.featureTitle)
@@ -51,7 +51,7 @@ export class EditProductFeatureDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm() {    
+  submiteditForm() {
     this.loading.loadingOn();
 
     if (this.editForm.valid) {

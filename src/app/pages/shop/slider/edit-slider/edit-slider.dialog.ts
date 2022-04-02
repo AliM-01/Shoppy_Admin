@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditSliderModel } from '@app_models/shop/slider/edit-slider';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   templateUrl: './edit-slider.dialog.html'
 })
 export class EditSliderDialog implements OnInit {
-  
+
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش اسلایدر");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
@@ -25,7 +25,7 @@ export class EditSliderDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditSliderDialog>,
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
-    private sliderService: SliderService,    
+    private sliderService: SliderService,
     private loading: LoadingService
   ) { }
 

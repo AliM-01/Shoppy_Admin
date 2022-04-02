@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateSliderModel } from '@app_models/shop/slider/create-slider';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { SliderService } from '@app_services/shop/slider/slider.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class CreateSliderDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateSliderDialog>,
-    private sliderService: SliderService,    
+    private sliderService: SliderService,
     private loading: LoadingService
   ) { }
 

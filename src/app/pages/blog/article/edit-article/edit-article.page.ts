@@ -8,7 +8,7 @@ import { ArticleCategoryService } from '@app_services/blog/article-category/arti
 import { ArticleService } from '@app_services/blog/article/article.service';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@environments/environment';
 
@@ -51,7 +51,7 @@ export class EditArticlePage implements OnInit {
       }
 
     });
-    
+
     this.ckeditorService.initCkeditor();
 
     this.getArticleCategoriesForSelectList();

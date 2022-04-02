@@ -8,7 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ComponentsModule } from '@app_components/components.module';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { ToastrModule } from 'ngx-toastr';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { AppMaterialModule } from '@app_material';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
 import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';

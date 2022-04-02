@@ -6,7 +6,7 @@ import { ProductCategoryForSelectListModel } from '@app_models/shop/product-cate
 import { CreateProductModel } from '@app_models/shop/product/create-product';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { ToastrService } from 'ngx-toastr';

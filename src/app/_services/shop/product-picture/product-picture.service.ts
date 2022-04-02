@@ -5,7 +5,7 @@ import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
 import { CreateProductPictureModel, ProductPictureModel } from '@app_models/shop/product-picture/_index';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { catchError, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'any'

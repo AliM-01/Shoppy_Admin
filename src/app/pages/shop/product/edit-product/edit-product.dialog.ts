@@ -5,7 +5,7 @@ import { ProductCategoryForSelectListModel } from '@app_models/shop/product-cate
 import { EditProductModel } from '@app_models/shop/product/edit-product';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { environment } from '@environments/environment';
@@ -73,7 +73,7 @@ export class EditProductDialog implements OnInit {
 
         console.log(res);
         console.log(this.editForm.controls);
-        
+
       }
     },
       (error) => { this.onCloseClick(); });

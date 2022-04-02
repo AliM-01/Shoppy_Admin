@@ -8,7 +8,7 @@ import { ArticleCategoryService } from '@app_services/blog/article-category/arti
 import { ArticleService } from '@app_services/blog/article/article.service';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 
 @Component({
   selector: 'app-create-article',

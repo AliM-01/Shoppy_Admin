@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@loading';
+import { LoadingService } from '@loading-service';
 import { catchError, tap } from 'rxjs/operators';
 import { FilterDiscountCodeModel } from '@app_models/discount/discount-code/filter-discount-code';
 import { EditDiscountCodeModel } from '@app_models/discount/discount-code/edit-discount-code';
