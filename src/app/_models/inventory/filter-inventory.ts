@@ -8,12 +8,12 @@ export class FilterInventoryModel implements IPaging {
     takePage: number;
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;
-    productId: string
+    productTitle: string
     inStockState: FilterInventoryInStockStateEnum
     inventories: InventoryModel[];
 
     constructor(
-        productId: string,
+        productTitle: string,
         inStockState: FilterInventoryInStockStateEnum,
         inventories: InventoryModel[],
         pageId: number,
@@ -21,7 +21,7 @@ export class FilterInventoryModel implements IPaging {
         sortCreationDateOrder: PagingDataSortCreationDateOrder,
         sortIdOrder: PagingDataSortIdOrder
     ) {
-        this.productId = productId;
+        this.productTitle = productTitle;
         this.inStockState = inStockState
         this.inventories = inventories;
         this.pageId = pageId;

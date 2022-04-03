@@ -26,7 +26,7 @@ export class InventoryService {
       .set('InStockState', filter.inStockState);
 
     if (filter.productId) {
-      params = params.set('ProductId', filter.productId)
+      params = params.set('ProductTitle', filter.productTitle)
     }
 
     return this.http.get<IResponse<FilterInventoryModel>>
