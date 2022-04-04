@@ -1,12 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '@app_services/order/order.service';
 import { environment } from '@environments/environment';
 import { LoadingService } from '@loading-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { OrderItemModel } from '../../../_models/order/order-item';
+import { OrderItemModel } from '@app_models/order/order-item';
 
 @Component({
   selector: 'app-order-items',

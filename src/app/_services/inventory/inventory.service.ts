@@ -25,7 +25,7 @@ export class InventoryService {
     let params = new HttpParams()
       .set('InStockState', filter.inStockState);
 
-    if (filter.productId) {
+    if (filter.productTitle) {
       params = params.set('ProductTitle', filter.productTitle)
     }
 

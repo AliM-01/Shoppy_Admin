@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { LoginPage } from '@apppages/auth/login/login.page';
+import { LoginPage } from '@app/pages/auth/login/login.page';
 import { AccessDeniedPage } from "./accessDenied/access-denied.page";
 
 const routes: Routes = [

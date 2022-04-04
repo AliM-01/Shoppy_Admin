@@ -10,11 +10,11 @@ import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service
 import { ToastrModule } from 'ngx-toastr';
 import { LoadingService } from '@loading-service';
 import { AppMaterialModule } from '@app_material';
-import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
-import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
-import { IndexModule } from '@apppages/index/index.module';
+import { DashboardLayoutComponent } from '@app/layouts/dashboard/dashboard.layout.component';
+import { AuthLayoutComponent } from '@app/layouts/auth/auth.layout.component';
+import { IndexModule } from '@app/pages/dashboard/index/index.module';
 import { AuthInterceptor } from '@app_http/auth.interceptor';
-import { AuthModule } from '@apppages/auth/auth.module';
+import { AuthModule } from '@app/pages/auth/auth.module';
 import { CookieService } from '@app_services/_common/cookie/cookie.service';
 
 @NgModule({

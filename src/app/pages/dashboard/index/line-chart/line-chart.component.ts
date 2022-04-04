@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { ReportService } from '../../../_services/report/report.service';
+import { ReportService } from '@app_services/report/report.service';
 
 @Component({
   selector: 'index-line-chart',

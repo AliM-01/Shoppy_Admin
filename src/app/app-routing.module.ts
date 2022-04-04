@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
 import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
-import { IndexComponent } from './pages/index/index.component';
+import { IndexComponent } from './pages/dashboard/index/index.component';
 import { AuthGuard } from '@app_http/auth.guard';
-import { NotFoundPage } from '@apppages/not-found/not-found.page';
+import { NotFoundPage } from '@app/pages/common/not-found/not-found.page';
 
 const routes: Routes = [
   {
@@ -15,51 +15,51 @@ const routes: Routes = [
       { path: '', component: IndexComponent, pathMatch: 'full'},
       {
         path: 'account',
-        loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule)
+        loadChildren: () => import('./pages/dashboard/account/account.module').then(m => m.AccountModule)
       },
       {
         path: 'product-category',
-        loadChildren: () => import('./pages/shop/product-category/product.category.module').then(m => m.ProductCategoryModule)
+        loadChildren: () => import('./pages/dashboard/shop/product-category/product.category.module').then(m => m.ProductCategoryModule)
       },
       {
         path: 'product',
-        loadChildren: () => import('./pages/shop/product/product.module').then(m => m.ProductModule)
+        loadChildren: () => import('./pages/dashboard/shop/product/product.module').then(m => m.ProductModule)
       },
       {
         path: 'product-feature',
-        loadChildren: () => import('./pages/shop/product-feature/product.feature.module').then(m => m.ProductFeatureModule)
+        loadChildren: () => import('./pages/dashboard/shop/product-feature/product.feature.module').then(m => m.ProductFeatureModule)
       },
       {
         path: 'slider',
-        loadChildren: () => import('./pages/shop/slider/slider.module').then(m => m.SliderModule)
+        loadChildren: () => import('./pages/dashboard/shop/slider/slider.module').then(m => m.SliderModule)
       },
       {
         path: 'product-discount',
-        loadChildren: () => import('./pages/discount/product-discount/product.discount.module').then(m => m.ProductDiscountModule)
+        loadChildren: () => import('./pages/dashboard/discount/product-discount/product.discount.module').then(m => m.ProductDiscountModule)
       },
       {
         path: 'discount-code',
-        loadChildren: () => import('./pages/discount/discount-code/discount.code.module').then(m => m.DiscountCodeModule)
+        loadChildren: () => import('./pages/dashboard/discount/discount-code/discount.code.module').then(m => m.DiscountCodeModule)
       },
       {
         path: 'inventory',
-        loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryModule)
+        loadChildren: () => import('./pages/dashboard/inventory/inventory.module').then(m => m.InventoryModule)
       },
       {
         path: 'order',
-        loadChildren: () => import('./pages/order/order.module').then(m => m.OrderModule)
+        loadChildren: () => import('./pages/dashboard/order/order.module').then(m => m.OrderModule)
       },
       {
         path: 'comment',
-        loadChildren: () => import('./pages/comment/comment.module').then(m => m.CommentModule)
+        loadChildren: () => import('./pages/dashboard/comment/comment.module').then(m => m.CommentModule)
       },
       {
         path: 'article-category',
-        loadChildren: () => import('./pages/blog/article-category/article.category.module').then(m => m.ArticleCategoryModule)
+        loadChildren: () => import('./pages/dashboard/blog/article-category/article.category.module').then(m => m.ArticleCategoryModule)
       },
       {
         path: 'article',
-        loadChildren: () => import('./pages/blog/article/article.module').then(m => m.ArticleModule)
+        loadChildren: () => import('./pages/dashboard/blog/article/article.module').then(m => m.ArticleModule)
       }
     ]
   },
