@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
   <body>
         <div id="preloader">
             <div class="canvas">
-                <img src="assets/img/logo.png" alt="logo" class="loader-logo">
+                <img src="/assets/img/logo.png" alt="logo" class="loader-logo">
                 <div class="spinner"></div>
             </div>
         </div>
@@ -23,7 +23,7 @@ import { Location } from '@angular/common';
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-8 d-none d-sm-block no-padding">
-                    <div class="seenboard-bg bg-error-02">
+                    <div class="bg-error">
                     </div>
                 </div>
             </div>

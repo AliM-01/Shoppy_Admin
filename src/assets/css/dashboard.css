@@ -1,11 +1,4 @@
 /*
-=========================================
-=========================================
-
-Item Name: SeenBoard - Web App & Admin Dashboard Template
-Version: 1.0
-Author: Morteza rezaei
-
 * =======================================
 *     TABLE OF CONTENTS
 * =======================================
@@ -47,10 +40,11 @@ Author: Morteza rezaei
 06) Responsive
 =========================================
 ========================================= */
+
+
 /* ========================================= */
-/*     01) SeenBoard GLOBALS                   */
+/*     01) GLOBALS                 */
 /* ========================================= */
-@import url(../../../icons/ionicons/css/ionicons.min.css);
 
 html {
   font-size: 14px;
@@ -604,12 +598,12 @@ button, input {
 /*
  * BACKGROUND & OVERLAY
  */
-.seenboard-bg {
+.bg-max {
   height: 100vh;
   width: 100%;
 }
 
-.seenboard-overlay {
+.bg-overlay {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -617,64 +611,64 @@ button, input {
   left: 0;
 }
 
-.seenboard-overlay.overlay-01 {
+.bg-overlay.overlay-01 {
   background: linear-gradient(135deg, rgba(46,52,81,0.4) 0%,rgba(52,40,104,0.95) 100%);
 }
 
-.seenboard-overlay.overlay-02 {
+.bg-overlay.overlay-02 {
   background: linear-gradient(135deg, rgba(255,195,113,0.4) 0%,rgba(205,95,109,0.95) 100%);
 }
 
-.seenboard-overlay.overlay-03 {
+.bg-overlay.overlay-03 {
   background: linear-gradient(135deg, rgba(46,52,81,0.4) 0%,rgba(205,95,109,0.95) 100%);
 }
 
-.seenboard-overlay.overlay-04 {
+.bg-overlay.overlay-04 {
   background: linear-gradient(135deg, rgba(66,39,90,0.4) 0%,rgba(115,75,109,0.95) 100%);
 }
 
-.seenboard-overlay.overlay-05 {
+.bg-overlay.overlay-05 {
   background: linear-gradient(135deg, rgba(0,201,255,0.4) 0%,rgba(146,254,157,0.95) 100%);
 }
 
-.seenboard-overlay.overlay-06 {
+.bg-overlay.overlay-06 {
   background: linear-gradient(135deg, rgba(46,52,81,0.2) 0%,rgba(46,52,81,0.95) 100%);
 }
 
-.seenboard-overlay.overlay-07 {
+.bg-overlay.overlay-07 {
   background: linear-gradient(135deg, rgba(46,52,81,0.5) 0%,rgba(46,52,81,0.95) 100%);
 }
 
-.seenboard-overlay.overlay-08 {
+.bg-overlay.overlay-08 {
   background: linear-gradient(135deg, rgba(46,52,81,0.85) 0%,rgba(46,52,81,0.85) 100%);
 }
 
-.seenboard-bg.background-01 {
+.bg-max.background-01 {
   background: url('../../../img/background/01.jpg') no-repeat;
   background-size: cover;
 }
 
-.seenboard-bg.background-02 {
+.bg-max.background-02 {
   background: url('../../../img/background/02.jpg') no-repeat;
   background-size: cover;
 }
 
-.seenboard-bg.background-03 {
+.bg-max.background-03 {
   background: url('../../../img/background/03.jpg') no-repeat;
   background-size: cover;
 }
 
-.seenboard-bg.background-04 {
+.bg-max.background-04 {
   background: url('../../../img/background/04.jpg') no-repeat;
   background-size: cover;
 }
 
-.seenboard-bg.background-05 {
+.bg-max.background-05 {
   background: url('../../../img/background/05.jpg') no-repeat;
   background-size: cover;
 }
 
-.seenboard-bg.background-06 {
+.bg-max.background-06 {
   background: url('../../../img/background/06.jpg') no-repeat;
   background-size: cover;
 }
@@ -8401,12 +8395,12 @@ nav.navbar .user-size.dropdown-menu a.logout:hover {
   font-weight: 600;
 }
 
-.widget-01 .seenboard-version {
+.widget-01 .widget-version {
   text-align: center;
   padding: 0 0 2rem;
 }
 
-.widget-01 .seenboard-version p {
+.widget-01 .widget-version p {
   color: #5d5386;
   font-size: 0.85rem;
   margin-bottom: 0;
@@ -13932,8 +13926,8 @@ be a descendant of the grid when it is being dragged.
   margin-top: 1rem;
 }
 
-.bg-error-02 {
-  background: url('../../../img/background/07.jpg') no-repeat center center;
+.bg-error {
+  background: url('../img/not_found.jpg') no-repeat center center;
   background-size: cover;
 }
 
