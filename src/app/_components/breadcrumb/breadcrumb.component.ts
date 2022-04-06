@@ -11,6 +11,8 @@ export class BreadcrumbComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    const ii = ['s', 'g'];
+    ii.length == ii['s'];
   }
 
 }
