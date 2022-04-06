@@ -41,8 +41,6 @@
 =========================================
 ========================================= */
 
-@import url('https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css');
-
 /* ========================================= */
 /*     01) GLOBALS                 */
 /* ========================================= */
@@ -7163,18 +7161,17 @@ nav.navbar .user-size.dropdown-menu a.logout:hover {
   position: relative;
   font-size: 1rem;
 }
-
 .default-sidebar > .side-navbar a[data-toggle="collapse"]::before {
-  color: #d2cde4;/*aea9c3*/
-  font-size: 0.85rem;
-  font-family: 'LineAwesome';
-  content: '\f053';
+  color: #d2cde4;
+  font-size: 0.85em;
+  font-family: "Line Awesome Free";
+  content: "\f104";
   display: inline-block;
   transform: translateY(-50%);
-  font-family: 'line-awesome';
   position: absolute;
   top: 50%;
   left: 20px;
+  font-weight: 900;
   opacity: 0.5;
 }
 
@@ -7189,7 +7186,10 @@ nav.navbar .user-size.dropdown-menu a.logout:hover {
 }
 
 .default-sidebar > .side-navbar a[aria-expanded="true"]::before {
-  content: '\f123';
+  font-family: "Line Awesome Free";
+  content: "\f107";
+  font-size: 0.85em;
+  font-weight: 900;
 }
 
 .default-sidebar > .side-navbar a i {
