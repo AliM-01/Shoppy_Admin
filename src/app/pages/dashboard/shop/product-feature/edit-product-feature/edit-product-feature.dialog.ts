@@ -20,7 +20,7 @@ export class EditProductFeatureDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditProductFeatureDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: {productId: string, id: string},
+    @Inject(MAT_DIALOG_DATA) public data: { productId: string, id: string },
     private productFeatureService: ProductFeatureService,
     private loading: LoadingService
   ) { }
@@ -33,13 +33,8 @@ export class EditProductFeatureDialog implements OnInit {
     });
 
     this.productFeatureService.getProductFeatureDetails(this.data.id).subscribe((res) => {
-
-      if (res.status === 'success') {
-
-        this.editForm.controls.featureTitle.setValue(res.data.featureTitle)
-        this.editForm.controls.featureValue.setValue(res.data.featureValue)
-
-      }
+      this.editForm.controls.featureTitle.setValue(res.featureTitle)
+      this.editForm.controls.featureValue.setValue(res.featureValue)
     });
   }
 
@@ -64,14 +59,8 @@ export class EditProductFeatureDialog implements OnInit {
       );
 
       this.productFeatureService.editProductFeature(editData).subscribe((res) => {
-        if (res.status === 'success') {
-
-          this.pageTitleSubject.next(`ویرایش ویژگی محصول : ${res.data.title}`);
-
-          this.editForm.reset();
-          this.onCloseClick();
-
-        }
+        this.editForm.reset();
+        this.onCloseClick();
       });
 
     } else {

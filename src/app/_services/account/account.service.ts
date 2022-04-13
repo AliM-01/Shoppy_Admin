@@ -19,7 +19,7 @@ export class AccountService {
   ) { }
 
 
-  filterAccount(filter: FilterAccountModel): Observable<IResponse<FilterAccountModel>> {
+  filterAccount(filter: FilterAccountModel): Observable<FilterAccountModel> {
 
     console.log(filter);
 
@@ -34,7 +34,7 @@ export class AccountService {
       params = params.set('Email', filter.email);
     }
 
-    return this.http.get<IResponse<FilterAccountModel>>
+    return this.http.get<FilterAccountModel>
       (`${environment.accountBaseApiUrl}/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),

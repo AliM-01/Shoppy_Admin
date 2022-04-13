@@ -21,7 +21,7 @@ export class DiscountCodeService {
   ) { }
 
 
-  filterDiscountCode(filter: FilterDiscountCodeModel): Observable<IResponse<FilterDiscountCodeModel>> {
+  filterDiscountCode(filter: FilterDiscountCodeModel): Observable<FilterDiscountCodeModel> {
     this.loading.loadingOn();
 
     let params = new HttpParams();
@@ -30,7 +30,7 @@ export class DiscountCodeService {
       params = params.set('phrase', filter.phrase);
     }
 
-    return this.http.get<IResponse<FilterDiscountCodeModel>>
+    return this.http.get<FilterDiscountCodeModel>
       (`${environment.discountBaseApiUrl}/discount-code/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -44,10 +44,10 @@ export class DiscountCodeService {
       );
   }
 
-  getDiscountCodeDetails(id: string): Observable<IResponse<EditDiscountCodeModel>> {
+  getDiscountCodeDetails(id: string): Observable<EditDiscountCodeModel> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditDiscountCodeModel>>
+    return this.http.get<EditDiscountCodeModel>
       (`${environment.discountBaseApiUrl}/discount-code/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -61,7 +61,7 @@ export class DiscountCodeService {
       );
   }
 
-  defineDiscountCode(createData: DefineDiscountCodeModel): Observable<IResponse<any>> {
+  defineDiscountCode(createData: DefineDiscountCodeModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -73,10 +73,10 @@ export class DiscountCodeService {
     formData.append('endDate', createData.endDate);
     formData.append('description', createData.description);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.discountBaseApiUrl}/discount-code/define`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -92,7 +92,7 @@ export class DiscountCodeService {
       );
   }
 
-  editDiscountCode(editData: EditDiscountCodeModel): Observable<IResponse<any>> {
+  editDiscountCode(editData: EditDiscountCodeModel): Observable<IResponse> {
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -104,10 +104,10 @@ export class DiscountCodeService {
     formData.append('endDate', editData.endDate);
     formData.append('description', editData.description);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
       (`${environment.discountBaseApiUrl}/discount-code/edit`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -123,13 +123,13 @@ export class DiscountCodeService {
       );
   }
 
-  deleteDiscountCode(discountCodeId: string): Observable<IResponse<any>> {
+  deleteDiscountCode(discountCodeId: string): Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.delete<IResponse<any>>
+    return this.http.delete<IResponse>
       (`${environment.discountBaseApiUrl}/discount-code/remove/${discountCodeId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();

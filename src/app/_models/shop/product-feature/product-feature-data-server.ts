@@ -1,6 +1,5 @@
 import { FilterProductFeatureModel, ProductFeatureModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/_common/IResponse';
 import { ProductFeatureService } from "@app_services/shop/product-feature/product-feature.service";
 import { of } from "rxjs";
 
@@ -21,15 +20,15 @@ export class ProductFeatureDataServer {
         .pipe(catchError(() => of([])),finalize(() => {
             this.isLoadingResults = true;
         }))
-        .subscribe((res : IResponse<FilterProductFeatureModel>) => {
+        .subscribe((res : FilterProductFeatureModel) => {
             setTimeout(() => {
-                this.data = res.data.productFeatures;
-                this.resultsLength = res.data.allPagesCount;
+                this.data = res.productFeatures;
+                this.resultsLength = res.allPagesCount;
                 this.isLoadingResults = false;
-                this.pageId = res.data.pageId;
+                this.pageId = res.pageId;
             }, 750)
         });
 
-    } 
+    }
 }
 

@@ -19,7 +19,7 @@ export class ProductDiscountService {
   ) { }
 
 
-  filterProductDiscount(filter: FilterProductDiscountModel): Observable<IResponse<FilterProductDiscountModel>> {
+  filterProductDiscount(filter: FilterProductDiscountModel): Observable<FilterProductDiscountModel> {
     this.loading.loadingOn();
 
     let params = new HttpParams();
@@ -31,7 +31,7 @@ export class ProductDiscountService {
       params = params.set('productId', filter.productId.toString())
     }
 
-    return this.http.get<IResponse<FilterProductDiscountModel>>
+    return this.http.get<FilterProductDiscountModel>
       (`${environment.discountBaseApiUrl}/product-discount/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -45,10 +45,10 @@ export class ProductDiscountService {
       );
   }
 
-  getProductDiscountDetails(id: string): Observable<IResponse<EditProductDiscountModel>> {
+  getProductDiscountDetails(id: string): Observable<EditProductDiscountModel> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditProductDiscountModel>>
+    return this.http.get<EditProductDiscountModel>
       (`${environment.discountBaseApiUrl}/product-discount/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -62,7 +62,7 @@ export class ProductDiscountService {
       );
   }
 
-  defineProductDiscount(createData: DefineProductDiscountModel): Observable<IResponse<any>> {
+  defineProductDiscount(createData: DefineProductDiscountModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -74,10 +74,10 @@ export class ProductDiscountService {
     formData.append('endDate', createData.endDate);
     formData.append('description', createData.description);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.discountBaseApiUrl}/product-discount/define`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -93,7 +93,7 @@ export class ProductDiscountService {
       );
   }
 
-  editProductDiscount(editData: EditProductDiscountModel): Observable<IResponse<any>> {
+  editProductDiscount(editData: EditProductDiscountModel): Observable<IResponse> {
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -105,10 +105,10 @@ export class ProductDiscountService {
     formData.append('endDate', editData.endDate);
     formData.append('description', editData.description);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
       (`${environment.discountBaseApiUrl}/product-discount/edit`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -124,13 +124,13 @@ export class ProductDiscountService {
       );
   }
 
-  deleteProductDiscount(ProductDiscountId: string): Observable<IResponse<any>> {
+  deleteProductDiscount(ProductDiscountId: string): Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.delete<IResponse<any>>
+    return this.http.delete<IResponse>
       (`${environment.discountBaseApiUrl}/product-discount/remove/${ProductDiscountId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -147,14 +147,14 @@ export class ProductDiscountService {
   }
 
   checkProductHasProductDiscount(productId: string)
-    : Observable<IResponse<CheckProductHasProductDiscountResponseModel>> {
+    : Observable<CheckProductHasProductDiscountResponseModel> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<CheckProductHasProductDiscountResponseModel>>
+    return this.http.get<CheckProductHasProductDiscountResponseModel>
       (`${environment.discountBaseApiUrl}/product-discount/has-discount/${productId}`)
       .pipe(
-        tap((res: IResponse<CheckProductHasProductDiscountResponseModel>) => {
-          if (res.data.existsProductDiscount === true) {
+        tap((res: CheckProductHasProductDiscountResponseModel) => {
+          if (res.existsProductDiscount) {
             this.toastr.info("برای این محصول یک تخفیف فعال وجود دارد", "اطلاعات", { timeOut: 2500 });
           }
           this.loading.loadingOff()

@@ -44,19 +44,15 @@ export class EditSliderDialog implements OnInit {
 
     this.sliderService.getSliderDetails(this.data.id).subscribe((res) => {
 
-      if (res.status === 'success') {
+      this.pageTitleSubject.next(`ویرایش اسلایدر : ${res.heading}`);
 
-        this.pageTitleSubject.next(`ویرایش اسلایدر : ${res.data.heading}`);
-
-        this.editForm.controls.heading.setValue(res.data.heading);
-        this.editForm.controls.text.setValue(res.data.text);
-        this.imagePath = `${environment.sliderBaseImagePath}/original/${res.data.imagePath}`;
-        this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
-        this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
-        this.editForm.controls.btnLink.setValue(res.data.btnLink);
-        this.editForm.controls.btnText.setValue(res.data.btnText);
-
-      }
+      this.editForm.controls.heading.setValue(res.heading);
+      this.editForm.controls.text.setValue(res.text);
+      this.imagePath = `${environment.sliderBaseImagePath}/original/${res.imagePath}`;
+      this.editForm.controls.imageAlt.setValue(res.imageAlt);
+      this.editForm.controls.imageTitle.setValue(res.imageTitle);
+      this.editForm.controls.btnLink.setValue(res.btnLink);
+      this.editForm.controls.btnText.setValue(res.btnText);
     });
 
     this.loading.loadingOff();
@@ -101,7 +97,7 @@ export class EditSliderDialog implements OnInit {
       );
 
       this.sliderService.editSlider(editData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.editForm.reset();
           this.onCloseClick();

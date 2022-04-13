@@ -18,7 +18,7 @@ export class InventoryOperationDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<InventoryOperationDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: {id: string},
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private inventoryService: InventoryService,
     private loading: LoadingService
   ) { }
@@ -27,10 +27,8 @@ export class InventoryOperationDialog implements OnInit {
     this.loading.loadingOn();
 
     this.inventoryService.getInventoryOperationLog(this.data.id).subscribe((res) => {
-      if (res.status === 'success') {
-        this.pageTitleSubject.next(`گردش انبار محصول : ${res.data.productTitle}`);
-        this.operations = res.data;
-      }
+      this.pageTitleSubject.next(`گردش انبار محصول : ${res.productTitle}`);
+      this.operations = res;
     });
 
     this.loading.loadingOff();

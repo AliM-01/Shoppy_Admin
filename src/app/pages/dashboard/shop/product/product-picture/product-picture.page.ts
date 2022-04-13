@@ -52,23 +52,11 @@ export class ProductPicturePage implements OnInit {
 
       this.productPictureService.getProductPictures(this.productId)
         .subscribe((res) => {
-          console.log(res);
+          this.title.setTitle(`گالری تصاویر محصول : ${res[0].product}`);
+          this.pageTitleSubject.next(`گالری تصاویر محصول : ${res[0].product}`);
 
-          if (res.status === 'success') {
-
-            this.title.setTitle(`گالری تصاویر محصول : ${res.data[0].product}`);
-            this.pageTitleSubject.next(`گالری تصاویر محصول : ${res.data[0].product}`);
-
-            this.productPictures = res.data;
-            this.pageLoading = true;
-
-
-          }
-          if (res.status === 'no-content') {
-
-            this.pageLoading = true;
-
-          }
+          this.productPictures = res;
+          this.pageLoading = true;
         });
 
     });
@@ -89,7 +77,7 @@ export class ProductPicturePage implements OnInit {
 
   removeProductPicture(id: string) {
     this.productPictureService.removeProductPicture(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });

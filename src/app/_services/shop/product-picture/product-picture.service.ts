@@ -18,10 +18,10 @@ export class ProductPictureService {
   ) { }
 
 
-  getProductPictures(productId: string): Observable<IResponse<ProductPictureModel[]>> {
+  getProductPictures(productId: string): Observable<ProductPictureModel[]> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<ProductPictureModel[]>>
+    return this.http.get<ProductPictureModel[]>
       (`${environment.shopBaseApiUrl}/product-picture/${productId}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -35,7 +35,7 @@ export class ProductPictureService {
       );
   }
 
-  createProductPicture(createData: CreateProductPictureModel): Observable<IResponse<any>> {
+  createProductPicture(createData: CreateProductPictureModel): Observable<IResponse> {
     this.loading.loadingOn();
 
     const formData = new FormData();
@@ -46,10 +46,10 @@ export class ProductPictureService {
       formData.append("imageFiles", createData.imageFiles[i]);
     }
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.shopBaseApiUrl}/product-picture/create`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -65,8 +65,8 @@ export class ProductPictureService {
       );
   }
 
-  removeProductPicture(productPictureId: string): Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>
+  removeProductPicture(productPictureId: string): Observable<IResponse> {
+    return this.http.delete<IResponse>
       (`${environment.shopBaseApiUrl}/product-picture/remove/${productPictureId}`)
       .pipe(
         tap(() => this.loading.loadingOff()),

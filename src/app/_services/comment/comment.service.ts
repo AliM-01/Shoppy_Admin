@@ -18,7 +18,7 @@ export class CommentService {
     private loading: LoadingService,
   ) { }
 
-  filterComment(filter: FilterCommentModel): Observable<IResponse<FilterCommentModel>> {
+  filterComment(filter: FilterCommentModel): Observable<FilterCommentModel> {
 
     this.loading.loadingOn()
 
@@ -26,7 +26,7 @@ export class CommentService {
       .set('State', filter.state)
       .set('Type', filter.type);
 
-    return this.http.get<IResponse<FilterCommentModel>>
+    return this.http.get<FilterCommentModel>
       (`${environment.commentBaseApiUrl}/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -40,13 +40,13 @@ export class CommentService {
       );
   }
 
-  confirmComment(commentId: string): Observable<IResponse<any>> {
+  confirmComment(commentId: string): Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.commentBaseApiUrl}/confirm/${commentId}`, null!)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -62,13 +62,13 @@ export class CommentService {
       );
   }
 
-  cancelComment(commentId: string): Observable<IResponse<any>> {
+  cancelComment(commentId: string): Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.commentBaseApiUrl}/cancel/${commentId}`, null!)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();

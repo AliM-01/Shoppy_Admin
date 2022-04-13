@@ -14,16 +14,14 @@ export class BarChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportService.productSale().subscribe(res => {
-      if(res.status === 'success'){
-        const data = [];
+      const data = [];
 
-        for (const chart of res.data) {
-          data.push(chart.count);
-        }
-
-        this.barChartData = [{ data: data, label: 'فروش', fill: true }];
-        this.isLoaded = true;
+      for (const chart of res) {
+        data.push(chart.count);
       }
+
+      this.barChartData = [{ data: data, label: 'فروش', fill: true }];
+      this.isLoaded = true;
     })
   }
 

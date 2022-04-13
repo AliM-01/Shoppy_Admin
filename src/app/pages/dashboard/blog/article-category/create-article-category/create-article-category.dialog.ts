@@ -83,7 +83,7 @@ export class CreateArticleCategoryDialog implements OnInit {
       );
 
       this.articleCategoryService.createArticleCategory(createData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.createForm.reset();
           this.onCloseClick();

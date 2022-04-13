@@ -53,7 +53,7 @@ export class CreateProductFeatureDialog implements OnInit {
       );
 
       this.productFeatureService.createProductFeature(createData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.createForm.reset();
           this.onCloseClick();

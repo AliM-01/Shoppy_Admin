@@ -188,7 +188,7 @@ export class FilterArticlePage implements OnInit, AfterViewInit {
 
   deleteArticle(id: string) {
     this.articleService.deleteArticle(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });

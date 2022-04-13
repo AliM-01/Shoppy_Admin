@@ -20,17 +20,17 @@ export class ProductFeatureService {
   ) { }
 
 
-  filterProductFeature(filter: FilterProductFeatureModel): Observable<IResponse<FilterProductFeatureModel>> {
+  filterProductFeature(filter: FilterProductFeatureModel): Observable<FilterProductFeatureModel> {
 
     this.loading.loadingOn();
 
-    let params = new HttpParams();
+    if(filter.productId === null || filter.productId === undefined)
+      return throwError(false);;
 
-    if (filter.pageId) {
-      params = params.set('ProductId', filter.productId)
-    }
+    let params = new HttpParams()
+      .set('ProductId', filter.productId);
 
-    return this.http.get<IResponse<FilterProductFeatureModel>>
+    return this.http.get<FilterProductFeatureModel>
       (`${environment.shopBaseApiUrl}/product-feature/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -44,11 +44,11 @@ export class ProductFeatureService {
       );
   }
 
-  getProductFeatureDetails(id: string): Observable<IResponse<EditProductFeatureModel>> {
+  getProductFeatureDetails(id: string): Observable<EditProductFeatureModel> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditProductFeatureModel>>
+    return this.http.get<EditProductFeatureModel>
       (`${environment.shopBaseApiUrl}/product-feature/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -62,7 +62,7 @@ export class ProductFeatureService {
       );
   }
 
-  createProductFeature(createData: CreateProductFeatureModel): Observable<IResponse<any>> {
+  createProductFeature(createData: CreateProductFeatureModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -72,10 +72,10 @@ export class ProductFeatureService {
     formData.append('featureTitle', createData.featureTitle);
     formData.append('featureValue', createData.featureValue);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.shopBaseApiUrl}/product-feature/create`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -91,7 +91,7 @@ export class ProductFeatureService {
       );
   }
 
-  editProductFeature(editData: EditProductFeatureModel): Observable<IResponse<any>> {
+  editProductFeature(editData: EditProductFeatureModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -102,10 +102,10 @@ export class ProductFeatureService {
     formData.append('featureTitle', editData.featureTitle);
     formData.append('featureValue', editData.featureValue);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
       (`${environment.shopBaseApiUrl}/product-feature/edit`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -121,13 +121,13 @@ export class ProductFeatureService {
       );
   }
 
-  deleteProductFeature(productFeatureId: string): Observable<IResponse<any>> {
+  deleteProductFeature(productFeatureId: string): Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.delete<IResponse<any>>
+    return this.http.delete<IResponse>
       (`${environment.shopBaseApiUrl}/product-feature/delete/${productFeatureId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();

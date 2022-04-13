@@ -51,19 +51,14 @@ export class AuthService {
     formData.append('password', loginData.password);
 
     return this.http
-      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/login`, formData)
+      .post<LoginResponseModel>(`${environment.authBaseApiUrl}/login`, formData)
       .pipe(
         map((res) => {
-          if (res.status === 'success') {
-
-            this.loading.loadingOff();
-            this.tokenStoreService.storeLoginSession(res.data);
-            this.refreshTokenService.scheduleRefreshToken(true, true);
-            this.authStatusSource.next(true);
-            return true;
-          }
-
-          return false;
+          this.loading.loadingOff();
+          this.tokenStoreService.storeLoginSession(res);
+          this.refreshTokenService.scheduleRefreshToken(true, true);
+          this.authStatusSource.next(true);
+          return true;
         }),
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
@@ -86,7 +81,7 @@ export class AuthService {
     const logoutData = new RevokeRefreshTokenRequestModel(refreshToken);
 
     this.http
-      .post<IResponse<string>>(`${environment.authBaseApiUrl}/logout`, logoutData)
+      .post<IResponse>(`${environment.authBaseApiUrl}/logout`, logoutData)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
@@ -119,14 +114,10 @@ export class AuthService {
       .set('roles', 'Admin');
 
     return this.http
-      .get<IResponse<string>>(`${environment.authBaseApiUrl}/is-in-role`, { params })
+      .get<IResponse>(`${environment.authBaseApiUrl}/is-in-role`, { params })
       .pipe(
-        map(res => {
-          if (res.status === 'success') {
-            return true;
-          } else {
-            return false;
-          }
+        map(() => {
+          return true;
         }),
         catchError((error: HttpErrorResponse) => {
 
@@ -137,10 +128,10 @@ export class AuthService {
         }));
   }
 
-  getCurrentUser(): Observable<IResponse<AccountModel>> {
+  getCurrentUser(): Observable<AccountModel> {
 
     return this.http
-      .get<IResponse<AccountModel>>(`${environment.authBaseApiUrl}/get-currentUser`)
+      .get<AccountModel>(`${environment.authBaseApiUrl}/get-currentUser`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
@@ -154,6 +145,6 @@ export class AuthService {
 
   private updateStatusOnPageRefresh(): void {
     this.isAuthUserLoggedIn()
-      .subscribe(res => this.authStatusSource.next(res) )
+      .subscribe(res => this.authStatusSource.next(res))
   }
 }

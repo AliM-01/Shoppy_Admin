@@ -74,7 +74,7 @@ export class CreateSliderDialog implements OnInit {
       );
 
       this.sliderService.createSlider(createData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
           this.createForm.reset();
           this.onCloseClick();
         }

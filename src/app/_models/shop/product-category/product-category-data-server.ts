@@ -2,7 +2,6 @@ import { ProductCategoryService } from "@app_services/shop/product-category/prod
 import { of } from "rxjs";
 import { FilterProductCategoryModel, ProductCategoryModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/_common/IResponse';
 
 export class ProductCategoryDataServer {
 
@@ -21,15 +20,15 @@ export class ProductCategoryDataServer {
         .pipe(catchError(() => of([])),finalize(() => {
             this.isLoadingResults = true;
         }))
-        .subscribe((res : IResponse<FilterProductCategoryModel>) => {
+        .subscribe((res : FilterProductCategoryModel) => {
             setTimeout(() => {
-                this.data = res.data.productCategories;
-                this.resultsLength = res.data.allPagesCount;
+                this.data = res.productCategories;
+                this.resultsLength = res.allPagesCount;
                 this.isLoadingResults = false;
-                this.pageId = res.data.pageId;
+                this.pageId = res.pageId;
             }, 750)
         });
 
-    } 
+    }
 }
 

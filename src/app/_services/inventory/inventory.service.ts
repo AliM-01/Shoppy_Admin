@@ -18,7 +18,7 @@ export class InventoryService {
     private loading: LoadingService,
   ) { }
 
-  filterInventory(filter: FilterInventoryModel): Observable<IResponse<FilterInventoryModel>> {
+  filterInventory(filter: FilterInventoryModel): Observable<FilterInventoryModel> {
 
     this.loading.loadingOn()
 
@@ -29,7 +29,7 @@ export class InventoryService {
       params = params.set('ProductTitle', filter.productTitle)
     }
 
-    return this.http.get<IResponse<FilterInventoryModel>>
+    return this.http.get<FilterInventoryModel>
       (`${environment.inventoryBaseApiUrl}/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -43,11 +43,11 @@ export class InventoryService {
       );
   }
 
-  getInventoryDetails(id: string): Observable<IResponse<EditInventoryModel>> {
+  getInventoryDetails(id: string): Observable<EditInventoryModel> {
 
     this.loading.loadingOn()
 
-    return this.http.get<IResponse<EditInventoryModel>>
+    return this.http.get<EditInventoryModel>
       (`${environment.inventoryBaseApiUrl}/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -61,7 +61,7 @@ export class InventoryService {
       );
   }
 
-  editInventory(editData: EditInventoryModel): Observable<IResponse<any>> {
+  editInventory(editData: EditInventoryModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -71,10 +71,10 @@ export class InventoryService {
     formData.append('unitPrice', editData.unitPrice.toString());
     formData.append('productId', editData.productId);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
       (`${environment.inventoryBaseApiUrl}/edit`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -90,7 +90,7 @@ export class InventoryService {
       );
   }
 
-  increaseInventory(increaseData: IncreaseInventoryModel): Observable<IResponse<any>> {
+  increaseInventory(increaseData: IncreaseInventoryModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -98,12 +98,12 @@ export class InventoryService {
 
     formData.append('inventoryId', increaseData.inventoryId);
     formData.append('count', increaseData.count.toString());
-    formData.append('description', increaseData.description.toString());
+    formData.append('description', increaseData.description);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.inventoryBaseApiUrl}/increase`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -119,22 +119,22 @@ export class InventoryService {
       );
   }
 
-  reduceInventory(reduceData: ReduceInventoryModel): Observable<IResponse<any>> {
+  reduceInventory(reduceData: ReduceInventoryModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
     const formData = new FormData();
 
     formData.append('inventoryId', reduceData.inventoryId);
-    formData.append('orderId', reduceData.orderId.toString());
-    formData.append('productId', reduceData.productId.toString());
+    formData.append('orderId', reduceData.orderId);
+    formData.append('productId', reduceData.productId);
     formData.append('count', reduceData.count.toString());
-    formData.append('description', reduceData.description.toString());
+    formData.append('description', reduceData.description);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.inventoryBaseApiUrl}/reduce`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -150,11 +150,11 @@ export class InventoryService {
       );
   }
 
-  getInventoryOperationLog(id: string): Observable<IResponse<GetInventoryOperationsModel>> {
+  getInventoryOperationLog(id: string): Observable<GetInventoryOperationsModel> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<GetInventoryOperationsModel>>
+    return this.http.get<GetInventoryOperationsModel>
       (`${environment.inventoryBaseApiUrl}/${id}/logs`)
       .pipe(
         tap(() => this.loading.loadingOff()),

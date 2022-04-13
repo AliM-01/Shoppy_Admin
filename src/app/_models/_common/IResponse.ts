@@ -1,6 +1,4 @@
-export interface IResponse<T> {
-    status:string;
-    message:string;
-    data: T;
-    errors: string[];
+export interface IResponse {
+  status:number;
+  message:string;
 }

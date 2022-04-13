@@ -27,11 +27,11 @@ export class SliderListPage implements OnInit, AfterViewInit {
   ) {
     this.pageTitle.setTitle('مدیریت دسته بندی محصولات');
   }
-  
+
   ngOnInit(): void {
     this.dataSource = new SliderDataSource(this.sliderService);
     this.dataSource.loadSliders();
-    
+
   }
 
   ngAfterViewInit() {
@@ -63,7 +63,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }
@@ -74,7 +74,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
 
   removeSlider(id: string) {
     this.sliderService.removeSlider(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });
@@ -82,7 +82,7 @@ export class SliderListPage implements OnInit, AfterViewInit {
 
   restoreSlider(id: string) {
     this.sliderService.restoreSlider(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });

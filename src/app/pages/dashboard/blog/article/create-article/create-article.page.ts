@@ -59,11 +59,7 @@ export class CreateArticlePage implements OnInit {
 
   getArticleCategoriesForSelectList() {
 
-    this.articleCategoryService.getArticleCategoriesSelectList().subscribe(res => {
-      if (res.status === 'success') {
-        this.categories = res.data;
-      }
-    });
+    this.articleCategoryService.getArticleCategoriesSelectList().subscribe(res => this.categories = res);
 
   }
 
@@ -102,7 +98,7 @@ export class CreateArticlePage implements OnInit {
       );
 
       this.articleService.createArticle(createData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
           this.createForm.reset();
           this.route.navigate(['/article']);
         }

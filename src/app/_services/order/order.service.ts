@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading-service';
@@ -21,7 +21,7 @@ export class OrderService {
   ) { }
 
 
-  filterOrder(filter: FilterOrderModel): Observable<IResponse<FilterOrderModel>> {
+  filterOrder(filter: FilterOrderModel): Observable<FilterOrderModel> {
 
     this.loading.loadingOn()
 
@@ -31,7 +31,7 @@ export class OrderService {
     if(filter.userNames){
       params = params.set('UserNames', filter.userNames)
     }
-    return this.http.get<IResponse<FilterOrderModel>>
+    return this.http.get<FilterOrderModel>
       (`${environment.orderBaseApiUrl}/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -45,11 +45,11 @@ export class OrderService {
       );
   }
 
-  getUserOrders(userId: string): Observable<IResponse<OrderModel[]>> {
+  getUserOrders(userId: string): Observable<OrderModel[]> {
 
     this.loading.loadingOn()
 
-    return this.http.get<IResponse<OrderModel[]>>
+    return this.http.get<OrderModel[]>
       (`${environment.orderBaseApiUrl}/${userId}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -63,11 +63,11 @@ export class OrderService {
       );
   }
 
-  getItems(orderId: string): Observable<IResponse<OrderItemModel[]>> {
+  getItems(orderId: string): Observable<OrderItemModel[]> {
 
     this.loading.loadingOn()
 
-    return this.http.get<IResponse<OrderItemModel[]>>
+    return this.http.get<OrderItemModel[]>
       (`${environment.orderBaseApiUrl}/${orderId}/items`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -81,14 +81,14 @@ export class OrderService {
       );
   }
 
-  cancel(orderId: string): Observable<IResponse<any>> {
+  cancel(orderId: string): Observable<IResponse> {
 
     this.loading.loadingOn()
 
-    return this.http.delete<IResponse<any>>
+    return this.http.delete<IResponse>
       (`${environment.orderBaseApiUrl}/cancel/${orderId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();

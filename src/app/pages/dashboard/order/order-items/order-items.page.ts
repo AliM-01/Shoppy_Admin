@@ -50,11 +50,7 @@ export class OrderItemsPage implements OnInit {
   }
 
   getItems(){
-    this.orderService.getItems(this.orderId).subscribe((res) => {
-      if (res.status === 'success') {
-        this.items = res.data;
-      }
-    });
+    this.orderService.getItems(this.orderId).subscribe((res) => this.items = res);
   }
 
   onCloseClick(): void {

@@ -1,7 +1,6 @@
 import { of } from "rxjs";
 import { FilterDiscountCodeModel, DiscountCodeModel} from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/_common/IResponse';
 import { DiscountCodeService } from "@app_services/discount/discount-code/discount-code.service";
 
 export class DiscountCodeDataServer {
@@ -21,12 +20,12 @@ export class DiscountCodeDataServer {
         .pipe(catchError(() => of([])),finalize(() => {
             this.isLoadingResults = true;
         }))
-        .subscribe((res : IResponse<FilterDiscountCodeModel>) => {
+        .subscribe((res : FilterDiscountCodeModel) => {
             setTimeout(() => {
-                this.data = res.data.discounts;
-                this.resultsLength = res.data.allPagesCount;
+                this.data = res.discounts;
+                this.resultsLength = res.allPagesCount;
                 this.isLoadingResults = false;
-                this.pageId = res.data.pageId;
+                this.pageId = res.pageId;
             }, 750)
         });
 

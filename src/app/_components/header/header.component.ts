@@ -21,17 +21,11 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(res => {
-      if(res.status === 'success'){
-        this.currentUserSubject.next(res.data)
-        this.avatarPath = `${environment.avatarBaseImagePath}/${res.data.avatarPath}`
-        console.log(this.avatarPath);
-
-      } else {
-        this.avatarPath = "/assets/img/logo.png";
-      }
-
-    })
+    this.authService.getCurrentUser()
+      .subscribe(res => {
+        this.currentUserSubject.next(res)
+        this.avatarPath = `${environment.avatarBaseImagePath}/${res.avatarPath}`
+      }, () => this.avatarPath = "/assets/img/logo.png")
   }
 
 }

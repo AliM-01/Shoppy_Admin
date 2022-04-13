@@ -18,11 +18,11 @@ export class ArticleCategoryService {
     private loading: LoadingService,
   ) { }
 
-  getArticleCategoriesSelectList(): Observable<IResponse<ArticleCategoryForSelectListModel[]>> {
+  getArticleCategoriesSelectList(): Observable<ArticleCategoryForSelectListModel[]> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<ArticleCategoryForSelectListModel[]>>
+    return this.http.get<ArticleCategoryForSelectListModel[]>
     (`${environment.blogBaseApiUrl}/article-category/get-select-list`)
     .pipe(
       tap(() => this.loading.loadingOff()),
@@ -36,7 +36,7 @@ export class ArticleCategoryService {
     );
   }
 
-  filterArticleCategory(filter: FilterArticleCategoryModel): Observable<IResponse<FilterArticleCategoryModel>> {
+  filterArticleCategory(filter: FilterArticleCategoryModel): Observable<FilterArticleCategoryModel> {
 
     this.loading.loadingOn();
 
@@ -46,7 +46,7 @@ export class ArticleCategoryService {
       params = params.set('Title', filter.title)
     }
 
-    return this.http.get<IResponse<FilterArticleCategoryModel>>
+    return this.http.get<FilterArticleCategoryModel>
     (`${environment.blogBaseApiUrl}/article-category/filter`, { params })
     .pipe(
       tap(() => this.loading.loadingOff()),
@@ -60,11 +60,11 @@ export class ArticleCategoryService {
     );
   }
 
-  getArticleCategoryDetails(id: string): Observable<IResponse<EditArticleCategoryModel>> {
+  getArticleCategoryDetails(id: string): Observable<EditArticleCategoryModel> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditArticleCategoryModel>>
+    return this.http.get<EditArticleCategoryModel>
     (`${environment.blogBaseApiUrl}/article-category/${id}`)
     .pipe(
       tap(() => this.loading.loadingOff()),
@@ -78,7 +78,7 @@ export class ArticleCategoryService {
     );
   }
 
-  createArticleCategory(createData: CreateArticleCategoryModel):Observable<IResponse<any>> {
+  createArticleCategory(createData: CreateArticleCategoryModel):Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -93,10 +93,10 @@ export class ArticleCategoryService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
     (`${environment.blogBaseApiUrl}/article-category/create`, formData)
     .pipe(
-      tap((res: IResponse<any>) => {
+      tap((res: IResponse) => {
 
         this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
         this.loading.loadingOff();
@@ -112,7 +112,7 @@ export class ArticleCategoryService {
     );
   }
 
-  editArticleCategory(editData: EditArticleCategoryModel):Observable<IResponse<any>> {
+  editArticleCategory(editData: EditArticleCategoryModel):Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -132,10 +132,10 @@ export class ArticleCategoryService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
     (`${environment.blogBaseApiUrl}/article-category/edit`, formData)
     .pipe(
-      tap((res: IResponse<any>) => {
+      tap((res: IResponse) => {
 
         this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
         this.loading.loadingOff();
@@ -151,13 +151,13 @@ export class ArticleCategoryService {
     );
   }
 
-  deleteArticleCategory(id: string):Observable<IResponse<any>> {
+  deleteArticleCategory(id: string):Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.delete<IResponse<any>>
+    return this.http.delete<IResponse>
     (`${environment.blogBaseApiUrl}/article-category/delete/${id}`)
     .pipe(
-      tap((res: IResponse<any>) => {
+      tap((res: IResponse) => {
 
         this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
         this.loading.loadingOff();

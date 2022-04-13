@@ -46,7 +46,7 @@ export class DefineProductDiscountPage implements OnInit {
       }
 
       this.ProductDiscountService.checkProductHasProductDiscount(this.productId).subscribe(res => {
-        if(res.data.existsProductDiscount === true){
+        if(res.existsProductDiscount === true){
           this.onCloseClick();
         }
       });
@@ -67,7 +67,7 @@ export class DefineProductDiscountPage implements OnInit {
     this._location.back();
   }
 
-  submitDefineForm() {
+  submit() {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -83,7 +83,7 @@ export class DefineProductDiscountPage implements OnInit {
       );
 
       this.ProductDiscountService.defineProductDiscount(defineData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
           this.defineForm.reset();
         }
       });

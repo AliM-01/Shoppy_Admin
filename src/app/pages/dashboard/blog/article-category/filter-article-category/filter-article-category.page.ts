@@ -177,7 +177,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
 
   deleteArticleCategory(id: string) {
     this.articleCategoryService.deleteArticleCategory(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });

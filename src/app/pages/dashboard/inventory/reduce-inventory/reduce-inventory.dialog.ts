@@ -65,13 +65,13 @@ export class ReduceInventoryDialog implements OnInit {
 
       this.productService.existsProductId(productId).subscribe(res => {
 
-        if (res.data.exists === false) {
+        if (res.exists === false) {
           this.existsProductId = false;
           this.pageTitleSubject.next("کاهش انبار محصول");
 
         } else {
           this.existsProductId = true;
-          this.pageTitleSubject.next(`کاهش انبار محصول : ${res.data.productTitle}`);
+          this.pageTitleSubject.next(`کاهش انبار محصول : ${res.productTitle}`);
         }
 
       });
@@ -89,14 +89,14 @@ export class ReduceInventoryDialog implements OnInit {
 
       const reduceData = new ReduceInventoryModel(
         this.data.id,
-        0,
+        "0",
         this.reduceForm.controls.productId.value,
         this.reduceForm.controls.count.value,
         this.reduceForm.controls.description.value
       );
 
       this.inventoryService.reduceInventory(reduceData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
           this.reduceForm.reset();
           this.onCloseClick();
         }

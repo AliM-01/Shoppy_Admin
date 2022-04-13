@@ -29,24 +29,18 @@ export class EditInventoryDialog implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.editForm = new FormGroup({
       unitPrice: new FormControl(null, [Validators.required])
     });
 
     this.inventoryService.getInventoryDetails(this.data.id).subscribe((iRes) => {
 
-      if (iRes.status === 'success') {
+      this.productId = iRes.productId;
+      this.editForm.controls.unitPrice.setValue(iRes.unitPrice)
 
-        this.pageTitleSubject.next(`ویرایش انبار محصول`);
-
-        this.productId = iRes.data.productId;
-        this.editForm.controls.unitPrice.setValue(iRes.data.unitPrice)
-
-        this.productService.existsProductId(this.productId).subscribe((pRes) => {
-          this.pageTitleSubject.next(`ویرایش انبار محصول : ${pRes.data.productTitle}`);
-        });
-      }
+      this.productService.existsProductId(this.productId).subscribe((pRes) => {
+        this.pageTitleSubject.next(`ویرایش انبار محصول : ${pRes.productTitle}`);
+      });
     });
 
   }
@@ -59,7 +53,7 @@ export class EditInventoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitEditForm() {
+  submit() {
     this.loading.loadingOn()
 
     if (this.editForm.valid) {
@@ -71,7 +65,7 @@ export class EditInventoryDialog implements OnInit {
       );
 
       this.inventoryService.editInventory(editData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.editForm.reset();
           this.onCloseClick();

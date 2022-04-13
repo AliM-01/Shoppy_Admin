@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { Observable, throwError } from "rxjs";
-import { IResponse } from '@app_models/_common/IResponse';
 import { ChartModel } from '../../_models/report/chart';
 import { environment } from '@environments/environment';
 import { catchError, tap } from 'rxjs/operators';
@@ -18,11 +17,11 @@ export class ReportService {
     private loading: LoadingService,
   ) { }
 
-  orders(): Observable<IResponse<ChartModel[]>> {
+  orders(): Observable<ChartModel[]> {
 
     this.loading.loadingOn()
 
-    return this.http.get<IResponse<ChartModel[]>>
+    return this.http.get<ChartModel[]>
       (`${environment.reportBaseApiUrl}/orders`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -36,11 +35,11 @@ export class ReportService {
       );
   }
 
-  productSale(): Observable<IResponse<ChartModel[]>> {
+  productSale(): Observable<ChartModel[]> {
 
     this.loading.loadingOn()
 
-    return this.http.get<IResponse<ChartModel[]>>
+    return this.http.get<ChartModel[]>
       (`${environment.reportBaseApiUrl}/product-sales`)
       .pipe(
         tap(() => this.loading.loadingOff()),

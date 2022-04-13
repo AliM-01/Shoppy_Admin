@@ -18,7 +18,7 @@ import { environment } from '@environments/environment';
 })
 export class EditArticlePage implements OnInit {
 
-  articleId:string = "";
+  articleId: string = "";
   editForm: FormGroup;
   imagePath: any;
   fileUploaded: boolean = false;
@@ -37,7 +37,7 @@ export class EditArticlePage implements OnInit {
     private ckeditorService: CkeditorService
   ) {
     this.pageTitle.setTitle('ایجاد مقاله');
-   }
+  }
 
   ngOnInit(): void {
 
@@ -68,22 +68,18 @@ export class EditArticlePage implements OnInit {
     });
 
     this.articleService.getArticleDetails(this.articleId).subscribe((res) => {
-      if (res.status === 'success') {
+      this.editForm.controls.categoryId.setValue(res.categoryId)
+      this.editForm.controls.title.setValue(res.title)
+      this.editForm.controls.summary.setValue(res.summary)
 
-        this.editForm.controls.categoryId.setValue(res.data.categoryId)
-        this.editForm.controls.title.setValue(res.data.title)
-        this.editForm.controls.summary.setValue(res.data.summary)
-
-        this.ckeditorTextValue = res.data.text;
-        this.ckeditorService.setValue(res.data.text);
-        this.imagePath = `${environment.articleBaseImagePath}/original/${res.data.imagePath}`;
-        this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
-        this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
-        this.editForm.controls.metaKeywords.setValue(res.data.metaKeywords);
-        this.editForm.controls.metaDescription.setValue(res.data.metaDescription);
-        this.editForm.controls.canonicalAddress.setValue(res.data.canonicalAddress);
-
-      }
+      this.ckeditorTextValue = res.text;
+      this.ckeditorService.setValue(res.text);
+      this.imagePath = `${environment.articleBaseImagePath}/original/${res.imagePath}`;
+      this.editForm.controls.imageAlt.setValue(res.imageAlt);
+      this.editForm.controls.imageTitle.setValue(res.imageTitle);
+      this.editForm.controls.metaKeywords.setValue(res.metaKeywords);
+      this.editForm.controls.metaDescription.setValue(res.metaDescription);
+      this.editForm.controls.canonicalAddress.setValue(res.canonicalAddress);
     },
       () => { this.onCloseClick(); });
     this.loading.loadingOff();
@@ -100,11 +96,7 @@ export class EditArticlePage implements OnInit {
 
   getArticleCategoriesForSelectList() {
 
-    this.articleCategoryService.getArticleCategoriesSelectList().subscribe(res => {
-      if (res.status === 'success') {
-        this.categories = res.data;
-      }
-    });
+    this.articleCategoryService.getArticleCategoriesSelectList().subscribe(res => this.categories = res);
 
   }
 
@@ -146,7 +138,7 @@ export class EditArticlePage implements OnInit {
       );
 
       this.articleService.editArticle(editData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
           this.editForm.reset();
           this.route.navigate(['/article']);
         }

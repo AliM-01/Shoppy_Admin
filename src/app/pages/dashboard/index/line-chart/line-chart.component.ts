@@ -55,16 +55,14 @@ export class LineChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportService.orders().subscribe(res => {
-      if(res.status === 'success'){
         const data = [];
 
-        for (const chart of res.data) {
+        for (const chart of res) {
           data.push(chart.count);
         }
 
         this.lineChartData = [{ data: data, label: 'فروش', fill: true }];
         this.isLoaded = true;
-      }
     })
   }
 

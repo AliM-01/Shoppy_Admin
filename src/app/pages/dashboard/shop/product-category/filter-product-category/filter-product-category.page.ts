@@ -178,7 +178,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
   deleteProductCategory(id: string) {
     this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });

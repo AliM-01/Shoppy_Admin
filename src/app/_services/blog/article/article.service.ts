@@ -18,7 +18,7 @@ export class ArticleService {
     private loading: LoadingService,
   ) { }
 
-  filterArticle(filter: FilterArticleModel): Observable<IResponse<FilterArticleModel>> {
+  filterArticle(filter: FilterArticleModel): Observable<FilterArticleModel> {
 
     this.loading.loadingOn();
 
@@ -28,7 +28,7 @@ export class ArticleService {
       params = params.set('Title', filter.title)
     }
 
-    return this.http.get<IResponse<FilterArticleModel>>
+    return this.http.get<FilterArticleModel>
       (`${environment.blogBaseApiUrl}/article/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -42,11 +42,11 @@ export class ArticleService {
       );
   }
 
-  getArticleDetails(id: string): Observable<IResponse<EditArticleModel>> {
+  getArticleDetails(id: string): Observable<EditArticleModel> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditArticleModel>>
+    return this.http.get<EditArticleModel>
       (`${environment.blogBaseApiUrl}/article/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -60,7 +60,7 @@ export class ArticleService {
       );
   }
 
-  createArticle(createData: CreateArticleModel): Observable<IResponse<any>> {
+  createArticle(createData: CreateArticleModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -77,10 +77,10 @@ export class ArticleService {
     formData.append('metaDescription', createData.metaDescription);
     formData.append('canonicalAddress', createData.canonicalAddress);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.blogBaseApiUrl}/article/create`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -96,7 +96,7 @@ export class ArticleService {
       );
   }
 
-  editArticle(editData: EditArticleModel): Observable<IResponse<any>> {
+  editArticle(editData: EditArticleModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -118,10 +118,10 @@ export class ArticleService {
     formData.append('metaDescription', editData.metaDescription);
     formData.append('canonicalAddress', editData.canonicalAddress);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
       (`${environment.blogBaseApiUrl}/article/edit`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -137,13 +137,13 @@ export class ArticleService {
       );
   }
 
-  deleteArticle(articleId: string): Observable<IResponse<any>> {
+  deleteArticle(articleId: string): Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.delete<IResponse<any>>
+    return this.http.delete<IResponse>
       (`${environment.blogBaseApiUrl}/article/delete/${articleId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();

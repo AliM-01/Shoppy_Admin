@@ -27,7 +27,7 @@ export class DefineProductDiscountDialog implements OnInit, AfterViewInit {
 
   constructor(
     public dialogRef: MatDialogRef<DefineProductDiscountDialog>,
-    private ProductDiscountService: ProductDiscountService,
+    private productDiscountService: ProductDiscountService,
     private productService: ProductService,
     private ckeditorService: CkeditorService,
     private loading: LoadingService
@@ -82,8 +82,8 @@ export class DefineProductDiscountDialog implements OnInit, AfterViewInit {
           this.ckeditorService.getValue(),
         );
 
-        this.ProductDiscountService.defineProductDiscount(defineData).subscribe((res) => {
-          if (res.status === 'success') {
+        this.productDiscountService.defineProductDiscount(defineData).subscribe((res) => {
+          if (res.status === 200) {
 
             this.defineForm.reset();
             this.onCloseClick();
@@ -109,7 +109,7 @@ export class DefineProductDiscountDialog implements OnInit, AfterViewInit {
 
       this.productService.existsProductId(productId).subscribe(res => {
 
-        if (res.data.exists === false) {
+        if (!res.exists) {
           this.existsProductId = false
 
         } else {
@@ -124,9 +124,9 @@ export class DefineProductDiscountDialog implements OnInit, AfterViewInit {
   }
 
   checkProductHasProductDiscount(productId: string) {
-    this.ProductDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
+    this.productDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
 
-      if (res.data.existsProductDiscount === true) {
+      if (res.existsProductDiscount) {
         this.existsProductDiscount = true
       }
 

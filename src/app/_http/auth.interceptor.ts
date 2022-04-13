@@ -46,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(request)
         .pipe(
           catchError(error => {
-            if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 0)) {
+            if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 403 || error.status === 0)) {
               return this.handle401Error(request, next);
             } else {
               this.router.navigate(["/not-found"]);
@@ -66,8 +66,8 @@ export class AuthInterceptor implements HttpInterceptor {
         .pipe(
           switchMap(res => {
             this.isRefreshing = false;
-            this.refreshTokenSubject.next(res.data.accessToken);
-            return next.handle(this.addToken(request, res.data.accessToken));
+            this.refreshTokenSubject.next(res.accessToken);
+            return next.handle(this.addToken(request, res.accessToken));
           }),
           catchError((error) => {
             this.router.navigate(["/auth/access-denied"]);

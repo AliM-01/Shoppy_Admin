@@ -51,7 +51,7 @@ export class IncreaseInventoryDialog implements OnInit {
       );
 
       this.inventoryService.increaseInventory(increaseData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
           this.increaseForm.reset();
           this.onCloseClick();
         }

@@ -63,7 +63,7 @@ export class DefineDiscountCodeDialog implements OnInit {
         );
 
         this.DiscountCodeService.defineDiscountCode(defineData).subscribe((res) => {
-          if (res.status === 'success') {
+          if (res.status === 200) {
 
             this.defineForm.reset();
             this.onCloseClick();

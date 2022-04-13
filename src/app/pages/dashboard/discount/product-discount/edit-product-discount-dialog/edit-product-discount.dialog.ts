@@ -28,7 +28,7 @@ export class EditProductDiscountDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditProductDiscountDialog>,
-    private ProductDiscountService: ProductDiscountService,
+    private productDiscountService: ProductDiscountService,
     private productService: ProductService,
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private ckeditorService: CkeditorService,
@@ -44,21 +44,16 @@ export class EditProductDiscountDialog implements OnInit {
       rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
 
-    this.ProductDiscountService.getProductDiscountDetails(this.data.id).subscribe((res) => {
-
-      if (res.status === 'success') {
-
-        this.unchangedProductId = res.data.productId;
-        this.editForm.controls.productId.setValue(res.data.productId)
-        this.editForm.controls.rate.setValue(res.data.rate)
-        this.startDatepickerInput.nativeElement.value = res.data.startDate;
-        this.endDatepickerInput.nativeElement.value = res.data.endDate;
-        this.ckeditorTextValue = res.data.description;
-        this.ckeditorService.setValue(res.data.description);
-
-      }
+    this.productDiscountService.getProductDiscountDetails(this.data.id).subscribe((res) => {
+      this.unchangedProductId = res.productId;
+      this.editForm.controls.productId.setValue(res.productId)
+      this.editForm.controls.rate.setValue(res.rate)
+      this.startDatepickerInput.nativeElement.value = res.startDate;
+      this.endDatepickerInput.nativeElement.value = res.endDate;
+      this.ckeditorTextValue = res.description;
+      this.ckeditorService.setValue(res.description);
     },
-      (error) => {
+      () => {
         this.onCloseClick();
       }
     );
@@ -104,8 +99,8 @@ export class EditProductDiscountDialog implements OnInit {
           this.ckeditorService.getValue(),
         );
 
-        this.ProductDiscountService.editProductDiscount(editData).subscribe((res) => {
-          if (res.status === 'success') {
+        this.productDiscountService.editProductDiscount(editData).subscribe((res) => {
+          if (res.status === 200) {
             this.editForm.reset();
             this.onCloseClick();
           }
@@ -127,7 +122,7 @@ export class EditProductDiscountDialog implements OnInit {
 
       this.productService.existsProductId(productId).subscribe(res => {
 
-        if (res.data.exists === false) {
+        if (res.exists === false) {
           this.existsProductId = false
 
         } else {
@@ -142,9 +137,9 @@ export class EditProductDiscountDialog implements OnInit {
   }
 
   checkProductHasProductDiscount(productId: string) {
-    this.ProductDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
+    this.productDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
 
-      if (res.data.existsProductDiscount === true) {
+      if (res.existsProductDiscount === true) {
         this.existsProductDiscount = true
       }
 

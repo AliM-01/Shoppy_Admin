@@ -57,9 +57,7 @@ export class CreateProductDialog implements OnInit {
   getProductCategoriesForSelectList() {
 
     this.productCategoryService.getProductCategoriesList().subscribe(res => {
-      if (res.status === 'success') {
-        this.categories = res.data;
-      }
+      this.categories = res;
     });
 
   }
@@ -102,7 +100,7 @@ export class CreateProductDialog implements OnInit {
       );
 
       this.productService.createProduct(createData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.createForm.reset();
 
@@ -111,8 +109,6 @@ export class CreateProductDialog implements OnInit {
           this.toastr.info(pleaseCreateInventoryMsg, 'مهم', { timeOut: 4000 });
 
           this.onCloseClick();
-
-          // this.route.navigate([`/inventory/${res.data.productId}`])
         }
       });
 

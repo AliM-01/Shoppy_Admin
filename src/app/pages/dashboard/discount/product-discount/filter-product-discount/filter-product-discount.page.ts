@@ -209,7 +209,7 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
 
       this.productDiscountService.deleteProductDiscount(id).subscribe((res) => {
 
-        if (res.status === 'success') {
+        if (res.status === 200) {
           this.ngOnInit();
         }
 

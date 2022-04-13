@@ -27,7 +27,7 @@ export class EditProductCategoryDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditProductCategoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: {id: string},
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private productCategoryService: ProductCategoryService,
     private ckeditorService: CkeditorService,
     private loading: LoadingService,
@@ -48,20 +48,16 @@ export class EditProductCategoryDialog implements OnInit {
 
     this.productCategoryService.getProductCategoryDetails(this.data.id).subscribe((res) => {
 
-      if (res.status === 'success') {
+      this.pageTitleSubject.next(`ویرایش دسته بندی : ${res.title}`);
 
-        this.pageTitleSubject.next(`ویرایش دسته بندی : ${res.data.title}`);
-
-        this.editForm.controls.title.setValue(res.data.title)
-        this.ckeditorTextValue = res.data.description;
-        this.ckeditorService.setValue(res.data.description);
-        this.imagePath = `${environment.productCategoryBaseImagePath}/original/${res.data.imagePath}` ;
-        this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
-        this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
-        this.editForm.controls.metaKeywords.setValue(res.data.metaKeywords);
-        this.editForm.controls.metaDescription.setValue(res.data.metaDescription);
-
-      }
+      this.editForm.controls.title.setValue(res.title)
+      this.ckeditorTextValue = res.description;
+      this.ckeditorService.setValue(res.description);
+      this.imagePath = `${environment.productCategoryBaseImagePath}/original/${res.imagePath}`;
+      this.editForm.controls.imageAlt.setValue(res.imageAlt);
+      this.editForm.controls.imageTitle.setValue(res.imageTitle);
+      this.editForm.controls.metaKeywords.setValue(res.metaKeywords);
+      this.editForm.controls.metaDescription.setValue(res.metaDescription);
     });
   }
 
@@ -107,7 +103,7 @@ export class EditProductCategoryDialog implements OnInit {
       );
 
       this.productCategoryService.editProductCategory(editData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.editForm.reset();
           this.onCloseClick();

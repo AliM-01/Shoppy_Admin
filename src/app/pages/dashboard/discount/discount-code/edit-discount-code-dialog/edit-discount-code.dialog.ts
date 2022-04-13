@@ -21,7 +21,7 @@ export class EditDiscountCodeDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditDiscountCodeDialog>,
-    private DiscountCodeService: DiscountCodeService,
+    private discountCodeService: DiscountCodeService,
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private ckeditorService: CkeditorService,
     private loading: LoadingService
@@ -36,22 +36,18 @@ export class EditDiscountCodeDialog implements OnInit {
       rate: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(100)])
     });
 
-    this.DiscountCodeService.getDiscountCodeDetails(this.data.id).subscribe((res) => {
+    this.discountCodeService.getDiscountCodeDetails(this.data.id).subscribe(
+    (res) => {
 
-      if (res.status === 'success') {
+      this.editForm.controls.code.setValue(res.code)
+      this.editForm.controls.rate.setValue(res.rate)
+      this.startDatepickerInput.nativeElement.value = res.startDate;
+      this.endDatepickerInput.nativeElement.value = res.endDate;
+      this.ckeditorTextValue = res.description;
+      this.ckeditorService.setValue(res.description);
 
-        this.editForm.controls.code.setValue(res.data.code)
-        this.editForm.controls.rate.setValue(res.data.rate)
-        this.startDatepickerInput.nativeElement.value = res.data.startDate;
-        this.endDatepickerInput.nativeElement.value = res.data.endDate;
-        this.ckeditorTextValue = res.data.description;
-        this.ckeditorService.setValue(res.data.description);
-
-      }
     },
-      (error) => {
-        this.onCloseClick();
-      }
+    () => this.onCloseClick()
     );
   }
 
@@ -81,8 +77,8 @@ export class EditDiscountCodeDialog implements OnInit {
           this.ckeditorService.getValue(),
         );
 
-        this.DiscountCodeService.editDiscountCode(editData).subscribe((res) => {
-          if (res.status === 'success') {
+        this.discountCodeService.editDiscountCode(editData).subscribe((res) => {
+          if (res.status === 200) {
             this.editForm.reset();
             this.onCloseClick();
           }

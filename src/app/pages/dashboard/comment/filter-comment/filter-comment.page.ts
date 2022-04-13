@@ -127,7 +127,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
 
   confirmComment(id: string) {
     this.commentService.confirmComment(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });
@@ -135,7 +135,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
 
   cancelComment(id: string) {
     this.commentService.cancelComment(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });

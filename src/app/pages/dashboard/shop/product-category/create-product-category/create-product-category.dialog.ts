@@ -79,7 +79,7 @@ export class CreateProductCategoryDialog implements OnInit {
       );
 
       this.productCategoryService.createProductCategory(createData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.createForm.reset();
           this.onCloseClick();

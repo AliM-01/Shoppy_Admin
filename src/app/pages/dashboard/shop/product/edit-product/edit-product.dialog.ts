@@ -55,26 +55,19 @@ export class EditProductDialog implements OnInit {
     });
 
     this.productService.getProductDetails(this.data.id).subscribe((res) => {
-      if (res.status === 'success') {
+      this.pageTitleSubject.next(res.title + "کد : " + res.code);
 
-        this.pageTitleSubject.next(res.data.title + "کد : " + res.data.code);
+      this.editForm.controls.categoryId.setValue(res.categoryId);
+      this.editForm.controls.title.setValue(res.title);
+      this.editForm.controls.shortDescription.setValue(res.shortDescription);
 
-        this.editForm.controls.categoryId.setValue(res.data.categoryId);
-        this.editForm.controls.title.setValue(res.data.title);
-        this.editForm.controls.shortDescription.setValue(res.data.shortDescription);
-
-        this.ckeditorTextValue = res.data.description;
-        this.ckeditorService.setValue(res.data.description);
-        this.imagePath = `${environment.productBaseImagePath}/thumbnail/${res.data.imagePath}`;
-        this.editForm.controls.imageAlt.setValue(res.data.imageAlt);
-        this.editForm.controls.imageTitle.setValue(res.data.imageTitle);
-        this.editForm.controls.metaKeywords.setValue(res.data.metaKeywords);
-        this.editForm.controls.metaDescription.setValue(res.data.metaDescription);
-
-        console.log(res);
-        console.log(this.editForm.controls);
-
-      }
+      this.ckeditorTextValue = res.description;
+      this.ckeditorService.setValue(res.description);
+      this.imagePath = `${environment.productBaseImagePath}/thumbnail/${res.imagePath}`;
+      this.editForm.controls.imageAlt.setValue(res.imageAlt);
+      this.editForm.controls.imageTitle.setValue(res.imageTitle);
+      this.editForm.controls.metaKeywords.setValue(res.metaKeywords);
+      this.editForm.controls.metaDescription.setValue(res.metaDescription);
     },
       (error) => { this.onCloseClick(); });
 
@@ -88,11 +81,7 @@ export class EditProductDialog implements OnInit {
 
   getProductCategoriesForSelectList() {
     this.productCategoryService.getProductCategoriesList().subscribe((res) => {
-      if (res.status === 'success') {
-
-        this.categories = res.data;
-
-      }
+      this.categories = res;
     });
   }
 
@@ -109,7 +98,7 @@ export class EditProductDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm() {
+  submit() {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -136,7 +125,7 @@ export class EditProductDialog implements OnInit {
       );
 
       this.productService.editProduct(editData).subscribe((res) => {
-        if (res.status === 'success') {
+        if (res.status === 200) {
 
           this.editForm.reset();
           this.onCloseClick();

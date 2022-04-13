@@ -1,25 +1,27 @@
+export const baseApiUrl = "https://localhost:5001";
+
 export const environment = {
   production: false,
 
   // api urls
-  authBaseApiUrl: "https://localhost:5001/api/account",
-  shopBaseApiUrl: "https://localhost:5001/api/admin/shop",
-  discountBaseApiUrl: "https://localhost:5001/api/admin/discount",
-  inventoryBaseApiUrl: "https://localhost:5001/api/admin/inventory",
-  commentBaseApiUrl: "https://localhost:5001/api/admin/comment",
-  blogBaseApiUrl: "https://localhost:5001/api/admin/blog",
-  accountBaseApiUrl: "https://localhost:5001/api/admin/account",
-  orderBaseApiUrl: "https://localhost:5001/api/admin/order",
-  reportBaseApiUrl: "https://localhost:5001/api/admin/report",
+  authBaseApiUrl: baseApiUrl + "/api/account",
+  shopBaseApiUrl: baseApiUrl + "/api/admin/shop",
+  discountBaseApiUrl: baseApiUrl + "/api/admin/discount",
+  inventoryBaseApiUrl: baseApiUrl + "/api/admin/inventory",
+  commentBaseApiUrl: baseApiUrl + "/api/admin/comment",
+  blogBaseApiUrl: baseApiUrl + "/api/admin/blog",
+  accountBaseApiUrl: baseApiUrl + "/api/admin/account",
+  orderBaseApiUrl: baseApiUrl + "/api/admin/order",
+  reportBaseApiUrl: baseApiUrl + "/api/admin/report",
 
-  ckeditorImgUploadUrl: "https://localhost:5001/upload/img-upload/",
+  ckeditorImgUploadUrl: baseApiUrl + "/upload/img-upload/",
 
   // image paths
-  avatarBaseImagePath: "https://localhost:5001/upload/avatar",
-  productCategoryBaseImagePath: "https://localhost:5001/upload/product_category",
-  productBaseImagePath: "https://localhost:5001/upload/product",
-  productPictureBaseImagePath: "https://localhost:5001/upload/product_picture",
-  sliderBaseImagePath: "https://localhost:5001/upload/slider",
-  articleCategoryBaseImagePath: "https://localhost:5001/upload/article_category",
-  articleBaseImagePath: "https://localhost:5001/upload/article",
+  avatarBaseImagePath: baseApiUrl + "/upload/avatar",
+  productCategoryBaseImagePath: baseApiUrl + "/upload/product_category",
+  productBaseImagePath: baseApiUrl + "/upload/product",
+  productPictureBaseImagePath: baseApiUrl + "/upload/product_picture",
+  sliderBaseImagePath: baseApiUrl + "/upload/slider",
+  articleCategoryBaseImagePath: baseApiUrl + "/upload/article_category",
+  articleBaseImagePath: baseApiUrl + "/upload/article",
 };

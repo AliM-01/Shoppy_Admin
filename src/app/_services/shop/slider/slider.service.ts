@@ -18,10 +18,10 @@ export class SliderService {
     private loading: LoadingService,
   ) { }
 
-  getSlidersList(): Observable<IResponse<SliderModel[]>> {
+  getSlidersList(): Observable<SliderModel[]> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<SliderModel[]>>
+    return this.http.get<SliderModel[]>
       (`${environment.shopBaseApiUrl}/slider/get-list`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -35,10 +35,10 @@ export class SliderService {
       );
   }
 
-  getSliderDetails(id: string): Observable<IResponse<EditSliderModel>> {
+  getSliderDetails(id: string): Observable<EditSliderModel> {
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditSliderModel>>
+    return this.http.get<EditSliderModel>
       (`${environment.shopBaseApiUrl}/slider/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -52,7 +52,7 @@ export class SliderService {
       );
   }
 
-  createSlider(createData: CreateSliderModel): Observable<IResponse<any>> {
+  createSlider(createData: CreateSliderModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -66,10 +66,10 @@ export class SliderService {
     formData.append('btnLink', createData.btnLink);
     formData.append('btnText', createData.btnText);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.shopBaseApiUrl}/slider/create`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -85,7 +85,7 @@ export class SliderService {
       );
   }
 
-  editSlider(editData: EditSliderModel): Observable<IResponse<any>> {
+  editSlider(editData: EditSliderModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -104,10 +104,10 @@ export class SliderService {
     formData.append('btnLink', editData.btnLink);
     formData.append('btnText', editData.btnText);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
       (`${environment.shopBaseApiUrl}/slider/edit`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -123,11 +123,11 @@ export class SliderService {
       );
   }
 
-  removeSlider(sliderId: string): Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>
+  removeSlider(sliderId: string): Observable<IResponse> {
+    return this.http.delete<IResponse>
       (`${environment.shopBaseApiUrl}/slider/remove/${sliderId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -143,11 +143,11 @@ export class SliderService {
       );
   }
 
-  restoreSlider(sliderId: string): Observable<IResponse<any>> {
-    return this.http.delete<IResponse<any>>
+  restoreSlider(sliderId: string): Observable<IResponse> {
+    return this.http.delete<IResponse>
       (`${environment.shopBaseApiUrl}/slider/restore/${sliderId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();

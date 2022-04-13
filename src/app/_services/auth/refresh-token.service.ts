@@ -77,20 +77,18 @@ export class RefreshTokenService {
     }
   }
 
-  revokeRefreshTokenRequestModel(refreshToken: string): Observable<IResponse<LoginResponseModel>> {
+  revokeRefreshTokenRequestModel(refreshToken: string): Observable<LoginResponseModel> {
     const formData = new FormData();
 
     formData.append('RefreshToken', refreshToken);
 
     return this.http
-      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, formData)
+      .post<LoginResponseModel>(`${environment.authBaseApiUrl}/refresh-token`, formData)
       .pipe(
         tap((res) => {
-          if (res.status === 'success') {
-            this.tokenStoreService.storeLoginSession(res.data);
-            this.deleteRefreshTokenTimerCheckId();
-            this.scheduleRefreshToken(true, false);
-          }
+          this.tokenStoreService.storeLoginSession(res);
+          this.deleteRefreshTokenTimerCheckId();
+          this.scheduleRefreshToken(true, false);
         }),
         catchError((error: HttpErrorResponse) => throwError(error))
       );
@@ -103,12 +101,12 @@ export class RefreshTokenService {
     formData.append('RefreshToken', this.tokenStoreService.getRawAuthToken(AuthTokenType.RefreshToken));
 
     return this.http
-      .post<IResponse<LoginResponseModel>>(`${environment.authBaseApiUrl}/refresh-token`, formData)
+      .post<LoginResponseModel>(`${environment.authBaseApiUrl}/refresh-token`, formData)
       .pipe(
         catchError((error: HttpErrorResponse) => throwError(error))
       )
       .subscribe(result => {
-        this.tokenStoreService.storeLoginSession(result.data);
+        this.tokenStoreService.storeLoginSession(result);
         this.deleteRefreshTokenTimerCheckId();
         this.scheduleRefreshToken(isAuthUserLoggedIn, false);
       });

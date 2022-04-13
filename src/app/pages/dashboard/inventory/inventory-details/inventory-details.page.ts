@@ -41,6 +41,7 @@ export class InventoryDetailsPage implements OnInit {
       }
 
       this.getInventory();
+      this.setProductTitle();
       this.getOperations();
 
     });
@@ -48,27 +49,21 @@ export class InventoryDetailsPage implements OnInit {
   }
 
   getInventory() {
-    this.inventoryService.getInventoryDetails(this.inventoryId).subscribe((iRes) => {
+    this.inventoryService.getInventoryDetails(this.inventoryId)
+      .subscribe((res) => this.inventory = res);
+  }
 
-      if (iRes.status === 'success') {
+  setProductTitle(){
+    this.productService.existsProductId(this.inventory.productId).subscribe((res) => {
 
-        this.inventory = iRes.data;
-
-        this.productService.existsProductId(this.inventory.productId).subscribe((pRes) => {
-
-          this.pageTitle.setTitle(`ویرایش انبار محصول : ${pRes.data.productTitle}`);
-          this.productTitle = pRes.data.productTitle;
-        });
-      }
+      this.pageTitle.setTitle(`ویرایش انبار محصول : ${res.productTitle}`);
+      this.productTitle = res.productTitle;
     });
   }
 
   getOperations() {
-    this.inventoryService.getInventoryOperationLog(this.inventoryId).subscribe((res) => {
-      if (res.status === 'success') {
-        this.operations = res.data;
-      }
-    });
+    this.inventoryService.getInventoryOperationLog(this.inventoryId)
+      .subscribe((res) => this.operations = res);
   }
 
   openEditDialog(): void {

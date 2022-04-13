@@ -140,7 +140,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
 
   deleteProductFeature(id: string) {
     this.productFeatureService.deleteProductFeature(id).subscribe((res) => {
-      if (res.status === 'success') {
+      if (res.status === 200) {
         this.ngOnInit();
       }
     });

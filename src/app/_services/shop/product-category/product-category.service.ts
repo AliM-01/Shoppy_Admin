@@ -20,7 +20,7 @@ export class ProductCategoryService {
   ) { }
 
 
-  filterProductCategory(filter: FilterProductCategoryModel): Observable<IResponse<FilterProductCategoryModel>> {
+  filterProductCategory(filter: FilterProductCategoryModel): Observable<FilterProductCategoryModel> {
 
     this.loading.loadingOn();
 
@@ -30,7 +30,7 @@ export class ProductCategoryService {
       params = params.set('Title', filter.title)
     }
 
-    return this.http.get<IResponse<FilterProductCategoryModel>>
+    return this.http.get<FilterProductCategoryModel>
       (`${environment.shopBaseApiUrl}/product-category/filter`, { params })
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -44,11 +44,11 @@ export class ProductCategoryService {
       );
   }
 
-  getProductCategoriesList(): Observable<IResponse<ProductCategoryForSelectListModel[]>> {
+  getProductCategoriesList(): Observable<ProductCategoryForSelectListModel[]> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<ProductCategoryForSelectListModel[]>>
+    return this.http.get<ProductCategoryForSelectListModel[]>
       (`${environment.shopBaseApiUrl}/product-category/get-list`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -62,11 +62,11 @@ export class ProductCategoryService {
       );
   }
 
-  getProductCategoryDetails(id: string): Observable<IResponse<EditProductCategoryModel>> {
+  getProductCategoryDetails(id: string): Observable<EditProductCategoryModel> {
 
     this.loading.loadingOn();
 
-    return this.http.get<IResponse<EditProductCategoryModel>>
+    return this.http.get<EditProductCategoryModel>
       (`${environment.shopBaseApiUrl}/product-category/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
@@ -80,7 +80,7 @@ export class ProductCategoryService {
       );
   }
 
-  createProductCategory(createData: CreateProductCategoryModel): Observable<IResponse<any>> {
+  createProductCategory(createData: CreateProductCategoryModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -94,10 +94,10 @@ export class ProductCategoryService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
 
-    return this.http.post<IResponse<any>>
+    return this.http.post<IResponse>
       (`${environment.shopBaseApiUrl}/product-category/create`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -113,7 +113,7 @@ export class ProductCategoryService {
       );
   }
 
-  editProductCategory(editData: EditProductCategoryModel): Observable<IResponse<any>> {
+  editProductCategory(editData: EditProductCategoryModel): Observable<IResponse> {
 
     this.loading.loadingOn();
 
@@ -132,10 +132,10 @@ export class ProductCategoryService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
 
-    return this.http.put<IResponse<any>>
+    return this.http.put<IResponse>
       (`${environment.shopBaseApiUrl}/product-category/edit`, formData)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();
@@ -151,13 +151,13 @@ export class ProductCategoryService {
       );
   }
 
-  deleteProductCategory(productCategoryId: string): Observable<IResponse<any>> {
+  deleteProductCategory(productCategoryId: string): Observable<IResponse> {
     this.loading.loadingOn();
 
-    return this.http.delete<IResponse<any>>
+    return this.http.delete<IResponse>
       (`${environment.shopBaseApiUrl}/product-category/delete/${productCategoryId}`)
       .pipe(
-        tap((res: IResponse<any>) => {
+        tap((res: IResponse) => {
 
           this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
           this.loading.loadingOff();

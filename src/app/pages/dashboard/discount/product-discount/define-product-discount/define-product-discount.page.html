@@ -2,33 +2,33 @@
 
 <div class="row">
     <div class="col-xl-8" div-center>
-      
+
         <div class="widget has-shadow">
             <div class="widget-header bordered no-actions" div-center-content-between>
 
               <h2>تعریف تخفیف برای محصول</h2>
-                
+
             </div>
             <div class="widget-body">
 
-              <form [formGroup]="defineForm" (ngSubmit)="submitDefineForm()" enctype="multipart/form-data">
-  
+              <form [formGroup]="defineForm" (ngSubmit)="submit()" enctype="multipart/form-data">
+
                 <div class="row">
-              
+
                   <div class="col-md-12">
-            
+
                     <label>توضیحات</label>
-            
+
                     <textarea
                       id="editor"
                     ></textarea>
-              
+
                     <p class="text-danger"
                           *ngIf="ckeditorTextValue === undefined || ckeditorTextValue == null">
                         لطفا توضیحات را وارد نمایید
                     </p>
                   </div>
-              
+
                   <div class="col-md-12">
                     <mat-form-field appearance="fill" class="w-100">
                       <mat-label>درصد تخفیف</mat-label>
@@ -38,42 +38,42 @@
                   </div>
 
                   <br />
-            
+
                   <div class="col-md-12">
                     <label>تاریخ شروع</label>
-            
+
                     <input type="text" #startDatepickerInput />
                     <ng-persian-datepicker
                         [input]="startDatepickerInput"></ng-persian-datepicker>
                         <p class="text-danger">
                           لطفا تاریخ شروع را وارد نمایید
-                        </p>  
+                        </p>
                   </div>
-            
+
                   <div class="col-md-12">
                     <label>تاریخ پایان</label>
-            
+
                     <input type="text" #endDatepickerInput />
                     <ng-persian-datepicker
                         [input]="endDatepickerInput"></ng-persian-datepicker>
                         <p class="text-danger">
                           لطفا تاریخ پایان را وارد نمایید
-                        </p>  
+                        </p>
                   </div>
-                  
+
                 </div>
-              
+
                 <hr>
-              
+
                   <div class="d-flex">
                     <button mat-raised-button color="primary" type="submit">ثبت</button>
                     <button mat-button color="warn" type="button" (click)="onCloseClick()">بستن</button>
                   </div>
-            
+
               </form>
-                
+
             </div>
         </div>
-        
+
     </div>
 </div>
