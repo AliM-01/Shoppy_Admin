@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     this.authService.getCurrentUser()
       .subscribe(res => {
         this.currentUserSubject.next(res)
-        this.avatarPath = `${environment.avatarBaseImagePath}/${res.avatarPath}`
+        this.avatarPath = `${environment.avatarBaseImagePath}/60/${res.avatarPath}`
       }, () => this.avatarPath = "/assets/img/logo.png")
   }
 

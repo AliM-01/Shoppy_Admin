@@ -47,14 +47,14 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
       this.dataServer.loadProductFeatures(this.filterProductFeatures);
       this.dataSource = new MatTableDataSource<ProductFeatureModel>(this.dataServer.data);
       this.dataSource.paginator = this.paginator;
-  
+
       if (this.dataSource.data.length === 0) {
         this.isDataSourceLoaded = false;
       }
-      
+
     });
   }
-  
+
 
   ngAfterViewInit() {
 
@@ -73,7 +73,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
       }
 
     }, 1000);
-      
+
   }
 
   onPaginateChange(event: PageEvent) {
@@ -95,7 +95,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
     this.ngOnInit();
     this.paginator.pageSize = size;
   }
-  
+
   loadProductFeaturesPage() {
     this.filterProductFeatures = new FilterProductFeatureModel(
       this.productId,
@@ -133,7 +133,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if(!result)
         return;
-        
+
       this.ngOnInit();
     });
   }
