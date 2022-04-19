@@ -2,10 +2,9 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
-import { RefreshTokenService } from "@app_services/auth/refresh-token.service";
-import { TokenStoreService } from "@app_services/auth/token-store.service";
+import { TokenStoreService, RefreshTokenService } from "@app_services/auth/_index";
 import { ToastrService } from "ngx-toastr";
-import { switchMap, take, throttleTime } from "rxjs/operators";
+import { switchMap, take } from "rxjs/operators";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { filter } from "rxjs/operators";

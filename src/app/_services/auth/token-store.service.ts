@@ -1,6 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { AuthTokenType } from "@app_models/auth/auth-token-type";
-import { LoginResponseModel } from "@app_models/auth/login-response";
+import { AuthTokenType, LoginResponseModel } from "@app_models/auth/_index";
 import { CookieService } from "@app_services/_common/cookie/cookie.service";
 import { isEmptyString } from "@app_services/_common/functions/functions";
 import jwt_decode from "jwt-decode";

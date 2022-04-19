@@ -1,14 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { AuthTokenType } from "@app_models/auth/auth-token-type";
 import { LoginResponseModel } from "@app_models/auth/login-response";
-import { IResponse } from "@app_models/_common/IResponse";
 import { getCurrentTabId } from "@app_services/_common/functions/functions";
-import { environment } from "@environments/environment";
+import { environment } from "@app_env";
 import { Observable, Subscription, throwError, timer } from "rxjs";
-import { catchError, map, tap } from 'rxjs/operators';
-import { BrowserStorageService } from "./browser-storage.service";
-import { TokenStoreService } from "./token-store.service";
+import { catchError, tap } from 'rxjs/operators';
+import { TokenStoreService, BrowserStorageService } from "./_index";
 
 @Injectable({
   providedIn: 'root'

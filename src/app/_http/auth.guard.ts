@@ -6,12 +6,10 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from "@angular/router";
-import { AuthTokenType } from "@app_models/auth/auth-token-type";
-import { AuthService } from "@app_services/auth/auth.service";
-import { RefreshTokenService } from "@app_services/auth/refresh-token.service";
-import { TokenStoreService } from "@app_services/auth/token-store.service";
-import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, filter, take, tap } from "rxjs/operators";
+import { AuthTokenType } from "@app_models/auth/_index";
+import { AuthService, TokenStoreService, RefreshTokenService } from "@app_services/auth/_index";
+import { BehaviorSubject, Observable } from "rxjs";
+import { filter, take, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
