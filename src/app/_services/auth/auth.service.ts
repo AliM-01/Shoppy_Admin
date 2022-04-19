@@ -1,21 +1,16 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Inject, Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { BehaviorSubject, Observable, throwError, of } from "rxjs";
 import { catchError, finalize, map, tap } from "rxjs/operators";
 import { TokenStoreService } from "./token-store.service";
 import { RefreshTokenService } from './refresh-token.service';
-import { environment } from "@environments/environment";
-import { LoginRequestModel } from '../../_models/auth/login-request';
-import { AuthTokenType } from "@app_models/auth/auth-token-type";
-import { AuthUser } from "@app_models/auth/auth-user";
+import { environment } from "@app_env";
 import { ToastrService } from "ngx-toastr";
 import { LoadingService } from "@app_services/_common/loading/loading.service";
-import { RevokeRefreshTokenRequestModel } from '../../_models/auth/revoke-refresh-token-request';
+import { AuthTokenType, LoginRequestModel, LoginResponseModel, RevokeRefreshTokenRequestModel } from '@app_models/auth/_index';
 import { IResponse } from "@app_models/_common/IResponse";
-import { LoginResponseModel } from "@app_models/auth/login-response";
-import { of } from "rxjs";
-import { AccountModel } from '../../_models/account/account';
+import { AccountModel } from '@app_models/account/account';
 
 @Injectable({
   providedIn: 'root'
