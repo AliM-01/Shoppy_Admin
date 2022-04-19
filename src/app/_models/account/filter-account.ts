@@ -5,7 +5,7 @@ import { PagingDataSortIdOrder, IPaging, PagingDataSortCreationDateOrder } from 
 export class FilterAccountModel implements IPaging {
 
     pageId: number;
-    allPagesCount: number;
+    dataCount: number;
     takePage: number;
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;

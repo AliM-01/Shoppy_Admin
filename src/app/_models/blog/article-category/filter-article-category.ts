@@ -4,7 +4,7 @@ import { IPaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from 
 export class FilterArticleCategoryModel implements IPaging {
 
     pageId: number;
-    allPagesCount: number;
+    dataCount: number;
     takePage: number;
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;

@@ -4,7 +4,7 @@ import { ProductCategoryModel } from "./product-category";
 export class FilterProductCategoryModel implements IPaging {
 
     pageId: number;
-    allPagesCount: number;
+    dataCount: number;
     takePage: number;
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;

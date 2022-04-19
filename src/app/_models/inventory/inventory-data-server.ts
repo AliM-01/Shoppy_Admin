@@ -16,7 +16,7 @@ export class InventoryDataServer {
       .subscribe((res: FilterInventoryModel) => {
         setTimeout(() => {
           this.data = res.inventories;
-          this.resultsLength = res.allPagesCount;
+          this.resultsLength = res.dataCount;
           this.isLoadingResults = false;
           this.pageId = res.pageId;
 

@@ -17,7 +17,7 @@ export class OrderDataServer {
       .subscribe((res: FilterOrderModel) => {
         setTimeout(() => {
           this.data = res.orders;
-          this.resultsLength = res.allPagesCount;
+          this.resultsLength = res.dataCount;
           this.isLoadingResults = false;
           this.pageId = res.pageId;
 

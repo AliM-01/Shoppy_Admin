@@ -4,7 +4,7 @@ import { CommentModel } from './comment';
 export class FilterCommentModel implements IPaging {
 
     pageId: number;
-    allPagesCount: number;
+    dataCount: number;
     takePage: number;
     sortCreationDateOrder: PagingDataSortCreationDateOrder;
     sortIdOrder: PagingDataSortIdOrder;

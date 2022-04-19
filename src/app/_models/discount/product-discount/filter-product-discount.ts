@@ -4,7 +4,7 @@ import { ProductDiscountModel } from "./product-discount";
 export class FilterProductDiscountModel implements IPaging {
 
     pageId: number;
-    allPagesCount: number;
+    dataCount: number;
     takePage: number;
     productId: string;
     productTitle: string;

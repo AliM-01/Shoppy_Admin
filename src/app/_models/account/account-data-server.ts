@@ -23,7 +23,7 @@ export class AccountDataServer {
       .subscribe((res: FilterAccountModel) => {
         setTimeout(() => {
           this.data = res.accounts;
-          this.resultsLength = res.allPagesCount;
+          this.resultsLength = res.dataCount;
           this.isLoadingResults = false;
           this.pageId = res.pageId;
         }, 750)

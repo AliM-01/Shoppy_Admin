@@ -23,7 +23,7 @@ export class ArticleDataServer {
       .subscribe((res: FilterArticleModel) => {
         setTimeout(() => {
           this.data = res.articles;
-          this.resultsLength = res.allPagesCount;
+          this.resultsLength = res.dataCount;
           this.isLoadingResults = false;
           this.pageId = res.pageId;
         }, 750)

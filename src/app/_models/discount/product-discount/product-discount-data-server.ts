@@ -23,7 +23,7 @@ export class ProductDiscountDataServer {
       .subscribe((res: FilterProductDiscountModel) => {
         setTimeout(() => {
           this.data = res.discounts;
-          this.resultsLength = res.allPagesCount;
+          this.resultsLength = res.dataCount;
           this.isLoadingResults = false;
           this.pageId = res.pageId;
         }, 750)

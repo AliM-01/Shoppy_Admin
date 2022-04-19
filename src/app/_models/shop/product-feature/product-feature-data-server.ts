@@ -23,7 +23,7 @@ export class ProductFeatureDataServer {
         .subscribe((res : FilterProductFeatureModel) => {
             setTimeout(() => {
                 this.data = res.productFeatures;
-                this.resultsLength = res.allPagesCount;
+                this.resultsLength = res.dataCount;
                 this.isLoadingResults = false;
                 this.pageId = res.pageId;
             }, 750)

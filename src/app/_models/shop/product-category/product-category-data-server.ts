@@ -23,7 +23,7 @@ export class ProductCategoryDataServer {
         .subscribe((res : FilterProductCategoryModel) => {
             setTimeout(() => {
                 this.data = res.productCategories;
-                this.resultsLength = res.allPagesCount;
+                this.resultsLength = res.dataCount;
                 this.isLoadingResults = false;
                 this.pageId = res.pageId;
             }, 750)

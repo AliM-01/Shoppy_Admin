@@ -17,7 +17,7 @@ export class CommentDataServer {
       .subscribe((res: FilterCommentModel) => {
         setTimeout(() => {
           this.data = res.comments;
-          this.resultsLength = res.allPagesCount;
+          this.resultsLength = res.dataCount;
           this.isLoadingResults = false;
           this.pageId = res.pageId;
 
