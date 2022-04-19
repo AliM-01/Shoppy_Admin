@@ -1,4 +1,4 @@
-import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/BasePaging";
+import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/_index";
 import { ProductFeatureModel } from "./product-feature";
 
 export class FilterProductFeatureModel extends BasePaging {

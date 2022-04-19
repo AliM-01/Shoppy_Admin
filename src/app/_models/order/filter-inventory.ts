@@ -1,4 +1,4 @@
-import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/BasePaging';
+import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
 import { OrderModel } from './order';
 
 export class FilterOrderModel extends BasePaging {

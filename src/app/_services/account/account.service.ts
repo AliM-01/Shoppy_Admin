@@ -1,12 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { IResponse } from '@app_models/_common/IResponse';
 import { environment } from '@environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading-service';
 import { catchError, tap } from 'rxjs/operators';
-import { FilterAccountModel } from '../../_models/account/filter-account';
+import { FilterAccountModel } from '@app_models/account/filter-account';
 
 @Injectable({
   providedIn: 'platform'

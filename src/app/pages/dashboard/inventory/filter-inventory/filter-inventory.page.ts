@@ -14,7 +14,7 @@ import { InventoryOperationDialog } from '../inventory-operations/inventory-oper
 import { MatSort } from '@angular/material/sort';
 import { InventoryModel } from '@app_models/inventory/inventory';
 import { MatTableDataSource } from '@angular/material/table';
-import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/BasePaging';
+import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
 
 @Component({
   selector: 'app-filter-inventory',

@@ -10,7 +10,7 @@ import { DiscountCodeDataServer } from '@app_models/discount/discount-code/disco
 import { DefineDiscountCodeDialog } from '../define-discount-code-dialog/define-discount-code.dialog';
 import { EditDiscountCodeDialog } from '../edit-discount-code-dialog/edit-discount-code.dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/BasePaging';
+import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
 import { MatSort } from '@angular/material/sort';
 import { ConfirmDialog } from '@app_components/confirm-dialog/confirm.dialog';
 import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';

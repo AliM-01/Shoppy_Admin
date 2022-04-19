@@ -1,5 +1,5 @@
 import { ArticleCategoryModel } from "./article-category";
-import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '../../_common/BasePaging';
+import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
 
 export class FilterArticleCategoryModel extends BasePaging {
 

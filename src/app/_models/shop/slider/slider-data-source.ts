@@ -3,7 +3,6 @@ import { SliderService } from "@app_services/shop/slider/slider.service";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { SliderModel } from "./_index";
 import { catchError, finalize } from 'rxjs/operators';
-import { IResponse } from '@app_models/_common/IResponse';
 
 export class SliderDataSource implements DataSource<SliderModel> {
 
