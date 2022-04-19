@@ -12,7 +12,7 @@ import { EditProductDialog } from '../edit-product/edit-product.dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductModel } from '@app_models/shop/product/product';
 import { MatSort } from '@angular/material/sort';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/IPaging';
+import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/BasePaging';
 
 @Component({
   selector: 'app-filter-product',

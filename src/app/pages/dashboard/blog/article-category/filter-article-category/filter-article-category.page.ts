@@ -5,7 +5,7 @@ import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/IPaging';
+import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/BasePaging';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ArticleCategoryModel } from '@app_models/blog/article-category/article-category';

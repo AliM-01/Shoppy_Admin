@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/IPaging';
+import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/BasePaging';
 import { OrderDataServer } from '@app_models/order/order-data-server';
 import { FilterOrderModel, FilterOrderPaymentStatus } from '@app_models/order/filter-inventory';
 import { OrderModel } from '@app_models/order/order';

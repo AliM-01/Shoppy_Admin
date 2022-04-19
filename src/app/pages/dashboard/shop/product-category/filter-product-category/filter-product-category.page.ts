@@ -9,7 +9,7 @@ import { CreateProductCategoryDialog } from '../create-product-category/create-p
 import { EditProductCategoryDialog } from '../edit-product-category/edit-product-category.dialog';
 import { environment } from '@environments/environment';
 import { Title } from '@angular/platform-browser';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/IPaging';
+import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/BasePaging';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 

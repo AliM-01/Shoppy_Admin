@@ -1,7 +1,7 @@
-import { IPaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/IPaging";
+import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/BasePaging";
 import { ProductFeatureModel } from "./product-feature";
 
-export class FilterProductFeatureModel implements IPaging {
+export class FilterProductFeatureModel extends BasePaging {
 
     pageId: number;
     dataCount: number;
@@ -17,6 +17,7 @@ export class FilterProductFeatureModel implements IPaging {
         pageId: number,
         takePage: number
     ) {
+      super();
         this.productId = productId;
         this.productFeatures = productFeatures;
         this.pageId = pageId;
