@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IResponse } from '@app_models/_common/IResponse';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { CreateProductFeatureModel, EditProductFeatureModel, FilterProductFeatureModel }
   from '@app_models/shop/product-feature/_index';
 import { ToastrService } from 'ngx-toastr';

@@ -7,7 +7,7 @@ import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProductCategoryDialog } from '../create-product-category/create-product-category.dialog';
 import { EditProductCategoryDialog } from '../edit-product-category/edit-product-category.dialog';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { Title } from '@angular/platform-browser';
 import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/_index';
 import { MatTableDataSource } from '@angular/material/table';

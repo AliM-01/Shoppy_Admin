@@ -3,7 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { Title } from '@angular/platform-browser';
 import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/_index';
 import { MatTableDataSource } from '@angular/material/table';

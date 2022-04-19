@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/_common/IResponse';
 import { EditInventoryModel, FilterInventoryModel, GetInventoryOperationsModel, IncreaseInventoryModel, ReduceInventoryModel } from '@app_models/inventory/_index';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';

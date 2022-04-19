@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { Title } from '@angular/platform-browser';
 import { SliderDataSource } from '@app_models/shop/slider/slider-data-source';
 import { SliderService } from '@app_services/shop/slider/slider.service';

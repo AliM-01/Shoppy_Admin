@@ -10,7 +10,7 @@ import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { LoadingService } from '@loading-service';
 import { Title } from '@angular/platform-browser';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 
 @Component({
   selector: 'app-edit-article',

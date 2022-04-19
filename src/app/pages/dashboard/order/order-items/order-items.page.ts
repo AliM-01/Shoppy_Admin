@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '@app_services/order/order.service';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { LoadingService } from '@loading-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OrderItemModel } from '@app_models/order/order-item';

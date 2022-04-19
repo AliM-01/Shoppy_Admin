@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IResponse } from '@app_models/_common/IResponse';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { CheckProductHasProductDiscountResponseModel, DefineProductDiscountModel, EditProductDiscountModel, FilterProductDiscountModel } from '@app_models/discount/product-discount/_index';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '@loading-service';

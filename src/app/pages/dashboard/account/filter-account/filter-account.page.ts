@@ -11,7 +11,7 @@ import { AccountModel } from '@app_models/account/account';
 import { AccountDataServer } from '@app_models/account/account-data-server';
 import { FilterAccountModel } from '@app_models/account/filter-account';
 import { AccountService } from '@app_services/account/account.service';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 
 @Component({
   selector: 'app-filter-account',

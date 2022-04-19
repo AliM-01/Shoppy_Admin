@@ -8,7 +8,7 @@ import { checkFormGroupErrors } from '@app_services/_common/functions/functions'
 import { LoadingService } from '@loading-service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
 import { ProductService } from '@app_services/shop/product/product.service';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({

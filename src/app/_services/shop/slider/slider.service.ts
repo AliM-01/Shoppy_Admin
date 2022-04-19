@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IResponse } from '@app_models/_common/IResponse';
 import { SliderModel, EditSliderModel, CreateSliderModel } from '@app_models/shop/slider/_index';
 import { LoadingService } from '@loading-service';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { LoadingService } from '@loading-service';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { ToastrService } from 'ngx-toastr';
 import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
 import { EditArticleCategoryModel } from '@app_models/blog/article-category/edit-article-category';

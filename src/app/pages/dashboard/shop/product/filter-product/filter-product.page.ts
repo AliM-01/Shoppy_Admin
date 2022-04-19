@@ -7,7 +7,7 @@ import { Title } from "@angular/platform-browser";
 import { MatDialog } from '@angular/material/dialog';
 import { ProductService } from '@app_services/shop/product/product.service';
 import { CreateProductDialog } from '../create-product/create-product.dialog';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { EditProductDialog } from '../edit-product/edit-product.dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductModel } from '@app_models/shop/product/product';

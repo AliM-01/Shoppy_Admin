@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { Observable, throwError } from "rxjs";
 import { ChartModel } from '../../_models/report/chart';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { catchError, tap } from 'rxjs/operators';
 import { LoadingService } from '@loading-service';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";

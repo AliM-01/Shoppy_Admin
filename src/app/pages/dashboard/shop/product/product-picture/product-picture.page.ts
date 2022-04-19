@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from "@angular/platform-browser";
 import { MatDialog } from '@angular/material/dialog';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductPictureModel } from '@app_models/shop/product-picture/product-picture';
 import { ProductPictureService } from '@app_services/shop/product-picture/product-picture.service';

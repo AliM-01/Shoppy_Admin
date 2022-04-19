@@ -6,7 +6,7 @@ import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service
 import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
 import { LoadingService } from '@loading-service';
 import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 

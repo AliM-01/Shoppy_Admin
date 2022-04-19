@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 @Injectable({
   providedIn: 'root'
 })

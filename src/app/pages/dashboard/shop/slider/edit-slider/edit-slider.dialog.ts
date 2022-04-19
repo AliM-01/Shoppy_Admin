@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditSliderModel } from '@app_models/shop/slider/edit-slider';
 import { LoadingService } from '@loading-service';
 import { SliderService } from '@app_services/shop/slider/slider.service';
-import { environment } from '@environments/environment';
+import { environment } from '@app_env';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
