@@ -34,7 +34,7 @@
             <li class="nav-item dropdown">
               <a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false" class="nav-link">
-                <img [src]="avatarPath" class="avatar rounded-circle">
+                <img [src]="avatarPath$ | async" class="avatar rounded-circle">
               </a>
               <ul aria-labelledby="user" class="user-size dropdown-menu pt-2">
                 <li>

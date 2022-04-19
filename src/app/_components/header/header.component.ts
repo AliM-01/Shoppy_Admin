@@ -10,7 +10,8 @@ import { environment } from '../../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
 
-  avatarPath: string = "/assets/img/logo.png";
+  private avatarPathSubject: BehaviorSubject<string> = new BehaviorSubject<string>("/assets/img/logo.png");
+  avatarPath$: Observable<string> = this.avatarPathSubject.asObservable();
 
   private currentUserSubject: BehaviorSubject<AccountModel> =
     new BehaviorSubject<AccountModel>(new AccountModel("", [], "ادمین ادمینی", "@", "logo.png", ""))
@@ -24,8 +25,8 @@ export class HeaderComponent implements OnInit {
     this.authService.getCurrentUser()
       .subscribe(res => {
         this.currentUserSubject.next(res)
-        this.avatarPath = `${environment.avatarBaseImagePath}/60/${res.avatarPath}`
-      }, () => this.avatarPath = "/assets/img/logo.png")
+        this.avatarPathSubject.next(`${environment.avatarBaseImagePath}/60/${res.avatarPath}`);
+      })
   }
 
 }
