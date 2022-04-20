@@ -29,7 +29,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
   dataServer: ArticleCategoryDataServer;
   dataSource: MatTableDataSource<ArticleCategoryModel> = new MatTableDataSource<ArticleCategoryModel>([]);
   isDataSourceLoaded = false;
-  filterArticleCategories: FilterArticleCategoryModel = new FilterArticleCategoryModel('', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterArticleCategories: FilterArticleCategoryModel = new FilterArticleCategoryModel('', 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -126,7 +126,6 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
 
     this.filterArticleCategories = new FilterArticleCategoryModel(
       this.input.nativeElement.value,
-      [],
       page,
       size,
       sortDate,
@@ -163,7 +162,6 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
 
     this.filterArticleCategories = new FilterArticleCategoryModel(
       this.input.nativeElement.value,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize,
       sortDate,

@@ -3,11 +3,6 @@ import {BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from
 
 export class FilterArticleModel extends BasePaging {
 
-  pageId: number;
-  dataCount: number;
-  takePage: number;
-  sortCreationDateOrder: PagingDataSortCreationDateOrder;
-  sortIdOrder: PagingDataSortIdOrder;
   title: string;
   categoryId: string;
   articles: ArticleModel[];
@@ -15,7 +10,6 @@ export class FilterArticleModel extends BasePaging {
   constructor(
     title: string,
     categoryId: string,
-    articles: ArticleModel[],
     pageId: number,
     takePage: number,
     sortCreationDateOrder: PagingDataSortCreationDateOrder,
@@ -24,7 +18,6 @@ export class FilterArticleModel extends BasePaging {
     super();
     this.title = title;
     this.categoryId = categoryId;
-    this.articles = articles;
     this.pageId = pageId;
     this.takePage = takePage;
     this.sortCreationDateOrder = sortCreationDateOrder;

@@ -68,8 +68,6 @@ export class EditProductCategoryDialog implements OnInit {
   }
 
   getImageFileToUpload(event: any): void {
-    console.log('fffffffff', typeof event);
-
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -82,7 +80,7 @@ export class EditProductCategoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm(): void {
+  submit(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();

@@ -8,7 +8,7 @@ export class ArticleDataServer {
   public data: ArticleModel[] = [];
   public resultsLength = 0;
   public isLoadingResults = true;
-  public pageId: number = 1;
+  public pageId = 1;
 
   constructor(private articleService: ArticleService) { }
 
@@ -17,9 +17,12 @@ export class ArticleDataServer {
     this.isLoadingResults = true;
 
     this.articleService.filterArticle(filterArticleCategories)
-      .pipe(catchError(() => of([])), finalize(() => {
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => {
         this.isLoadingResults = true;
-      }))
+        })
+      )
       .subscribe((res: FilterArticleModel) => {
         setTimeout(() => {
           this.data = res.articles;

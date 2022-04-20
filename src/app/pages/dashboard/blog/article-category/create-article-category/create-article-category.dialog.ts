@@ -17,7 +17,7 @@ export class CreateArticleCategoryDialog implements OnInit {
 
   createForm: FormGroup;
   fileUploaded = false;
-  imageFileToUpload: any;
+  imageFileToUpload: File;
   ckeditorTextValue = null;
 
   constructor(

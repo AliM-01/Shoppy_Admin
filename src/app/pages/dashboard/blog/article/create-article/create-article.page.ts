@@ -20,7 +20,7 @@ export class CreateArticlePage implements OnInit {
 
   createForm: FormGroup;
   fileUploaded = false;
-  imageFileToUpload: any;
+  imageFileToUpload: File;
   ckeditorTextValue = null;
   categories: ArticleCategoryForSelectListModel[] = [];
 

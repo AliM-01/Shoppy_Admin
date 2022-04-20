@@ -1,18 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export class EditArticleCategoryModel {
-    constructor(
-         public id: string,
-         public title: string,
-         public description: string,
-         public orderShow: number,
-         public imagePath: string,
-         public imageFileUploaded: boolean,
-         public imageFile: any,
-         public imageAlt: string,
-         public imageTitle: string,
-         public metaKeywords: string,
-         public metaDescription: string,
-         public canonicalAddress: string
-     ){}
- }
+import {CreateArticleCategoryModel} from "./create-article-category";
+
+export class EditArticleCategoryModel extends CreateArticleCategoryModel {
+  id: string;
+  imagePath: string;
+  imageFileUploaded: boolean;
+
+  constructor(
+    id: string,
+    title: string,
+    description: string,
+    orderShow: number,
+    imageFileUploaded: boolean,
+    imageFile: File,
+    imageAlt: string,
+    imageTitle: string,
+    metaKeywords: string,
+    metaDescription: string,
+    canonicalAddress: string
+  ) {
+    super(title, description, orderShow, imageFile, imageAlt, imageTitle, metaKeywords, metaDescription, canonicalAddress);
+    this.id = id;
+    this.imageFileUploaded = imageFileUploaded;
+  }
+}

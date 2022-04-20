@@ -83,7 +83,7 @@ export class EditArticlePage implements OnInit {
       this.editForm.controls.metaDescription.setValue(res.metaDescription);
       this.editForm.controls.canonicalAddress.setValue(res.canonicalAddress);
     },
-    () => this.onCloseClick());
+      () => this.onCloseClick());
     this.loading.loadingOff();
 
   }
@@ -109,7 +109,7 @@ export class EditArticlePage implements OnInit {
     this.loading.loadingOff();
   }
 
-  submiteditForm(): void {
+  submit(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -127,7 +127,6 @@ export class EditArticlePage implements OnInit {
         this.editForm.controls.summary.value,
         this.ckeditorTextValue,
         this.editForm.controls.categoryId.value,
-        this.imagePath,
         this.fileUploaded,
         this.imageFileToUpload,
         this.editForm.controls.imageAlt.value,

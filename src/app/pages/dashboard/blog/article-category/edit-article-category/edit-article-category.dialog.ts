@@ -20,7 +20,7 @@ export class EditArticleCategoryDialog implements OnInit {
 
   editForm: FormGroup;
   fileUploaded = false;
-  imageFileToUpload: any;
+  imageFileToUpload: File;
   imagePath: string;
   ckeditorTextValue = null;
 
@@ -79,7 +79,7 @@ export class EditArticleCategoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm(): void {
+  submit(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -95,7 +95,6 @@ export class EditArticleCategoryDialog implements OnInit {
         this.editForm.controls.title.value,
         this.ckeditorService.getValue(),
         this.editForm.controls.orderShow.value,
-        this.imagePath,
         this.fileUploaded,
         this.imageFileToUpload,
         this.editForm.controls.imageAlt.value,
