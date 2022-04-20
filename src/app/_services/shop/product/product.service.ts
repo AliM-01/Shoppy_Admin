@@ -29,9 +29,9 @@ export class ProductService {
     if (filter.search) {
       params = params.set('Search', filter.search)
     }
-    if (filter.categoryId) {
-      params = params.set('CategoryId', filter.categoryId)
-    }
+    // if (filter.categoryId) {
+    //   params = params.set('CategoryId', filter.categoryId)
+    // }
 
     return this.http.get<FilterProductModel>(`${environment.shopBaseApiUrl}/product/filter`, {params})
       .pipe(

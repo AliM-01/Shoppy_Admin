@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export class EditProductCategoryModel {
     constructor(
          public id: string,
@@ -7,7 +5,7 @@ export class EditProductCategoryModel {
          public description: string,
          public imagePath: string,
          public imageFileUploaded: boolean,
-         public imageFile: any,
+         public imageFile: File,
          public imageAlt: string,
          public imageTitle: string,
          public metaKeywords: string,

@@ -47,7 +47,7 @@ export class AuthInterceptor implements HttpInterceptor {
             if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 403 || error.status === 0)) {
               return this.handle401Error(request, next);
             } else {
-              this.router.navigate(["/not-found"]);
+              // this.router.navigate(["/not-found"]);
               return throwError(error);
             }
           }));

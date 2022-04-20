@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
@@ -22,7 +23,7 @@ export class EditProductCategoryDialog implements OnInit {
 
   editForm: FormGroup;
   fileUploaded = false;
-  imageFileToUpload: any;
+  imageFileToUpload: File;
   imagePath: string;
   ckeditorTextValue = null;
 
@@ -54,7 +55,7 @@ export class EditProductCategoryDialog implements OnInit {
       this.editForm.controls.title.setValue(res.title)
       this.ckeditorTextValue = res.description;
       this.ckeditorService.setValue(res.description);
-      this.imagePath = `${environment.productCategoryBaseImagePath}/original/${res.imagePath}`;
+      this.imagePath = `${environment.productCategoryBaseImagePath}/${res.imagePath}`;
       this.editForm.controls.imageAlt.setValue(res.imageAlt);
       this.editForm.controls.imageTitle.setValue(res.imageTitle);
       this.editForm.controls.metaKeywords.setValue(res.metaKeywords);
@@ -67,6 +68,8 @@ export class EditProductCategoryDialog implements OnInit {
   }
 
   getImageFileToUpload(event: any): void {
+    console.log('fffffffff', typeof event);
+
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
