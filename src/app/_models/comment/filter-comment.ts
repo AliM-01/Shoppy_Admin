@@ -1,4 +1,4 @@
-import {BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from '@app_models/_common/_index';
+import {BasePaging} from '@app_models/_common/_index';
 import {CommentModel} from './comment';
 
 export enum FilterCommentState {
@@ -16,12 +16,6 @@ export enum FilterCommentType {
 
 export class FilterCommentModel extends BasePaging {
 
-  pageId: number;
-  dataCount: number;
-  takePage: number;
-  sortCreationDateOrder: PagingDataSortCreationDateOrder;
-  sortIdOrder: PagingDataSortIdOrder;
-
   type: FilterCommentType = FilterCommentType.All;
   state: FilterCommentState = FilterCommentState.All;
   comments: CommentModel[];
@@ -29,14 +23,12 @@ export class FilterCommentModel extends BasePaging {
   constructor(
     type: FilterCommentType,
     state: FilterCommentState,
-    comments: CommentModel[],
     pageId: number,
     takePage: number
   ) {
     super();
     this.type = type;
-    this.state = state
-    this.comments = comments;
+    this.state = state;
     this.pageId = pageId;
     this.takePage = takePage;
   }

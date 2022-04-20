@@ -40,7 +40,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
   filterState: FilterCommentState = FilterCommentState.All;
   dataSource: MatTableDataSource<CommentModel> = new MatTableDataSource<CommentModel>([]);
   isDataSourceLoaded = false;
-  filterComments: FilterCommentModel = new FilterCommentModel(this.filterType, this.filterState, [], 1, 15);
+  filterComments: FilterCommentModel = new FilterCommentModel(this.filterType, this.filterState, 1, 15);
 
   constructor(
     private pageTitle: Title,
@@ -95,7 +95,6 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     this.filterComments = new FilterCommentModel(
       this.filterType,
       this.filterState,
-      [],
       page,
       size
     );
@@ -117,7 +116,6 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     this.filterComments = new FilterCommentModel(
       this.filterType,
       this.filterState,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize
     );

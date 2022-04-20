@@ -9,9 +9,9 @@ export enum PagingDataSortCreationDateOrder {
 }
 
 export class BasePaging {
-  pageId:number;
-  dataCount:number;
-  takePage:number;
+  pageId: number;
+  dataCount: number;
+  takePage: number;
   sortCreationDateOrder: PagingDataSortCreationDateOrder;
   sortIdOrder: PagingDataSortIdOrder;
 }
