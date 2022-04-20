@@ -1,19 +1,19 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { environment } from '@app_env';
-import { Title } from '@angular/platform-browser';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/_index';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { ArticleCategoryModel } from '@app_models/blog/article-category/article-category';
-import { ArticleCategoryDataServer } from '@app_models/blog/article-category/article-category-data-server';
-import { FilterArticleCategoryModel } from '@app_models/blog/article-category/filter-article-category';
-import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
-import { CreateArticleCategoryDialog } from '../create-article-category/create-article-category.dialog';
-import { EditArticleCategoryDialog } from '../edit-article-category/edit-article-category.dialog';
+import {Component, AfterViewInit, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {environment} from '@app_env';
+import {Title} from '@angular/platform-browser';
+import {PagingDataSortIdOrder, PagingDataSortCreationDateOrder} from '@app_models/_common/_index';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {ArticleCategoryModel} from '@app_models/blog/article-category/article-category';
+import {ArticleCategoryDataServer} from '@app_models/blog/article-category/article-category-data-server';
+import {FilterArticleCategoryModel} from '@app_models/blog/article-category/filter-article-category';
+import {ArticleCategoryService} from '@app_services/blog/article-category/article-category.service';
+import {CreateArticleCategoryDialog} from '../create-article-category/create-article-category.dialog';
+import {EditArticleCategoryDialog} from '../edit-article-category/edit-article-category.dialog';
 
 @Component({
   selector: 'app-filter-article-category',
@@ -22,13 +22,13 @@ import { EditArticleCategoryDialog } from '../edit-article-category/edit-article
 export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   displayedColumns: string[] = ['thumbnailImage', 'title', 'creationDate', 'commands'];
-  thumbnailBasePath: string = `${environment.articleCategoryBaseImagePath}/`;
+  thumbnailBasePath = `${environment.articleCategoryBaseImagePath}/`;
   dataServer: ArticleCategoryDataServer;
   dataSource: MatTableDataSource<ArticleCategoryModel> = new MatTableDataSource<ArticleCategoryModel>([]);
-  isDataSourceLoaded: boolean = false;
+  isDataSourceLoaded = false;
   filterArticleCategories: FilterArticleCategoryModel = new FilterArticleCategoryModel('', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
@@ -51,7 +51,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -94,7 +94,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
             }
           }
 
-          this.loadArticleCategoriesPage()
+          this.load()
         })
       )
       .subscribe();
@@ -105,16 +105,16 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
-          this.loadArticleCategoriesPage();
+          this.load();
         })
       )
       .subscribe();
 
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -137,7 +137,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateArticleCategoryDialog, {
+    this.dialog.open(CreateArticleCategoryDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -146,7 +146,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditArticleCategoryDialog, {
+    this.dialog.open(EditArticleCategoryDialog, {
       width: '600px',
       height: '700px',
       data: {
@@ -157,7 +157,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  loadArticleCategoriesPage() {
+  load(): void {
     const sortDate: PagingDataSortCreationDateOrder = this.filterArticleCategories.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterArticleCategories.sortIdOrder;
 
@@ -175,7 +175,7 @@ export class FilterArticleCategoryPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterArticleCategories.takePage;
   }
 
-  deleteArticleCategory(id: string) {
+  deleteArticleCategory(id: string): void {
     this.articleCategoryService.deleteArticleCategory(id).subscribe((res) => {
       if (res.status === 200) {
         this.ngOnInit();

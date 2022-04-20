@@ -4,7 +4,6 @@
 
     <div class="container-fluid no-padding h-100">
         <div class="row flex-row h-100 bg-white">
-            <!-- Begin Left Content -->
             <div class="col-xl-3 col-lg-5 col-md-5 col-sm-12 col-12 no-padding">
                 <div class="seenbord-bg background-03">
                     <div class="bg-overlay overlay-08"></div>
@@ -29,7 +28,7 @@
 
                         <div role="tabpanel" class="tab-pane show active" id="singin" aria-labelledby="singin-tab">
                             <h3>به سـین بورد خوش آمدید</h3>
-                            <form [formGroup]="loginForm" (ngSubmit)="submitForm()" enctype="multipart/form-data">
+                            <form [formGroup]="loginForm" (ngSubmit)="submit()" enctype="multipart/form-data">
                                 <div class="group material-input">
                                     <input type="email" formControlName="email" required>
                                     <span class="highlight"></span>

@@ -3,6 +3,6 @@ export class AuthUser {
     public userId: string,
     public userName: string,
     public displayName: string,
-    public roles: string[] | null,) { }
+    public roles: string[] | null) { }
 
 }

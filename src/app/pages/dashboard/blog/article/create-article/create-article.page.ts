@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import { ArticleCategoryForSelectListModel } from '@app_models/blog/article-category/article-category-for-select-list';
-import { CreateArticleModel } from '@app_models/blog/article/create-article';
-import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
-import { ArticleService } from '@app_services/blog/article/article.service';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
+import {ArticleCategoryForSelectListModel} from '@app_models/blog/article-category/article-category-for-select-list';
+import {CreateArticleModel} from '@app_models/blog/article/create-article';
+import {ArticleCategoryService} from '@app_services/blog/article-category/article-category.service';
+import {ArticleService} from '@app_services/blog/article/article.service';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
 
 @Component({
   selector: 'app-create-article',
@@ -17,7 +19,7 @@ import { LoadingService } from '@loading-service';
 export class CreateArticlePage implements OnInit {
 
   createForm: FormGroup;
-  fileUploaded: boolean = false;
+  fileUploaded = false;
   imageFileToUpload: any;
   ckeditorTextValue = null;
   categories: ArticleCategoryForSelectListModel[] = [];
@@ -57,13 +59,13 @@ export class CreateArticlePage implements OnInit {
     this._location.back();
   }
 
-  getArticleCategoriesForSelectList() {
+  getArticleCategoriesForSelectList(): void {
 
     this.articleCategoryService.getArticleCategoriesSelectList().subscribe(res => this.categories = res);
 
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -72,7 +74,7 @@ export class CreateArticlePage implements OnInit {
     this.loading.loadingOff();
   }
 
-  submitCreateForm() {
+  submitCreateForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();

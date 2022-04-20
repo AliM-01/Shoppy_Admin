@@ -1,10 +1,10 @@
-import { InventoryOperationModel } from "./inventory-operation";
+import {InventoryOperationModel} from "./inventory-operation";
 
 export class GetInventoryOperationsModel {
     constructor(
          public inventoryId: string,
          public productId: string,
          public productTitle: string,
-         public operations: InventoryOperationModel[],
+         public operations: InventoryOperationModel[]
      ){}
  }

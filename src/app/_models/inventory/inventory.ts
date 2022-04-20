@@ -6,6 +6,6 @@ export class InventoryModel {
          public inStock: boolean,
          public unitPrice: number,
          public currentCount: number,
-         public creationDate: string,
+         public creationDate: string
      ){}
  }

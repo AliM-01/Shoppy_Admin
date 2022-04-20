@@ -23,5 +23,5 @@ export const environment = {
   productPictureBaseImagePath: baseApiUrl + "/upload/product_picture",
   sliderBaseImagePath: baseApiUrl + "/upload/slider",
   articleCategoryBaseImagePath: baseApiUrl + "/upload/article_category",
-  articleBaseImagePath: baseApiUrl + "/upload/article",
+  articleBaseImagePath: baseApiUrl + "/upload/article"
 };

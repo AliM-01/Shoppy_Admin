@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IncreaseInventoryModel } from '@app_models/inventory/increase-inventory';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { InventoryService } from '@app_services/inventory/inventory.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {IncreaseInventoryModel} from '@app_models/inventory/increase-inventory';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {InventoryService} from '@app_services/inventory/inventory.service';
 
 @Component({
   selector: 'app-increase-inventory',
@@ -38,7 +38,7 @@ export class IncreaseInventoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitIncreaseForm() {
+  submitIncreaseForm(): void {
 
     this.loading.loadingOn();
 

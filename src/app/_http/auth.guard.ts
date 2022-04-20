@@ -1,15 +1,15 @@
-﻿import { Injectable } from "@angular/core";
+﻿import {Injectable} from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
+  UrlTree
 } from "@angular/router";
-import { AuthTokenType } from "@app_models/auth/_index";
-import { AuthService, TokenStoreService, RefreshTokenService } from "@app_services/auth/_index";
-import { BehaviorSubject, Observable } from "rxjs";
-import { filter, take, tap } from "rxjs/operators";
+import {AuthTokenType} from "@app_models/auth/_index";
+import {AuthService, TokenStoreService, RefreshTokenService} from "@app_services/auth/_index";
+import {BehaviorSubject, Observable} from "rxjs";
+import {filter, take, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,8 @@ import { filter, take, tap } from "rxjs/operators";
 export class AuthGuard implements CanActivate {
 
   private isRefreshing = false;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   private returnUrl: string = '/';
@@ -85,7 +87,7 @@ export class AuthGuard implements CanActivate {
     }
   }
 
-  private showAccessDenied() {
-    this.router.navigate(["/auth/access-denied"], { queryParams: { returnUrl: this.returnUrl } });
+  private showAccessDenied(): void {
+    this.router.navigate(["/auth/access-denied"], {queryParams: {returnUrl: this.returnUrl}});
   }
 }

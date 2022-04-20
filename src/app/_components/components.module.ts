@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { LoadingComponent } from './loading/loading.component';
-import { NgxLoadingModule  } from 'ngx-loading';
-import { ConfirmDialog } from './confirm-dialog/confirm.dialog';
-import { AppMaterialModule } from '../app-material.module';
+import {CommonModule} from '@angular/common';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {FooterComponent} from './footer/footer.component';
+import {HeaderComponent} from './header/header.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
+import {LoadingComponent} from './loading/loading.component';
+import {NgxLoadingModule} from 'ngx-loading';
+import {ConfirmDialog} from './confirm-dialog/confirm.dialog';
+import {AppMaterialModule} from '../app-material.module';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,11 @@
-import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
-import { InventoryModel } from './inventory';
+import {BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from '@app_models/_common/_index';
+import {InventoryModel} from './inventory';
+
+export enum FilterInventoryInStockStateEnum {
+  All = "All",
+  InStock = "InStock",
+  NotInStock = "NotInStock"
+}
 
 export class FilterInventoryModel extends BasePaging {
 
@@ -32,8 +38,4 @@ export class FilterInventoryModel extends BasePaging {
   }
 }
 
-export enum FilterInventoryInStockStateEnum {
-  All = "All",
-  InStock = "InStock",
-  NotInStock = "NotInStock"
-}
+

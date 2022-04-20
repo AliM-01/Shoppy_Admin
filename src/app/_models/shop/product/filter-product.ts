@@ -1,5 +1,5 @@
-import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/_index";
-import { ProductModel } from "./product";
+import {BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from "@app_models/_common/_index";
+import {ProductModel} from "./product";
 
 export class FilterProductModel extends BasePaging {
   pageId: number;

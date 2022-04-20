@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {IConfirmDialogConfig} from '@app_models/_common/IConfirmDialogConfig';
 
 @Component({
   selector: 'app-confim-dialog',
@@ -28,11 +28,8 @@ import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
     </div>
   `
 })
-export class ConfirmDialog implements OnInit {
+export class ConfirmDialog {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IConfirmDialogConfig) { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -1,15 +1,17 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
-import { EditProductModel } from '@app_models/shop/product/edit-product';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
-import { ProductService } from '@app_services/shop/product/product.service';
-import { environment } from '@app_env';
-import { Observable, BehaviorSubject } from 'rxjs';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ProductCategoryForSelectListModel} from '@app_models/shop/product-category/product-category-for-select-list';
+import {EditProductModel} from '@app_models/shop/product/edit-product';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {ProductCategoryService} from '@app_services/shop/product-category/product-category.service';
+import {ProductService} from '@app_services/shop/product/product.service';
+import {environment} from '@app_env';
+import {Observable, BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-edit-product',
@@ -20,9 +22,9 @@ export class EditProductDialog implements OnInit {
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("محصول");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
   editForm: FormGroup;
-  fileUploaded: boolean = false;
+  fileUploaded = false;
   imageFileToUpload: any;
-  imagePath: any;
+  imagePath: string;
   ckeditorTextValue = null;
   categories: ProductCategoryForSelectListModel[] = [];
 
@@ -31,7 +33,7 @@ export class EditProductDialog implements OnInit {
     public dialogRef: MatDialogRef<EditProductDialog>,
     private productCategoryService: ProductCategoryService,
     private productService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private ckeditorService: CkeditorService,
     private loading: LoadingService
   ) { }
@@ -69,7 +71,8 @@ export class EditProductDialog implements OnInit {
       this.editForm.controls.metaKeywords.setValue(res.metaKeywords);
       this.editForm.controls.metaDescription.setValue(res.metaDescription);
     },
-      (error) => { this.onCloseClick(); });
+      () => this.onCloseClick()
+    );
 
     this.loading.loadingOff();
 
@@ -79,13 +82,13 @@ export class EditProductDialog implements OnInit {
     return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
-  getProductCategoriesForSelectList() {
+  getProductCategoriesForSelectList(): void {
     this.productCategoryService.getProductCategoriesList().subscribe((res) => {
       this.categories = res;
     });
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -98,7 +101,7 @@ export class EditProductDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submit() {
+  submit(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();

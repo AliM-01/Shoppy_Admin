@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+import {Component} from '@angular/core';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-not-found',
@@ -35,8 +35,8 @@ export class NotFoundPage {
 
     constructor(private location: Location) { }
 
-    goBack() {
-        this.location.back();
+    goBack(): void {
+      this.location.back();
     }
 
 }

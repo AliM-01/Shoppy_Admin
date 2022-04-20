@@ -1,12 +1,12 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { AuthTokenType } from "@app_models/auth/auth-token-type";
-import { LoginResponseModel } from "@app_models/auth/login-response";
-import { getCurrentTabId } from "@app_services/_common/functions/functions";
-import { environment } from "@app_env";
-import { Observable, Subscription, throwError, timer } from "rxjs";
-import { catchError, tap } from 'rxjs/operators';
-import { TokenStoreService, BrowserStorageService } from "./_index";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {AuthTokenType} from "@app_models/auth/auth-token-type";
+import {LoginResponseModel} from "@app_models/auth/login-response";
+import {getCurrentTabId} from "@app_services/_common/functions/functions";
+import {environment} from "@app_env";
+import {Observable, Subscription, throwError, timer} from "rxjs";
+import {catchError, tap} from 'rxjs/operators';
+import {TokenStoreService, BrowserStorageService} from "./_index";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class RefreshTokenService {
     private http: HttpClient,
     private browserStorageService: BrowserStorageService) { }
 
-  scheduleRefreshToken(isAuthUserLoggedIn: boolean, calledFromLogin: boolean) {
+  scheduleRefreshToken(isAuthUserLoggedIn: boolean, calledFromLogin: boolean): void {
     this.unscheduleRefreshToken(false);
 
     if (!isAuthUserLoggedIn) {
@@ -55,7 +55,7 @@ export class RefreshTokenService {
     }
   }
 
-  unscheduleRefreshToken(cancelTimerCheckToken: boolean) {
+  unscheduleRefreshToken(cancelTimerCheckToken: boolean): void {
     if (this.refreshTokenSubscription) {
       this.refreshTokenSubscription.unsubscribe();
     }
@@ -65,7 +65,7 @@ export class RefreshTokenService {
     }
   }
 
-  invalidateCurrentTabId() {
+  invalidateCurrentTabId(): void {
     const currentTabId = getCurrentTabId(this.browserStorageService);
     const timerStat = this.browserStorageService.getLocal(
       this.REFRESH_TOKEN_TIMER_CHECK_ID
@@ -92,7 +92,7 @@ export class RefreshTokenService {
       );
   }
 
-  private refreshToken(isAuthUserLoggedIn: boolean) {
+  private refreshToken(isAuthUserLoggedIn: boolean): Subscription {
 
     const formData = new FormData();
 
@@ -128,7 +128,7 @@ export class RefreshTokenService {
       });
   }
 
-  private deleteRefreshTokenTimerCheckId() {
+  private deleteRefreshTokenTimerCheckId(): void {
     this.browserStorageService.removeLocal(this.REFRESH_TOKEN_TIMER_CHECK_ID);
   }
 

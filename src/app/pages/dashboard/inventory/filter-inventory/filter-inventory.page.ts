@@ -1,20 +1,22 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { FilterInventoryInStockStateEnum, FilterInventoryModel } from "@app_models/inventory/filter-inventory";
-import { InventoryDataServer } from "@app_models/inventory/inventory-data-server";
-import { InventoryService } from "@app_services/inventory/inventory.service";
-import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
-import { IncreaseInventoryDialog } from '../increase-inventory/increase-inventory.dialog';
-import { ReduceInventoryDialog } from '../reduce-inventory/reduce-inventory.dialog';
-import { InventoryOperationDialog } from '../inventory-operations/inventory-operations.dialog';
-import { MatSort } from '@angular/material/sort';
-import { InventoryModel } from '@app_models/inventory/inventory';
-import { MatTableDataSource } from '@angular/material/table';
-import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import {Component, AfterViewInit, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
+import {FilterInventoryInStockStateEnum, FilterInventoryModel} from "@app_models/inventory/filter-inventory";
+import {InventoryDataServer} from "@app_models/inventory/inventory-data-server";
+import {InventoryService} from "@app_services/inventory/inventory.service";
+import {EditInventoryDialog} from '../edit-inventory/edit-inventory.dialog';
+import {IncreaseInventoryDialog} from '../increase-inventory/increase-inventory.dialog';
+import {ReduceInventoryDialog} from '../reduce-inventory/reduce-inventory.dialog';
+import {InventoryOperationDialog} from '../inventory-operations/inventory-operations.dialog';
+import {MatSort} from '@angular/material/sort';
+import {InventoryModel} from '@app_models/inventory/inventory';
+import {MatTableDataSource} from '@angular/material/table';
+import {PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from '@app_models/_common/_index';
 
 @Component({
   selector: 'app-filter-inventory',
@@ -23,14 +25,14 @@ import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_mod
 export class FilterInventoryPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
-  filterInStockInputChecked: string = 'true';
+  filterInStockInputChecked = 'true';
   displayedColumns: string[] = ['product', 'state', 'unitPrice', 'currentCount', 'creationDate', 'commands'];
   inStockState: FilterInventoryInStockStateEnum = FilterInventoryInStockStateEnum.All;
   dataServer: InventoryDataServer;
   dataSource: MatTableDataSource<InventoryModel> = new MatTableDataSource<InventoryModel>([]);
-  isDataSourceLoaded: boolean = false;
+  isDataSourceLoaded = false;
   filterInventory: FilterInventoryModel = new FilterInventoryModel("", FilterInventoryInStockStateEnum.All, [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
@@ -53,7 +55,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -114,9 +116,9 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -139,12 +141,12 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = size;
   }
 
-  setInStockState(event: any) {
+  setInStockState(event: any): void {
     this.inStockState = event.value;
     this.loadInventoriesPage();
   }
 
-  loadInventoriesPage() {
+  loadInventoriesPage(): void {
 
     const sortDate: PagingDataSortCreationDateOrder = this.filterInventory.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterInventory.sortIdOrder;
@@ -165,14 +167,14 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: string): void {
-    const dialogRef = this.dialog.open(EditInventoryDialog, {
+    this.dialog.open(EditInventoryDialog, {
       width: '450px',
       height: '425px',
       data: {
         id: id
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
 
       this.ngOnInit();
@@ -180,14 +182,14 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   openIncreaseDialog(id: string): void {
-    const dialogRef = this.dialog.open(IncreaseInventoryDialog, {
+    this.dialog.open(IncreaseInventoryDialog, {
       width: '450px',
       height: '425px',
       data: {
         id: id
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
 
       this.ngOnInit();
@@ -195,14 +197,14 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   openReduceDialog(id: string): void {
-    const dialogRef = this.dialog.open(ReduceInventoryDialog, {
+    this.dialog.open(ReduceInventoryDialog, {
       width: '450px',
       height: '425px',
       data: {
         id: id
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
 
       this.ngOnInit();
@@ -210,7 +212,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   }
 
   openOperationsDialog(id: string): void {
-    const dialogRef = this.dialog.open(InventoryOperationDialog, {
+    this.dialog.open(InventoryOperationDialog, {
       width: '950px',
       height: '800px',
       data: {

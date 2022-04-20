@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LoadingService } from '@loading-service';
-import { InventoryService } from '@app_services/inventory/inventory.service';
-import { GetInventoryOperationsModel } from '@app_models/inventory/get-inventory-operations';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {LoadingService} from '@loading-service';
+import {InventoryService} from '@app_services/inventory/inventory.service';
+import {GetInventoryOperationsModel} from '@app_models/inventory/get-inventory-operations';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-inventory-operations',
@@ -18,7 +18,7 @@ export class InventoryOperationDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<InventoryOperationDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private inventoryService: InventoryService,
     private loading: LoadingService
   ) { }

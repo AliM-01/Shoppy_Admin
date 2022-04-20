@@ -1,8 +1,12 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-useless-escape */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CookieService {
   private readonly documentIsAccessible: boolean;
@@ -50,12 +54,12 @@ export class CookieService {
     }
   }
 
-  getAll(): { [key: string]: string } {
+  getAll(): {[key: string]: string} {
     if (!this.documentIsAccessible) {
       return {};
     }
 
-    const cookies: { [key: string]: string } = {};
+    const cookies: {[key: string]: string} = {};
     const document: any = this.document;
 
     if (document.cookie && document.cookie !== '') {
@@ -121,7 +125,7 @@ export class CookieService {
       return;
     }
 
-    this.set(name, '', { expires: 0, path, domain, secure, sameSite });
+    this.set(name, '', {expires: 0, path, domain, secure, sameSite});
   }
 
   deleteAll(path?: string, domain?: string, secure?: boolean, sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'): void {

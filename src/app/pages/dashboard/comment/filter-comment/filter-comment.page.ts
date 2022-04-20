@@ -1,12 +1,14 @@
-import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { MatTableDataSource } from '@angular/material/table';
-import { CommentDataServer } from '@app_models/comment/comment-data-server';
-import { CommentModel, FilterCommentModel } from '@app_models/comment/_index';
-import { CommentService } from '@app_services/comment/comment.service';
-import { FilterCommentState, FilterCommentType } from '@app_models/comment/filter-comment';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, AfterViewInit, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
+import {MatTableDataSource} from '@angular/material/table';
+import {CommentDataServer} from '@app_models/comment/comment-data-server';
+import {CommentModel, FilterCommentModel} from '@app_models/comment/_index';
+import {CommentService} from '@app_services/comment/comment.service';
+import {FilterCommentState, FilterCommentType} from '@app_models/comment/filter-comment';
 
 @Component({
   selector: 'app-filter-comment',
@@ -22,7 +24,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     {text: "همه", value: FilterCommentState.All},
     {text: "در حال بررسی", value: FilterCommentState.UnderProgress},
     {text: "رد شده", value: FilterCommentState.Canceled},
-    {text: "تایید شده", value: FilterCommentState.Confirmed},
+    {text: "تایید شده", value: FilterCommentState.Confirmed}
   ];
   typesForView: {
     text: string,
@@ -30,14 +32,14 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
   }[] = [
     {text: "همه", value: FilterCommentType.All},
     {text: "محصول", value: FilterCommentType.Product},
-    {text: "مقاله", value: FilterCommentType.Article},
+    {text: "مقاله", value: FilterCommentType.Article}
   ];
   displayedColumns: string[] = ['name', 'email', 'text', 'type', 'state', 'ownerName', 'creationDate', 'commands'];
   dataServer: CommentDataServer;
   filterType: FilterCommentType = FilterCommentType.All;
   filterState: FilterCommentState = FilterCommentState.All;
   dataSource: MatTableDataSource<CommentModel> = new MatTableDataSource<CommentModel>([]);
-  isDataSourceLoaded: boolean = false;
+  isDataSourceLoaded = false;
   filterComments: FilterCommentModel = new FilterCommentModel(this.filterType, this.filterState, [], 1, 15);
 
   constructor(
@@ -59,7 +61,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -80,9 +82,9 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
 
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -95,23 +97,23 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
       this.filterState,
       [],
       page,
-      size,
+      size
     );
     this.ngOnInit();
     this.paginator.pageSize = size;
   }
 
-  setFilterType(event: any) {
+  setFilterType(event: any): void {
     this.filterType = event.value;
     this.loadCommentsPage();
   }
 
-  setFilterState(event: any) {
+  setFilterState(event: any): void {
     this.filterState = event.value;
     this.loadCommentsPage();
   }
 
-  loadCommentsPage() {
+  loadCommentsPage(): void {
     this.filterComments = new FilterCommentModel(
       this.filterType,
       this.filterState,
@@ -125,7 +127,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterComments.takePage;
   }
 
-  confirmComment(id: string) {
+  confirmComment(id: string): void {
     this.commentService.confirmComment(id).subscribe((res) => {
       if (res.status === 200) {
         this.ngOnInit();
@@ -133,7 +135,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     });
   }
 
-  cancelComment(id: string) {
+  cancelComment(id: string): void {
     this.commentService.cancelComment(id).subscribe((res) => {
       if (res.status === 200) {
         this.ngOnInit();

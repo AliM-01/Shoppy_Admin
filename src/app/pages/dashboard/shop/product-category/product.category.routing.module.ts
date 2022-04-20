@@ -1,11 +1,11 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { CreateProductCategoryDialog } from "./create-product-category/create-product-category.dialog";
-import { FilterProductCategoryPage } from "./filter-product-category/filter-product-category.page";
+import {NgModule} from "@angular/core";
+import {Routes, RouterModule} from "@angular/router";
+import {CreateProductCategoryDialog} from "./create-product-category/create-product-category.dialog";
+import {FilterProductCategoryPage} from "./filter-product-category/filter-product-category.page";
 
 const routes: Routes = [
-    { path:'', component:FilterProductCategoryPage },
-    { path:'create', component:CreateProductCategoryDialog },
+    {path:'', component:FilterProductCategoryPage},
+    {path:'create', component:CreateProductCategoryDialog}
   ];
   
   @NgModule({

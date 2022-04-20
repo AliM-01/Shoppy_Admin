@@ -1,13 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ReduceInventoryModel } from '@app_models/inventory/reduce-inventory';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { InventoryService } from '@app_services/inventory/inventory.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { ProductService } from '@app_services/shop/product/product.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ReduceInventoryModel} from '@app_models/inventory/reduce-inventory';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {InventoryService} from '@app_services/inventory/inventory.service';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {ProductService} from '@app_services/shop/product/product.service';
 
 @Component({
   selector: 'app-reduce-inventory',
@@ -19,11 +19,11 @@ export class ReduceInventoryDialog implements OnInit {
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   reduceForm: FormGroup;
-  existsProductId: boolean = true;
+  existsProductId = true;
 
   constructor(
     public dialogRef: MatDialogRef<ReduceInventoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private inventoryService: InventoryService,
     private productService: ProductService,
     private loading: LoadingService
@@ -39,7 +39,7 @@ export class ReduceInventoryDialog implements OnInit {
 
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.reduceForm.controls.productId.valueChanges.pipe(
       debounceTime(750),
       distinctUntilChanged(),
@@ -57,9 +57,9 @@ export class ReduceInventoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  checkProductId() {
+  checkProductId(): void {
 
-    let productId = this.reduceForm.controls.productId.value;
+    const productId = this.reduceForm.controls.productId.value;
 
     if (productId !== null) {
 
@@ -82,7 +82,7 @@ export class ReduceInventoryDialog implements OnInit {
 
   }
 
-  submitreduceForm() {
+  submit(): void {
     this.loading.loadingOn()
 
     if (this.reduceForm.valid) {

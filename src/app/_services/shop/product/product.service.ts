@@ -1,12 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { IResponse } from '@app_models/_common/IResponse';
-import { environment } from '@app_env';
-import { Observable, throwError } from 'rxjs';
-import { CreateProductModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel } from '@app_models/shop/product/_index';
-import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@loading-service';
-import { tap, catchError } from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {IResponse} from '@app_models/_common/IResponse';
+import {environment} from '@app_env';
+import {Observable, throwError} from 'rxjs';
+import {CreateProductModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel} from '@app_models/shop/product/_index';
+import {ToastrService} from 'ngx-toastr';
+import {LoadingService} from '@loading-service';
+import {tap, catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'platform'
@@ -15,7 +15,7 @@ export class ProductService {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
-    private loading: LoadingService,
+    private loading: LoadingService
   ) { }
 
   filterProduct(filter: FilterProductModel): Observable<FilterProductModel> {
@@ -33,13 +33,12 @@ export class ProductService {
       params = params.set('CategoryId', filter.categoryId)
     }
 
-    return this.http.get<FilterProductModel>
-      (`${environment.shopBaseApiUrl}/product/filter`, { params })
+    return this.http.get<FilterProductModel>(`${environment.shopBaseApiUrl}/product/filter`, {params})
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);
@@ -48,18 +47,17 @@ export class ProductService {
   }
 
   existsProductId(id: string): Observable<ExistsProductIdResponseModel> {
-    return this.http.get<ExistsProductIdResponseModel>
-      (`${environment.shopBaseApiUrl}/product/exists/${id}`)
+    return this.http.get<ExistsProductIdResponseModel>(`${environment.shopBaseApiUrl}/product/exists/${id}`)
       .pipe(
         tap((res: ExistsProductIdResponseModel) => {
           if (res.exists === false) {
-            this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", { timeOut: 500 });
+            this.toastr.error("محصولی با این شناسه وجود ندارد", "خطا", {timeOut: 500});
           }
           this.loading.loadingOff();
 
         }),
         catchError((error: HttpErrorResponse) => {
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);
@@ -71,13 +69,12 @@ export class ProductService {
 
     this.loading.loadingOn();
 
-    return this.http.get<EditProductModel>
-      (`${environment.shopBaseApiUrl}/product/${id}`)
+    return this.http.get<EditProductModel>(`${environment.shopBaseApiUrl}/product/${id}`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);
@@ -100,18 +97,17 @@ export class ProductService {
     formData.append('metaKeywords', createData.metaKeywords);
     formData.append('metaDescription', createData.metaDescription);
 
-    return this.http.post<IResponse>
-      (`${environment.shopBaseApiUrl}/product/create`, formData)
+    return this.http.post<IResponse>(`${environment.shopBaseApiUrl}/product/create`, formData)
       .pipe(
         tap((res: IResponse) => {
 
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
           this.loading.loadingOff();
 
         }),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);
@@ -138,18 +134,17 @@ export class ProductService {
     formData.append('metaKeywords', editData.metaKeywords);
     formData.append('metaDescription', editData.metaDescription);
 
-    return this.http.put<IResponse>
-      (`${environment.shopBaseApiUrl}/product/edit`, formData)
+    return this.http.put<IResponse>(`${environment.shopBaseApiUrl}/product/edit`, formData)
       .pipe(
         tap((res: IResponse) => {
 
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
           this.loading.loadingOff();
 
         }),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);
@@ -158,18 +153,17 @@ export class ProductService {
   }
 
   deleteProduct(productId: string): Observable<IResponse> {
-    return this.http.delete<IResponse>
-      (`${environment.shopBaseApiUrl}/product/delete/${productId}`)
+    return this.http.delete<IResponse>(`${environment.shopBaseApiUrl}/product/delete/${productId}`)
       .pipe(
         tap((res: IResponse) => {
 
-          this.toastr.success(res.message, 'موفقیت', { timeOut: 1500 });
+          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
           this.loading.loadingOff();
 
         }),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);

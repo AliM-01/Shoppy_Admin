@@ -1,19 +1,19 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
-import { ProductDiscountModel, FilterProductDiscountModel } from '@app_models/discount/product-discount/_index';
-import { ProductDiscountDataServer } from '@app_models/discount/product-discount/product-discount-data-server';
-import { DefineProductDiscountDialog } from '../define-product-discount-dialog/define-product-discount.dialog';
-import { EditProductDiscountDialog } from '../edit-product-discount-dialog/edit-product-discount.dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
-import { MatSort } from '@angular/material/sort';
-import { ConfirmDialog } from '@app_components/confirm-dialog/confirm.dialog';
-import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
+import {Component, AfterViewInit, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
+import {ProductDiscountService} from '@app_services/discount/product-discount/product-discount.service';
+import {ProductDiscountModel, FilterProductDiscountModel} from '@app_models/discount/product-discount/_index';
+import {ProductDiscountDataServer} from '@app_models/discount/product-discount/product-discount-data-server';
+import {DefineProductDiscountDialog} from '../define-product-discount-dialog/define-product-discount.dialog';
+import {EditProductDiscountDialog} from '../edit-product-discount-dialog/edit-product-discount.dialog';
+import {MatTableDataSource} from '@angular/material/table';
+import {PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from '@app_models/_common/_index';
+import {MatSort} from '@angular/material/sort';
+import {ConfirmDialog} from '@app_components/confirm-dialog/confirm.dialog';
+import {IConfirmDialogConfig} from '@app_models/_common/IConfirmDialogConfig';
 
 @Component({
   selector: 'app-filter-product-discount',
@@ -22,14 +22,14 @@ import { IConfirmDialogConfig } from '@app_models/_common/IConfirmDialogConfig';
 export class FilterProductDiscountPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterProductIdInput') filterProductIdInput: ElementRef;
   @ViewChild('filterProductTitleInput') filterProductTitleInput: ElementRef;
   displayedColumns: string[] = ['product', 'rate', 'startDate',
     'endDate', 'state', 'commands'];
   dataServer: ProductDiscountDataServer;
   dataSource: MatTableDataSource<ProductDiscountModel> = new MatTableDataSource<ProductDiscountModel>([]);
-  isDataSourceLoaded: boolean = false;
+  isDataSourceLoaded = false;
   filterProductDiscounts: FilterProductDiscountModel = new FilterProductDiscountModel("", '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
@@ -52,7 +52,7 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -123,9 +123,9 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -150,7 +150,7 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
 
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(DefineProductDiscountDialog, {
+    this.dialog.open(DefineProductDiscountDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -159,21 +159,21 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditProductDiscountDialog, {
+    this.dialog.open(EditProductDiscountDialog, {
       width: '600px',
       height: '700px',
       data: {
         id: id
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
 
       this.ngOnInit();
     });
   }
 
-  loadProductDiscountsPage() {
+  loadProductDiscountsPage(): void {
     const sortDate: PagingDataSortCreationDateOrder = this.filterProductDiscounts.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterProductDiscounts.sortIdOrder;
 
@@ -192,9 +192,9 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterProductDiscounts.takePage;
   }
 
-  deleteProductDiscount(id: string) {
+  deleteProductDiscount(id: string): void {
 
-    const dialogRef = this.dialog.open(ConfirmDialog, {
+    this.dialog.open(ConfirmDialog, {
       width: '300px',
       height: '300px',
       data: <IConfirmDialogConfig>{

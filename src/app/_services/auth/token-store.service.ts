@@ -1,7 +1,8 @@
-﻿import { Injectable } from "@angular/core";
-import { AuthTokenType, LoginResponseModel } from "@app_models/auth/_index";
-import { CookieService } from "@app_services/_common/cookie/cookie.service";
-import { isEmptyString } from "@app_services/_common/functions/functions";
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Injectable} from "@angular/core";
+import {AuthTokenType, LoginResponseModel} from "@app_models/auth/_index";
+import {CookieService} from "@app_services/_common/cookie/cookie.service";
+import {isEmptyString} from "@app_services/_common/functions/functions";
 import jwt_decode from "jwt-decode";
 
 @Injectable({
@@ -13,7 +14,7 @@ export class TokenStoreService {
 
   getRawAuthToken(tokenType: AuthTokenType): string {
     const token = this.cookie.get(AuthTokenType[tokenType]);
-    if(!token)
+    if (!token)
       return '';
 
     return token.toString().replace(/['"]+/g, '');
@@ -37,7 +38,7 @@ export class TokenStoreService {
     return date;
   }
 
-  deleteAuthTokens() {
+  deleteAuthTokens(): void {
     this.cookie.delete(AuthTokenType[AuthTokenType.AccessToken], "/");
     this.cookie.delete(AuthTokenType[AuthTokenType.RefreshToken], "/");
   }
@@ -51,7 +52,7 @@ export class TokenStoreService {
       throw new Error("AccessToken can't be null or empty.");
     }
 
-    this.cookie.set(AuthTokenType[tokenType], JSON.stringify(tokenValue), { expires: expireInSeconds });
+    this.cookie.set(AuthTokenType[tokenType], JSON.stringify(tokenValue), {expires: expireInSeconds});
   }
 
   getDecodedTokenRoles(): string[] | null {

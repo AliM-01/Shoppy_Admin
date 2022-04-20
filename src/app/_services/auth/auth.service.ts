@@ -1,15 +1,15 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { BehaviorSubject, Observable, throwError, of } from "rxjs";
-import { catchError, finalize, map, tap } from "rxjs/operators";
-import { environment } from "@app_env";
-import { TokenStoreService, RefreshTokenService } from "./_index";
-import { ToastrService } from "ngx-toastr";
-import { LoadingService } from "@loading-service";
-import { AuthTokenType, LoginRequestModel, LoginResponseModel, RevokeRefreshTokenRequestModel } from '@app_models/auth/_index';
-import { IResponse } from "@app_models/_common/IResponse";
-import { AccountModel } from '@app_models/account/account';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {BehaviorSubject, Observable, throwError, of} from "rxjs";
+import {catchError, finalize, map, tap} from "rxjs/operators";
+import {environment} from "@app_env";
+import {TokenStoreService, RefreshTokenService} from "./_index";
+import {ToastrService} from "ngx-toastr";
+import {LoadingService} from "@loading-service";
+import {AuthTokenType, LoginRequestModel, LoginResponseModel, RevokeRefreshTokenRequestModel} from '@app_models/auth/_index';
+import {IResponse} from "@app_models/_common/IResponse";
+import {AccountModel} from '@app_models/account/account';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +44,7 @@ export class AuthService {
     formData.append('email', loginData.email);
     formData.append('password', loginData.password);
 
-    return this.http
-      .post<LoginResponseModel>(`${environment.authBaseApiUrl}/login`, formData)
+    return this.http.post<LoginResponseModel>(`${environment.authBaseApiUrl}/login`, formData)
       .pipe(
         map((res) => {
           this.loading.loadingOff();
@@ -57,9 +56,9 @@ export class AuthService {
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.authStatusSource.next(false);
-          this.toastr.error("عملیات با خطا مواجه شد", 'خطا', { timeOut: 2500 });
+          this.toastr.error("عملیات با خطا مواجه شد", 'خطا', {timeOut: 2500});
 
           this.loading.loadingOff();
           return throwError(error);
@@ -74,13 +73,12 @@ export class AuthService {
 
     const logoutData = new RevokeRefreshTokenRequestModel(refreshToken);
 
-    this.http
-      .post<IResponse>(`${environment.authBaseApiUrl}/logout`, logoutData)
+    this.http.post<IResponse>(`${environment.authBaseApiUrl}/logout`, logoutData)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);
@@ -104,18 +102,17 @@ export class AuthService {
       return of(false)
     }
 
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('roles', 'Admin');
 
-    return this.http
-      .get<IResponse>(`${environment.authBaseApiUrl}/is-in-role`, { params })
+    return this.http.get<IResponse>(`${environment.authBaseApiUrl}/is-in-role`, {params})
       .pipe(
         map(() => {
           return true;
         }),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return of(false);
@@ -124,13 +121,12 @@ export class AuthService {
 
   getCurrentUser(): Observable<AccountModel> {
 
-    return this.http
-      .get<AccountModel>(`${environment.authBaseApiUrl}/get-currentUser`)
+    return this.http.get<AccountModel>(`${environment.authBaseApiUrl}/get-currentUser`)
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(false);

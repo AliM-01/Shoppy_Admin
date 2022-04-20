@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class CreateProductCategoryModel {
     constructor(
          public title: string,
@@ -6,6 +8,6 @@ export class CreateProductCategoryModel {
          public imageAlt: string,
          public imageTitle: string,
          public metaKeywords: string,
-         public metaDescription: string,
+         public metaDescription: string
      ){}
  }

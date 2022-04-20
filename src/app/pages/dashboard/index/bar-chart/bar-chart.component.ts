@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ReportService } from '@app_services/report/report.service';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, OnInit} from '@angular/core';
+import {ReportService} from '@app_services/report/report.service';
+import {ChartDataSets} from 'chart.js';
+import {Color, Label} from 'ng2-charts';
 
 @Component({
   selector: 'index-bar-chart',
@@ -9,7 +10,7 @@ import { Color, Label } from 'ng2-charts';
 })
 export class BarChartComponent implements OnInit {
 
-  isLoaded: boolean = false;
+  isLoaded = false;
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
@@ -20,7 +21,7 @@ export class BarChartComponent implements OnInit {
         data.push(chart.count);
       }
 
-      this.barChartData = [{ data: data, label: 'فروش', fill: true }];
+      this.barChartData = [{data: data, label: 'فروش', fill: true}];
       this.isLoaded = true;
     })
   }
@@ -49,7 +50,7 @@ export class BarChartComponent implements OnInit {
         padding: 50,
         fontFamily: 'IRansans',
         fontSize: 13
-      },
+      }
     },
     scales: {
       xAxes: [{
@@ -79,7 +80,7 @@ export class BarChartComponent implements OnInit {
   barChartLabels: Label[] = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
 
   barChartData: ChartDataSets[] = [
-    { data: [30, 24, 22, 17, 22, 24, 9, 14, 20, 13, 17, 13], label: 'تحویل داده شده', fill: true }
+    {data: [30, 24, 22, 17, 22, 24, 9, 14, 20, 13, 17, 13], label: 'تحویل داده شده', fill: true}
   ];
 
   barChartColors: Color[] = [

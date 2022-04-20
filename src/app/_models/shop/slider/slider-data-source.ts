@@ -1,8 +1,9 @@
-import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { SliderService } from "@app_services/shop/slider/slider.service";
-import { BehaviorSubject, Observable, of } from "rxjs";
-import { SliderModel } from "./_index";
-import { catchError, finalize } from 'rxjs/operators';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {CollectionViewer, DataSource} from "@angular/cdk/collections";
+import {SliderService} from "@app_services/shop/slider/slider.service";
+import {BehaviorSubject, Observable, of} from "rxjs";
+import {SliderModel} from "./_index";
+import {catchError, finalize} from 'rxjs/operators';
 
 export class SliderDataSource implements DataSource<SliderModel> {
 
@@ -10,7 +11,7 @@ export class SliderDataSource implements DataSource<SliderModel> {
   private loadingSubject = new BehaviorSubject<boolean>(true);
 
   public loading$ = this.loadingSubject.asObservable();
-  public length: number = 0;
+  public length = 0;
 
   constructor(private sliderService: SliderService) { }
 
@@ -23,7 +24,7 @@ export class SliderDataSource implements DataSource<SliderModel> {
     this.loadingSubject.complete();
   }
 
-  loadSliders() {
+  loadSliders(): void {
 
     this.loadingSubject.next(true);
 

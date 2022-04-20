@@ -1,23 +1,23 @@
-import { ProductCategoryService } from "@app_services/shop/product-category/product-category.service";
-import { of } from "rxjs";
-import { FilterProductCategoryModel, ProductCategoryModel} from "./_index";
-import { catchError, finalize } from 'rxjs/operators';
+import {ProductCategoryService} from "@app_services/shop/product-category/product-category.service";
+import {of} from "rxjs";
+import {FilterProductCategoryModel, ProductCategoryModel} from "./_index";
+import {catchError, finalize} from 'rxjs/operators';
 
 export class ProductCategoryDataServer {
 
     public data: ProductCategoryModel[] = [];
     public resultsLength = 0;
     public isLoadingResults = true;
-    public pageId: number = 1;
+    public pageId = 1;
 
     constructor(private productCategoryService: ProductCategoryService) {}
 
-    loadProductCategories(filterProductCategories: FilterProductCategoryModel) {
+    loadProductCategories(filterProductCategories: FilterProductCategoryModel): void {
 
         this.isLoadingResults = true;
 
         this.productCategoryService.filterProductCategory(filterProductCategories)
-        .pipe(catchError(() => of([])),finalize(() => {
+        .pipe(catchError(() => of([])), finalize(() => {
             this.isLoadingResults = true;
         }))
         .subscribe((res : FilterProductCategoryModel) => {

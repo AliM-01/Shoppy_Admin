@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { FilterCommentPage } from "./filter-comment/filter-comment.page";
+import {NgModule} from "@angular/core";
+import {Routes, RouterModule} from "@angular/router";
+import {FilterCommentPage} from "./filter-comment/filter-comment.page";
 
 const routes: Routes = [
-  { path: '', component: FilterCommentPage }
+  {path: '', component: FilterCommentPage}
 ];
 
 @NgModule({

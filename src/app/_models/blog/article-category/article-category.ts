@@ -5,6 +5,6 @@ export class ArticleCategoryModel {
          public description: string,
          public orderShow: number,
          public imagePath: string,
-         public creationDate: string,
+         public creationDate: string
      ){}
  }

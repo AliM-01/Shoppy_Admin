@@ -1,13 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { environment } from '@app_env';
-import { ToastrService } from 'ngx-toastr';
-import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
-import { EditArticleCategoryModel } from '@app_models/blog/article-category/edit-article-category';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {environment} from '@app_env';
+import {ToastrService} from 'ngx-toastr';
+import {ArticleCategoryService} from '@app_services/blog/article-category/article-category.service';
+import {EditArticleCategoryModel} from '@app_models/blog/article-category/edit-article-category';
 
 @Component({
   selector: 'app-edit-article-category',
@@ -17,14 +19,14 @@ export class EditArticleCategoryDialog implements OnInit {
 
 
   editForm: FormGroup;
-  fileUploaded: boolean = false;
+  fileUploaded = false;
   imageFileToUpload: any;
-  imagePath: any;
+  imagePath: string;
   ckeditorTextValue = null;
 
   constructor(
     public dialogRef: MatDialogRef<EditArticleCategoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private articleCategoryService: ArticleCategoryService,
     private ckeditorService: CkeditorService,
     private loading: LoadingService,
@@ -64,7 +66,7 @@ export class EditArticleCategoryDialog implements OnInit {
     return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -77,7 +79,7 @@ export class EditArticleCategoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm() {
+  submiteditForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();

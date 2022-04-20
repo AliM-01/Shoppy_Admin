@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CreateProductFeatureModel } from '@app_models/shop/product-feature/create-product-feature';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {CreateProductFeatureModel} from '@app_models/shop/product-feature/create-product-feature';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {ProductFeatureService} from '@app_services/shop/product-feature/product-feature.service';
 
 @Component({
   selector: 'app-create-product-feature',
@@ -16,20 +16,20 @@ export class CreateProductFeatureDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductFeatureDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { productId: string },
+    @Inject(MAT_DIALOG_DATA) public data: {productId: string},
     private productFeatureService: ProductFeatureService,
     private loading: LoadingService
   ) { }
 
   ngOnInit(): void {
 
-    if(this.data.productId === undefined){
+    if (this.data.productId === undefined){
       this.onCloseClick();
     }
 
     this.createForm = new FormGroup({
       featureTitle: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      featureValue: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
+      featureValue: new FormControl(null, [Validators.required, Validators.maxLength(250)])
     });
   }
 
@@ -41,7 +41,7 @@ export class CreateProductFeatureDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitCreateForm() {
+  submitCreateForm(): void {
     this.loading.loadingOn();
 
     if (this.createForm.valid) {

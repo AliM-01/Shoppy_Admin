@@ -1,13 +1,13 @@
-import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { MatTableDataSource } from '@angular/material/table';
-import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
-import { FilterProductFeatureModel, ProductFeatureDataServer, ProductFeatureModel } from '@app_models/shop/product-feature/_index';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CreateProductFeatureDialog } from '../create-product-feature/create-product-feature.dialog';
-import { EditProductFeatureDialog } from '../edit-product-feature/edit-product-feature.dialog';
+import {Component, AfterViewInit, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
+import {MatTableDataSource} from '@angular/material/table';
+import {ProductFeatureService} from '@app_services/shop/product-feature/product-feature.service';
+import {FilterProductFeatureModel, ProductFeatureDataServer, ProductFeatureModel} from '@app_models/shop/product-feature/_index';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CreateProductFeatureDialog} from '../create-product-feature/create-product-feature.dialog';
+import {EditProductFeatureDialog} from '../edit-product-feature/edit-product-feature.dialog';
 
 @Component({
   selector: 'app-filter-product-feature',
@@ -19,8 +19,8 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'title', 'value', 'creationDate', 'commands'];
   dataServer: ProductFeatureDataServer;
   dataSource: MatTableDataSource<ProductFeatureModel> = new MatTableDataSource<ProductFeatureModel>([]);
-  isDataSourceLoaded: boolean = false;
-  productId: string = "";
+  isDataSourceLoaded = false;
+  productId = "";
   filterProductFeatures: FilterProductFeatureModel = new FilterProductFeatureModel(this.productId, [], 1, 10);
 
   constructor(
@@ -56,7 +56,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
   }
 
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -76,9 +76,9 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
 
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -96,7 +96,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
     this.paginator.pageSize = size;
   }
 
-  loadProductFeaturesPage() {
+  load(): void {
     this.filterProductFeatures = new FilterProductFeatureModel(
       this.productId,
       [],
@@ -110,7 +110,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateProductFeatureDialog, {
+    this.dialog.open(CreateProductFeatureDialog, {
       width: '450px',
       height: '350px',
       data: {
@@ -122,7 +122,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: string): void {
-    const dialogRef = this.dialog.open(EditProductFeatureDialog, {
+    this.dialog.open(EditProductFeatureDialog, {
       width: '600px',
       height: '700px',
       data: {
@@ -131,14 +131,14 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
 
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
 
       this.ngOnInit();
     });
   }
 
-  deleteProductFeature(id: string) {
+  deleteProductFeature(id: string): void {
     this.productFeatureService.deleteProductFeature(id).subscribe((res) => {
       if (res.status === 200) {
         this.ngOnInit();

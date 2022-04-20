@@ -1,5 +1,5 @@
-import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import {Location} from '@angular/common';
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'auth-accessDenied',
@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 export class AccessDeniedPage {
 
     constructor(private location: Location) { }
-    
-    goBack() {
+
+    goBack(): void {
         this.location.back();
     }
 }

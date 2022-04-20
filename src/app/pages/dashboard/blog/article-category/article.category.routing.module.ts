@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { FilterArticleCategoryPage } from "./filter-article-category/filter-article-category.page";
+import {NgModule} from "@angular/core";
+import {Routes, RouterModule} from "@angular/router";
+import {FilterArticleCategoryPage} from "./filter-article-category/filter-article-category.page";
 
 const routes: Routes = [
-  { path:'', component:FilterArticleCategoryPage },
+  {path:'', component:FilterArticleCategoryPage}
 ];
   
   @NgModule({

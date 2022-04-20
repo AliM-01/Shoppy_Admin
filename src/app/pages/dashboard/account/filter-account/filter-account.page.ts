@@ -1,17 +1,17 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/_index';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { AccountModel } from '@app_models/account/account';
-import { AccountDataServer } from '@app_models/account/account-data-server';
-import { FilterAccountModel } from '@app_models/account/filter-account';
-import { AccountService } from '@app_services/account/account.service';
-import { environment } from '@app_env';
+import {Component, AfterViewInit, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
+import {PagingDataSortIdOrder, PagingDataSortCreationDateOrder} from '@app_models/_common/_index';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {AccountModel} from '@app_models/account/account';
+import {AccountDataServer} from '@app_models/account/account-data-server';
+import {FilterAccountModel} from '@app_models/account/filter-account';
+import {AccountService} from '@app_services/account/account.service';
+import {environment} from '@app_env';
 
 @Component({
   selector: 'app-filter-account',
@@ -20,14 +20,14 @@ import { environment } from '@app_env';
 export class FilterAccountPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterNameInput') nameInput: ElementRef;
   @ViewChild('filterEmailInput') emailInput: ElementRef;
   displayedColumns: string[] = ['id', 'avatar', 'name', 'role', 'email', 'registerDate', 'commands'];
-  avatarBasePath: string = `${environment.avatarBaseImagePath}/`;
+  avatarBasePath = `${environment.avatarBaseImagePath}/`;
   dataServer: AccountDataServer;
   dataSource: MatTableDataSource<AccountModel> = new MatTableDataSource<AccountModel>([]);
-  isDataSourceLoaded: boolean = false;
+  isDataSourceLoaded = false;
   filterModel: FilterAccountModel = new FilterAccountModel('', '', [], 1, 15, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
@@ -50,7 +50,7 @@ export class FilterAccountPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -121,9 +121,9 @@ export class FilterAccountPage implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -146,7 +146,7 @@ export class FilterAccountPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = size;
   }
 
-  load() {
+  private load(): void {
     const sortDate: PagingDataSortCreationDateOrder = this.filterModel.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterModel.sortIdOrder;
 

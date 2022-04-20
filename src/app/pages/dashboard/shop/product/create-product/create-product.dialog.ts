@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ProductCategoryForSelectListModel } from '@app_models/shop/product-category/product-category-for-select-list';
-import { CreateProductModel } from '@app_models/shop/product/create-product';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
-import { ProductService } from '@app_services/shop/product/product.service';
-import { ToastrService } from 'ngx-toastr';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {ProductCategoryForSelectListModel} from '@app_models/shop/product-category/product-category-for-select-list';
+import {CreateProductModel} from '@app_models/shop/product/create-product';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {ProductCategoryService} from '@app_services/shop/product-category/product-category.service';
+import {ProductService} from '@app_services/shop/product/product.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-product',
@@ -18,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateProductDialog implements OnInit {
 
   createForm: FormGroup;
-  fileUploaded: boolean = false;
+  fileUploaded = false;
   imageFileToUpload: any;
   ckeditorTextValue = null;
   categories: ProductCategoryForSelectListModel[] = [];
@@ -54,7 +56,7 @@ export class CreateProductDialog implements OnInit {
     return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
-  getProductCategoriesForSelectList() {
+  getProductCategoriesForSelectList(): void {
 
     this.productCategoryService.getProductCategoriesList().subscribe(res => {
       this.categories = res;
@@ -62,7 +64,7 @@ export class CreateProductDialog implements OnInit {
 
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -75,7 +77,7 @@ export class CreateProductDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitCreateForm() {
+  submitCreateForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -106,7 +108,7 @@ export class CreateProductDialog implements OnInit {
 
           const pleaseCreateInventoryMsg = `لطفا نسبت به ایجاد انبار این محصول اقدام کنید`
 
-          this.toastr.info(pleaseCreateInventoryMsg, 'مهم', { timeOut: 4000 });
+          this.toastr.info(pleaseCreateInventoryMsg, 'مهم', {timeOut: 4000});
 
           this.onCloseClick();
         }

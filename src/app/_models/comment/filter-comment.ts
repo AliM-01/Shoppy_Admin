@@ -1,5 +1,18 @@
-import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
-import { CommentModel } from './comment';
+import {BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from '@app_models/_common/_index';
+import {CommentModel} from './comment';
+
+export enum FilterCommentState {
+  All = "All",
+  UnderProgress = "UnderProgress",
+  Canceled = "Canceled",
+  Confirmed = "Confirmed"
+}
+
+export enum FilterCommentType {
+  All = "All",
+  Product = "Product",
+  Article = "Article"
+}
 
 export class FilterCommentModel extends BasePaging {
 
@@ -29,15 +42,3 @@ export class FilterCommentModel extends BasePaging {
   }
 }
 
-export enum FilterCommentState {
-  All = "All",
-  UnderProgress = "UnderProgress",
-  Canceled = "Canceled",
-  Confirmed = "Confirmed"
-}
-
-export enum FilterCommentType {
-  All = "All",
-  Product = "Product",
-  Article = "Article"
-}

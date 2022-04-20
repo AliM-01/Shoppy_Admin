@@ -6,6 +6,6 @@ export class ArticleModel {
          public categoryId: string,
          public category: string,
          public imagePath: string,
-         public creationDate: string,
+         public creationDate: string
      ){}
  }

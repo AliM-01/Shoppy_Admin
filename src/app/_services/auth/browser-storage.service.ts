@@ -1,10 +1,12 @@
-﻿import { Injectable } from "@angular/core";
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BrowserStorageService {
-  
+
   getSession(key: string): any {
     const data = window.sessionStorage.getItem(key);
     if (data) {

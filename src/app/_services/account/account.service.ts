@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { environment } from '@app_env';
-import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from '@loading-service';
-import { catchError, tap } from 'rxjs/operators';
-import { FilterAccountModel } from '@app_models/account/filter-account';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable, throwError} from 'rxjs';
+import {environment} from '@app_env';
+import {ToastrService} from 'ngx-toastr';
+import {LoadingService} from '@loading-service';
+import {catchError, tap} from 'rxjs/operators';
+import {FilterAccountModel} from '@app_models/account/filter-account';
 
 @Injectable({
   providedIn: 'platform'
@@ -14,13 +14,11 @@ export class AccountService {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
-    private loading: LoadingService,
+    private loading: LoadingService
   ) { }
 
 
   filterAccount(filter: FilterAccountModel): Observable<FilterAccountModel> {
-
-    console.log(filter);
 
     this.loading.loadingOn();
 
@@ -33,13 +31,12 @@ export class AccountService {
       params = params.set('Email', filter.email);
     }
 
-    return this.http.get<FilterAccountModel>
-      (`${environment.accountBaseApiUrl}/filter`, { params })
+    return this.http.get<FilterAccountModel>(`${environment.accountBaseApiUrl}/filter`, {params})
       .pipe(
         tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
-          this.toastr.error(error.error.message, 'خطا', { timeOut: 2500 });
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
           this.loading.loadingOff();
 
           return throwError(error);

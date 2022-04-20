@@ -1,13 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DefineProductDiscountModel } from '@app_models/discount/product-discount/define-product-discount';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DefineProductDiscountModel} from '@app_models/discount/product-discount/define-product-discount';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {ProductDiscountService} from '@app_services/discount/product-discount/product-discount.service';
 import {Location} from '@angular/common';
-import { Title } from '@angular/platform-browser';
-import { LoadingService } from '@loading-service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import {Title} from '@angular/platform-browser';
+import {LoadingService} from '@loading-service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
 
 @Component({
   selector: 'app-define-product-discount',
@@ -17,7 +17,7 @@ export class DefineProductDiscountPage implements OnInit {
 
   defineForm: FormGroup;
   ckeditorTextValue = null;
-  productId: string = "";
+  productId = "";
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
 
@@ -46,7 +46,7 @@ export class DefineProductDiscountPage implements OnInit {
       }
 
       this.ProductDiscountService.checkProductHasProductDiscount(this.productId).subscribe(res => {
-        if(res.existsProductDiscount === true){
+        if (res.existsProductDiscount === true){
           this.onCloseClick();
         }
       });
@@ -67,7 +67,7 @@ export class DefineProductDiscountPage implements OnInit {
     this._location.back();
   }
 
-  submit() {
+  submit(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -79,7 +79,7 @@ export class DefineProductDiscountPage implements OnInit {
         this.defineForm.controls.rate.value,
         this.startDatepickerInput.nativeElement.value,
         this.endDatepickerInput.nativeElement.value,
-        this.ckeditorService.getValue(),
+        this.ckeditorService.getValue()
       );
 
       this.ProductDiscountService.defineProductDiscount(defineData).subscribe((res) => {

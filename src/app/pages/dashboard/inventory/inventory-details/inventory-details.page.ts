@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { InventoryService } from "@app_services/inventory/inventory.service";
-import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '@app_services/shop/product/product.service';
-import { GetInventoryOperationsModel } from '@app_models/inventory/get-inventory-operations';
-import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
+import {InventoryService} from "@app_services/inventory/inventory.service";
+import {EditInventoryModel} from '@app_models/inventory/edit-inventory';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProductService} from '@app_services/shop/product/product.service';
+import {GetInventoryOperationsModel} from '@app_models/inventory/get-inventory-operations';
+import {EditInventoryDialog} from '../edit-inventory/edit-inventory.dialog';
 
 @Component({
   selector: 'app-inventory-details',
@@ -14,9 +14,9 @@ import { EditInventoryDialog } from '../edit-inventory/edit-inventory.dialog';
 })
 export class InventoryDetailsPage implements OnInit {
 
-  inventoryId: string = '';
+  inventoryId = '';
   inventory: EditInventoryModel;
-  productTitle: string = '';
+  productTitle = '';
 
   operations: GetInventoryOperationsModel;
 
@@ -48,12 +48,12 @@ export class InventoryDetailsPage implements OnInit {
 
   }
 
-  getInventory() {
+  getInventory(): void {
     this.inventoryService.getInventoryDetails(this.inventoryId)
       .subscribe((res) => this.inventory = res);
   }
 
-  setProductTitle(){
+  setProductTitle(): void{
     this.productService.existsProductId(this.inventory.productId).subscribe((res) => {
 
       this.pageTitle.setTitle(`ویرایش انبار محصول : ${res.productTitle}`);
@@ -61,13 +61,13 @@ export class InventoryDetailsPage implements OnInit {
     });
   }
 
-  getOperations() {
+  getOperations(): void {
     this.inventoryService.getInventoryOperationLog(this.inventoryId)
       .subscribe((res) => this.operations = res);
   }
 
   openEditDialog(): void {
-    const dialogRef = this.dialog.open(EditInventoryDialog, {
+    this.dialog.open(EditInventoryDialog, {
       width: '450px',
       height: '425px',
       data: {

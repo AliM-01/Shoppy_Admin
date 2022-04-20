@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthLayoutComponent } from '@applayouts/auth/auth.layout.component';
-import { DashboardLayoutComponent } from '@applayouts/dashboard/dashboard.layout.component';
-import { IndexComponent } from './pages/dashboard/index/index.component';
-import { AuthGuard } from '@app_http/auth.guard';
-import { NotFoundPage } from '@app/pages/common/not-found/not-found.page';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthLayoutComponent} from '@applayouts/auth/auth.layout.component';
+import {DashboardLayoutComponent} from '@applayouts/dashboard/dashboard.layout.component';
+import {IndexComponent} from './pages/dashboard/index/index.component';
+import {AuthGuard} from '@app_http/auth.guard';
+import {NotFoundPage} from '@app/pages/common/not-found/not-found.page';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     component: DashboardLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: IndexComponent, pathMatch: 'full'},
+      {path: '', component: IndexComponent, pathMatch: 'full'},
       {
         path: 'account',
         loadChildren: () => import('./pages/dashboard/account/account.module').then(m => m.AccountModule)
@@ -71,19 +71,19 @@ const routes: Routes = [
       {
         path: 'auth',
         loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)
-      },
+      }
     ]
    },
 
-  { path: 'not-found', component: NotFoundPage},
-  { path: '**', redirectTo: '/not-found' },
+  {path: 'not-found', component: NotFoundPage},
+  {path: '**', redirectTo: '/not-found'},
 
-  { path: 'login', redirectTo: '/auth/login' },
+  {path: 'login', redirectTo: '/auth/login'}
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

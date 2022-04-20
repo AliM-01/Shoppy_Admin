@@ -1,18 +1,18 @@
-import { of } from "rxjs";
-import { FilterArticleCategoryModel, ArticleCategoryModel } from "./_index";
-import { catchError, finalize } from 'rxjs/operators';
-import { ArticleCategoryService } from "@app_services/blog/article-category/article-category.service";
+import {of} from "rxjs";
+import {FilterArticleCategoryModel, ArticleCategoryModel} from "./_index";
+import {catchError, finalize} from 'rxjs/operators';
+import {ArticleCategoryService} from "@app_services/blog/article-category/article-category.service";
 
 export class ArticleCategoryDataServer {
 
   public data: ArticleCategoryModel[] = [];
   public resultsLength = 0;
   public isLoadingResults = true;
-  public pageId: number = 1;
+  public pageId = 1;
 
   constructor(private articleCategoryService: ArticleCategoryService) { }
 
-  loadArticleCategories(filterArticleCategories: FilterArticleCategoryModel) {
+  loadArticleCategories(filterArticleCategories: FilterArticleCategoryModel): void {
 
     this.isLoadingResults = true;
 

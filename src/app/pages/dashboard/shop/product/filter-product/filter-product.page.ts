@@ -1,18 +1,18 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ProductDataServer, FilterProductModel } from '@app_models/shop/product/_index';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { Title } from "@angular/platform-browser";
-import { MatDialog } from '@angular/material/dialog';
-import { ProductService } from '@app_services/shop/product/product.service';
-import { CreateProductDialog } from '../create-product/create-product.dialog';
-import { environment } from '@app_env';
-import { EditProductDialog } from '../edit-product/edit-product.dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { ProductModel } from '@app_models/shop/product/product';
-import { MatSort } from '@angular/material/sort';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/_index';
+import {Component, AfterViewInit, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {ProductDataServer, FilterProductModel} from '@app_models/shop/product/_index';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {Title} from "@angular/platform-browser";
+import {MatDialog} from '@angular/material/dialog';
+import {ProductService} from '@app_services/shop/product/product.service';
+import {CreateProductDialog} from '../create-product/create-product.dialog';
+import {environment} from '@app_env';
+import {EditProductDialog} from '../edit-product/edit-product.dialog';
+import {MatTableDataSource} from '@angular/material/table';
+import {ProductModel} from '@app_models/shop/product/product';
+import {MatSort} from '@angular/material/sort';
+import {PagingDataSortIdOrder, PagingDataSortCreationDateOrder} from '@app_models/_common/_index';
 
 @Component({
   selector: 'app-filter-product',
@@ -21,14 +21,14 @@ import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_mod
 export class FilterProductPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   @ViewChild('filterCategoryInput') categoryInput: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'inStockStatus', 'creationDate', 'commands'];
   dataServer: ProductDataServer;
   dataSource: MatTableDataSource<ProductModel> = new MatTableDataSource<ProductModel>([]);
-  isDataSourceLoaded: boolean = false;
-  thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
+  isDataSourceLoaded = false;
+  thumbnailBasePath = `${environment.productBaseImagePath}/thumbnail/`;
   filterProducts: FilterProductModel = new FilterProductModel('', '0', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
@@ -51,7 +51,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -122,9 +122,9 @@ export class FilterProductPage implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -148,7 +148,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateProductDialog, {
+    this.dialog.open(CreateProductDialog, {
       width: '750px',
       height: '750px'
     }).afterClosed().subscribe(() => {
@@ -157,21 +157,21 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: number): void {
-    const dialogRef = this.dialog.open(EditProductDialog, {
+    this.dialog.open(EditProductDialog, {
       width: '750px',
       height: '750px',
       data: {
         id: id
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
 
       this.ngOnInit();
     });
   }
 
-  loadProductCategoriesPage() {
+  loadProductCategoriesPage(): void {
     const sortDate: PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
 
@@ -190,7 +190,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterProducts.takePage;
   }
 
-  deleteProduct(id: string) {
+  deleteProduct(id: string): void {
     this.productService.deleteProduct(id).subscribe((res) => {
       if (res.status === 200) {
         this.ngOnInit();

@@ -1,20 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ComponentsModule } from '@app_components/components.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DirectivesModule } from '@app_directives/directives.module';
-import { InventoryService } from '@app_services/inventory/inventory.service';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {ComponentsModule} from '@app_components/components.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DirectivesModule} from '@app_directives/directives.module';
+import {InventoryService} from '@app_services/inventory/inventory.service';
 import {InventoryRoutingModule} from "@app/pages/dashboard/inventory/inventory.routing.module";
 import {FilterInventoryPage} from "@app/pages/dashboard/inventory/filter-inventory/filter-inventory.page";
-import { EditInventoryDialog } from './edit-inventory/edit-inventory.dialog';
-import { IncreaseInventoryDialog } from './increase-inventory/increase-inventory.dialog';
-import { ReduceInventoryDialog } from './reduce-inventory/reduce-inventory.dialog';
-import { InventoryOperationDialog } from './inventory-operations/inventory-operations.dialog';
-import { PipesModule } from '@app_pipes/pipes.module';
-import { AppMaterialModule } from '@appapp-material.module';
-import { ProductService } from '@app_services/shop/product/product.service';
-import { InventoryDetailsPage } from './inventory-details/inventory-details.page';
+import {EditInventoryDialog} from './edit-inventory/edit-inventory.dialog';
+import {IncreaseInventoryDialog} from './increase-inventory/increase-inventory.dialog';
+import {ReduceInventoryDialog} from './reduce-inventory/reduce-inventory.dialog';
+import {InventoryOperationDialog} from './inventory-operations/inventory-operations.dialog';
+import {PipesModule} from '@app_pipes/pipes.module';
+import {AppMaterialModule} from '@appapp-material.module';
+import {ProductService} from '@app_services/shop/product/product.service';
+import {InventoryDetailsPage} from './inventory-details/inventory-details.page';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,6 @@ import { InventoryDetailsPage } from './inventory-details/inventory-details.page
   ],
   exports: [FilterInventoryPage],
   schemas: [],
-  providers: [InventoryService,ProductService]
+  providers: [InventoryService, ProductService]
 })
 export class InventoryModule { }

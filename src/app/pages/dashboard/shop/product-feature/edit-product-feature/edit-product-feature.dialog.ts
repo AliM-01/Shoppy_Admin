@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditProductFeatureModel } from '@app_models/shop/product-feature/edit-product-feature';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { ProductFeatureService } from '@app_services/shop/product-feature/product-feature.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {EditProductFeatureModel} from '@app_models/shop/product-feature/edit-product-feature';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {ProductFeatureService} from '@app_services/shop/product-feature/product-feature.service';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-edit-product-feature',
@@ -20,7 +20,7 @@ export class EditProductFeatureDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditProductFeatureDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { productId: string, id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {productId: string, id: string},
     private productFeatureService: ProductFeatureService,
     private loading: LoadingService
   ) { }
@@ -29,7 +29,7 @@ export class EditProductFeatureDialog implements OnInit {
 
     this.editForm = new FormGroup({
       featureTitle: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      featureValue: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
+      featureValue: new FormControl(null, [Validators.required, Validators.maxLength(250)])
     });
 
     this.productFeatureService.getProductFeatureDetails(this.data.id).subscribe((res) => {
@@ -46,7 +46,7 @@ export class EditProductFeatureDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm() {
+  submit(): void {
     this.loading.loadingOn();
 
     if (this.editForm.valid) {
@@ -58,7 +58,7 @@ export class EditProductFeatureDialog implements OnInit {
         this.editForm.controls.featureValue.value
       );
 
-      this.productFeatureService.editProductFeature(editData).subscribe((res) => {
+      this.productFeatureService.editProductFeature(editData).subscribe(() => {
         this.editForm.reset();
         this.onCloseClick();
       });

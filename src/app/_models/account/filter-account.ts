@@ -1,5 +1,5 @@
-import { AccountModel } from './account';
-import { PagingDataSortIdOrder, BasePaging, PagingDataSortCreationDateOrder } from '@app_models/_common/_index';
+import {AccountModel} from './account';
+import {PagingDataSortIdOrder, BasePaging, PagingDataSortCreationDateOrder} from '@app_models/_common/_index';
 
 
 export class FilterAccountModel extends BasePaging {

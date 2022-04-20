@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrderService } from '@app_services/order/order.service';
-import { environment } from '@app_env';
-import { LoadingService } from '@loading-service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { OrderItemModel } from '@app_models/order/order-item';
+import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, Router} from '@angular/router';
+import {OrderService} from '@app_services/order/order.service';
+import {environment} from '@app_env';
+import {LoadingService} from '@loading-service';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {OrderItemModel} from '@app_models/order/order-item';
 
 @Component({
   selector: 'app-order-items',
@@ -17,8 +17,8 @@ export class OrderItemsPage implements OnInit {
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   items: OrderItemModel[] = [];
-  thumbnailBasePath: string = `${environment.productBaseImagePath}/thumbnail/`;
-  orderId: string = '';
+  thumbnailBasePath = `${environment.productBaseImagePath}/thumbnail/`;
+  orderId = '';
 
   constructor(
     private title: Title,
@@ -49,7 +49,7 @@ export class OrderItemsPage implements OnInit {
 
   }
 
-  getItems(){
+  getItems(): void{
     this.orderService.getItems(this.orderId).subscribe((res) => this.items = res);
   }
 

@@ -1,7 +1,7 @@
-import { of } from "rxjs";
-import { FilterProductDiscountModel, ProductDiscountModel } from "./_index";
-import { catchError, finalize } from 'rxjs/operators';
-import { ProductDiscountService } from "@app_services/discount/product-discount/product-discount.service";
+import {of} from "rxjs";
+import {FilterProductDiscountModel, ProductDiscountModel} from "./_index";
+import {catchError, finalize} from 'rxjs/operators';
+import {ProductDiscountService} from "@app_services/discount/product-discount/product-discount.service";
 
 export class ProductDiscountDataServer {
 
@@ -10,9 +10,9 @@ export class ProductDiscountDataServer {
   public data: ProductDiscountModel[] = [];
   public resultsLength = 0;
   public isLoadingResults = true;
-  public pageId: number = 1;
+  public pageId = 1;
 
-  loadProductDiscounts(filterProducts: FilterProductDiscountModel) {
+  loadProductDiscounts(filterProducts: FilterProductDiscountModel): void {
 
     this.isLoadingResults = true;
 

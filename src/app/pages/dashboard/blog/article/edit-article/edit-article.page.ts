@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ArticleCategoryForSelectListModel } from '@app_models/blog/article-category/article-category-for-select-list';
-import { EditArticleModel } from '@app_models/blog/article/edit-article';
-import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
-import { ArticleService } from '@app_services/blog/article/article.service';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { Title } from '@angular/platform-browser';
-import { environment } from '@app_env';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Location} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ArticleCategoryForSelectListModel} from '@app_models/blog/article-category/article-category-for-select-list';
+import {EditArticleModel} from '@app_models/blog/article/edit-article';
+import {ArticleCategoryService} from '@app_services/blog/article-category/article-category.service';
+import {ArticleService} from '@app_services/blog/article/article.service';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {Title} from '@angular/platform-browser';
+import {environment} from '@app_env';
 
 @Component({
   selector: 'app-edit-article',
@@ -18,10 +20,10 @@ import { environment } from '@app_env';
 })
 export class EditArticlePage implements OnInit {
 
-  articleId: string = "";
+  articleId = "";
   editForm: FormGroup;
-  imagePath: any;
-  fileUploaded: boolean = false;
+  imagePath: string;
+  fileUploaded = false;
   imageFileToUpload: any;
   ckeditorTextValue = null;
   categories: ArticleCategoryForSelectListModel[] = [];
@@ -81,7 +83,7 @@ export class EditArticlePage implements OnInit {
       this.editForm.controls.metaDescription.setValue(res.metaDescription);
       this.editForm.controls.canonicalAddress.setValue(res.canonicalAddress);
     },
-      () => { this.onCloseClick(); });
+    () => this.onCloseClick());
     this.loading.loadingOff();
 
   }
@@ -94,13 +96,11 @@ export class EditArticlePage implements OnInit {
     this._location.back();
   }
 
-  getArticleCategoriesForSelectList() {
-
+  getArticleCategoriesForSelectList(): void {
     this.articleCategoryService.getArticleCategoriesSelectList().subscribe(res => this.categories = res);
-
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -109,7 +109,7 @@ export class EditArticlePage implements OnInit {
     this.loading.loadingOff();
   }
 
-  submiteditForm() {
+  submiteditForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@app_services/auth/auth.service';
-import { AccountModel } from '../../_models/account/account';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '@app_services/auth/auth.service';
+import {AccountModel} from '../../_models/account/account';
+import {Observable, BehaviorSubject} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',

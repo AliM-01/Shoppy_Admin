@@ -1,16 +1,16 @@
-import { Directive, ElementRef, Renderer2, OnInit, DoCheck } from '@angular/core';
-import { distinctUntilChanged, debounceTime, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { CurrencyPipe } from '@angular/common';
+import {Directive, ElementRef, Renderer2, DoCheck} from '@angular/core';
+import {distinctUntilChanged, debounceTime, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {CurrencyPipe} from '@angular/common';
 
 @Directive({
   selector: '[money-input]',
   providers: [CurrencyPipe]
 })
 
-export class ThousandSepratorDirective implements OnInit, DoCheck {
+export class ThousandSepratorDirective implements DoCheck {
 
-  valueIsNull:boolean = true;
+  valueIsNull = true;
 
   constructor(public _elementRef: ElementRef<HTMLInputElement>,
     private _renderer: Renderer2,
@@ -19,7 +19,7 @@ export class ThousandSepratorDirective implements OnInit, DoCheck {
   ngDoCheck(): void {
 
     setTimeout(() => {
-      if(this.valueIsNull){
+      if (this.valueIsNull){
         this.format();
       }
     }, 150)
@@ -35,10 +35,7 @@ export class ThousandSepratorDirective implements OnInit, DoCheck {
       .subscribe();
   }
 
-  ngOnInit(): void {
-  }
-
-  format(){
+  format(): void{
     this._elementRef.nativeElement.value = this.currencyPipe.transform(
       this._elementRef.nativeElement.value.replace(/\D/g, '')
       .replace(/^0+/, ''), 'USD', 'symbol', '1.0-0');

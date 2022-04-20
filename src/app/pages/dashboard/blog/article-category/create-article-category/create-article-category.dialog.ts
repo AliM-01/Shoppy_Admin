@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { CreateArticleCategoryModel } from '@app_models/blog/article-category/create-article-category';
-import { ArticleCategoryService } from '@app_services/blog/article-category/article-category.service';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material/dialog';
+import {CreateArticleCategoryModel} from '@app_models/blog/article-category/create-article-category';
+import {ArticleCategoryService} from '@app_services/blog/article-category/article-category.service';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
 
 @Component({
   selector: 'app-create-article-category',
@@ -14,7 +16,7 @@ import { LoadingService } from '@loading-service';
 export class CreateArticleCategoryDialog implements OnInit {
 
   createForm: FormGroup;
-  fileUploaded: boolean = false;
+  fileUploaded = false;
   imageFileToUpload: any;
   ckeditorTextValue = null;
 
@@ -44,7 +46,7 @@ export class CreateArticleCategoryDialog implements OnInit {
     return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -57,7 +59,7 @@ export class CreateArticleCategoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitCreateForm() {
+  submitCreateForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();

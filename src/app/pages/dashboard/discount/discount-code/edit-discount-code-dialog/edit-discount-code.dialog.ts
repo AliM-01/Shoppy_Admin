@@ -1,11 +1,11 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditDiscountCodeModel } from '@app_models/discount/discount-code/edit-discount-code';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { DiscountCodeService } from '@app_services/discount/discount-code/discount-code.service';
-import { LoadingService } from '@loading-service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {EditDiscountCodeModel} from '@app_models/discount/discount-code/edit-discount-code';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {DiscountCodeService} from '@app_services/discount/discount-code/discount-code.service';
+import {LoadingService} from '@loading-service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
 
 @Component({
   selector: 'app-edit-discount-code',
@@ -17,12 +17,12 @@ export class EditDiscountCodeDialog implements OnInit {
   ckeditorTextValue = null;
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
-  existsDiscountCode: boolean = false;
+  existsDiscountCode = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditDiscountCodeDialog>,
     private discountCodeService: DiscountCodeService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private ckeditorService: CkeditorService,
     private loading: LoadingService
   ) { }
@@ -60,7 +60,7 @@ export class EditDiscountCodeDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitEditForm() {
+  submitEditForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -74,7 +74,7 @@ export class EditDiscountCodeDialog implements OnInit {
           this.editForm.controls.rate.value,
           this.startDatepickerInput.nativeElement.value,
           this.endDatepickerInput.nativeElement.value,
-          this.ckeditorService.getValue(),
+          this.ckeditorService.getValue()
         );
 
         this.discountCodeService.editDiscountCode(editData).subscribe((res) => {

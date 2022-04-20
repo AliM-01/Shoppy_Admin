@@ -1,7 +1,7 @@
-import { of } from "rxjs";
-import { FilterArticleModel, ArticleModel } from "./_index";
-import { catchError, finalize } from 'rxjs/operators';
-import { ArticleService } from "@app_services/blog/article/article.service";
+import {of} from "rxjs";
+import {FilterArticleModel, ArticleModel} from "./_index";
+import {catchError, finalize} from 'rxjs/operators';
+import {ArticleService} from "@app_services/blog/article/article.service";
 
 export class ArticleDataServer {
 
@@ -12,7 +12,7 @@ export class ArticleDataServer {
 
   constructor(private articleService: ArticleService) { }
 
-  loadArticles(filterArticleCategories: FilterArticleModel) {
+  loadArticles(filterArticleCategories: FilterArticleModel): void {
 
     this.isLoadingResults = true;
 

@@ -1,5 +1,5 @@
-import { FilterOrderModel, OrderModel } from "./_index";
-import { OrderService } from "@app_services/order/order.service";
+import {FilterOrderModel, OrderModel} from "./_index";
+import {OrderService} from "@app_services/order/order.service";
 
 export class OrderDataServer {
 
@@ -8,9 +8,9 @@ export class OrderDataServer {
   public data: OrderModel[] = [];
   public resultsLength = 0;
   public isLoadingResults = true;
-  public pageId: number = 1;
+  public pageId = 1;
 
-  load(filterInventories: FilterOrderModel) {
+  load(filterInventories: FilterOrderModel): void {
     this.isLoadingResults = true;
 
     this.orderService.filterOrder(filterInventories)

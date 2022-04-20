@@ -1,14 +1,14 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditProductDiscountModel } from '@app_models/discount/product-discount/edit-product-discount';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { ProductDiscountService } from '@app_services/discount/product-discount/product-discount.service';
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { ProductService } from '@app_services/shop/product/product.service';
-import { LoadingService } from '@loading-service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {EditProductDiscountModel} from '@app_models/discount/product-discount/edit-product-discount';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {ProductDiscountService} from '@app_services/discount/product-discount/product-discount.service';
+import {fromEvent} from 'rxjs';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {ProductService} from '@app_services/shop/product/product.service';
+import {LoadingService} from '@loading-service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
 
 @Component({
   selector: 'app-edit-product-discount',
@@ -21,16 +21,16 @@ export class EditProductDiscountDialog implements OnInit {
   ckeditorTextValue = null;
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
-  existsProductId: boolean = false;
-  existsProductDiscount: boolean = false;
+  existsProductId = false;
+  existsProductDiscount = false;
   @ViewChild('productIdInput') productIdInput: ElementRef;
-  unchangedProductId: string = "";
+  unchangedProductId = "";
 
   constructor(
     public dialogRef: MatDialogRef<EditProductDiscountDialog>,
     private productDiscountService: ProductDiscountService,
     private productService: ProductService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private ckeditorService: CkeditorService,
     private loading: LoadingService
   ) { }
@@ -63,7 +63,7 @@ export class EditProductDiscountDialog implements OnInit {
     return checkFormGroupErrors(this.editForm, controlName, errorName)
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     fromEvent(this.productIdInput.nativeElement, 'keyup')
       .pipe(
@@ -81,7 +81,7 @@ export class EditProductDiscountDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitEditForm() {
+  submitEditForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -96,7 +96,7 @@ export class EditProductDiscountDialog implements OnInit {
           this.editForm.controls.rate.value,
           this.startDatepickerInput.nativeElement.value,
           this.endDatepickerInput.nativeElement.value,
-          this.ckeditorService.getValue(),
+          this.ckeditorService.getValue()
         );
 
         this.productDiscountService.editProductDiscount(editData).subscribe((res) => {
@@ -114,9 +114,9 @@ export class EditProductDiscountDialog implements OnInit {
 
   }
 
-  checkProductId() {
+  checkProductId(): void {
 
-    let productId = this.editForm.controls.productId.value;
+    const productId = this.editForm.controls.productId.value;
 
     if (productId !== null) {
 
@@ -136,7 +136,7 @@ export class EditProductDiscountDialog implements OnInit {
     this.existsProductDiscount = false;
   }
 
-  checkProductHasProductDiscount(productId: string) {
+  checkProductHasProductDiscount(productId: string): void {
     this.productDiscountService.checkProductHasProductDiscount(productId).subscribe(res => {
 
       if (res.existsProductDiscount === true) {

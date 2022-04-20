@@ -1,5 +1,5 @@
-import { BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from "@app_models/_common/_index";
-import { DiscountCodeModel } from "./discount-code";
+import {BasePaging, PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from "@app_models/_common/_index";
+import {DiscountCodeModel} from "./discount-code";
 
 export class FilterDiscountCodeModel extends BasePaging {
 

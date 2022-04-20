@@ -1,17 +1,17 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ProductCategoryDataServer, FilterProductCategoryModel, ProductCategoryModel } from '@app_models/shop/product-category/_index';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { CreateProductCategoryDialog } from '../create-product-category/create-product-category.dialog';
-import { EditProductCategoryDialog } from '../edit-product-category/edit-product-category.dialog';
-import { environment } from '@app_env';
-import { Title } from '@angular/platform-browser';
-import { PagingDataSortIdOrder, PagingDataSortCreationDateOrder } from '@app_models/_common/_index';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import {Component, AfterViewInit, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ProductCategoryService} from '@app_services/shop/product-category/product-category.service';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {ProductCategoryDataServer, FilterProductCategoryModel, ProductCategoryModel} from '@app_models/shop/product-category/_index';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateProductCategoryDialog} from '../create-product-category/create-product-category.dialog';
+import {EditProductCategoryDialog} from '../edit-product-category/edit-product-category.dialog';
+import {environment} from '@app_env';
+import {Title} from '@angular/platform-browser';
+import {PagingDataSortIdOrder, PagingDataSortCreationDateOrder} from '@app_models/_common/_index';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-filter-product-category',
@@ -20,13 +20,13 @@ import { MatSort } from '@angular/material/sort';
 export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterInput') input: ElementRef;
   displayedColumns: string[] = ['id', 'thumbnailImage', 'title', 'creationDate', 'productsCount', 'commands'];
-  thumbnailBasePath: string = `${environment.productCategoryBaseImagePath}/`;
+  thumbnailBasePath = `${environment.productCategoryBaseImagePath}/`;
   dataServer: ProductCategoryDataServer;
   dataSource: MatTableDataSource<ProductCategoryModel> = new MatTableDataSource<ProductCategoryModel>([]);
-  isDataSourceLoaded: boolean = false;
+  isDataSourceLoaded = false;
   filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
@@ -49,7 +49,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -110,9 +110,9 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -135,7 +135,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateProductCategoryDialog, {
+    this.dialog.open(CreateProductCategoryDialog, {
       width: '600px',
       height: '700px'
     }).afterClosed().subscribe(() => {
@@ -144,21 +144,21 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   }
 
   openEditDialog(id: string): void {
-    const dialogRef = this.dialog.open(EditProductCategoryDialog, {
+    this.dialog.open(EditProductCategoryDialog, {
       width: '600px',
       height: '700px',
       data: {
         id: id
       }
     }).afterClosed().subscribe(result => {
-      if(!result)
+      if (!result)
         return;
 
       this.ngOnInit();
     });
   }
 
-  loadProductCategoriesPage() {
+  loadProductCategoriesPage(): void {
     const sortDate: PagingDataSortCreationDateOrder = this.filterProductCategories.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterProductCategories.sortIdOrder;
 
@@ -176,7 +176,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = this.filterProductCategories.takePage;
   }
 
-  deleteProductCategory(id: string) {
+  deleteProductCategory(id: string): void {
     this.productCategoryService.deleteProductCategory(id).subscribe((res) => {
       if (res.status === 200) {
         this.ngOnInit();

@@ -1,5 +1,5 @@
-import { FilterCommentModel, CommentModel } from "./_index";
-import { CommentService } from "@app_services/comment/comment.service";
+import {FilterCommentModel, CommentModel} from "./_index";
+import {CommentService} from "@app_services/comment/comment.service";
 
 export class CommentDataServer {
 
@@ -8,9 +8,9 @@ export class CommentDataServer {
   public data: CommentModel[] = [];
   public resultsLength = 0;
   public isLoadingResults = true;
-  public pageId: number = 1;
+  public pageId = 1;
 
-  loadComments(filterComments: FilterCommentModel) {
+  loadComments(filterComments: FilterCommentModel): void {
     this.isLoadingResults = true;
 
     this.commentService.filterComment(filterComments)

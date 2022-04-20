@@ -1,12 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditInventoryModel } from '@app_models/inventory/edit-inventory';
-import { LoadingService } from '@loading-service';
-import { InventoryService } from '@app_services/inventory/inventory.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ProductService } from '@app_services/shop/product/product.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {EditInventoryModel} from '@app_models/inventory/edit-inventory';
+import {LoadingService} from '@loading-service';
+import {InventoryService} from '@app_services/inventory/inventory.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {ProductService} from '@app_services/shop/product/product.service';
 
 @Component({
   selector: 'app-edit-inventory',
@@ -17,12 +17,12 @@ export class EditInventoryDialog implements OnInit {
   pageTitleSubject: BehaviorSubject<string> = new BehaviorSubject<string>("ویرایش انبار محصول :");
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
-  productId: string = '';
+  productId = '';
   editForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<EditInventoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private productService: ProductService,
     private inventoryService: InventoryService,
     private loading: LoadingService
@@ -53,7 +53,7 @@ export class EditInventoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submit() {
+  submit(): void {
     this.loading.loadingOn()
 
     if (this.editForm.valid) {

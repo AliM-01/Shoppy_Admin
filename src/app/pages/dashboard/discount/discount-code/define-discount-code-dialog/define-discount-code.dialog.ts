@@ -1,11 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { DefineDiscountCodeModel } from '@app_models/discount/discount-code/define-discount-code';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { DiscountCodeService } from '@app_services/discount/discount-code/discount-code.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material/dialog';
+import {DefineDiscountCodeModel} from '@app_models/discount/discount-code/define-discount-code';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {DiscountCodeService} from '@app_services/discount/discount-code/discount-code.service';
 
 @Component({
   selector: 'app-define-discount-code',
@@ -17,8 +17,8 @@ export class DefineDiscountCodeDialog implements OnInit {
   ckeditorTextValue = null;
   @ViewChild('startDatepickerInput') startDatepickerInput: ElementRef;
   @ViewChild('endDatepickerInput') endDatepickerInput: ElementRef;
-  existscode: boolean = true;
-  existsDiscountCode: boolean = false;
+  codeExists = true;
+  existsDiscountCode = false;
 
   constructor(
     public dialogRef: MatDialogRef<DefineDiscountCodeDialog>,
@@ -45,7 +45,7 @@ export class DefineDiscountCodeDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitDefineForm() {
+  submitDefineForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
@@ -59,7 +59,7 @@ export class DefineDiscountCodeDialog implements OnInit {
           this.defineForm.controls.rate.value,
           this.startDatepickerInput.nativeElement.value,
           this.endDatepickerInput.nativeElement.value,
-          this.ckeditorService.getValue(),
+          this.ckeditorService.getValue()
         );
 
         this.DiscountCodeService.defineDiscountCode(defineData).subscribe((res) => {

@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from "@angular/platform-browser";
-import { MatDialog } from '@angular/material/dialog';
-import { environment } from '@app_env';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductPictureModel } from '@app_models/shop/product-picture/product-picture';
-import { ProductPictureService } from '@app_services/shop/product-picture/product-picture.service';
-import { LoadingService } from '@loading-service';
-import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable } from 'rxjs';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import {Component, OnInit} from '@angular/core';
+import {Title} from "@angular/platform-browser";
+import {MatDialog} from '@angular/material/dialog';
+import {environment} from '@app_env';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProductPictureModel} from '@app_models/shop/product-picture/product-picture';
+import {ProductPictureService} from '@app_services/shop/product-picture/product-picture.service';
+import {LoadingService} from '@loading-service';
+import {ToastrService} from 'ngx-toastr';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-product-picture',
@@ -21,9 +24,9 @@ export class ProductPicturePage implements OnInit {
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   productPictures: ProductPictureModel[] = [];
-  productPictureBasePath: string = `${environment.productPictureBaseImagePath}/thumbnail/`;
-  productId: string = "";
-  pageLoading: boolean = false;
+  productPictureBasePath = `${environment.productPictureBaseImagePath}/thumbnail/`;
+  productId = "";
+  pageLoading = false;
   baseShopUrl = `${environment.shopBaseApiUrl}/product-picture/create`;
 
   constructor(
@@ -64,18 +67,18 @@ export class ProductPicturePage implements OnInit {
 
   }
 
-  onUploadFiles(event: any) {
+  onUploadFiles(event: any): void {
 
     this.toastr.success("فایل ها با موفقیت آپلود شدند", "موفقیت")
     this.ngOnInit();
 
   }
 
-  onUploadError(event: any) {
+  onUploadError(event: any): void {
     this.toastr.error("عملیات با خطا مواجه شد", "خطا")
   }
 
-  removeProductPicture(id: string) {
+  removeProductPicture(id: string): void {
     this.productPictureService.removeProductPicture(id).subscribe((res) => {
       if (res.status === 200) {
         this.ngOnInit();

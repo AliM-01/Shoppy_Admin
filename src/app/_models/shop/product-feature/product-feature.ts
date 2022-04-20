@@ -4,6 +4,6 @@ export class ProductFeatureModel {
          public productId: string,
          public featureTitle: string,
          public featureValue: string,
-         public creationDate: string,
+         public creationDate: string
      ){}
  }

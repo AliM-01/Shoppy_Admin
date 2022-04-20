@@ -7,6 +7,6 @@ export class ProductModel {
          public imagePath: string,
          public isInStock: boolean,
          public categoryTitle: string,
-         public creationDate: string,
+         public creationDate: string
      ){}
  }

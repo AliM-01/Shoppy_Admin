@@ -1,11 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditSliderModel } from '@app_models/shop/slider/edit-slider';
-import { LoadingService } from '@loading-service';
-import { SliderService } from '@app_services/shop/slider/slider.service';
-import { environment } from '@app_env';
-import { BehaviorSubject, Observable } from 'rxjs';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {EditSliderModel} from '@app_models/shop/slider/edit-slider';
+import {LoadingService} from '@loading-service';
+import {SliderService} from '@app_services/shop/slider/slider.service';
+import {environment} from '@app_env';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-edit-slider',
@@ -17,14 +19,14 @@ export class EditSliderDialog implements OnInit {
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
 
   editForm: FormGroup;
-  fileUploaded: boolean = false;
+  fileUploaded = false;
   imageFileToUpload: any;
-  imagePath: any;
+  imagePath: string;
 
 
   constructor(
     public dialogRef: MatDialogRef<EditSliderDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    @Inject(MAT_DIALOG_DATA) public data: {id: string},
     private sliderService: SliderService,
     private loading: LoadingService
   ) { }
@@ -59,7 +61,7 @@ export class EditSliderDialog implements OnInit {
 
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -72,7 +74,7 @@ export class EditSliderDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm() {
+  submiteditForm(): void {
     this.loading.loadingOn();
 
     if (this.editForm.valid) {

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ThousandSeperatorPipe } from './thousand-seperator/thousand-seperator.pipe';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ThousandSeperatorPipe} from './thousand-seperator/thousand-seperator.pipe';
 
 @NgModule({
   declarations: [

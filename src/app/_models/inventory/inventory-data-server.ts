@@ -1,5 +1,5 @@
-import { FilterInventoryModel, InventoryModel } from "./_index";
-import { InventoryService } from "@app_services/inventory/inventory.service";
+import {FilterInventoryModel, InventoryModel} from "./_index";
+import {InventoryService} from "@app_services/inventory/inventory.service";
 export class InventoryDataServer {
 
   constructor(private inventoryService: InventoryService) { }
@@ -7,9 +7,9 @@ export class InventoryDataServer {
   public data: InventoryModel[] = [];
   public resultsLength = 0;
   public isLoadingResults = true;
-  public pageId: number = 1;
+  public pageId = 1;
 
-  loadInventories(filterInventories: FilterInventoryModel) {
+  loadInventories(filterInventories: FilterInventoryModel): void {
     this.isLoadingResults = true;
 
     this.inventoryService.filterInventory(filterInventories)

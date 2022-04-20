@@ -1,17 +1,18 @@
-import { Component, AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { Title } from '@angular/platform-browser';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { PagingDataSortCreationDateOrder, PagingDataSortIdOrder } from '@app_models/_common/_index';
-import { OrderDataServer } from '@app_models/order/order-data-server';
-import { FilterOrderModel, FilterOrderPaymentStatus } from '@app_models/order/filter-inventory';
-import { OrderModel } from '@app_models/order/order';
-import { OrderService } from '@app_services/order/order.service';
-import { OrderItemsPage } from '../order-items/order-items.page';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, AfterViewInit, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from '@app_models/_common/_index';
+import {OrderDataServer} from '@app_models/order/order-data-server';
+import {FilterOrderModel, FilterOrderPaymentStatus} from '@app_models/order/filter-inventory';
+import {OrderModel} from '@app_models/order/order';
+import {OrderService} from '@app_services/order/order.service';
+import {OrderItemsPage} from '../order-items/order-items.page';
 
 @Component({
   selector: 'app-filter-orders',
@@ -20,14 +21,14 @@ import { OrderItemsPage } from '../order-items/order-items.page';
 export class FilterOrderPage implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterUserNameInput') filterUserNameInput: ElementRef;
 
   displayedColumns: string[] = ['user', 'state', 'amount', 'issueTrackingNo', 'creationDate', 'commands'];
   paymentState: FilterOrderPaymentStatus = FilterOrderPaymentStatus.All;
   dataServer: OrderDataServer;
   dataSource: MatTableDataSource<OrderModel> = new MatTableDataSource<OrderModel>([]);
-  isDataSourceLoaded: boolean = false;
+  isDataSourceLoaded = false;
   filterOrder: FilterOrderModel = new FilterOrderModel("", this.paymentState, [], 1, 25, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
@@ -50,7 +51,7 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     setInterval(() => {
       if (this.isDataSourceLoaded === false) {
@@ -111,9 +112,9 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  onPaginateChange(event: PageEvent) {
+  onPaginateChange(event: PageEvent): void {
     let page = event.pageIndex;
-    let size = event.pageSize;
+    const size = event.pageSize;
 
     page = page + 1;
 
@@ -136,12 +137,13 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
     this.paginator.pageSize = size;
   }
 
-  setPayment(event: any) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  setPayment(event: any): void {
     this.paymentState = FilterOrderPaymentStatus[event.value];
     this.load();
   }
 
-  load() {
+  load(): void {
 
     const sortDate: PagingDataSortCreationDateOrder = this.filterOrder.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterOrder.sortIdOrder;
@@ -162,7 +164,7 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
   }
 
   openItemsDialog(id: string): void {
-    const dialogRef = this.dialog.open(OrderItemsPage, {
+    this.dialog.open(OrderItemsPage, {
       width: '950px',
       height: '800px',
       data: {

@@ -1,4 +1,4 @@
-import { CreateProductFeatureModel } from "./create-product-feature";
+import {CreateProductFeatureModel} from "./create-product-feature";
 
 export class EditProductFeatureModel extends CreateProductFeatureModel {
     id: string;

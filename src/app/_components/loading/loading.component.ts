@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingService } from '@loading-service';
+import {Component} from '@angular/core';
+import {LoadingService} from '@loading-service';
 
 @Component({
   selector: 'app-loading',
@@ -7,10 +7,8 @@ import { LoadingService } from '@loading-service';
     <ngx-loading [show]="(loadingService.loading$ | async)"></ngx-loading>
   `
 })
-export class LoadingComponent implements OnInit {
+export class LoadingComponent {
 
   constructor(public loadingService: LoadingService) { }
-  ngOnInit(): void {
-  }
 
 }

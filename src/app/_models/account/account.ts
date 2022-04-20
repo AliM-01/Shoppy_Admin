@@ -5,6 +5,6 @@ export class AccountModel {
     public fullName: string,
     public email: string,
     public avatarPath: string,
-    public registerDate: string,
+    public registerDate: string
   ) { }
 }

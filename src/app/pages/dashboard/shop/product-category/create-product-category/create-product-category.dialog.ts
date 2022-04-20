@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { CreateProductCategoryModel } from '@app_models/shop/product-category/create-product-category';
-import { CkeditorService } from '@app_services/_common/ckeditor/ckeditor.service';
-import { checkFormGroupErrors } from '@app_services/_common/functions/functions';
-import { LoadingService } from '@loading-service';
-import { ProductCategoryService } from '@app_services/shop/product-category/product-category.service';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material/dialog';
+import {CreateProductCategoryModel} from '@app_models/shop/product-category/create-product-category';
+import {CkeditorService} from '@app_services/_common/ckeditor/ckeditor.service';
+import {checkFormGroupErrors} from '@app_services/_common/functions/functions';
+import {LoadingService} from '@loading-service';
+import {ProductCategoryService} from '@app_services/shop/product-category/product-category.service';
 
 @Component({
   selector: 'app-create-product-category',
@@ -14,7 +16,7 @@ import { ProductCategoryService } from '@app_services/shop/product-category/prod
 export class CreateProductCategoryDialog implements OnInit {
 
   createForm: FormGroup;
-  fileUploaded: boolean = false;
+  fileUploaded = false;
   imageFileToUpload: any;
   ckeditorTextValue = null;
 
@@ -42,7 +44,7 @@ export class CreateProductCategoryDialog implements OnInit {
     return checkFormGroupErrors(this.createForm, controlName, errorName)
   }
 
-  getImageFileToUpload(event: any) {
+  getImageFileToUpload(event: any): void {
     this.loading.loadingOn();
 
     this.imageFileToUpload = event.target.files[0];
@@ -55,7 +57,7 @@ export class CreateProductCategoryDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submitCreateForm() {
+  submitCreateForm(): void {
     this.loading.loadingOn();
 
     this.ckeditorTextValue = this.ckeditorService.getValue();
