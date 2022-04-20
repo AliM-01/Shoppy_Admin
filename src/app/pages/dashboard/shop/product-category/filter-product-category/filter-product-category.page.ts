@@ -27,7 +27,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
   dataServer: ProductCategoryDataServer;
   dataSource: MatTableDataSource<ProductCategoryModel> = new MatTableDataSource<ProductCategoryModel>([]);
   isDataSourceLoaded = false;
-  filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterProductCategories: FilterProductCategoryModel = new FilterProductCategoryModel('', 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -124,7 +124,6 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
     this.filterProductCategories = new FilterProductCategoryModel(
       this.input.nativeElement.value,
-      [],
       page,
       size,
       sortDate,
@@ -164,7 +163,6 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
     this.filterProductCategories = new FilterProductCategoryModel(
       this.input.nativeElement.value,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize,
       sortDate,

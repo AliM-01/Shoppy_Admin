@@ -1,10 +1,17 @@
-export class EditProductDiscountModel {
-    constructor(
-         public id: string,
-         public productId: string,
-         public rate: number,
-         public startDate: string,
-         public endDate: string,
-         public description: string
-     ){}
- }
+import {DefineProductDiscountModel} from "./define-product-discount";
+
+export class EditProductDiscountModel extends DefineProductDiscountModel {
+  id: string;
+
+  constructor(
+    id: string,
+    productId: string,
+    rate: number,
+    startDate: string,
+    endDate: string,
+    description: string
+  ) {
+    super(productId, rate, startDate, endDate, description);
+    this.id = id;
+  }
+}

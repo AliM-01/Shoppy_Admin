@@ -1,11 +1,9 @@
 export class InventoryModel {
-    constructor(
-         public id: string,
-         public productId: string,
-         public product: string,
-         public inStock: boolean,
-         public unitPrice: number,
-         public currentCount: number,
-         public creationDate: string
-     ){}
- }
+  id: string;
+  productId: string;
+  product: string;
+  inStock: boolean;
+  unitPrice: number;
+  currentCount: number;
+  creationDate: string;
+}

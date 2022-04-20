@@ -10,20 +10,13 @@ export enum FilterOrderPaymentStatus {
 
 export class FilterOrderModel extends BasePaging {
 
-  pageId: number;
-  dataCount: number;
-  takePage: number;
-  sortCreationDateOrder: PagingDataSortCreationDateOrder;
-  sortIdOrder: PagingDataSortIdOrder;
-
   userNames: string
-  paymentState: FilterOrderPaymentStatus
+  paymentState: FilterOrderPaymentStatus;
   orders: OrderModel[];
 
   constructor(
     userNames: string,
     paymentState: FilterOrderPaymentStatus,
-    orders: OrderModel[],
     pageId: number,
     takePage: number,
     sortCreationDateOrder: PagingDataSortCreationDateOrder,
@@ -32,7 +25,6 @@ export class FilterOrderModel extends BasePaging {
     super();
     this.userNames = userNames;
     this.paymentState = paymentState;
-    this.orders = orders;
     this.pageId = pageId;
     this.takePage = takePage;
     this.sortCreationDateOrder = sortCreationDateOrder;

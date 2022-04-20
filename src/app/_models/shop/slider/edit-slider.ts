@@ -1,14 +1,23 @@
-export class EditSliderModel {
-    constructor(
-         public id: string,
-         public heading: string,
-         public text: string,
-         public imageFile: any,
-         public imageFileUploaded: boolean,
-         public imagePath: string,
-         public imageAlt: string,
-         public imageTitle: string,
-         public btnLink: string,
-         public btnText: string
-     ){}
- }
+import {CreateSliderModel} from "./create-slider";
+
+export class EditSliderModel extends CreateSliderModel {
+  id: string;
+  imageFileUploaded: boolean;
+  imagePath: string;
+
+  constructor(
+    id: string,
+    heading: string,
+    text: string,
+    imageFile: File,
+    imageFileUploaded: boolean,
+    imageAlt: string,
+    imageTitle: string,
+    btnLink: string,
+    btnText: string
+  ) {
+    super(heading, text, imageFile, imageAlt, imageTitle, btnLink, btnText);
+    this.id = id;
+    this.imageFileUploaded = imageFileUploaded;
+  }
+}

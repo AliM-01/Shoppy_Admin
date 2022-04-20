@@ -74,7 +74,7 @@ export class EditSliderDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  submiteditForm(): void {
+  submit(): void {
     this.loading.loadingOn();
 
     if (this.editForm.valid) {
@@ -91,7 +91,6 @@ export class EditSliderDialog implements OnInit {
         this.editForm.controls.text.value,
         this.imageFileToUpload,
         this.fileUploaded,
-        this.imagePath,
         this.editForm.controls.imageAlt.value,
         this.editForm.controls.imageTitle.value,
         this.editForm.controls.btnLink.value,

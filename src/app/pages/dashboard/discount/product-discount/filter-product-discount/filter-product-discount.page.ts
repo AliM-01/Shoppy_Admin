@@ -30,7 +30,7 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
   dataServer: ProductDiscountDataServer;
   dataSource: MatTableDataSource<ProductDiscountModel> = new MatTableDataSource<ProductDiscountModel>([]);
   isDataSourceLoaded = false;
-  filterProductDiscounts: FilterProductDiscountModel = new FilterProductDiscountModel("", '', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterProductDiscounts: FilterProductDiscountModel = new FilterProductDiscountModel("", '', 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -138,7 +138,6 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
     this.filterProductDiscounts = new FilterProductDiscountModel(
       this.filterProductIdInput.nativeElement.value,
       this.filterProductTitleInput.nativeElement.value,
-      [],
       page,
       size,
       sortDate,
@@ -180,7 +179,6 @@ export class FilterProductDiscountPage implements OnInit, AfterViewInit {
     this.filterProductDiscounts = new FilterProductDiscountModel(
       this.filterProductIdInput.nativeElement.value,
       this.filterProductTitleInput.nativeElement.value,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize,
       sortDate,

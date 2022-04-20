@@ -21,7 +21,7 @@ export class CreateProductDialog implements OnInit {
 
   createForm: FormGroup;
   fileUploaded = false;
-  imageFileToUpload: any;
+  imageFileToUpload: File;
   ckeditorTextValue = null;
   categories: ProductCategoryForSelectListModel[] = [];
 

@@ -1,8 +1,6 @@
 export class ProductPictureModel {
-    constructor(
-         public id: string,
-         public product: string,
-         public imagePath: string,
-         public creationDate: string
-     ){}
- }
+  id: string;
+  product: string;
+  imagePath: string;
+  creationDate: string
+}

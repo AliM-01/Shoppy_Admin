@@ -1,14 +1,23 @@
-export class EditProductCategoryModel {
-    constructor(
-         public id: string,
-         public title: string,
-         public description: string,
-         public imagePath: string,
-         public imageFileUploaded: boolean,
-         public imageFile: File,
-         public imageAlt: string,
-         public imageTitle: string,
-         public metaKeywords: string,
-         public metaDescription: string
-     ){}
- }
+import {CreateProductCategoryModel} from "./create-product-category";
+
+export class EditProductCategoryModel extends CreateProductCategoryModel {
+  id: string;
+  imagePath: string;
+  imageFileUploaded: boolean;
+
+  constructor(
+    id: string,
+    title: string,
+    description: string,
+    imageFileUploaded: boolean,
+    imageFile: File,
+    imageAlt: string,
+    imageTitle: string,
+    metaKeywords: string,
+    metaDescription: string
+  ) {
+    super(title, description, imageFile, imageAlt, imageTitle, metaKeywords, metaDescription);
+    this.id = id;
+    this.imageFileUploaded = imageFileUploaded;
+  }
+}

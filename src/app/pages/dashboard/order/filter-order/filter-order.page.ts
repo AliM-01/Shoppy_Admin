@@ -8,8 +8,7 @@ import {Title} from '@angular/platform-browser';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {PagingDataSortCreationDateOrder, PagingDataSortIdOrder} from '@app_models/_common/_index';
-import {OrderDataServer} from '@app_models/order/order-data-server';
-import {FilterOrderModel, FilterOrderPaymentStatus} from '@app_models/order/filter-inventory';
+import {OrderDataServer, FilterOrderModel, FilterOrderPaymentStatus} from '@app_models/order/_index';
 import {OrderModel} from '@app_models/order/order';
 import {OrderService} from '@app_services/order/order.service';
 import {OrderItemsPage} from '../order-items/order-items.page';
@@ -29,7 +28,7 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
   dataServer: OrderDataServer;
   dataSource: MatTableDataSource<OrderModel> = new MatTableDataSource<OrderModel>([]);
   isDataSourceLoaded = false;
-  filterOrder: FilterOrderModel = new FilterOrderModel("", this.paymentState, [], 1, 25, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterOrder: FilterOrderModel = new FilterOrderModel("", this.paymentState, 1, 25, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -127,7 +126,6 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
     this.filterOrder = new FilterOrderModel(
       this.filterUserNameInput.nativeElement.value,
       this.paymentState,
-      [],
       page,
       size,
       sortDate,
@@ -151,7 +149,6 @@ export class FilterOrderPage implements OnInit, AfterViewInit {
     this.filterOrder = new FilterOrderModel(
       this.filterUserNameInput.nativeElement.value,
       this.paymentState,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize,
       sortDate,

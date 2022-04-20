@@ -2,7 +2,7 @@ export class CreateSliderModel {
     constructor(
          public heading: string,
          public text: string,
-         public imageFile: any,
+         public imageFile: File,
          public imageAlt: string,
          public imageTitle: string,
          public btnLink: string,

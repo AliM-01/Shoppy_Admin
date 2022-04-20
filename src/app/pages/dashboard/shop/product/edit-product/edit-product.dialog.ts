@@ -23,7 +23,7 @@ export class EditProductDialog implements OnInit {
   pageTitle: Observable<string> = this.pageTitleSubject.asObservable();
   editForm: FormGroup;
   fileUploaded = false;
-  imageFileToUpload: any;
+  imageFileToUpload: File;
   imagePath: string;
   ckeditorTextValue = null;
   categories: ProductCategoryForSelectListModel[] = [];
@@ -115,10 +115,8 @@ export class EditProductDialog implements OnInit {
         this.data.id,
         this.editForm.controls.categoryId.value,
         this.editForm.controls.title.value,
-        "",
         this.editForm.controls.shortDescription.value,
         this.ckeditorTextValue,
-        this.imagePath,
         this.imageFileToUpload,
         this.fileUploaded,
         this.editForm.controls.imageAlt.value,

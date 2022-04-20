@@ -6,9 +6,7 @@ import {tap, catchError} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
 import {LoadingService} from '@loading-service';
-import {FilterOrderModel} from '@app_models/order/filter-inventory';
-import {OrderItemModel} from '@app_models/order/order-item';
-import {OrderModel} from '@app_models/order/order';
+import {OrderModel, FilterOrderModel, OrderItemModel} from '@app_models/order/_index';
 
 @Injectable({
   providedIn: 'platform'

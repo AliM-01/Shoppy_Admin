@@ -21,7 +21,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<ProductFeatureModel> = new MatTableDataSource<ProductFeatureModel>([]);
   isDataSourceLoaded = false;
   productId = "";
-  filterProductFeatures: FilterProductFeatureModel = new FilterProductFeatureModel(this.productId, [], 1, 10);
+  filterProductFeatures: FilterProductFeatureModel = new FilterProductFeatureModel(this.productId, 1, 10);
 
   constructor(
     private pageTitle: Title,
@@ -88,7 +88,6 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
 
     this.filterProductFeatures = new FilterProductFeatureModel(
       this.productId,
-      [],
       page,
       size
     );
@@ -99,7 +98,6 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
   load(): void {
     this.filterProductFeatures = new FilterProductFeatureModel(
       this.productId,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize
     );

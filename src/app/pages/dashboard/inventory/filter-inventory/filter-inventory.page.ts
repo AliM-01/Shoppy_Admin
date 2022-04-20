@@ -33,7 +33,7 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
   dataServer: InventoryDataServer;
   dataSource: MatTableDataSource<InventoryModel> = new MatTableDataSource<InventoryModel>([]);
   isDataSourceLoaded = false;
-  filterInventory: FilterInventoryModel = new FilterInventoryModel("", FilterInventoryInStockStateEnum.All, [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterInventory: FilterInventoryModel = new FilterInventoryModel("", FilterInventoryInStockStateEnum.All, 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -131,7 +131,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     this.filterInventory = new FilterInventoryModel(
       this.filterProductIdInput.nativeElement.value,
       this.inStockState,
-      [],
       page,
       size,
       sortDate,
@@ -154,7 +153,6 @@ export class FilterInventoryPage implements OnInit, AfterViewInit {
     this.filterInventory = new FilterInventoryModel(
       this.filterProductIdInput.nativeElement.value,
       this.inStockState,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize,
       sortDate,

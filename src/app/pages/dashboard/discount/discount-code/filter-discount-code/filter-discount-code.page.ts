@@ -29,7 +29,7 @@ export class FilterDiscountCodePage implements OnInit, AfterViewInit {
   dataServer: DiscountCodeDataServer;
   dataSource: MatTableDataSource<DiscountCodeModel> = new MatTableDataSource<DiscountCodeModel>([]);
   isDataSourceLoaded = false;
-  filterDiscountCodes: FilterDiscountCodeModel = new FilterDiscountCodeModel("", [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterDiscountCodes: FilterDiscountCodeModel = new FilterDiscountCodeModel("", 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -125,7 +125,6 @@ export class FilterDiscountCodePage implements OnInit, AfterViewInit {
 
     this.filterDiscountCodes = new FilterDiscountCodeModel(
       this.filterInput.nativeElement.value,
-      [],
       page,
       size,
       sortDate,
@@ -166,7 +165,6 @@ export class FilterDiscountCodePage implements OnInit, AfterViewInit {
 
     this.filterDiscountCodes = new FilterDiscountCodeModel(
       this.filterInput.nativeElement.value,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize,
       sortDate,

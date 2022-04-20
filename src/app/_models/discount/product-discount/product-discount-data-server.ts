@@ -5,7 +5,7 @@ import {ProductDiscountService} from "@app_services/discount/product-discount/pr
 
 export class ProductDiscountDataServer {
 
-  constructor(private ProductDiscountService: ProductDiscountService) { }
+  constructor(private productDiscountService: ProductDiscountService) { }
 
   public data: ProductDiscountModel[] = [];
   public resultsLength = 0;
@@ -16,7 +16,7 @@ export class ProductDiscountDataServer {
 
     this.isLoadingResults = true;
 
-    this.ProductDiscountService.filterProductDiscount(filterProducts)
+    this.productDiscountService.filterProductDiscount(filterProducts)
       .pipe(catchError(() => of([])), finalize(() => {
         this.isLoadingResults = true;
       }))

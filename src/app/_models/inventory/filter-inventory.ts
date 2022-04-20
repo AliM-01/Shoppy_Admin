@@ -9,11 +9,6 @@ export enum FilterInventoryInStockStateEnum {
 
 export class FilterInventoryModel extends BasePaging {
 
-  pageId: number;
-  dataCount: number;
-  takePage: number;
-  sortCreationDateOrder: PagingDataSortCreationDateOrder;
-  sortIdOrder: PagingDataSortIdOrder;
   productTitle: string
   inStockState: FilterInventoryInStockStateEnum
   inventories: InventoryModel[];
@@ -21,7 +16,6 @@ export class FilterInventoryModel extends BasePaging {
   constructor(
     productTitle: string,
     inStockState: FilterInventoryInStockStateEnum,
-    inventories: InventoryModel[],
     pageId: number,
     takePage: number,
     sortCreationDateOrder: PagingDataSortCreationDateOrder,
@@ -30,7 +24,6 @@ export class FilterInventoryModel extends BasePaging {
     super();
     this.productTitle = productTitle;
     this.inStockState = inStockState
-    this.inventories = inventories;
     this.pageId = pageId;
     this.takePage = takePage;
     this.sortCreationDateOrder = sortCreationDateOrder;

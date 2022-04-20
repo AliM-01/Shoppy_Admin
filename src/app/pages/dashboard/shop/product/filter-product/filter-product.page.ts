@@ -29,7 +29,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<ProductModel> = new MatTableDataSource<ProductModel>([]);
   isDataSourceLoaded = false;
   thumbnailBasePath = `${environment.productBaseImagePath}/thumbnail/`;
-  filterProducts: FilterProductModel = new FilterProductModel('', '0', [], 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
+  filterProducts: FilterProductModel = new FilterProductModel('', '', 1, 5, PagingDataSortCreationDateOrder.DES, PagingDataSortIdOrder.NotSelected);
 
   constructor(
     private pageTitle: Title,
@@ -94,7 +94,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
             }
           }
 
-          this.loadProductCategoriesPage()
+          this.load()
         })
       )
       .subscribe();
@@ -105,7 +105,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
-          this.loadProductCategoriesPage();
+          this.load();
         })
       )
       .subscribe();
@@ -116,7 +116,7 @@ export class FilterProductPage implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
-          this.loadProductCategoriesPage();
+          this.load();
         })
       )
       .subscribe();
@@ -137,7 +137,6 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     this.filterProducts = new FilterProductModel(
       this.input.nativeElement.value,
       this.categoryInput.nativeElement.value,
-      [],
       page,
       size,
       sortDate,
@@ -171,14 +170,13 @@ export class FilterProductPage implements OnInit, AfterViewInit {
     });
   }
 
-  loadProductCategoriesPage(): void {
+  load(): void {
     const sortDate: PagingDataSortCreationDateOrder = this.filterProducts.sortCreationDateOrder;
     const sortId: PagingDataSortIdOrder = this.filterProducts.sortIdOrder;
 
     this.filterProducts = new FilterProductModel(
       this.input.nativeElement.value,
       this.categoryInput.nativeElement.value,
-      [],
       (this.paginator.pageIndex + 1),
       this.paginator.pageSize,
       sortDate,

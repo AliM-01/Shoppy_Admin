@@ -95,7 +95,6 @@ export class EditProductCategoryDialog implements OnInit {
         this.data.id,
         this.editForm.controls.title.value,
         this.ckeditorService.getValue(),
-        this.imagePath,
         this.fileUploaded,
         this.imageFileToUpload,
         this.editForm.controls.imageAlt.value,
