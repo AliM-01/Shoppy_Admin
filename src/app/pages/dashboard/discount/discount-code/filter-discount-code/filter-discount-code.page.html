@@ -50,9 +50,9 @@
                         <th mat-header-cell *matHeaderCellDef> وضعیت </th>
                         <td mat-cell *matCellDef="let element">
 
-                            <p *ngIf="!element.isRemoved" class="text-success">فعال</p>
+                            <p *ngIf="!element.isExpired" class="text-success">فعال</p>
 
-                            <p *ngIf="element.isRemoved" class="text-danger">غیر فعال</p>
+                            <p *ngIf="element.isExpired" class="text-danger">غیر فعال</p>
 
                         </td>
                     </ng-container>
