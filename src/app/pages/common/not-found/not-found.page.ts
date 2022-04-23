@@ -4,7 +4,6 @@ import {Location} from '@angular/common';
 @Component({
     selector: 'app-not-found',
     template: `
-  <body>
         <div id="preloader">
             <div class="canvas">
                 <img src="/assets/img/logo.png" alt="logo" class="loader-logo">
@@ -22,13 +21,12 @@ import {Location} from '@angular/common';
                         </a>
                     </div>
                 </div>
-                <div class="col-xl-8 col-lg-8 d-none d-sm-block no-padding">
+                <div class="col-xl-8 col-lg-8 d-sm-block no-padding">
                     <div class="bg-error">
                     </div>
                 </div>
             </div>
         </div>
-    </body>
   `
 })
 export class NotFoundPage {

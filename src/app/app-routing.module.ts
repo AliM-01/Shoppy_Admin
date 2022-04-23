@@ -34,7 +34,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/dashboard/shop/slider/slider.module').then(m => m.SliderModule)
       },
       {
-        path: 'product-discount',
+        path: 'discount-product',
         loadChildren: () => import('./pages/dashboard/discount/product-discount/product.discount.module').then(m => m.ProductDiscountModule)
       },
       {

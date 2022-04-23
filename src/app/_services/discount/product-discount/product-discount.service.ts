@@ -72,7 +72,7 @@ export class ProductDiscountService {
     formData.append('endDate', createData.endDate);
     formData.append('description', createData.description);
 
-    return this.http.post<IResponse>(`${environment.discountBaseApiUrl}/product-discount/define`, formData)
+    return this.http.post<IResponse>(`${environment.discountBaseApiUrl}/discount-product/define`, formData)
       .pipe(
         tap((res: IResponse) => {
 
