@@ -14752,3 +14752,23 @@ be a descendant of the grid when it is being dragged.
 .border-bottom-none {
   border-bottom: none !important;
 }
+
+.img-full-50 {
+  width: 50 !important;
+  height: 50 !important;
+}
+
+.img-full-100 {
+  width: 100 !important;
+  height: 100 !important;
+}
+
+.img-full-150 {
+  width: 150 !important;
+  height: 150 !important;
+}
+
+.img-full-200 {
+  width: 200 !important;
+  height: 200 !important;
+}
