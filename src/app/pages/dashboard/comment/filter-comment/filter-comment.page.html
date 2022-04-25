@@ -43,7 +43,7 @@
 
           <ng-container matColumnDef="text">
             <th style="width: 30%;" mat-header-cell *matHeaderCellDef> نظر </th>
-            <td style="width: 30%;" mat-cell *matCellDef="let element"> {{element.text}} </td>
+            <td style="width: 30%;" mat-cell *matCellDef="let element" [innerHtml]="element.text"></td>
           </ng-container>
 
           <ng-container matColumnDef="type">
@@ -53,7 +53,9 @@
 
           <ng-container matColumnDef="state">
             <th mat-header-cell *matHeaderCellDef> وضعیت </th>
-            <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+            <td mat-cell *matCellDef="let element">
+              <p [ngClass]="{'text-success': element.state === 'تایید شده', 'text-danger': element.state !== 'تایید شده'}">{{element.state}}</p>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="ownerName">
@@ -72,8 +74,8 @@
           </ng-container>
 
           <ng-container matColumnDef="commands">
-            <th style="width: 25%;" mat-header-cell *matHeaderCellDef> دستورات </th>
-            <td style="width: 25%;" mat-cell *matCellDef="let element">
+            <th style="width: 5%;" mat-header-cell *matHeaderCellDef> دستورات </th>
+            <td style="width: 5%;" mat-cell *matCellDef="let element">
               <button mat-raised-button color="primary" type="button" class="mat-success"
                 (click)="confirmComment(element.id)" *ngIf="element.state !== 'تایید شده'">
                 تایید

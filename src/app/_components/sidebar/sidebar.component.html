@@ -43,7 +43,7 @@
       <li [ngClass]="{ active: route.includes('/article') || route.includes('/article-category') }">
 
         <a href="#dropdown-blog" [attr.aria-expanded]="route.includes('/article') || route.includes('/article-category')" data-toggle="collapse">
-          <i class="las la-book-alt"></i><span>مقالات</span>
+          <i class="las la-pen"></i><span>مقالات</span>
         </a>
 
         <ul id="dropdown-blog" class="collapse list-unstyled pt-0" [ngClass]="{ show: route.includes('/article') || route.includes('/article-category') }">

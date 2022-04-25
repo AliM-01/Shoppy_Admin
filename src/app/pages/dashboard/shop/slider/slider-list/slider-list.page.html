@@ -66,10 +66,10 @@
                             <button mat-raised-button color="primary" class="mr-2" (click)="openEditDialog(element.id)">ویرایش</button>
 
                             <button *ngIf="element.isRemoved == 'False'" mat-raised-button color="warn"
-                                (click)="removeSlider(element.id)"  class="mat-success ml-2">غیر فعال کردن</button>
+                                (click)="removeSlider(element.id)" >غیر فعال کردن</button>
 
                             <button *ngIf="element.isRemoved == 'True'" mat-raised-button color="accent"
-                                class="ml-2" (click)="restoreSlider(element.id)">فعال کردن</button>
+                            class="mat-success ml-2" (click)="restoreSlider(element.id)">فعال کردن</button>
 
                         </td>
                     </ng-container>

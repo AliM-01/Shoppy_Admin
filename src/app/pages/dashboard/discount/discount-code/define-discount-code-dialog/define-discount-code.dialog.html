@@ -1,5 +1,5 @@
 <div class="shadow">
-  <h2>تعریف کد نخفیف</h2>
+  <h2>تعریف کد تخفیف</h2>
   <hr>
 
   <form [formGroup]="defineForm" (ngSubmit)="submitDefineForm()" enctype="multipart/form-data">
@@ -38,23 +38,23 @@
       <br>
 
       <div class="col-md-12">
-        <label>تاریخ شروع</label>
 
-        <input type="text" #startDatepickerInput />
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>تاریخ شروع</mat-label>
+          <input matInput #startDatepickerInput type="text" class="date-pick">
+        </mat-form-field>
+
         <ng-persian-datepicker [input]="startDatepickerInput"></ng-persian-datepicker>
-        <p class="text-danger">
-          لطفا تاریخ شروع را وارد نمایید
-        </p>
       </div>
 
       <div class="col-md-12">
-        <label>تاریخ پایان</label>
 
-        <input type="text" #endDatepickerInput />
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>تاریخ پایان</mat-label>
+          <input matInput #endDatepickerInput type="text" class="date-pick">
+        </mat-form-field>
+
         <ng-persian-datepicker [input]="endDatepickerInput"></ng-persian-datepicker>
-        <p class="text-danger">
-          لطفا تاریخ پایان را وارد نمایید
-        </p>
       </div>
 
     </div>

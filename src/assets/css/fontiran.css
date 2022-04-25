@@ -107,7 +107,7 @@ h1 {
 }
 
 .text-medium {
-    font-weight: 500;
+    font-weight: var(--fw-500);
 }
 
 .text-bold {
@@ -119,7 +119,7 @@ h1 {
 }
 
 blockquote {
-    font-weight: 500;
+    font-weight: var(--fw-500);
     padding: 10px;
     border: 1px dashed #666666;
 }
@@ -219,7 +219,7 @@ blockquote {
     float: left;
     font-size: 21em;
     text-align: center;
-    font-weight: 500;
+    font-weight: var(--fw-500);
     color: #999999;
 }
 
@@ -229,7 +229,7 @@ blockquote {
     direction: ltr;
     font-size: 1.6em;
     text-align: left;
-    font-weight: 500;
+    font-weight: var(--fw-500);
     color: #333333;
     margin-top: 100px;
 }

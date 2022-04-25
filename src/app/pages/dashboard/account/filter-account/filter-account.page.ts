@@ -23,8 +23,8 @@ export class FilterAccountPage implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filterNameInput') nameInput: ElementRef;
   @ViewChild('filterEmailInput') emailInput: ElementRef;
-  displayedColumns: string[] = ['id', 'avatar', 'name', 'role', 'email', 'registerDate', 'commands'];
-  avatarBasePath = `${environment.avatarBaseImagePath}/`;
+  displayedColumns: string[] = ['avatar', 'name', 'role', 'email', 'registerDate', 'commands'];
+  avatarBasePath = `${environment.avatarBaseImagePath}/200/`;
   dataServer: AccountDataServer;
   dataSource: MatTableDataSource<AccountModel> = new MatTableDataSource<AccountModel>([]);
   isDataSourceLoaded = false;
