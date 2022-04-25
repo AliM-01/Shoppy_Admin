@@ -25,8 +25,7 @@
           </div>
           <div class="col-md-8 row pb-4" *ngIf="pageLoading">
             <div *ngFor="let pic of productPictures" class="col-md-4 container-gallery mb-2">
-              <img [src]="productPictureBasePath + pic.imagePath" class="img-fluid img-gallery mx-auto" width="200"
-                height="150" />
+              <img [src]="productPictureBasePath + pic.imagePath" class="img-fluid img-gallery mx-auto" width="200" height="150" loading="lazy" />
 
               <div class="overlay">
                 <a cursor-pointer (click)="removeProductPicture(pic.id)">حذف</a>

@@ -19,10 +19,10 @@
           <div class="navbar-header">
             <a routerLink="/" class="navbar-brand">
               <div class="brand-image brand-big">
-                <img src="/assets/img/logo.png" alt="logo" class="logo-big" height="50" width="50">
+                <img src="/assets/img/logo.png" alt="logo" class="logo-big" height="50" width="50" loading="lazy" />
               </div>
               <div class="brand-image brand-small">
-                <img src="/assets/img/logo.png" alt="logo" class="logo-small" class="logo-big" height="50" width="50">
+                <img src="/assets/img/logo.png" alt="logo" class="logo-small" class="logo-big" height="50" width="50"  loading="lazy" />
               </div>
             </a>
           </div>
@@ -34,7 +34,7 @@
             <li class="nav-item dropdown">
               <a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false" class="nav-link">
-                <img [src]="avatarPath$ | async" class="avatar rounded-circle">
+                <img [src]="avatarPath$ | async" class="avatar rounded-circle"  loading="lazy" />
               </a>
               <ul aria-labelledby="user" class="user-size dropdown-menu pt-2">
                 <li>

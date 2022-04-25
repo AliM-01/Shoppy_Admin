@@ -6,7 +6,7 @@ import {Location} from '@angular/common';
     template: `
         <div id="preloader">
             <div class="canvas">
-                <img src="/assets/img/logo.png" alt="logo" class="loader-logo">
+                <img src="/assets/img/logo.png" alt="logo" class="loader-logo" loading="lazy" />
                 <div class="spinner"></div>
             </div>
         </div>
