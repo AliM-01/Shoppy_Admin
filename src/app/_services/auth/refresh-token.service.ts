@@ -89,9 +89,6 @@ export class RefreshTokenService {
           this.scheduleRefreshToken(true, false);
         }),
         catchError((error: HttpErrorResponse) => {
-          if (error.status === 400){
-            this.tokenStoreService.deleteAuthTokens();
-          }
           return throwError(error);
         })
       );
