@@ -16,6 +16,7 @@ import {IndexModule} from '@app/pages/dashboard/index/index.module';
 import {AuthInterceptor} from '@app_http/auth.interceptor';
 import {AuthModule} from '@app/pages/auth/auth.module';
 import {CookieService} from '@app_services/_common/cookie/cookie.service';
+import {AuthService} from './_services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {CookieService} from '@app_services/_common/cookie/cookie.service';
   providers: [
     CookieService,
     CkeditorService,
+    AuthService,
     LoadingService,
     {
         provide: HTTP_INTERCEPTORS,

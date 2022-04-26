@@ -88,7 +88,12 @@ export class RefreshTokenService {
           this.deleteRefreshTokenTimerCheckId();
           this.scheduleRefreshToken(true, false);
         }),
-        catchError((error: HttpErrorResponse) => throwError(error))
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 400){
+            this.tokenStoreService.deleteAuthTokens();
+          }
+          return throwError(error);
+        })
       );
   }
 
