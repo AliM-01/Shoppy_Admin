@@ -18,7 +18,7 @@
 
       <li [ngClass]="{ active: route.includes('/inventory') }">
 
-        <a [routerLink]="'/inventory'" [attr.aria-expanded]="route.includes('/inventory')" data-toggle="collapse">
+        <a [routerLink]="'/inventory'">
           <i class="las la-warehouse"></i><span>انبار</span>
         </a>
 
@@ -26,7 +26,7 @@
 
       <li [ngClass]="{ active: route.includes('/order') }">
 
-        <a [routerLink]="'/order'" [attr.aria-expanded]="route.includes('/order')" data-toggle="collapse">
+        <a [routerLink]="'/order'">
           <i class="las la-coins"></i><span>سفارشات</span>
         </a>
 
@@ -34,7 +34,7 @@
 
       <li [ngClass]="{ active: route.includes('/account') }">
 
-        <a [routerLink]="'/account'" [attr.aria-expanded]="route.includes('/account')" data-toggle="collapse">
+        <a [routerLink]="'/account'">
           <i class="las la-user"></i><span>کاربران</span>
         </a>
 
@@ -54,7 +54,7 @@
 
       <li [ngClass]="{ active: route.includes('/comment') }">
 
-        <a routerLink="/comment" [attr.aria-expanded]="route.includes('/comment')" data-toggle="collapse">
+        <a routerLink="/comment">
           <i class="las la-comment"></i><span>نظرات</span>
         </a>
 
