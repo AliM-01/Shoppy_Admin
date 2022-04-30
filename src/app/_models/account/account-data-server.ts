@@ -1,32 +1,29 @@
-import {of} from "rxjs";
 import {FilterAccountModel, AccountModel} from "./_index";
-import {catchError, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {AccountService} from "@app_services/account/account.service";
+import {BaseDataServer} from "@app_models/_common/BaseDataServer";
 
-export class AccountDataServer {
+export class AccountDataServer extends BaseDataServer<AccountModel, FilterAccountModel> {
 
-  public data: AccountModel[] = [];
-  public resultsLength = 0;
-  public isLoadingResults = true;
-  public pageId = 1;
-
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService) {
+    super();
+  }
 
   load(filter: FilterAccountModel): void {
 
-    this.isLoadingResults = true;
+    this.loadingOn();
 
     this.accountService.filterAccount(filter)
-      .pipe(catchError(() => of([])), finalize(() => {
-        this.isLoadingResults = true;
-      }))
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
       .subscribe((res: FilterAccountModel) => {
-        setTimeout(() => {
-          this.data = res.accounts;
-          this.resultsLength = res.dataCount;
-          this.isLoadingResults = false;
-          this.pageId = res.pageId;
-        }, 750)
+        this.data = res.accounts === undefined ? [] : res.accounts;
+        this.resultsLength = res.dataCount;
+        this.loadingOff();
+        this.pageId = res.pageId;
       });
 
   }
