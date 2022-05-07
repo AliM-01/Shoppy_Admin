@@ -22,8 +22,9 @@ export class AccountDataServer extends BaseDataServer<AccountModel, FilterAccoun
       .subscribe((res: FilterAccountModel) => {
         this.data = res.accounts === undefined ? [] : res.accounts;
         this.resultsLength = res.dataCount;
-        this.loadingOff();
         this.pageId = res.pageId;
+
+        this.loadingOff();
       });
 
   }
