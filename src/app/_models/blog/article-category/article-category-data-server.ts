@@ -1,34 +1,28 @@
-import {of} from "rxjs";
 import {FilterArticleCategoryModel, ArticleCategoryModel} from "./_index";
-import {catchError, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {ArticleCategoryService} from "@app_services/blog/article-category/article-category.service";
+import {BaseDataServer} from "@app_models/_common/_index";
 
-export class ArticleCategoryDataServer {
+export class ArticleCategoryDataServer extends BaseDataServer<ArticleCategoryModel, FilterArticleCategoryModel> {
 
-  public data: ArticleCategoryModel[] = [];
-  public resultsLength = 0;
-  public isLoadingResults = true;
-  public pageId = 1;
+  constructor(private articleCategoryService: ArticleCategoryService) {
+    super();
+  }
 
-  constructor(private articleCategoryService: ArticleCategoryService) { }
+  load(filter: FilterArticleCategoryModel): void {
+    this.loadingOn();
 
-  loadArticleCategories(filterArticleCategories: FilterArticleCategoryModel): void {
-
-    this.isLoadingResults = true;
-
-    this.articleCategoryService.filterArticleCategory(filterArticleCategories)
-      .pipe(catchError(() => of([])), finalize(() => {
-        this.isLoadingResults = true;
-      }))
+    this.articleCategoryService.filterArticleCategory(filter)
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
       .subscribe((res: FilterArticleCategoryModel) => {
-        setTimeout(() => {
-          this.data = res.articleCategories;
-          this.resultsLength = res.dataCount;
-          this.isLoadingResults = false;
-          this.pageId = res.pageId;
-        }, 750)
+        this.data = res.articleCategories === undefined ? [] : res.articleCategories;
+        this.resultsLength = res.dataCount;
+        this.pageId = res.pageId;
       });
-
   }
 }
 

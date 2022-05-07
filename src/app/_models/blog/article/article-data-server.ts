@@ -22,8 +22,6 @@ export class ArticleDataServer extends BaseDataServer<ArticleModel, FilterArticl
         this.data = res.articles === undefined ? [] : res.articles;
         this.resultsLength = res.dataCount;
         this.pageId = res.pageId;
-
-        this.loadingOff();
       });
   }
 
