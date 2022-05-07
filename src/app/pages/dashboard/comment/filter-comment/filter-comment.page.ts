@@ -52,7 +52,7 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataServer = new CommentDataServer(this.commentService);
-    this.dataServer.loadComments(this.filterComments);
+    this.dataServer.load(this.filterComments);
     this.dataSource = new MatTableDataSource<CommentModel>(this.dataServer.data);
     this.dataSource.paginator = this.paginator;
 
