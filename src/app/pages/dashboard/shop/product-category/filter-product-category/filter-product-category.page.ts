@@ -39,7 +39,7 @@ export class FilterProductCategoryPage implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataServer = new ProductCategoryDataServer(this.productCategoryService);
-    this.dataServer.loadProductCategories(this.filterProductCategories);
+    this.dataServer.load(this.filterProductCategories);
     this.dataSource = new MatTableDataSource<ProductCategoryModel>(this.dataServer.data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

@@ -19,7 +19,6 @@ export class ProductCategoryService {
     private loading: LoadingService
   ) { }
 
-
   filterProductCategory(filter: FilterProductCategoryModel): Observable<FilterProductCategoryModel> {
 
     this.loading.loadingOn();

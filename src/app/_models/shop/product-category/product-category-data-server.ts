@@ -1,34 +1,28 @@
 import {ProductCategoryService} from "@app_services/shop/product-category/product-category.service";
-import {of} from "rxjs";
 import {FilterProductCategoryModel, ProductCategoryModel} from "./_index";
-import {catchError, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
+import {BaseDataServer} from "@app_models/_common/_index";
 
-export class ProductCategoryDataServer {
+export class ProductCategoryDataServer extends BaseDataServer<ProductCategoryModel, FilterProductCategoryModel> {
 
-    public data: ProductCategoryModel[] = [];
-    public resultsLength = 0;
-    public isLoadingResults = true;
-    public pageId = 1;
+  constructor(private productCategoryService: ProductCategoryService) {
+    super();
+  }
 
-    constructor(private productCategoryService: ProductCategoryService) {}
+  load(filter: FilterProductCategoryModel): void {
+    this.loadingOn();
 
-    loadProductCategories(filterProductCategories: FilterProductCategoryModel): void {
-
-        this.isLoadingResults = true;
-
-        this.productCategoryService.filterProductCategory(filterProductCategories)
-        .pipe(catchError(() => of([])), finalize(() => {
-            this.isLoadingResults = true;
-        }))
-        .subscribe((res : FilterProductCategoryModel) => {
-            setTimeout(() => {
-                this.data = res.productCategories;
-                this.resultsLength = res.dataCount;
-                this.isLoadingResults = false;
-                this.pageId = res.pageId;
-            }, 750)
-        });
-
-    }
+    this.productCategoryService.filterProductCategory(filter)
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
+      .subscribe((res: FilterProductCategoryModel) => {
+        this.data = res.productCategories === undefined ? [] : res.productCategories;
+        this.resultsLength = res.dataCount;
+        this.pageId = res.pageId;
+      });
+  }
 }
 
