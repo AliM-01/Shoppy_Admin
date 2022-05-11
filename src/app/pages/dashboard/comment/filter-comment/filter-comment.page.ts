@@ -9,6 +9,8 @@ import {CommentDataServer} from '@app_models/comment/comment-data-server';
 import {CommentModel, FilterCommentModel} from '@app_models/comment/_index';
 import {CommentService} from '@app_services/comment/comment.service';
 import {FilterCommentState, FilterCommentType} from '@app_models/comment/filter-comment';
+import {ConfirmDialog} from '@app_components/confirm-dialog/confirm.dialog';
+import {IConfirmDialogConfig} from '@app_models/_common/IConfirmDialogConfig';
 
 @Component({
   selector: 'app-filter-comment',
@@ -21,19 +23,19 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
     text: string,
     value: string
   }[] = [
-    {text: "همه", value: FilterCommentState.All},
-    {text: "در حال بررسی", value: FilterCommentState.UnderProgress},
-    {text: "رد شده", value: FilterCommentState.Canceled},
-    {text: "تایید شده", value: FilterCommentState.Confirmed}
-  ];
+      {text: "همه", value: FilterCommentState.All},
+      {text: "در حال بررسی", value: FilterCommentState.UnderProgress},
+      {text: "رد شده", value: FilterCommentState.Canceled},
+      {text: "تایید شده", value: FilterCommentState.Confirmed}
+    ];
   typesForView: {
     text: string,
     value: string
   }[] = [
-    {text: "همه", value: FilterCommentType.All},
-    {text: "محصول", value: FilterCommentType.Product},
-    {text: "مقاله", value: FilterCommentType.Article}
-  ];
+      {text: "همه", value: FilterCommentType.All},
+      {text: "محصول", value: FilterCommentType.Product},
+      {text: "مقاله", value: FilterCommentType.Article}
+    ];
   displayedColumns: string[] = ['name', 'email', 'text', 'type', 'state', 'ownerName', 'creationDate', 'commands'];
   dataServer: CommentDataServer;
   filterType: FilterCommentType = FilterCommentType.All;
@@ -134,10 +136,25 @@ export class FilterCommentPage implements OnInit, AfterViewInit {
   }
 
   cancelComment(id: string): void {
-    this.commentService.cancelComment(id).subscribe((res) => {
-      if (res.status === 200) {
-        this.ngOnInit();
+
+    this.dialog.open(ConfirmDialog, {
+      width: '300px',
+      height: '300px',
+      data: <IConfirmDialogConfig>{
+        message: "آیا از رد این کامنت اطمینان دارید ؟",
+        title: "رد کامنت",
+        cancelBtnMessage: "بستن",
+        submitBtnMessage: "رد"
       }
+    }).afterClosed().subscribe(result => {
+      if (!result)
+        return;
+
+      this.commentService.cancelComment(id).subscribe((res) => {
+        if (res.status === 200) {
+          this.ngOnInit();
+        }
+      });
     });
   }
 }
