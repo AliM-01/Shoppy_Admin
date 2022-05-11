@@ -1,34 +1,29 @@
-import {of} from "rxjs";
 import {FilterProductDiscountModel, ProductDiscountModel} from "./_index";
-import {catchError, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {ProductDiscountService} from "@app_services/discount/product-discount/product-discount.service";
+import {BaseDataServer} from "@app_models/_common/BaseDataServer";
 
-export class ProductDiscountDataServer {
+export class ProductDiscountDataServer extends BaseDataServer<ProductDiscountModel, FilterProductDiscountModel> {
 
-  constructor(private productDiscountService: ProductDiscountService) { }
 
-  public data: ProductDiscountModel[] = [];
-  public resultsLength = 0;
-  public isLoadingResults = true;
-  public pageId = 1;
+  constructor(private productDiscountService: ProductDiscountService) {
+    super();
+  }
 
-  loadProductDiscounts(filterProducts: FilterProductDiscountModel): void {
+  load(filter: FilterProductDiscountModel): void {
+    this.loadingOn();
 
-    this.isLoadingResults = true;
-
-    this.productDiscountService.filterProductDiscount(filterProducts)
-      .pipe(catchError(() => of([])), finalize(() => {
-        this.isLoadingResults = true;
-      }))
+    this.productDiscountService.filterProductDiscount(filter)
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
       .subscribe((res: FilterProductDiscountModel) => {
-        setTimeout(() => {
-          this.data = res.discounts;
-          this.resultsLength = res.dataCount;
-          this.isLoadingResults = false;
-          this.pageId = res.pageId;
-        }, 750)
+        this.data = res.discounts === undefined ? [] : res.discounts;
+        this.resultsLength = res.dataCount;
+        this.pageId = res.pageId;
       });
-
   }
 }
 
