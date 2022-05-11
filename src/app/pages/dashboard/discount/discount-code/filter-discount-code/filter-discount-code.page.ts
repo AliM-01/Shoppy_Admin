@@ -41,7 +41,7 @@ export class FilterDiscountCodePage implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataServer = new DiscountCodeDataServer(this.discountCodeService);
-    this.dataServer.loadDiscountCodes(this.filterDiscountCodes);
+    this.dataServer.load(this.filterDiscountCodes);
     this.dataSource = new MatTableDataSource<DiscountCodeModel>(this.dataServer.data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
