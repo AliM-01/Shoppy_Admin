@@ -1,27 +1,27 @@
 import {FilterOrderModel, OrderModel} from "./_index";
 import {OrderService} from "@app_services/order/order.service";
+import {BaseDataServer} from '@app_models/_common/_index';
+import {finalize} from "rxjs/operators";
 
-export class OrderDataServer {
+export class OrderDataServer extends BaseDataServer<OrderModel, FilterOrderModel>  {
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService) {
+    super();
+  }
 
-  public data: OrderModel[] = [];
-  public resultsLength = 0;
-  public isLoadingResults = true;
-  public pageId = 1;
+  load(filter: FilterOrderModel): void {
+    this.loadingOn();
 
-  load(filterInventories: FilterOrderModel): void {
-    this.isLoadingResults = true;
-
-    this.orderService.filterOrder(filterInventories)
+    this.orderService.filterOrder(filter)
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
       .subscribe((res: FilterOrderModel) => {
-        setTimeout(() => {
-          this.data = res.orders;
-          this.resultsLength = res.dataCount;
-          this.isLoadingResults = false;
-          this.pageId = res.pageId;
-
-        }, 750)
+        this.data = res.orders === undefined ? [] : res.orders;
+        this.resultsLength = res.dataCount;
+        this.pageId = res.pageId;
       });
 
   }
