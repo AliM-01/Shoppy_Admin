@@ -44,7 +44,7 @@ export class FilterProductFeaturePage implements OnInit, AfterViewInit {
       this.filterProductFeatures.productId = this.productId;
 
       this.dataServer = new ProductFeatureDataServer(this.productFeatureService);
-      this.dataServer.loadProductFeatures(this.filterProductFeatures);
+      this.dataServer.load(this.filterProductFeatures);
       this.dataSource = new MatTableDataSource<ProductFeatureModel>(this.dataServer.data);
       this.dataSource.paginator = this.paginator;
 

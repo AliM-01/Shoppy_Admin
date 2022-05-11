@@ -1,34 +1,34 @@
 import {FilterProductFeatureModel, ProductFeatureModel} from "./_index";
-import {catchError, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {ProductFeatureService} from "@app_services/shop/product-feature/product-feature.service";
-import {of} from "rxjs";
+import {BaseDataServer} from "@app_models/_common/_index";
 
-export class ProductFeatureDataServer {
+export class ProductFeatureDataServer extends BaseDataServer<ProductFeatureModel, FilterProductFeatureModel> {
 
-    public data: ProductFeatureModel[] = [];
-    public resultsLength = 0;
-    public isLoadingResults = true;
-    public pageId = 1;
 
-    constructor(private productFeatureService: ProductFeatureService) {}
+  public data: ProductFeatureModel[] = [];
+  public resultsLength = 0;
+  public isLoadingResults = true;
+  public pageId = 1;
 
-    loadProductFeatures(filterProductFeatures: FilterProductFeatureModel): void {
+  constructor(private productFeatureService: ProductFeatureService) {
+    super();
+  }
 
-        this.isLoadingResults = true;
+  load(filter: FilterProductFeatureModel): void {
+    this.loadingOn();
 
-        this.productFeatureService.filterProductFeature(filterProductFeatures)
-        .pipe(catchError(() => of([])), finalize(() => {
-            this.isLoadingResults = true;
-        }))
-        .subscribe((res : FilterProductFeatureModel) => {
-            setTimeout(() => {
-                this.data = res.productFeatures;
-                this.resultsLength = res.dataCount;
-                this.isLoadingResults = false;
-                this.pageId = res.pageId;
-            }, 750)
-        });
-
-    }
+    this.productFeatureService.filterProductFeature(filter)
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
+      .subscribe((res: FilterProductFeatureModel) => {
+        this.data = res.productFeatures === undefined ? [] : res.productFeatures;
+        this.resultsLength = res.dataCount;
+        this.pageId = res.pageId;
+      });
+  }
 }
 
