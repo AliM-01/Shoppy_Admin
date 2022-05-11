@@ -1,34 +1,29 @@
 import {ProductService} from "@app_services/shop/product/product.service";
-import {of} from "rxjs";
 import {FilterProductModel, ProductModel} from "./_index";
-import {catchError, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
+import {BaseDataServer} from '@app_models/_common/_index';
 
-export class ProductDataServer {
+export class ProductDataServer extends BaseDataServer<ProductModel, FilterProductModel> {
 
-    public data: ProductModel[] = [];
-    public resultsLength = 0;
-    public isLoadingResults = true;
-    public pageId = 1;
+  constructor(private productService: ProductService) {
+    super();
+  }
 
-    constructor(private productService: ProductService) {}
+  load(filter: FilterProductModel): void {
+    this.loadingOn();
 
-    loadProducts(filterProducts: FilterProductModel): void {
+    this.productService.filterProduct(filter)
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
+      .subscribe((res: FilterProductModel) => {
+        this.data = res.products === undefined ? [] : res.products;
+        this.resultsLength = res.dataCount;
+        this.pageId = res.pageId;
+      });
+  }
 
-        this.isLoadingResults = true;
-
-        this.productService.filterProduct(filterProducts)
-        .pipe(catchError(() => of([])), finalize(() => {
-            this.isLoadingResults = true;
-        }))
-        .subscribe((res : FilterProductModel) => {
-            setTimeout(() => {
-                this.data = res.products;
-                this.resultsLength = res.dataCount;
-                this.isLoadingResults = false;
-                this.pageId = res.pageId;
-            }, 750)
-        });
-
-    }
 }
 
