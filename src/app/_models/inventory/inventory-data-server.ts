@@ -1,28 +1,29 @@
 import {FilterInventoryModel, InventoryModel} from "./_index";
 import {InventoryService} from "@app_services/inventory/inventory.service";
-export class InventoryDataServer {
+import {BaseDataServer} from '@app_models/_common/_index';
+import {finalize} from 'rxjs/operators';
 
-  constructor(private inventoryService: InventoryService) { }
+export class InventoryDataServer extends BaseDataServer<InventoryModel, FilterInventoryModel> {
 
-  public data: InventoryModel[] = [];
-  public resultsLength = 0;
-  public isLoadingResults = true;
-  public pageId = 1;
-
-  loadInventories(filterInventories: FilterInventoryModel): void {
-    this.isLoadingResults = true;
-
-    this.inventoryService.filterInventory(filterInventories)
-      .subscribe((res: FilterInventoryModel) => {
-        setTimeout(() => {
-          this.data = res.inventories;
-          this.resultsLength = res.dataCount;
-          this.isLoadingResults = false;
-          this.pageId = res.pageId;
-
-        }, 750)
-      });
-
+  constructor(private inventoryService: InventoryService) {
+    super();
   }
+
+  load(filter: FilterInventoryModel): void {
+    this.loadingOn();
+
+    this.inventoryService.filterInventory(filter)
+      .pipe(
+        finalize(() => {
+          this.loadingOff();
+        })
+      )
+      .subscribe((res: FilterInventoryModel) => {
+        this.data = res.inventories === undefined ? [] : res.inventories;
+        this.resultsLength = res.dataCount;
+        this.pageId = res.pageId;
+      });
+  }
+
 }
 
