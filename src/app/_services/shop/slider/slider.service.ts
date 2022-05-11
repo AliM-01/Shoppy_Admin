@@ -6,7 +6,7 @@ import {LoadingService} from '@loading-service';
 import {environment} from '@app_env';
 import {ToastrService} from 'ngx-toastr';
 import {Observable, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, tap, finalize} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'platform'
@@ -23,12 +23,9 @@ export class SliderService {
 
     return this.http.get<SliderModel[]>(`${environment.shopBaseApiUrl}/slider/get-list`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -39,12 +36,9 @@ export class SliderService {
 
     return this.http.get<EditSliderModel>(`${environment.shopBaseApiUrl}/slider/${id}`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -66,17 +60,10 @@ export class SliderService {
 
     return this.http.post<IResponse>(`${environment.shopBaseApiUrl}/slider/create`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -103,17 +90,10 @@ export class SliderService {
 
     return this.http.put<IResponse>(`${environment.shopBaseApiUrl}/slider/edit`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -122,17 +102,10 @@ export class SliderService {
   removeSlider(sliderId: string): Observable<IResponse> {
     return this.http.delete<IResponse>(`${environment.shopBaseApiUrl}/slider/remove/${sliderId}`)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -141,17 +114,10 @@ export class SliderService {
   restoreSlider(sliderId: string): Observable<IResponse> {
     return this.http.delete<IResponse>(`${environment.shopBaseApiUrl}/slider/restore/${sliderId}`)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {IResponse} from '@app_models/_common/IResponse';
 import {EditInventoryModel, FilterInventoryModel, GetInventoryOperationsModel, IncreaseInventoryModel, ReduceInventoryModel} from '@app_models/inventory/_index';
 import {environment} from '@app_env';
-import {tap, catchError} from 'rxjs/operators';
+import {tap, catchError, finalize} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
 import {LoadingService} from '@loading-service';
@@ -31,12 +31,9 @@ export class InventoryService {
 
     return this.http.get<FilterInventoryModel>(`${environment.inventoryBaseApiUrl}/filter`, {params})
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -48,12 +45,9 @@ export class InventoryService {
 
     return this.http.get<EditInventoryModel>(`${environment.inventoryBaseApiUrl}/${id}`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -71,17 +65,10 @@ export class InventoryService {
 
     return this.http.put<IResponse>(`${environment.inventoryBaseApiUrl}/edit`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -99,17 +86,10 @@ export class InventoryService {
 
     return this.http.post<IResponse>(`${environment.inventoryBaseApiUrl}/increase`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -129,17 +109,10 @@ export class InventoryService {
 
     return this.http.post<IResponse>(`${environment.inventoryBaseApiUrl}/reduce`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -151,12 +124,9 @@ export class InventoryService {
 
     return this.http.get<GetInventoryOperationsModel>(`${environment.inventoryBaseApiUrl}/${id}/logs`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );

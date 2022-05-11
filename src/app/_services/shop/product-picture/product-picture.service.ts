@@ -6,7 +6,7 @@ import {environment} from '@app_env';
 import {ProductPictureModel} from '@app_models/shop/product-picture/_index';
 import {ToastrService} from 'ngx-toastr';
 import {LoadingService} from '@loading-service';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, finalize} from 'rxjs/operators';
 @Injectable({
   providedIn: 'any'
 })
@@ -23,12 +23,9 @@ export class ProductPictureService {
 
     return this.http.get<ProductPictureModel[]>(`${environment.shopBaseApiUrl}/product-picture/${productId}`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -37,12 +34,9 @@ export class ProductPictureService {
   removeProductPicture(productPictureId: string): Observable<IResponse> {
     return this.http.delete<IResponse>(`${environment.shopBaseApiUrl}/product-picture/remove/${productPictureId}`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );

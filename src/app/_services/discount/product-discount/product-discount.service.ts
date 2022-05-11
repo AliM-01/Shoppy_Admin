@@ -6,7 +6,7 @@ import {environment} from '@app_env';
 import {CheckProductHasProductDiscountResponseModel, DefineProductDiscountModel, EditProductDiscountModel, FilterProductDiscountModel} from '@app_models/discount/product-discount/_index';
 import {ToastrService} from 'ngx-toastr';
 import {LoadingService} from '@loading-service';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, tap, finalize} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'platform'
@@ -33,12 +33,9 @@ export class ProductDiscountService {
 
     return this.http.get<FilterProductDiscountModel>(`${environment.discountBaseApiUrl}/product-discount/filter`, {params})
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -49,12 +46,9 @@ export class ProductDiscountService {
 
     return this.http.get<EditProductDiscountModel>(`${environment.discountBaseApiUrl}/product-discount/${id}`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -74,17 +68,10 @@ export class ProductDiscountService {
 
     return this.http.post<IResponse>(`${environment.discountBaseApiUrl}/discount-product/define`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -104,17 +91,10 @@ export class ProductDiscountService {
 
     return this.http.put<IResponse>(`${environment.discountBaseApiUrl}/product-discount/edit`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -125,17 +105,10 @@ export class ProductDiscountService {
 
     return this.http.delete<IResponse>(`${environment.discountBaseApiUrl}/product-discount/remove/${ProductDiscountId}`)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );

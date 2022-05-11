@@ -2,7 +2,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {BehaviorSubject, Observable, throwError, of} from "rxjs";
-import {catchError, finalize, map, tap} from "rxjs/operators";
+import {catchError, finalize, map} from "rxjs/operators";
 import {environment} from "@app_env";
 import {TokenStoreService, RefreshTokenService} from "./_index";
 import {ToastrService} from "ngx-toastr";
@@ -53,7 +53,6 @@ export class AuthService {
           this.authStatusSource.next(true);
           return true;
         }),
-        tap(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
 
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
@@ -75,25 +74,20 @@ export class AuthService {
 
     this.http.post<IResponse>(`${environment.authBaseApiUrl}/logout`, logoutData)
       .pipe(
-        tap(() => this.loading.loadingOff()),
-        catchError((error: HttpErrorResponse) => {
-
-          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
-          return throwError(error);
-        }),
         finalize(() => {
+          this.loading.loadingOff()
           this.tokenStoreService.deleteAuthTokens();
           this.refreshTokenService.unscheduleRefreshToken(true);
           this.authStatusSource.next(false);
           if (navigateToHome) {
             this.router.navigate(["/auth/login"]);
           }
-        }))
-      .subscribe(result => {
-        console.log("logout", result);
-      });
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
+          return throwError(error);
+        })
+      );
   }
 
   isAuthUserLoggedIn(): Observable<boolean> {
@@ -123,14 +117,12 @@ export class AuthService {
 
     return this.http.get<AccountModel>(`${environment.authBaseApiUrl}/get-currentUser`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
-          return throwError(false);
-        }));
+          return throwError(error);
+        })
+      )
   }
 
   private updateStatusOnPageRefresh(): void {

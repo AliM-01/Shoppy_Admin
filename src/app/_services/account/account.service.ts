@@ -4,7 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {environment} from '@app_env';
 import {ToastrService} from 'ngx-toastr';
 import {LoadingService} from '@loading-service';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, finalize} from 'rxjs/operators';
 import {FilterAccountModel} from '@app_models/account/filter-account';
 
 @Injectable({
@@ -33,12 +33,9 @@ export class AccountService {
 
     return this.http.get<FilterAccountModel>(`${environment.accountBaseApiUrl}/filter`, {params})
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );

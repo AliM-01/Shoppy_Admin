@@ -3,7 +3,7 @@ import {ToastrService} from "ngx-toastr";
 import {Observable, throwError} from "rxjs";
 import {ChartModel} from '@app_models/report/chart';
 import {environment} from '@app_env';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, finalize} from 'rxjs/operators';
 import {LoadingService} from '@loading-service';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
@@ -23,12 +23,9 @@ export class ReportService {
 
     return this.http.get<ChartModel[]>(`${environment.reportBaseApiUrl}/orders`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -40,12 +37,9 @@ export class ReportService {
 
     return this.http.get<ChartModel[]>(`${environment.reportBaseApiUrl}/product-sales`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );

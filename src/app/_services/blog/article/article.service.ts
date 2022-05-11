@@ -2,7 +2,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {IResponse} from '@app_models/_common/IResponse';
 import {environment} from '@app_env';
-import {tap, catchError} from 'rxjs/operators';
+import {tap, catchError, finalize} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
 import {LoadingService} from '@loading-service';
@@ -30,12 +30,9 @@ export class ArticleService {
 
     return this.http.get<FilterArticleModel>(`${environment.blogBaseApiUrl}/article/filter`, {params})
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -47,12 +44,9 @@ export class ArticleService {
 
     return this.http.get<EditArticleModel>(`${environment.blogBaseApiUrl}/article/${id}`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -77,17 +71,10 @@ export class ArticleService {
 
     return this.http.post<IResponse>(`${environment.blogBaseApiUrl}/article/create`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -117,17 +104,10 @@ export class ArticleService {
 
     return this.http.put<IResponse>(`${environment.blogBaseApiUrl}/article/edit`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -138,17 +118,10 @@ export class ArticleService {
 
     return this.http.delete<IResponse>(`${environment.blogBaseApiUrl}/article/delete/${articleId}`)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );

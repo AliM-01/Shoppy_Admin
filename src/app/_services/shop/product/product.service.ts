@@ -6,7 +6,7 @@ import {Observable, throwError} from 'rxjs';
 import {CreateProductModel, EditProductModel, ExistsProductIdResponseModel, FilterProductModel} from '@app_models/shop/product/_index';
 import {ToastrService} from 'ngx-toastr';
 import {LoadingService} from '@loading-service';
-import {tap, catchError} from 'rxjs/operators';
+import {tap, catchError, finalize} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'platform'
@@ -35,12 +35,9 @@ export class ProductService {
 
     return this.http.get<FilterProductModel>(`${environment.shopBaseApiUrl}/product/filter`, {params})
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -71,12 +68,9 @@ export class ProductService {
 
     return this.http.get<EditProductModel>(`${environment.shopBaseApiUrl}/product/${id}`)
       .pipe(
-        tap(() => this.loading.loadingOff()),
+        finalize(() => this.loading.loadingOff()),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -99,17 +93,10 @@ export class ProductService {
 
     return this.http.post<IResponse>(`${environment.shopBaseApiUrl}/product/create`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -136,17 +123,10 @@ export class ProductService {
 
     return this.http.put<IResponse>(`${environment.shopBaseApiUrl}/product/edit`, formData)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
@@ -155,17 +135,10 @@ export class ProductService {
   deleteProduct(productId: string): Observable<IResponse> {
     return this.http.delete<IResponse>(`${environment.shopBaseApiUrl}/product/delete/${productId}`)
       .pipe(
-        tap((res: IResponse) => {
-
-          this.toastr.success(res.message, 'موفقیت', {timeOut: 1500});
-          this.loading.loadingOff();
-
-        }),
+        finalize(() => this.loading.loadingOff()),
+        tap((res: IResponse) => this.toastr.success(res.message, 'موفقیت', {timeOut: 1500})),
         catchError((error: HttpErrorResponse) => {
-
           this.toastr.error(error.error.message, 'خطا', {timeOut: 2500});
-          this.loading.loadingOff();
-
           return throwError(error);
         })
       );
